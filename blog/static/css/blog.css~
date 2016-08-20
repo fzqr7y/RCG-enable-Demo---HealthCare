@@ -1,0 +1,13 @@
+h1 a {
+    color: #FFF205;
+    /* font‐family: 'Lobster'; */
+}
+
+body {
+    padding: 50px;
+}
+
+div {
+    padding‐left: 50px;
+}
+
