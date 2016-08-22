@@ -7,7 +7,4 @@ body {
     padding: 50px;
 }
 
-div {
-    padding‐left: 50px;
-}
 
