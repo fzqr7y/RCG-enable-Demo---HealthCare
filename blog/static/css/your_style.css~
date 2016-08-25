@@ -17,6 +17,16 @@
  * - BODY
  * - CUSTOM STYLES
  */
+ 
+li.active {
+    color: #FFF205;
+    font-size: 24px;
+}
+
+body {
+    color: #FFF205;
+    font-size: 24px;
+}
 
 
 

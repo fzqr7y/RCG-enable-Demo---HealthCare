@@ -10,6 +10,16 @@ from .forms import PostForm, CommentForm
 def test1(request):
     return render(request, 'demo/test1.html', {})
 
+def members(request):
+    return render(request, 'demo/members.html', {})
+
+def providers(request):
+    return render(request, 'demo/providers.html', {})
+
+def member_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'demo/member_detail.html', {'post': post})
+
 def post_list(request):
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('-published_date')
