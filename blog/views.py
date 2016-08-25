@@ -7,6 +7,7 @@ from .forms import PostForm, CommentForm
 
 # Create your views here.
 
+@login_required
 def test1(request):
     return render(request, 'demo/test1.html', {})
 

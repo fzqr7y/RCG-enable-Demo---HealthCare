@@ -175,7 +175,7 @@
                             <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
                         {% else %}
                             <a href="{% url 'login' %}" class="top-menu">
-                                Login  <span class="glyphicon glyphicon-lock"></span></a>
+                                Login &nbsp;<span class="glyphicon glyphicon-lock"></span></a>
                         {% endif %}
 						<i class="fa fa-angle-down"></i>
  					</a>
