@@ -11,12 +11,15 @@ from .forms import PostForm, CommentForm
 def test1(request):
     return render(request, 'demo/test1.html', {})
 
+@login_required
 def members(request):
     return render(request, 'demo/members.html', {})
 
+@login_required
 def providers(request):
     return render(request, 'demo/providers.html', {})
 
+@login_required
 def member_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'demo/member_detail.html', {'post': post})

@@ -170,7 +170,8 @@
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
 <!-- demo login -->
                         {% if user.is_authenticated %}
-    						<img src="{% static 'img/avatars/sunny.png' %}" alt="me" class="online" />
+    						<!--<img src=" static 'img/avatars/sunny.png' " alt="me" class="online" />-->
+    						<img src="{% static 'img/avatars/Scott.jpg' %}" alt="me" class="online" />
                             {{ user.username }}
                             <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
                         {% else %}
