@@ -22,10 +22,26 @@ li.active {
     color: #FFF205;
 }
 
-li.active {
+li.active2 {
     font-size: 24px;
 }
 
+#rcg-right-profile {
+/*    display: none !important; */
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+}
 
+#rcg-right-profile-img {
+    height: 30px;
+    width: 30px;
+}
+
+.rcg-right-logo {
+    width: 30px;
+    height: 30px;
+    margin-top: -5px;
+    margin-right: 7px;
+}
 
 
