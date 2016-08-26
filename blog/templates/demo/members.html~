@@ -71,6 +71,30 @@
 										<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 											<thead>
 												<tr>
+													<th class="hasinput" style="width:6%">
+														<input type="text" class="form-control" placeholder="ID" />
+													</th>
+													<th class="hasinput" style="width:10%">
+														<input type="text" class="form-control" placeholder="Name" />
+													</th>
+													<th class="hasinput">
+														<input type="text" class="form-control" placeholder="Phone" />
+													</th>
+													<th class="hasinput">
+														<input type="text" class="form-control" placeholder="Company Filter" />
+													</th>
+													<th class="hasinput">
+														<input type="text" class="form-control" placeholder="Zip" />
+													</th>
+													<th class="hasinput">
+														<input type="text" class="form-control" placeholder="City" />
+													</th>
+													<th class="hasinput icon-addon">
+														<label for="dateselect_filter" class="glyphicon glyphicon-calendar no-margin padding-top-15" rel="tooltip" title="" data-original-title="Date"></label>
+														<input id="dateselect_filter" type="text" placeholder="Date" class="form-control datepicker" data-dateformat="yy/mm/dd">
+													</th>
+												</tr>
+												<tr>
 													<th data-hide="phone">ID</th>
 													<th data-class="expand">Name</th>
 													<th>Phone</th>
