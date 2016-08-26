@@ -41,7 +41,7 @@ li.active2 {
     width: 30px;
     height: 30px;
     margin-top: -5px;
-    margin-right: 7px;
+    margin-right: 20px;
 }
 
 

@@ -1,12 +1,14 @@
 {% extends 'demo/base.html' %}
 {% load staticfiles %}
 
-{% block nav-dashboard %}class="active"{% endblock %}
-{% block nav-index %}class="active"{% endblock %}
+{% block nav_dashboard %}class="active"{% endblock %}
+{% block nav_index %}class="active"{% endblock %}
+
 
                     {% block breadcrumb %}
     					<li>Home</li>
                     {% endblock %}
+
 
                 {% block main_content %}
 
@@ -19,4 +21,25 @@
 						        Last login <i class="fa fa-clock-o"></i> 
 						        <strong> {{ user.last_login }} &nbsp;</strong> 
                             {% endblock %}
+                            
+<!-- copied here for reference -->                            
+        {% block js_touch %}
+        {% endblock %}
+
+        {% block js_smartadmin %}
+        {% endblock %}
+
+        {% block js_voice_chat %}
+        {% endblock %}
+
+        {% block js_page_plugins %}
+        {% endblock %}
+
+            {% block js_doc_ready_declarations %}
+            {% endblock %}
+
+                {% block js_doc_ready_contents %}
+                {% endblock %}
+
+
 
