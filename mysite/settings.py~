@@ -139,7 +139,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://devcenter.heroku.com/articles/django-assets
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 LOGIN_REDIRECT_URL = '/'
@@ -165,3 +165,5 @@ except ImportError:
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+# SC: Try to get errors emailed
+ADMINS = (('Your name', 'Your@EMAIL'),)
