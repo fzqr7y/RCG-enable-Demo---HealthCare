@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-		<title> RCG HealthCare </title>
+		<title> RCG HealthCare {% block page-title %}{% endblock %}</title>
 		<meta name="description" content="RCG HealthCare Demo">
 		<meta name="author" content="RCG Global Services">
 
@@ -141,6 +141,7 @@
 				<!-- #MOBILE -->
 				<!-- Top menu profile link : this shows only when top menu is active -->
 				<!-- SC: turn this on for demo purpose -->
+            {% if user.is_authenticated %}
 				<!-- <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5"> -->
 				<ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10">
 					<li class="">
@@ -172,6 +173,7 @@
 					</li>
 				</ul>
 				<!-- end top menu profile link -->
+            {% endif %}
 
 				<!-- collapse menu button -->
 				<div id="hide-menu" class="btn-header pull-right">
@@ -195,7 +197,29 @@
 				<!-- #SEARCH -->
 				<!-- input: search field -->
 				<!--<form action="search.html" class="header-search pull-right">
-					<input id="search-fld" type="text" name="param" placeholder="Find reports and more">
+					<input id="search-fld"  type="text" name="param" placeholder="Find reports and more" data-autocomplete='[
+					"ActionScript",
+					"AppleScript",
+					"Asp",
+					"BASIC",
+					"C",
+					"C++",
+					"Clojure",
+					"COBOL",
+					"ColdFusion",
+					"Erlang",
+					"Fortran",
+					"Groovy",
+					"Haskell",
+					"Java",
+					"JavaScript",
+					"Lisp",
+					"Perl",
+					"PHP",
+					"Python",
+					"Ruby",
+					"Scala",
+					"Scheme"]'>
 					<button type="submit">
 						<i class="fa fa-search"></i>
 					</button>
@@ -278,21 +302,21 @@
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
 		<aside id="left-panel">
-		{% block left-panel %}
+    	{% block left-panel %}
 			<!-- User info -->
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
                         <!-- SC: login -->
-                        {% if user.is_authenticated %}
-    						<!--<img src=" static 'img/avatars/sunny.png' " alt="me" class="online" />-->
-    						<img src="{% static 'img/avatars/Scott.jpg' %}" alt="me" class="online" />
-                            {{ user.username }}
-                            <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
-                        {% else %}
-                            <a href="{% url 'login' %}" class="top-menu">
-                                Login &nbsp;<span class="glyphicon glyphicon-lock"></span></a>
-                        {% endif %}
+                    {% if user.is_authenticated %}
+						<!--<img src=" static 'img/avatars/sunny.png' " alt="me" class="online" />-->
+						<img src="{% static 'img/avatars/Scott.jpg' %}" alt="me" class="online" />
+                        {{ user.username }}
+                        <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
+                    {% else %}
+                        <a href="{% url 'login' %}" class="top-menu">
+                            Login &nbsp;<span class="glyphicon glyphicon-lock"></span></a>
+                    {% endif %}
 						<i class="fa fa-angle-down"></i>
  					</a>
 				</span>
@@ -327,7 +351,7 @@
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Demo</span></a>
 						<ul>
 							<li {% block nav_member_detail %}{% endblock %} >
-								<a href="{% url 'member_detail' pk=1 %}" title="Dashboard"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
+								<a href="{% url 'member_detail' pk=1 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
 							</li>
 						</ul>
 					</li>
@@ -382,9 +406,9 @@
 
 				<!-- breadcrumb -->
 				<ol class="breadcrumb">
-                    {% block breadcrumb %}
-    					<!--<li>Home</li>-->
-                    {% endblock %}
+                {% block breadcrumb %}
+					<!--<li>Home</li>-->
+                {% endblock %}
 				</ol>
 				<!-- end breadcrumb -->
 				<!-- You can also add more buttons to the
@@ -411,9 +435,9 @@
 			<!-- MAIN CONTENT -->
 			<div id="content">
 
-                {% block main_content %}
-                    <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
-                {% endblock %}
+            {% block main_content %}
+                <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
+            {% endblock %}
 
 			</div>
 			<!-- END MAIN CONTENT -->
@@ -435,10 +459,10 @@
 				<div class="col-xs-6 col-sm-6 text-right hidden-xs">
 					<div class="txt-color-white inline-block">
 						<i class="txt-color-blueLight hidden-mobile">
-                            {% block bottom_right %}
-						        <!--Last account activity <i class="fa fa-clock-o"></i> 
-						        <strong>52 mins ago &nbsp;</strong>-->
-                            {% endblock %}
+                        {% if user.is_authenticated %}
+				            Last login <i class="fa fa-clock-o"></i> 
+				            <strong> {{ user.last_login }} &nbsp;</strong> 
+                        {% endif %}
 						</i>
 						<div class="btn-group dropup">
 							<button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
@@ -537,15 +561,15 @@
 		<!-- IMPORTANT: APP CONFIG -->
 		<script src="{% static 'js/app.config.js' %}"></script>
 
-        {% block js_touch %}
+    {% block js_touch %}
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
 		<!-- // <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
-        {% endblock %}
+    {% endblock %}
 
 		<!-- BOOTSTRAP JS -->
 		<script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 
-        {% block js_smartadmin %}
+    {% block js_smartadmin %}
 		<!-- CUSTOM NOTIFICATION -->
 		<!-- // <script src="js/notification/SmartNotification.min.js"></script> -->
 
@@ -569,7 +593,7 @@
 
 		<!-- JQUERY UI + Bootstrap Slider -->
 		<!-- // <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script> -->
-        {% endblock %}
+    {% endblock %}
 
 		<!-- browser msie issue fix -->
 		<script src="{% static 'js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script>
@@ -590,7 +614,7 @@
 		<!-- MAIN APP JS FILE -->
 		<script src="{% static 'js/app.min.js' %}"></script>
 
-        {% block js_voice_chat %}
+    {% block js_voice_chat %}
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		<!-- Voice command : plugin -->
 		<!-- // <script src="js/speech/voicecommand.min.js"></script> -->
@@ -598,19 +622,19 @@
 		<!-- SmartChat UI : plugin -->
 		<!-- // <script src="js/smart-chat-ui/smart.chat.ui.min.js"></script> -->
 		<!-- // <script src="js/smart-chat-ui/smart.chat.manager.min.js"></script> -->
-        {% endblock %}
+    {% endblock %}
 
 		<!-- PAGE RELATED PLUGIN(S)
 		<script src="..."></script>-->
 
-        {% block js_page_plugins %}
-        {% endblock %}
+    {% block js_page_plugins %}
+    {% endblock %}
 
 		<!-- DOCUMENT READY FUNCTION -->
 		<script type="text/javascript">
 		
-            {% block js_doc_ready_declarations %}
-            {% endblock %}
+        {% block js_doc_ready_declarations %}
+        {% endblock %}
 
 			$(document).ready(function() {
 
@@ -665,8 +689,8 @@
 				 * loadScript(".../plugin.js", run_after_loaded);
 				 */
 
-                {% block js_doc_ready_contents %}
-                {% endblock %}
+            {% block js_doc_ready_contents %}
+            {% endblock %}
 
 			})
 		</script>

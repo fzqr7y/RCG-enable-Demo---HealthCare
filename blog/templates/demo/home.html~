@@ -5,38 +5,36 @@
 {% block nav_index %}class="active"{% endblock %}
 
 
-                    {% block breadcrumb %}
-    					<li>Home</li>
-                    {% endblock %}
+{% block breadcrumb %}
+	<li>Home</li>
+{% endblock %}
 
 
-                {% block main_content %}
+{% block main_content %}
 
-                    <img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">
+    <img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">
 
-                {% endblock %}
+{% endblock %}
 
 
-                            {% block bottom_right %}
-						        Last login <i class="fa fa-clock-o"></i> 
-						        <strong> {{ user.last_login }} &nbsp;</strong> 
-                            {% endblock %}
-                            
 <!-- copied here for reference -->                            
-        {% block js_touch %}
-        {% endblock %}
+{% block js_touch %}
+{% endblock %}
 
-        {% block js_smartadmin %}
-        {% endblock %}
+{% block js_smartadmin %}
+{% endblock %}
 
-        {% block js_voice_chat %}
-        {% endblock %}
+{% block js_voice_chat %}
+{% endblock %}
 
-        {% block js_page_plugins %}
-        {% endblock %}
+{% block js_page_plugins %}
+{% endblock %}
 
-            {% block js_doc_ready_declarations %}
-            {% endblock %}
+{% block js_doc_ready_declarations %}
+{% endblock %}
+
+{% block js_doc_ready_contents %}
+{% endblock %}
 
 
 
