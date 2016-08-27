@@ -196,7 +196,7 @@
 
 				<!-- #SEARCH -->
 				<!-- input: search field -->
-				<form action="search.html" class="header-search pull-right">
+				<!--<form action="search.html" class="header-search pull-right">
 					<input id="search-fld"  type="text" name="param" placeholder="Find reports and more" data-autocomplete='[
 					"ActionScript",
 					"AppleScript",
@@ -224,7 +224,7 @@
 						<i class="fa fa-search"></i>
 					</button>
 					<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
-				</form>
+				</form>-->
 				<!-- end input: search field -->
 
 				<!-- fullscreen button -->
@@ -437,7 +437,7 @@
 
             {% block main_content %}
                 <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
-            {% endblock %}
+            {% endblock %} <!-- main content -->
 
 			</div>
 			<!-- END MAIN CONTENT -->
@@ -593,7 +593,7 @@
 
 		<!-- JQUERY UI + Bootstrap Slider -->
 		<!-- // <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script> -->
-    {% endblock %}
+    {% endblock %} <!-- js_smartadmin -->
 
 		<!-- browser msie issue fix -->
 		<script src="{% static 'js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script>
@@ -628,13 +628,13 @@
 		<script src="..."></script>-->
 
     {% block js_page_plugins %}
-    {% endblock %}
+    {% endblock %} <!-- js_page_plugins -->
 
 		<!-- DOCUMENT READY FUNCTION -->
 		<script type="text/javascript">
 		
         {% block js_doc_ready_declarations %}
-        {% endblock %}
+        {% endblock %} <!-- js_doc_ready_declarations -->
 
 			$(document).ready(function() {
 
@@ -690,7 +690,7 @@
 				 */
 
             {% block js_doc_ready_contents %}
-            {% endblock %}
+            {% endblock %} //<!-- js_doc_ready_contents -->
 
 			})
 		</script>

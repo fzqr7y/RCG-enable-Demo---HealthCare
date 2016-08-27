@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.test1, name='index'),
+    url(r'^$', views.home, name='index'),
     url(r'^members$', views.members, name='members'),
     url(r'^providers$', views.providers, name='providers'),
     url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
