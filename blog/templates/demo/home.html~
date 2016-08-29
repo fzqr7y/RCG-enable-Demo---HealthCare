@@ -36,7 +36,6 @@
 {% endblock %} <!-- js_doc_ready_declarations -->
 
 {% block js_doc_ready_contents %}
-{% endblock %}
-
+{% endblock %} <!-- js_doc_ready_contents -->
 
 
