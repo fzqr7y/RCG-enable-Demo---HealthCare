@@ -8,8 +8,8 @@ from .forms import PostForm, CommentForm
 # Create your views here.
 
 @login_required
-def test1(request):
-    return render(request, 'demo/test1.html', {})
+def home(request):
+    return render(request, 'demo/home.html', {})
 
 @login_required
 def members(request):
@@ -21,8 +21,12 @@ def providers(request):
 
 @login_required
 def member_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'demo/member_detail.html', {'post': post})
+    post = get_object_or_404(Comment, pk=pk)
+    return render(request, 'demo/member_detail.html', {'comment': Comment})
+    
+@login_required
+def member1_detail(request):
+    return render(request, 'demo/member1_detail.html', {})
 
 def post_list(request):
     posts = Post.objects.filter(
