@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="New York, NY">
+
+      <select id = "searchType">
+       <option value = "doctor">doctor</option>
+       <option value = "dentist">dentist</option>
+       <option value = "hospital">hospital</option>
+       <option value = "parking">parking</option>
+       <option value = "pharmacy">pharmacy</option>
+       <option value = "physiotherapist">physiotherapist</option>
+      </select>
+      <input id="submitNearby" type="button" value="Find">
+
+      <input id="searchTerm" type="textbox" value="hospital">
+      <input id="submitText" type="button" value="Search">
+    </div>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+  </body>
+</html>

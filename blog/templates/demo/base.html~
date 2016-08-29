@@ -633,6 +633,7 @@
 		<!-- DOCUMENT READY FUNCTION -->
 		<script type="text/javascript">
 		
+			// PAGE RELATED DECLARATIONS
         {% block js_doc_ready_declarations %}
         {% endblock %} <!-- js_doc_ready_declarations -->
 
