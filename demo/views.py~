@@ -21,8 +21,8 @@ def providers(request):
 
 @login_required
 def member_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'demo/member_detail.html', {'post': post})
+    post = get_object_or_404(Comment, pk=pk)
+    return render(request, 'demo/member_detail.html', {'comment': Comment})
     
 @login_required
 def member1_detail(request):

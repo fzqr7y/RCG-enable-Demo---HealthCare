@@ -24,9 +24,9 @@ def member_detail(request, pk):
     post = get_object_or_404(Comment, pk=pk)
     return render(request, 'demo/member_detail.html', {'comment': Comment})
     
-@login_required
-def member1_detail(request):
-    return render(request, 'demo/member1_detail.html', {})
+# @login_required
+# def member1_detail(request):
+#     return render(request, 'demo/member1_detail.html', {})
 
 def post_list(request):
     posts = Post.objects.filter(

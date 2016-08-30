@@ -1246,7 +1246,7 @@
 
 			/* END TABLETOOLS */
 
-{% endblock %}
+{% endblock %} <!-- js_doc_ready_contents -->
 
 
 

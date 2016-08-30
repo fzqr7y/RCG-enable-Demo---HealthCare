@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^home$', views.home, name='home'),
     url(r'^members$', views.members, name='members'),
     url(r'^providers$', views.providers, name='providers'),
-#    url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
+    url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
     url(r'^member1$', views.member1_detail, name='member1_detail'),
     
     url(r'^posts$', views.post_list, name='post_list'),
