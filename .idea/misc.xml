@@ -10,5 +10,9 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5.2 virtualenv at ~/scott/HealthCareDemo/pyvenv" project-jdk-type="Python SDK" />
+=======
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5.2 virtualenv at C:\Sites\HealthCareDemo\HealthCareDemo\wvenv" project-jdk-type="Python SDK" />
+>>>>>>> c6b7adbaae5f6caa2f4be205fed9539e44573cf3
 </project>
