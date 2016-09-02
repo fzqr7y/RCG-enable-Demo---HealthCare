@@ -1,13 +1,15 @@
 *.pyc
 __pycache__
 myvenv
-myvenv3
-myvenv4
 pyvenv
+wvenv
 db.sqlite3
 /static
 .DS_Store
 local_settings.py
 HealthCareDemo.sublime-workspace
 .idea
+<<<<<<< HEAD
 .idea2
+=======
+>>>>>>> c6b7adbaae5f6caa2f4be205fed9539e44573cf3
