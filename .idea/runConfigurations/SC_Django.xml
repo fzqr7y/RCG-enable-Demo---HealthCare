@@ -12,7 +12,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <module name="HealthCareDemo" />
     <option name="SCRIPT_NAME" value="manage.py" />
-    <option name="PARAMETERS" value="runserver" />
+    <option name="PARAMETERS" value="runserver 0.0.0.0:8000" />
     <option name="SHOW_COMMAND_LINE" value="true" />
     <method />
   </configuration>
