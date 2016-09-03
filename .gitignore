@@ -11,5 +11,7 @@ local_settings.py
 HealthCareDemo.sublime-workspace
 .idea
 .idea2
+act.bat
+act.ps1
 
 demo/static/img/realestate/thumbs/
