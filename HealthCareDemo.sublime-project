@@ -11,7 +11,10 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": "/C/Sites/HealthCareDemo/HealthCareDemo"
+		},
+		{
+			"path": "/C/Sites/HealthCareDemo/Notes"
 		}
 	]
 }

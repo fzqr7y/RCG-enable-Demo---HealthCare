@@ -453,8 +453,8 @@
 		<div class="page-footer">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
-					<span class="txt-color-white">RCG HealthCare 
-					    <span class="hidden-xs"> - Big Data Demo</span> 
+					<span class="txt-color-white">RCG HealthCare
+					    <span class="hidden-xs"> - Big Data Demo</span>
 					    © 2015-2016</span>
 				</div>
 
@@ -462,8 +462,8 @@
 					<div class="txt-color-white inline-block">
 						<i class="txt-color-blueLight hidden-mobile">
                         {% if user.is_authenticated %}
-				            Last login <i class="fa fa-clock-o"></i> 
-				            <strong> {{ user.last_login }} &nbsp;</strong> 
+				            Last login <i class="fa fa-clock-o"></i>
+				            <strong> {{ user.last_login }} &nbsp;</strong>
                         {% endif %}
 						</i>
 						<div class="btn-group dropup">
@@ -632,14 +632,13 @@
     {% block js_page_plugins %}
     {% endblock %} <!-- js_page_plugins -->
 
+    {% block js_doc_ready %}
 		<!-- DOCUMENT READY FUNCTION -->
-		<script type="text/javascript">
-		
-			// PAGE RELATED DECLARATIONS
-        {% block js_doc_ready_declarations %}
-        {% endblock %} <!-- js_doc_ready_declarations -->
+		<!--<script type="text/javascript">-->
 
-			$(document).ready(function() {
+			// PAGE RELATED DECLARATIONS
+
+			// $(document).ready(function() {
 
 				/* DO NOT REMOVE : GLOBAL FUNCTIONS!
 				 *
@@ -671,7 +670,7 @@
 				 *
 				 */
 
-				 pageSetUp();
+				 // pageSetUp();
 
 				/*
 				 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
@@ -692,13 +691,11 @@
 				 * loadScript(".../plugin.js", run_after_loaded);
 				 */
 
-            {% block js_doc_ready_contents %}
-            {% endblock %} //<!-- js_doc_ready_contents -->
-
-			})
-		</script>
+			// })
+		<!--</script>-->
 		<!-- END DOCUMENT READY FUNCTION -->
-    
+    {% endblock %} <!-- js_doc_ready -->
+
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
 		<!--<script type="text/javascript">
 			var _gaq = _gaq || [];

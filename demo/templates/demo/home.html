@@ -22,7 +22,7 @@
 {% endblock %} <!-- main content -->
 
 
-<!-- copied here for reference -->                            
+<!-- copied here for reference -->
 {% block js_touch %}
 {% endblock %}
 
@@ -35,10 +35,12 @@
 {% block js_page_plugins %}
 {% endblock %} <!-- js_page_plugins -->
 
-{% block js_doc_ready_declarations %}
-{% endblock %} <!-- js_doc_ready_declarations -->
-
-{% block js_doc_ready_contents %}
-{% endblock %} <!-- js_doc_ready_contents -->
-
-
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+             pageSetUp();
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->
