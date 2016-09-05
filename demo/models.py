@@ -64,3 +64,38 @@ class Provider(models.Model):
 
     def __str__(self):
         return self.provider_id
+
+
+class Member(models.Model):
+    member_id = models.CharField(max_length=12)
+    tax_id = models.CharField(max_length=12)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    sex = models.CharField(max_length=1)
+    birth_date = models.DateTimeField()
+    created_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey('auth.User')
+    address = models.CharField(max_length=100, null=True)
+    city = models.CharField(max_length=20, null=True)
+    state = models.CharField(max_length=2, null=True)
+    zip = models.CharField(max_length=10, null=True)
+    office_phone = models.CharField(max_length=20, null=True)
+    mobile_phone = models.CharField(max_length=20, null=True)
+    email = models.CharField(max_length=40, null=True)
+    social = models.CharField(max_length=40, null=True)
+    medical_risk = models.DecimalField(
+        max_digits=6, decimal_places=4, null=True)
+    pharmacy_risk = models.DecimalField(
+        max_digits=6, decimal_places=4, null=True)
+    plan_name = models.CharField(max_length=40, null=True)
+    plan_start = models.DateTimeField(
+        blank=False, null=True)
+    plan_end = models.DateTimeField(
+        blank=False, null=True)
+    plan_deductible = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True)
+    plan_oop_max = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True)
+
+    def __str__(self):
+        return self.provider_id
