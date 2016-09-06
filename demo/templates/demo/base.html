@@ -152,7 +152,8 @@
 							<!--<img id="rcg-right-profile-img" src="{# static 'img/avatars/Scott.jpg' #}" alt="Scott" class="online" />-->
 							<!-- this works for media files but not doing that due to heroku
 							<img id="rcg-right-profile-img" src="{# user.userprofile.picture.url #}" alt="{# user.name #}" class="online" />-->
-							<img id="rcg-right-profile-img" src="{% static user.userprofile.picture %}" alt="{{ user.name }}" class="online" />
+							<!-- <img id="rcg-right-profile-img" src="{% static user.userprofile.picture %}" alt="{{ user.name }}" class="online" /> -->
+							<img id="rcg-right-profile-img" src="{% static user.userprofile.picture_path %}" alt="{{ user.name }}" class="online" />
 						</a>
 						<ul class="dropdown-menu pull-right">
 							<li>
@@ -318,7 +319,8 @@
 						<!-- <img src="{# static 'img/avatars/Scott.jpg' #}" alt="me" class="online" /> -->
 						<!-- this works if using the media directory but not doing that for ease with heroku
 						<img src="{# user.userprofile.picture.url #}" alt="{# user.name #}" class="online" />-->
-						<img src="{% static user.userprofile.picture %}" alt="{# user.name #}" class="online" />
+						<!-- <img src="{% static user.userprofile.picture %}" alt="{# user.name #}" class="online" /> -->
+						<img src="{% static user.userprofile.picture_path %}" alt="{# user.name #}" class="online" />
                         {{ user.username }}
                         <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
                     {% else %}
@@ -449,6 +451,7 @@
                         <img src="{# user.userprofile.picture.url #}" alt="me" class="online" /><br>
                         static user.userprofile.picture
 						<img src="{# static user.userprofile.picture #}" alt="me" class="online" /><br>
+						<img src="{# static user.userprofile.picture_path #}" alt="me" class="online" /><br>
 						static 'img/avatars/Scott.jpg'
 						<img src="{# static 'img/avatars/Scott.jpg' #}" alt="me" class="online" /><br>-->
             {% block main_content %}

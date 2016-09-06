@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block page-title %}Members{% endblock %}
+{% block page-stylesheets %}{% endblock %}
 
 {% block nav_dashboard %}class="active"{% endblock %}
 {% block nav_members %}class="active"{% endblock %}
@@ -1031,7 +1032,7 @@
 
 {% endblock %} <!-- main content -->
 
-
+{% block js_touch %}{% endblock %}
 {% block js_smartadmin %}
 
 		<!-- CUSTOM NOTIFICATION -->
@@ -1060,7 +1061,7 @@
 
 {% endblock %} <!-- js_smartadmin -->
 
-
+{% block js_voice_chat %}{% endblock %}
 {% block js_page_plugins %}
 		<!-- PAGE RELATED PLUGIN(S) -->
 		<script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script>

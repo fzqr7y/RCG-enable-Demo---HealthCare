@@ -3,12 +3,12 @@
 
 {% block page-title %}{% endblock %}
 
-{% block nav_dashboard %}class="active"{% endblock %}
-{% block nav_index %}class="active"{% endblock %}
-
 {% block page-stylesheets %}
     <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
 {% endblock %}
+
+{% block nav_dashboard %}class="active"{% endblock %}
+{% block nav_index %}class="active"{% endblock %}
 
 {% block breadcrumb %}
 	<li>Home</li>
@@ -22,7 +22,7 @@
 {% endblock %} <!-- main content -->
 
 
-<!-- copied here for reference -->
+<!-- copied here for reference and to remove the comments in base from rendered pages -->
 {% block js_touch %}
 {% endblock %}
 
