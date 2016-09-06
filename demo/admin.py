@@ -7,11 +7,12 @@ from demo.models import UserProfile
 
 # Register your models here.
 
-from .models import Post, Comment, Provider
+from .models import Post, Comment, Provider, Member
 
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Provider)
+admin.site.register(Member)
 
 
 # SC: extend User via UserProfile
