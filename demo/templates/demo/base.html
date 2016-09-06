@@ -149,7 +149,8 @@
 					<li class="">
 						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
 						    &nbsp;&nbsp;
-							<img id="rcg-right-profile-img" src="{% static 'img/avatars/Scott.jpg' %}" alt="Scott" class="online" />
+							<!--<img id="rcg-right-profile-img" src="{% static 'img/avatars/Scott.jpg' %}" alt="Scott" class="online" />-->
+							<img id="rcg-right-profile-img" src="{{ user.userprofile.picture.url }}" alt="{{ user.name }}" class="online" />
 						</a>
 						<ul class="dropdown-menu pull-right">
 							<li>
@@ -312,7 +313,8 @@
                         <!-- SC: login -->
                     {% if user.is_authenticated %}
 						<!--<img src=" static 'img/avatars/sunny.png' " alt="me" class="online" />-->
-						<img src="{% static 'img/avatars/Scott.jpg' %}" alt="me" class="online" />
+						<!-- <img src="{% static 'img/avatars/Scott.jpg' %}" alt="me" class="online" /> -->
+						<img src="{{ user.userprofile.picture.url }}" alt="{{ user.name }}" class="online" />
                         {{ user.username }}
                         <!--<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>-->
                     {% else %}
@@ -436,7 +438,10 @@
 
 			<!-- MAIN CONTENT -->
 			<div id="content">
-
+                        <!--{{ user.userprofile.picture }}<br>
+                        {{ user.userprofile.picture.name }}<br>
+                        {{ user.userprofile.picture.url }}<br>
+                        <img src="{{ user.userprofile.picture.url }}" alt="me" class="online" /><br>-->
             {% block main_content %}
                 <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
             {% endblock %} <!-- main content -->

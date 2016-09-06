@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Post, Comment
+from .models import Post, Comment, UserProfile
+
 
 class PostForm(forms.ModelForm):
 
@@ -8,8 +9,24 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text',)
 
+
 class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('author', 'text',)        
+        fields = ('author', 'text',)
+
+
+# SC: Add picture
+# http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
+# class UserProfileForm(forms.Form):
+#     phone = forms.CharField(max_length=20)
+#     picture = forms.ImageField(
+#         label='Select a file',
+#         help_text='max. 42 megabytes'
+#     )
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('phone', 'picture',)

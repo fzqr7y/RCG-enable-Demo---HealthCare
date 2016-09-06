@@ -1,7 +1,22 @@
 from django.db import models
 from django.utils import timezone
 
+# SC: see UserProfile below
+from django.contrib.auth.models import User
+
 # Create your models here.
+
+
+# SC: extend standard user with url for picture
+# https://docs.djangoproject.com/en/1.10/topics/auth/customizing/
+# http://stackoverflow.com/questions/11377424/django-add-field-to-user-profile-admin-form
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    picture = models.ImageField(upload_to='user_pictures', blank=True, null=True)
+
+    class Meta:
+        db_table = "demo_user_profile"
 
 
 class Post(models.Model):
