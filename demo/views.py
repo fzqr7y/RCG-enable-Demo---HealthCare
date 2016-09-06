@@ -7,11 +7,11 @@ from .forms import PostForm, CommentForm
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from .models import UserProfile
-from .forms import UserProfileForm
+# from django.template import RequestContext
+# from django.http import HttpResponseRedirect
+# from django.core.urlresolvers import reverse
+# from .models import UserProfile
+# from .forms import UserProfileForm
 
 # Create your views here.
 
@@ -138,57 +138,57 @@ def comment_remove(request, pk):
     return redirect('blog.views.post_detail', pk=post_pk)
 
 
-@login_required
-def user_profile_upload(request):
-    # Handle file upload
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            newdoc = UserProfile(picture=request.FILES['picture'])
-            newdoc.phone = form.cleaned_data["phone"]
-            newdoc.save()
-            # profile = Profile()
-            # profile.name = MyProfileForm.cleaned_data["name"]
-            # profile.picture = MyProfileForm.cleaned_data["picture"]
-            # profile.save()
+# @login_required
+# def user_profile_upload(request):
+#     # Handle file upload
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             newdoc = UserProfile(picture=request.FILES['picture'])
+#             newdoc.phone = form.cleaned_data["phone"]
+#             newdoc.save()
+#             # profile = Profile()
+#             # profile.name = MyProfileForm.cleaned_data["name"]
+#             # profile.picture = MyProfileForm.cleaned_data["picture"]
+#             # profile.save()
 
-            # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('user_profile_upload'))
-    else:
-        form = UserProfileForm()  # A empty, unbound form
+#             # Redirect to the document list after POST
+#             return HttpResponseRedirect(reverse('user_profile_upload'))
+#     else:
+#         form = UserProfileForm()  # A empty, unbound form
 
-    # Load documents for the list page
-    documents = UserProfile.objects.all()
+#     # Load documents for the list page
+#     documents = UserProfile.objects.all()
 
-    # Render list page with the documents and the form
-    return render(
-        request, 'demo/user_profile_upload.html',
-        {'documents': documents, 'form': form}
-    )
+#     # Render list page with the documents and the form
+#     return render(
+#         request, 'demo/user_profile_upload.html',
+#         {'documents': documents, 'form': form}
+#     )
 
 
-@login_required
-def user_profile_edit(request, pk):
-    profile = get_object_or_404(UserProfile, pk=pk)
-    # Handle file upload
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            profile.picture = request.FILES['picture']
-            profile.phone = form.cleaned_data["phone"]
-            profile.save()
-            # Redirect to the document list after POST
-            # return HttpResponseRedirect(reverse('user_profile_upload'))
-            return redirect('home')
-    else:
-        form = UserProfileForm()  # A empty, unbound form
+# @login_required
+# def user_profile_edit(request, pk):
+#     profile = get_object_or_404(UserProfile, pk=pk)
+#     # Handle file upload
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             profile.picture = request.FILES['picture']
+#             profile.phone = form.cleaned_data["phone"]
+#             profile.save()
+#             # Redirect to the document list after POST
+#             # return HttpResponseRedirect(reverse('user_profile_upload'))
+#             return redirect('home')
+#     else:
+#         form = UserProfileForm()  # A empty, unbound form
 
-    # Load documents for the list page
-    documents = UserProfile.objects.all()
+#     # Load documents for the list page
+#     documents = UserProfile.objects.all()
 
-    # Render list page with the documents and the form
-    return render(
-        request, 'demo/user_profile_upload.html',
-        {'documents': documents, 'form': form}
-    )
+#     # Render list page with the documents and the form
+#     return render(
+#         request, 'demo/user_profile_upload.html',
+#         {'documents': documents, 'form': form}
+#     )
 

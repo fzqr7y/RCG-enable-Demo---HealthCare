@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Post, Comment, UserProfile
+# from .models import Post, Comment, UserProfile
+from .models import Post, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -25,8 +26,8 @@ class CommentForm(forms.ModelForm):
 #         label='Select a file',
 #         help_text='max. 42 megabytes'
 #     )
-class UserProfileForm(forms.ModelForm):
+# class UserProfileForm(forms.ModelForm):
 
-    class Meta:
-        model = UserProfile
-        fields = ('phone', 'picture',)
+#     class Meta:
+#         model = UserProfile
+#         fields = ('phone', 'picture',)

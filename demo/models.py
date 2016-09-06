@@ -13,7 +13,12 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    picture = models.ImageField(upload_to='user_pictures', blank=True, null=True)
+    # works for using the media directory
+    # but not doing that for ease with heroku
+    # picture = models.ImageField(
+    #   upload_to='user_pictures', blank=True, null=True)
+    picture = models.ImageField(
+        upload_to='user_pictures', blank=True, null=True)
 
     class Meta:
         db_table = "demo_user_profile"

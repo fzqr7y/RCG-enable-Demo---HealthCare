@@ -148,8 +148,8 @@ STATICFILES_DIRS = (
 
 # Upload images
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 
 LOGIN_REDIRECT_URL = '/'

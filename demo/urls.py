@@ -11,8 +11,8 @@ urlpatterns = [
     # url(r'^member1$', views.member1_detail, name='member1_detail'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
-    url(r'^user_profile_upload/$', views.user_profile_upload,
-        name='user_profile_upload'),
+    # url(r'^user_profile_upload/$', views.user_profile_upload,
+    #     name='user_profile_upload'),
 
     url(r'^posts$', views.post_list, name='post_list'),
     url(r'^drafts$', views.post_draft_list, name='post_draft_list'),
