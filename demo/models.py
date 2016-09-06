@@ -119,4 +119,4 @@ class Member(models.Model):
         max_digits=10, decimal_places=2, null=True)
 
     def __str__(self):
-        return self.provider_id
+        return self.member_id

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment, Provider
+from .models import Post, Comment, Provider, Member
 from .forms import PostForm, CommentForm
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
@@ -23,7 +23,8 @@ def home(request):
 
 @login_required
 def members(request):
-    return render(request, 'demo/members.html', {})
+    members = Member.objects.all
+    return render(request, 'demo/members.html', {'members': members})
 
 
 @login_required
