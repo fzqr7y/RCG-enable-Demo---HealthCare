@@ -3,16 +3,17 @@ from django.contrib import admin
 # SC: see UserProfileInline below
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from demo.models import UserProfile
 
 # Register your models here.
-
-from .models import Post, Comment, Provider, Member
+from demo.models import UserProfile
+from .models import Post, Comment
+from .models import Provider, Member, ProviderMember
 
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Provider)
 admin.site.register(Member)
+admin.site.register(ProviderMember)
 
 
 # SC: extend User via UserProfile

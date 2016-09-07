@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment, Provider, Member
+from .models import Post, Comment, Provider, Member, ProviderMember
 from .forms import PostForm, CommentForm
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
@@ -36,7 +36,10 @@ def providers(request):
 @login_required
 def member_detail(request, pk):
     member = get_object_or_404(Member, pk=pk)
-    return render(request, 'demo/member_detail.html', {'member': member})
+    # providers = member.provider_set.order_by('id')
+    # return render(request, 'demo/member_detail.html', {'member': member, 'providers': providers})
+    providermembers = ProviderMember.objects.filter(member=member).order_by('id')
+    return render(request, 'demo/member_detail.html', {'member': member, 'providermembers': providermembers})
 
 # @login_required
 # def member1_detail(request):

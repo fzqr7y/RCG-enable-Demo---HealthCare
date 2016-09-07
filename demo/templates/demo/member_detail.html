@@ -1,10 +1,10 @@
 {% extends 'demo/base.html' %}
 {% load staticfiles %}
+<!--SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/-->
+{% load humanize %}
 <!--SC: https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/ -->
 <!--SC: https://djangosnippets.org/snippets/9/ -->
 {% load demo_tags %}
-<!--SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/-->
-{% load humanize %}
 
 {% block page-title %}Member Detail{% endblock %}
 
@@ -21,6 +21,8 @@
 
 
 {% block main_content %}
+
+{% expr member.pcp() as pcp %}
 
 <!-- SC header row -->
 <div class="row">
@@ -372,6 +374,68 @@
 							<div class="tab-pane fade" id="hr2">
 								<h4 class="alert alert-warning"> Contact Caregiver </h4>
 								<form method="post" class="well padding-bottom-10" onsubmit="return false;">
+<div> <!-- section 1 -->
+	<h4>PCP</h4>
+	<div class="padding-0">
+		<div class="row">
+			<div class="col-sm-4 profile-pic">
+				<br><br>
+				<img src="{% static pcp.picture_path %}" alt="{{ pcp.name }}">
+				<div class="padding-10">
+					<h5 class="font-md">
+						<strong>Specialty</strong>
+						<small>{{ pcp.specialty }}</small><br>
+						<!-- </h4> -->
+						<br>
+						<!-- <h4 class="font-md"> -->
+						<strong>Languages</strong>
+						<small>{{ pcp.languages }}</small><br>
+						<br>
+					</h5>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h1><span class="semi-bold">{{ pcp.name }}</span>
+				<br>
+				<small>{{ pcp.practice_name }}</small></h1>
+				<ul class="list-unstyled">
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-phone"></i>&nbsp;&nbsp;
+							<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
+							<span class="txt-color-darken"><!--tbd-->{{ pcp.office_phone }}</span>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ pcp.email }}">{{ pcp.email }}</a>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ pcp.social }}</span>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ pcp.next_appt }}</a></span>
+						</p>
+					</li>
+				</ul>
+				<br>
+				<!--<p class="font-md">
+					<i>A little about me...</i>
+				</p>
+				<p>
+					{{ pcp.description }}
+				</p>
+				<br>-->
+				<!--<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>-->
+				<br>
+			</div> <!-- col-sm-8 -->
+		</div> <!-- row -->
+	</div> <!-- padding-0 -->
+</div> <!-- section 1 -->
 									<textarea rows="2" class="form-control" placeholder="Text Caregiver"></textarea>
 									<div class="margin-top-10">
 										<button type="submit" class="btn btn-sm btn-primary pull-right">
@@ -1092,189 +1156,73 @@
 								<!-- <br><small>With fontawesome icons</small> -->
 							</h3>
 							<div id="accordion"> <!-- accordion -->
-								<div> <!-- section 1 -->
-									<h4>PCP</h4>
-									<div class="padding-0">
-										<div class="row">
-											<div class="col-sm-4 profile-pic">
-												<br><br>
-												<img src="{% static 'img/avatars/sunny.png' %}" alt="demo user">
-												<div class="padding-10">
-													<h5 class="font-md">
-														<small>Sex</small>
-														<strong>M</strong><br>
-														<!-- </h4> -->
-														<br>
-														<!-- <h4 class="font-md"> -->
-														<small>Age</small>
-														<strong>48</strong>
-														<br>
-													</h5>
-												</div>
-											</div>
-											<div class="col-sm-8">
-												<h1>John <span class="semi-bold">Doe</span>
-												<br>
-												<small> CEO, SmartAdmin</small></h1>
-												<ul class="list-unstyled">
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-phone"></i>&nbsp;&nbsp;
-															<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
-															<span class="txt-color-darken"><!--tbd-->{{ member.mobile_phone }}</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">{{ member.email }}</a>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ member.social }}</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
-														</p>
-													</li>
-												</ul>
-												<br>
-												<p class="font-md">
-													<i>A little about me...</i>
-												</p>
-												<p>
-													Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-												</p>
-												<br>
-												<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-												<br>
-											</div> <!-- col-sm-8 -->
-										</div> <!-- row -->
-									</div> <!-- padding-0 -->
-								</div> <!-- section 1 -->
+{# {% for provider in providers %} #}
+{% for providermember in providermembers %}
+{% expr providermember.provider as provider %}
+<div> <!-- section 1 -->
+	<h4>{{ providermember.role }}</h4>
+	<div class="padding-0">
+		<div class="row">
+			<div class="col-sm-4 profile-pic">
+				<br><br>
+				<img src="{% static provider.picture_path %}" alt="{{ provider.name }}">
+				<div class="padding-10">
+					<h5 class="font-md">
+						<strong>Specialty</strong>
+						<small>{{ provider.specialty }}</small><br>
+						<!-- </h4> -->
+						<br>
+						<!-- <h4 class="font-md"> -->
+						<strong>Languages</strong>
+						<small>{{ provider.languages }}</small><br>
+						<br>
+					</h5>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h1><span class="semi-bold">{{ provider.name }}</span>
+				<br>
+				<small>{{ provider.practice_name }}</small></h1>
+				<ul class="list-unstyled">
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-phone"></i>&nbsp;&nbsp;
+							<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
+							<span class="txt-color-darken"><!--tbd-->{{ provider.office_phone }}</span>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ provider.email }}">{{ provider.email }}</a>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ provider.social }}</span>
+						</p>
+					</li>
+					<li>
+						<p class="text-muted">
+							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ provider.next_appt }}</a></span>
+						</p>
+					</li>
+				</ul>
+				<br>
+				<p class="font-md">
+					<i>A little about me...</i>
+				</p>
+				<p>
+					{{ provider.description }}
+				</p>
+				<br>
+				<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
+				<br>
+			</div> <!-- col-sm-8 -->
+		</div> <!-- row -->
+	</div> <!-- padding-0 -->
+</div> <!-- section 1 -->
+{% endfor %}
 
-								<div> <!-- section 2 -->
-									<h4>Endocrinologist</h4>
-									<div class="padding-0">
-										<div class="row">
-											<div class="col-sm-4 profile-pic">
-												<br><br>
-												<img src="{% static 'img/avatars/1.png' %}" alt="demo user">
-												<div class="padding-10">
-													<h5 class="font-md">
-														<small>Sex</small>
-														<strong>M</strong><br>
-														<!-- </h4> -->
-														<br>
-														<!-- <h4 class="font-md"> -->
-														<small>Age</small>
-														<strong>48</strong>
-														<br>
-													</h5>
-												</div>
-											</div>
-											<div class="col-sm-8">
-												<h1>John <span class="semi-bold">Doe</span>
-												<br>
-												<small> CEO, SmartAdmin</small></h1>
-												<ul class="list-unstyled">
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-phone"></i>&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
-														</p>
-													</li>
-												</ul>
-												<br>
-												<p class="font-md">
-													<i>A little about me...</i>
-												</p>
-												<p>
-													Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-												</p>
-												<br>
-												<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-												<br>
-											</div> <!-- col-sm-8 -->
-										</div> <!-- row -->
-									</div> <!-- padding-0 -->
-								</div> <!-- section 2 -->
-								<div> <!-- section 3 -->
-									<h4>Cardiologist</h4>
-									<div class="padding-5">
-										<div class="row">
-											<div class="col-sm-4 profile-pic">
-												<br><br>
-												<img src="{% static 'img/avatars/3.png' %}" alt="demo user">
-												<div class="padding-10">
-													<h5 class="font-md">
-														<small>Sex</small>
-														<strong>M</strong><br>
-														<!-- </h4> -->
-														<br>
-														<!-- <h4 class="font-md"> -->
-														<small>Age</small>
-														<strong>48</strong>
-														<br>
-													</h5>
-												</div>
-											</div>
-											<div class="col-sm-8">
-												<h1>John <span class="semi-bold">Doe</span>
-												<br>
-												<small> CEO, SmartAdmin</small></h1>
-												<ul class="list-unstyled">
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-phone"></i>&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
-														</p>
-													</li>
-													<li>
-														<p class="text-muted">
-															<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
-														</p>
-													</li>
-												</ul>
-												<br>
-												<p class="font-md">
-													<i>A little about me...</i>
-												</p>
-												<p>
-													Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-												</p>
-												<br>
-												<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-												<br>
-											</div> <!-- col-sm-8 -->
-										</div> <!-- row -->
-									</div>   <!-- padding-0 -->
-								</div>  <!-- section 3 -->
 							</div>  <!-- accordion -->
 						</div>  <!-- well -->
 					</div>
@@ -1645,6 +1593,25 @@
 			// Progress Part
     		$('.jsProgressPart').progressbar({display_text: 'fill', use_percentage: false});
 			/* /SC: progress bar */
+
+			/*
+			* ACCORDION
+			*/
+			//jquery accordion
+
+		     var accordionIcons = {
+		         header: "fa fa-plus",    // custom icon class
+		         activeHeader: "fa fa-minus" // custom icon class
+		     };
+
+			$("#accordion").accordion({
+				autoHeight : false,
+				heightStyle : "content",
+				collapsible : true,
+				animate : 300,
+				icons: accordionIcons,
+				header : "h4",
+			})
 
 			/* SC: DyGraph */
 			// SC data is in file js\plugin\dygraphs\demo-data.min.js. Search for data_temp.  Includes HR,RR / NY,SF trend definitions.
