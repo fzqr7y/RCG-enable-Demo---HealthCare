@@ -4,6 +4,9 @@ from django.utils import timezone
 # SC: see UserProfile below
 from django.contrib.auth.models import User
 
+# SC: date
+from datetime import date
+
 # Create your models here.
 
 
@@ -117,6 +120,16 @@ class Member(models.Model):
         max_digits=10, decimal_places=2, null=True)
     plan_oop_max = models.DecimalField(
         max_digits=10, decimal_places=2, null=True)
+    picture_path = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.member_id
+
+    def calculate_age(self, born):
+        today = date.today()
+        before_bd = ((today.month, today.day) < (born.month, born.day))
+        return today.year - born.year - before_bd
+
+    def age(self):
+        return self.calculate_age(self.birth_date)
+
