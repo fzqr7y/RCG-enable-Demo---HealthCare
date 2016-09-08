@@ -22,7 +22,7 @@
 
 {% block main_content %}
 
-{% expr member.pcp() as pcp %}
+{# expr member.pcp() as pcp #}
 
 <!-- SC header row -->
 <div class="row">
@@ -112,24 +112,52 @@
 				<h5> Age <span class="txt-color-blue">{{ member.age }}</span></h5>
 			</li>
 			<li class="sparks-info" style="min-width: 15px;">
-				<h5> Height <span class="txt-color-blue">5'10"</span></h5>
+				<h5> Height <span class="txt-color-blue">{{ member.height.value_str }}</span></h5>
 			</li>
 			<li class="sparks-info">
-				<h5> Weight <span class="txt-color-blue"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;185</span></h5>
+				<h5> Weight <span class="txt-color-blue">
+					{% if member.weight.value_1_trend > 0 %}
+						<i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increasing"></i>
+					{% elif member.weight.value_1_trend < 0 %}
+						<i class="fa fa-arrow-circle-down" data-rel="bootstrap-tooltip" title="Decreasing"></i>
+					{% else %}
+						<i class="fa fa-arrow-circle-right" data-rel="bootstrap-tooltip" title="Stable"></i>
+					{% endif %}
+					&nbsp;{{ member.weight.value_1 | floatformat:"0" }}</span>
+				</h5>
+					<!--100, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471-->
 				<div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
-					100, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+					{{ member.weight.value_1_history }}
 				</div>
 			</li>
 			<li class="sparks-info">
-				<h5> BP <span class="txt-color-greenDark"><i class="fa fa-arrow-circle-down" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;110/70</span></h5>
+				<h5> BP <span class="txt-color-greenDark">
+					{% if member.bp.value_1_trend > 0 %}
+						<i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increasing"></i>
+					{% elif member.bp.value_1_trend < 0 %}
+						<i class="fa fa-arrow-circle-down" data-rel="bootstrap-tooltip" title="Decreasing"></i>
+					{% else %}
+						<i class="fa fa-arrow-circle-right" data-rel="bootstrap-tooltip" title="Stable"></i>
+					{% endif %}
+					&nbsp;{{ member.bp.value_str }}</span>
+				</h5>
 				<div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
-					110,150,300,130,400,240,220,310,220,300, 270, 210
+					{{ member.bp.value_1_history }}
 				</div>
 			</li>
 			<li class="sparks-info">
-				<h5> HR <span class="txt-color-red"><i class="fa fa-shopping-cart"></i>&nbsp;60</span></h5>
+				<h5> HR <span class="txt-color-red">
+					{% if member.hr.value_1_trend > 0 %}
+						<i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increasing"></i>
+					{% elif member.hr.value_1_trend < 0 %}
+						<i class="fa fa-arrow-circle-down" data-rel="bootstrap-tooltip" title="Decreasing"></i>
+					{% else %}
+						<i class="fa fa-arrow-circle-right" data-rel="bootstrap-tooltip" title="Stable"></i>
+					{% endif %}
+					&nbsp;{{ member.hr.value_1 | floatformat:"0" }}</span>
+				</h5>
 				<div class="sparkline txt-color-red hidden-mobile hidden-md hidden-sm">
-					110,150,300,130,400,240,220,310,220,300, 270, 210
+					{{ member.hr.value_1_history }}
 				</div>
 			</li>
 		</ul>
@@ -222,29 +250,29 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="success">
+									<tr>
 										<td>Height</td>
-										<td>6'0"</td>
-										<td>7/15/16 1:00pm</td>
+										<td>{{ member.height.value_str }}</td>
+										<td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td>
 										<td>-</td>
 									</tr>
-									<tr>
+									<tr class="success">
 										<td>Weight</td>
-										<td>210</td>
-										<td>7/15/16 1:00pm</td>
-										<td>200 - 220</td>
+										<td>{{ member.weight.value_1 | floatformat:"0" }}</td>
+										<td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.weight.value_1_tgt_hi | floatformat:"0" }} - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
 									</tr>
 									<tr>
 										<td>BP</td>
-										<td>110 / 70</td>
-										<td>7/15/16 1:00pm</td>
-										<td>110/x - 150/x</td>
+										<td>{{ member.bp.value_str }}</td>
+										<td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.bp.value_1_tgt_hi | floatformat:"0" }} - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
 									</tr>
-									<tr>
+									<tr class="danger">
 										<td>HR</td>
-										<td>65</td>
-										<td>8/6/16 12:10pm</td>
-										<td>60 - 90</td>
+										<td>{{ member.hr.value_1 | floatformat:"0" }}</td>
+										<td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.hr.value_1_tgt_hi | floatformat:"0" }} - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -277,18 +305,14 @@
 									</tr>
 								</thead>
 								<tbody>
+								{% for rpt in member.reported %}
 									<tr>
-										<td>Weight</td>
-										<td>210</td>
-										<td>7/28/16</td>
-										<td>200 - 220</td>
+										<td>{{ rpt.measure_label }}</td>
+										<td>{{ rpt.display }}{{ rpt.value_str }}</td>
+										<td>{{ rpt.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ rpt.value_1_tgt_lo | floatformat:"0" }} - {{ rpt.value_1_tgt_hi | floatformat:"0" }}</td>
 									</tr>
-									<tr class="danger">
-										<td>Health (1-10)</td>
-										<td>6</td>
-										<td>7/28/16</td>
-										<td>7 - 5</td>
-									</tr>
+								{% endfor %}
 									<tr class="warning">
 										<td>Pain (1-10)</td>
 										<td>3</td>
@@ -348,7 +372,7 @@
 									</li>
 									<li>
 										<p class="text-muted">
-											<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ member.social }}</span>
+											<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.social or member.email %}</span>
 										</p>
 									</li>
 									<!--<li>
@@ -380,45 +404,45 @@
 		<div class="row">
 			<div class="col-sm-4 profile-pic">
 				<br><br>
-				<img src="{% static pcp.picture_path %}" alt="{{ pcp.name }}">
+				<img src="{% static member.pcp.picture_path %}" alt="{{ member.pcp.name }}">
 				<div class="padding-10">
 					<h5 class="font-md">
 						<strong>Specialty</strong>
-						<small>{{ pcp.specialty }}</small><br>
+						<small>{{ member.pcp.specialty }}</small><br>
 						<!-- </h4> -->
 						<br>
 						<!-- <h4 class="font-md"> -->
 						<strong>Languages</strong>
-						<small>{{ pcp.languages }}</small><br>
+						<small>{{ member.pcp.languages }}</small><br>
 						<br>
 					</h5>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1><span class="semi-bold">{{ pcp.name }}</span>
+				<h1><span class="semi-bold">{{ member.pcp.name }}</span>
 				<br>
-				<small>{{ pcp.practice_name }}</small></h1>
+				<small>{{ member.pcp.practice_name }}</small></h1>
 				<ul class="list-unstyled">
 					<li>
 						<p class="text-muted">
 							<i class="fa fa-phone"></i>&nbsp;&nbsp;
 							<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
-							<span class="txt-color-darken"><!--tbd-->{{ pcp.office_phone }}</span>
+							<span class="txt-color-darken"><!--tbd-->{{ member.pcp.office_phone }}</span>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ pcp.email }}">{{ pcp.email }}</a>
+							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ member.pcp.email }}">{{ member.pcp.email }}</a>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ pcp.social }}</span>
+							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.pcp().social or member.pcp().email %}</span>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ pcp.next_appt }}</a></span>
+							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ member.pcp.next_appt }}</a></span>
 						</p>
 					</li>
 				</ul>
@@ -427,7 +451,7 @@
 					<i>A little about me...</i>
 				</p>
 				<p>
-					{{ pcp.description }}
+					{{ member.pcp.description }}
 				</p>
 				<br>-->
 				<!--<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>-->
@@ -1167,52 +1191,52 @@
 							<div id="accordion"> <!-- accordion -->
 {# {% for provider in providers %} #}
 {% for providermember in providermembers %}
-{% expr providermember.provider as provider %}
+{# expr providermember.provider as provider #}
 <div> <!-- section 1 -->
 	<h4>{{ providermember.role }}</h4>
 	<div class="padding-0">
 		<div class="row">
 			<div class="col-sm-4 profile-pic">
 				<br><br>
-				<img src="{% static provider.picture_path %}" alt="{{ provider.name }}">
+				<img src="{% static providermember.provider.picture_path %}" alt="{{ providermember.provider.name }}">
 				<div class="padding-10">
 					<h5 class="font-md">
 						<strong>Specialty</strong>
-						<small>{{ provider.specialty }}</small><br>
+						<small>{{ providermember.provider.specialty }}</small><br>
 						<!-- </h4> -->
 						<br>
 						<!-- <h4 class="font-md"> -->
 						<strong>Languages</strong>
-						<small>{{ provider.languages }}</small><br>
+						<small>{{ providermember.provider.languages }}</small><br>
 						<br>
 					</h5>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1><span class="semi-bold">{{ provider.name }}</span>
+				<h1><span class="semi-bold">{{ providermember.provider.name }}</span>
 				<br>
-				<small>{{ provider.practice_name }}</small></h1>
+				<small>{{ providermember.provider.practice_name }}</small></h1>
 				<ul class="list-unstyled">
 					<li>
 						<p class="text-muted">
 							<i class="fa fa-phone"></i>&nbsp;&nbsp;
 							<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
-							<span class="txt-color-darken"><!--tbd-->{{ provider.office_phone }}</span>
+							<span class="txt-color-darken"><!--tbd-->{{ providermember.provider.office_phone }}</span>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ provider.email }}">{{ provider.email }}</a>
+							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ providermember.provider.email }}">{{ providermember.provider.email }}</a>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ provider.social }}</span>
+							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ providermember.provider.social }}</span>
 						</p>
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ provider.next_appt }}</a></span>
+							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ providermember.provider.next_appt }}</a></span>
 						</p>
 					</li>
 				</ul>
@@ -1221,7 +1245,7 @@
 					<i>A little about me...</i>
 				</p>
 				<p>
-					{{ provider.description }}
+					{{ providermember.provider.description }}
 				</p>
 				<br>
 				<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>

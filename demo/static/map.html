@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Place searches</title>
+    <title>Member Location</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -39,26 +39,27 @@
         // var pyrmont = {lat: -33.867, lng: 151.195};
         var nyc = {lat: 40.713, lng: 74.001};
 
+        // alert("hi2");
         map = new google.maps.Map(document.getElementById('map'), {
           center: nyc,
           // zoom: 15
           zoom: 10
           // SC for fun
-          , mapTypeId: 'terrain'
+          //, mapTypeId: 'terrain'
         });
 
         var geocoder = new google.maps.Geocoder();
 
         document.getElementById('submitNearby').addEventListener('click', function() {
           geocodeAddress(geocoder, map);
-          // searchNearby(geocoder, map);
-          searchBoth(geocoder, map);
+          searchNearby(geocoder, map);
+          // searchBoth(geocoder, map);
         });
 
-        document.getElementById('submitText').addEventListener('click', function() {
+        /* document.getElementById('submitText').addEventListener('click', function() {
           geocodeAddress(geocoder, map);
           searchText(geocoder, map);
-        });
+        }); */
 
         geocodeAddress(geocoder, map);
         /*infowindow = new google.maps.InfoWindow();

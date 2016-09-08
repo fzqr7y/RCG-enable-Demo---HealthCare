@@ -73,27 +73,27 @@ class Member(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey('auth.User')
-    address = models.CharField(max_length=100, null=True)
-    city = models.CharField(max_length=20, null=True)
-    state = models.CharField(max_length=2, null=True)
-    zip = models.CharField(max_length=10, null=True)
-    office_phone = models.CharField(max_length=20, null=True)
-    mobile_phone = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=40, null=True)
-    social = models.CharField(max_length=40, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=20, blank=True, null=True)
+    state = models.CharField(max_length=2, blank=True, null=True)
+    zip = models.CharField(max_length=10, blank=True, null=True)
+    office_phone = models.CharField(max_length=20, blank=True, null=True)
+    mobile_phone = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=40, blank=True, null=True)
+    social = models.CharField(max_length=40, blank=True, null=True)
     medical_risk = models.DecimalField(
-        max_digits=6, decimal_places=4, null=True)
+        max_digits=6, decimal_places=4, blank=True, null=True)
     pharmacy_risk = models.DecimalField(
-        max_digits=6, decimal_places=4, null=True)
-    plan_name = models.CharField(max_length=40, null=True)
+        max_digits=6, decimal_places=4, blank=True, null=True)
+    plan_name = models.CharField(max_length=40, blank=True, null=True)
     plan_start = models.DateTimeField(
-        blank=False, null=True)
+        blank=True, null=True)
     plan_end = models.DateTimeField(
-        blank=False, null=True)
+        blank=True, null=True)
     plan_deductible = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True)
+        max_digits=10, decimal_places=2, blank=True, null=True)
     plan_oop_max = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True)
+        max_digits=10, decimal_places=2, blank=True, null=True)
     picture_path = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
@@ -113,6 +113,25 @@ class Member(models.Model):
     def pcp(self):
         return self.provider_set.get(providermember__role__exact="PCP")
 
+    def vitals(self):
+        return self.membermedical_set.filter(record_type="Vitals", is_current=True).order_by('id')
+
+    def height(self):
+        return self.vitals().get(measure_type="Height")
+
+    def weight(self):
+        return self.vitals().get(measure_type="Weight")
+
+    def bp(self):
+        return self.vitals().get(measure_type="Blood Pressure")
+
+    def hr(self):
+        return self.vitals().get(measure_type="Heart Rate")
+
+    def reported(self):
+        return self.membermedical_set.filter(
+            record_type="Reported", is_current=True).order_by('id')
+
 
 class Provider(models.Model):
     provider_id = models.CharField(max_length=12)
@@ -121,22 +140,22 @@ class Provider(models.Model):
     name = models.CharField(max_length=50)
     practice_name = models.CharField(max_length=50)
     term_date = models.DateTimeField(
-        blank=False, null=True)
+        blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey('auth.User')
-    address = models.CharField(max_length=100, null=True)
-    city = models.CharField(max_length=20, null=True)
-    state = models.CharField(max_length=2, null=True)
-    zip = models.CharField(max_length=10, null=True)
-    office_phone = models.CharField(max_length=20, null=True)
-    mobile_phone = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=40, null=True)
-    social = models.CharField(max_length=40, null=True)
-    specialty = models.CharField(max_length=40, null=True)
-    languages = models.CharField(max_length=20, null=True)
-    next_appt = models.DateTimeField(null=True)
-    description = models.TextField(null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=20, blank=True, null=True)
+    state = models.CharField(max_length=2, blank=True, null=True)
+    zip = models.CharField(max_length=10, blank=True, null=True)
+    office_phone = models.CharField(max_length=20, blank=True, null=True)
+    mobile_phone = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=40, blank=True, null=True)
+    social = models.CharField(max_length=40, blank=True, null=True)
+    specialty = models.CharField(max_length=40, blank=True, null=True)
+    languages = models.CharField(max_length=20, blank=True, null=True)
+    next_appt = models.DateTimeField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     members = models.ManyToManyField(Member, through='ProviderMember')
     picture_path = models.CharField(max_length=50, blank=True, null=True)
 
@@ -152,3 +171,77 @@ class ProviderMember(models.Model):
     end_date = models.DateField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.provider_id) + "_" + str(self.member_id)
+
+
+class MemberMedical(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    record_type = models.CharField(max_length=40)
+    measure_type = models.CharField(max_length=40)
+    measure_label = models.CharField(max_length=40, blank=True, null=True)
+    is_current = models.NullBooleanField(blank=True, null=True)
+    value_str = models.CharField(max_length=40, blank=True, null=True)
+    value_1 = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_2 = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_1_tgt_hi = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_2_tgt_hi = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_1_tgt_lo = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_2_tgt_lo = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_1_alert_hi = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_2_alert_hi = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_1_alert_lo = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    value_2_alert_lo = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=True, null=True)
+    measure_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+    value_1_history = models.TextField(blank=True, null=True)
+    value_1_trend = models.DecimalField(
+        max_digits=1, decimal_places=0, blank=True, null=True)
+    value_2_trend = models.DecimalField(
+        max_digits=1, decimal_places=0, blank=True, null=True)
+
+    def __str__(self):
+        # return str(self.member_id) + "_" + self.record_type + "_" + str(
+        #     self.measure_type) + "_" + str(self.measure_date)
+        return str(self.member_id) + "_" + self.record_type + "_" + str(
+            self.measure_type) + "_" + self.measure_date.strftime('%y%m%d')
+
+    def value_str_or_num(self):
+        return self.value_str or self.value_1
+
+    def display(self):
+        return self.value_str or '%.4g' % self.value_1
+
+    def value_1_has_tgt(self):
+        return not(self.weight().value_1_tgt_hi is None) or (
+            not(self.weight().value_1_tgt_lo is None))
+
+    def value_1_in_tgt(self):
+        tgthi = (self.weight().value_1_tgt_hi is None) or (
+            self.weight().value_1 <= self.weight().value_1_tgt_hi)
+        tgtlo = (self.weight().value_1_tgt_lo is None) or (
+            self.weight().value_1 >= self.weight().value_1_tgt_lo)
+        return tgthi and tgtlo
+
+    def value_1_has_alert(self):
+        return not(self.weight().value_1_alert_hi is None) or (
+            not(self.weight().value_1_alert_lo is None))
+
+    def value_1_oo_alert(self):
+        alerthi = (self.weight().value_1_alert_hi is None) or (
+            self.weight().value_1 > self.weight().value_1_alert_hi)
+        alertlo = (self.weight().value_1_alert_lo is None) or (
+            self.weight().value_1 < self.weight().value_1_alert_lo)
+        return alerthi and alertlo

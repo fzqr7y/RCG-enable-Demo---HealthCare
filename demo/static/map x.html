@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Member Location</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+    <script>
+      function getQueryVariable(variable)
+      {
+             var query = window.location.search.substring(1);
+             var vars = query.split("&");
+             for (var i=0;i<vars.length;i++) {
+                     var pair = vars[i].split("=");
+                     if(pair[0] == variable){return pair[1];}
+             }
+             return(false);
+      }
+    </script>
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var map;
+      var infowindow;
+      var markers = [];
+
+      function initMap() {
+        // var pyrmont = {lat: -33.867, lng: 151.195};
+        var nyc = {lat: 40.713, lng: 74.001};
+
+        // alert("hi2");
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: nyc,
+          // zoom: 15
+          zoom: 10
+          // SC for fun
+          //, mapTypeId: 'terrain'
+        });
+
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submitNearby').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+          searchNearby(geocoder, map);
+          // searchBoth(geocoder, map);
+        });
+
+        /* document.getElementById('submitText').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+          searchText(geocoder, map);
+        }); */
+
+        geocodeAddress(geocoder, map);
+        /*infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: pyrmont,
+          radius: 500,
+          type: ['store']
+        }, callback);*/
+      }
+
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            // createMarker(results[i]);
+            addMarker(results[i]);
+          }
+        }
+      }
+
+      // function createMarker(place) {
+      function addMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+        markers.push(marker);
+      }
+
+//SC: http://127.0.0.1:8000/static/map.html?city=Morris%20Plains
+      function geocodeAddress(geocoder, resultsMap) {
+        // var address = document.getElementById('address').value;
+        alert("hi");
+        var city = decodeURI(getQueryVariable("city"));
+        alert(city);
+        var state = decodeURI(getQueryVariable("state"));
+        var address = city + ", " + state;
+        document.getElementById('address').value = address;
+        alert(address);
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+//             infowindow = new google.maps.InfoWindow();
+//             var service = new google.maps.places.PlacesService(resultsMap);
+//             service.nearbySearch({
+//               location: results[0].geometry.location,
+//               radius: 500,
+// //              type: ['store']
+//               type: [document.getElementById('searchTerm').value]
+//             }, callback);
+
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+      }
+
+//       function searchNearby(resultsMap) {
+//         infowindow = new google.maps.InfoWindow();
+//         var service = new google.maps.places.PlacesService(resultsMap);
+//         service.nearbySearch({
+//           location: results[0].geometry.location,
+//           radius: 500,
+// //              type: ['store']
+//           type: [document.getElementById('searchTerm').value]
+//         }, callback);
+
+//       }
+
+      function searchNearby(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+
+            deleteMarkers();
+
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(resultsMap);
+            // alert('Search: ' + document.getElementById('searchType').value);
+            var request = {
+              location: results[0].geometry.location,
+              radius: 500,
+              type: [document.getElementById('searchType').value]
+              // type: ['hospital']
+              // type: ['store']
+              // valid types: https://developers.google.com/places/supported_types
+            }
+            service.nearbySearch(request, callback);
+
+            // setMapOnAll(resultsMap)
+            showMarkers();
+
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+      }
+
+
+      function searchText(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+
+            deleteMarkers();
+
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(resultsMap);
+            // alert('Search: ' + document.getElementById('searchTerm').value);
+            var request = {
+              location: results[0].geometry.location,
+              radius: 500,
+//              type: ['store']
+              query: [document.getElementById('searchTerm').value]
+            }
+            service.textSearch(request, callback);
+
+            // setMapOnAll(resultsMap)
+            showMarkers();
+
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+      }
+
+
+      function searchBoth(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+
+            deleteMarkers();
+
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(resultsMap);
+            // alert('Search: ' + document.getElementById('searchType').value);
+            var request = {
+              location: results[0].geometry.location,
+              radius: 500,
+              type: [document.getElementById('searchType').value]
+              // type: ['hospital']
+              // type: ['store']
+              // valid types: https://developers.google.com/places/supported_types
+            }
+            service.nearbySearch(request, callback);
+
+            var request = {
+              location: results[0].geometry.location,
+              radius: 500,
+//              type: ['store']
+              query: [document.getElementById('searchType').value]
+            }
+            service.textSearch(request, callback);
+
+            // setMapOnAll(resultsMap)
+            showMarkers();
+
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+      }
+
+
+      // Sets the map on all markers in the array.
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+      // Removes the markers from the map, but keeps them in the array.
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      // Shows any markers currently in the array.
+      function showMarkers() {
+        setMapOnAll(map);
+      }
+
+      // Deletes all markers in the array by removing references to them.
+      function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+      }
+    </script>
+
+  </head>
+  <body>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="New York, NY">
+
+      <select id = "searchType">
+       <option value = "doctor">doctor</option>
+       <option value = "dentist">dentist</option>
+       <option value = "hospital">hospital</option>
+       <option value = "parking">parking</option>
+       <option value = "pharmacy">pharmacy</option>
+       <option value = "physiotherapist">physiotherapist</option>
+      </select>
+      <input id="submitNearby" type="button" value="Find">
+
+      <!--<input id="searchTerm" type="textbox" value="hospital">
+      <input id="submitText" type="button" value="Search">-->
+    </div>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+  </body>
+</html>
