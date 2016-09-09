@@ -70,7 +70,10 @@ def member_detail(request, pk):
 @twilio_view
 def receive_sms(request):
     # logger.error('dict: ' + request.GET.dict())
-    rdict = request.GET.dict()
+    if request.method == "POST":
+        rdict = request.POST.dict()
+    else:
+        rdict = request.GET.dict()
     logger.error('dict: ' + json.dumps(rdict))
     logger.error('urlencode: ' + request.GET.urlencode())
     for key, value in request.GET.items():
