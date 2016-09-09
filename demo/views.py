@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Post, Comment, Provider, Member, ProviderMember, Message
 from .forms import PostForm, CommentForm, ProviderForm, MessageForm
 
@@ -95,6 +96,8 @@ def receive_sms(request):
     logger.error('member: ' + str(sms.member_id))
     logger.error('member: ' + sms.member.member_id)
     user = request.user
+    if user is None:
+        user = User.objects.get(pk=1)
     sms.user = user
     logger.error('user: ' + str(sms.user_id))
     sms.save()
