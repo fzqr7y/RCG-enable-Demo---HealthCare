@@ -96,7 +96,8 @@ def receive_sms(request):
     logger.error('member: ' + str(sms.member_id))
     logger.error('member: ' + sms.member.member_id)
     user = request.user
-    if user is None:
+    logger.error('user: ' + user.__class__.__name__)
+    if user is None or not(user.__class__.__name__ == 'User'):
         user = User.objects.get(pk=1)
     sms.user = user
     logger.error('user: ' + str(sms.user_id))
