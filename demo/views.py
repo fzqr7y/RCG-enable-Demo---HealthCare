@@ -71,45 +71,55 @@ def member_detail(request, pk):
 def receive_sms(request):
     # logger.error('dict: ' + request.GET.dict())
     if request.method == "POST":
-        rdict = request.POST.dict()
+        rdict = request.POST
     else:
-        rdict = request.GET.dict()
-    logger.error('dict: ' + json.dumps(rdict))
-    logger.error('urlencode: ' + request.GET.urlencode())
-    for key, value in request.GET.items():
-        logger.error("item: %s %s" % (key, value))
-    for key, value in request.GET.lists():
-        logger.error("list: %s %s" % (key, value))
-    name = request.GET.get('name', None)
-    if not(name is None):
-        logger.error('name: ' + name)
-    else:
-        logger.error('no name')
+        rdict = request.GET
+    logger.info('Message received: ' + json.dumps(rdict.dict()))
+    # logger.error('urlencode: ' + request.GET.urlencode())
+    # for key, value in request.GET.items():
+    #     logger.error("item: %s %s" % (key, value))
+    # for key, value in request.GET.lists():
+    #     logger.error("list: %s %s" % (key, value))
+    # name = request.GET.get('name', None)
+    # if not(name is None):
+    #     logger.error('name: ' + name)
+    # else:
+    #     logger.error('no name')
 
     sms = Message()
     sms.message_type = 'SMS'
     sms.sent = False
-    sms.message_to = '+18627728556'
-    sms.message_from = "+19735688856"
-    now = datetime.now().strftime('%Y%m%d%H%M%S')
-    sms.text = 'test: ' + now
-    sms.query_url = request.GET.urlencode() + json.dumps(request.GET.dict())
-    member = Member.objects.get(pk=4)
+    # sms.message_to = '+18627728556'
+    # sms.message_from = "+19735688856"
+    # now = datetime.now().strftime('%Y%m%d%H%M%S')
+    # sms.text = 'test: ' + now
+    # sms.query_url = request.GET.urlencode() + json.dumps(request.GET.dict())
+    # member = Member.objects.get(pk=4)
+    message_from = rdict.get('From', '+19735688856')
+    sms.message_from = message_from
+    sms.message_to = rdict.get('To', '+18627728556')
+    sms.text = rdict.get('Body', '-')
+    sms.smssid = rdict.get('SmsSid')
+    sms.smsstatus = rdict.get('SmsStatus')
+    member = Member.objects.filter(mobile_phone=message_from).first()
     sms.member = member
-    logger.error('member: ' + str(sms.member_id))
-    logger.error('member: ' + sms.member.member_id)
-    user = request.user
-    logger.error('user: ' + user.__class__.__name__)
-    if user is None or not(user.__class__.__name__ == 'User'):
-        user = User.objects.get(pk=1)
+    # logger.error('member: ' + str(sms.member_id))
+    # logger.error('member: ' + sms.member.member_id)
+    user = request.user if (
+        request.user.__class__.__name__ == 'User') else User.objects.order_by('id').first()
+    # logger.error('user: ' + user.__class__.__name__)
+    # if user is None or not(user.__class__.__name__ == 'User'):
+    #     user = User.objects.get(pk=1)
     sms.user = user
-    logger.error('user: ' + str(sms.user_id))
+    # logger.error('user: ' + str(sms.user_id))
+    sms.data = json.dumps(rdict.dict())
+
     sms.save()
 
     # return redirect('sms')
     """Respond to incoming calls with a simple text message."""
     resp = twilio.twiml.Response()
-    resp.message("Hello, Mobile Monkey")
+    resp.message("RCG has received your message.  Thank you. A patient representative will respond as soon as possible.")
     # return str(resp)
     # twiml = str(resp)
     # thanks to twilio_view don't have to do this:
