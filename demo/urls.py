@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^providers$', views.providers, name='providers'),
     url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
     # url(r'^member1$', views.member1_detail, name='member1_detail'),
+    url(r'^provider/(?P<pk>\d+)/edit/$', views.provider_edit, name='provider_edit'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
     # url(r'^user_profile_upload/$', views.user_profile_upload,

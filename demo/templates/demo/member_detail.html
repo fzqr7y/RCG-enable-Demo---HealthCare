@@ -437,7 +437,7 @@
 					</li>
 					<li>
 						<p class="text-muted">
-							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.pcp().social or member.pcp().email %}</span>
+							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.pcp() and (member.pcp().social or member.pcp().email) %}</span>
 						</p>
 					</li>
 					<li>
@@ -925,14 +925,14 @@
 							<div class="bar-holder">
 								<div class="progress">Medical</div>
 								<div class="progress">
-								  <div class="progress-bar bg-color-redLight" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {% expr round(100*member.medical_risk/2) %}%;">
+								  <div class="progress-bar bg-color-redLight" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {% expr member.medical_risk and round(100*member.medical_risk/2) %}%;">
 								    {{ member.medical_risk }}
 								  </div>
 								</div>
 								<!-- SC: https://djangosnippets.org/snippets/9/ -->
 								<div class="progress">Pharmacy </div>
 								<div class="progress">
-								  <div class="progress-bar bg-color-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {% expr round(100*member.pharmacy_risk/2) %}%;">
+								  <div class="progress-bar bg-color-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {% expr member.pharmacy_risk and round(100*member.pharmacy_risk/2) %}%;">
 								    {{ member.pharmacy_risk }}
 								  </div>
 								</div>

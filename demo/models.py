@@ -111,7 +111,8 @@ class Member(models.Model):
         return self.provider_set.get(providermember__role__exact=role)
 
     def pcp(self):
-        return self.provider_set.get(providermember__role__exact="PCP")
+        # return self.provider_set.get(providermember__role__exact="PCP")
+        return self.provider_set.filter(providermember__role__exact="PCP").first()
 
     def vitals(self):
         return self.membermedical_set.filter(record_type="Vitals", is_current=True).order_by('id')

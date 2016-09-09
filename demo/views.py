@@ -3,7 +3,14 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment, Provider, Member, ProviderMember
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, ProviderForm
+
+# https://github.com/twilio/twilio-python
+# pip install twilio
+from twilio.rest import TwilioRestClient
+
+# import the logging library
+import logging
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
@@ -14,6 +21,9 @@ from .forms import PostForm, CommentForm
 # from .forms import UserProfileForm
 
 # Create your views here.
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -45,6 +55,44 @@ def member_detail(request, pk):
 # @login_required
 # def member1_detail(request):
 #     return render(request, 'demo/member1_detail.html', {})
+
+
+@login_required
+def provider_edit(request, pk):
+    # Post.objects.get(pk=pk)
+    # post = get_object_or_404(Post, pk=pk)
+    provider = get_object_or_404(Provider, pk=pk)
+    if request.method == "POST":
+        form = ProviderForm(request.POST, instance=provider)
+        if form.is_valid():
+            provider = form.save(commit=False)
+            # post.author = request.user
+#             post.published_date = timezone.now()
+            provider.save()
+
+            # from_number = request.values.get('From', None)
+            name = request.POST.get('name', None)
+            # Log an error message
+            logger.error('name: ' + name)
+            account = "AC652bccbad1784e6130f04ccadb530a04"
+            token = "cec870e047ecc5e604c4596fd56f89c6"
+            client = TwilioRestClient(account, token)
+            # message = client.messages.create(
+            #     to="+19735688856", from_="+18627728556",
+            #     body=provider.description)
+            # # body="Hello World!")
+            # logger.error('Sent: ' + message.body + ' to: ' + message.to)
+
+            return redirect('providers')
+    else:
+        name = request.GET.get('name', None)
+        if not(name is None):
+            logger.error('name: ' + name)
+        else:
+            logger.error('no name')
+
+        form = ProviderForm(instance=provider)
+    return render(request, 'demo/provider_edit.html', {'form': form})
 
 
 def post_list(request):
