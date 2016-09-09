@@ -1,0 +1,52 @@
+{% extends 'demo/base.html' %}
+
+{% block main_content %}
+    <h1>SMS List</h1>
+    <form method="POST" class="message-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <br><br>
+    <table>
+    <thead>
+        <tr>
+            <th>created_date</th>
+            <th>type</th>
+            <th>sent</th>
+            <th>message_from</th>
+            <th>message_to</th>
+            <th>member.last_name</th>
+            <th>user.username</th>
+            <th>text</th>
+            <th>query_url</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for message in messages %}
+        <tr>
+            <td>{{ message.created_date }}</td>
+            <td>{{ message.message_type }}</td>
+            <td>{{ message.sent }}</td>
+            <td>{{ message.message_from }}</td>
+            <td>{{ message.message_to }}</td>
+            <td>{{ message.member.last_name }}</td>
+            <td>{{ message.user.username }}</td>
+            <td>{{ message.text }}</td>
+            <td>{{ message.query_url }}</td>
+        </tr>
+        <!--<div class="message">
+            <div class="date">
+                {{ message.created_date }}
+            </div>
+            <h1>{{ message.sent }} {{ message.message_from }} to {{ message.message_to }}</h1>
+            {{ message.member.last_name }} to {{ message.user.username }}
+            <p>{{ message.text|linebreaksbr }}</p>
+            <p>{{ message.query_url|linebreaksbr }}</p>
+        </div>-->
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block js_doc_ready %}
+{% endblock %}

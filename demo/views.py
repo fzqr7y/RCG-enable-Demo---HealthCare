@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment, Provider, Member, ProviderMember
-from .forms import PostForm, CommentForm, ProviderForm
+from .models import Post, Comment, Provider, Member, ProviderMember, Message
+from .forms import PostForm, CommentForm, ProviderForm, MessageForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -11,6 +11,11 @@ from twilio.rest import TwilioRestClient
 
 # import the logging library
 import logging
+# import datetime
+from datetime import datetime
+
+# serialize the request dict
+import json
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
@@ -58,6 +63,75 @@ def member_detail(request, pk):
 
 
 @login_required
+def receive_sms(request):
+    # logger.error('dict: ' + request.GET.dict())
+    rdict = request.GET.dict()
+    logger.error('dict: ' + json.dumps(rdict))
+    logger.error('urlencode: ' + request.GET.urlencode())
+    for key, value in request.GET.items():
+        logger.error("item: %s %s" % (key, value))
+    for key, value in request.GET.lists():
+        logger.error("list: %s %s" % (key, value))
+    name = request.GET.get('name', None)
+    if not(name is None):
+        logger.error('name: ' + name)
+    else:
+        logger.error('no name')
+
+    sms = Message()
+    sms.message_type = 'SMS'
+    sms.sent = False
+    sms.message_to = '+18627728556'
+    sms.message_from = "+19735688856"
+    now = datetime.now().strftime('%Y%m%d%H%M%S')
+    sms.text = 'test: ' + now
+    sms.query_url = request.GET.urlencode() + json.dumps(request.GET.dict())
+    member = Member.objects.get(pk=4)
+    sms.member = member
+    logger.error('member: ' + str(sms.member_id))
+    logger.error('member: ' + sms.member.member_id)
+    user = request.user
+    sms.user = user
+    logger.error('user: ' + str(sms.user_id))
+    sms.save()
+
+    return redirect('sms')
+
+
+@login_required
+def sms(request):
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            sms = form.save(commit=False)
+            sms.user = request.user
+            sms.sent = True
+            sms.message_type = 'SMS'
+
+            account = "AC652bccbad1784e6130f04ccadb530a04"
+            token = "cec870e047ecc5e604c4596fd56f89c6"
+            client = TwilioRestClient(account, token)
+            message = client.messages.create(
+                # to="+19735688856", from_="+18627728556",
+                to=sms.message_to, from_="+18627728556",
+                body=sms.text)
+            logger.error('Sent: ' + message.body + ' to: ' + message.to)
+
+            sms.save()
+            return redirect('sms')
+    else:
+        member = Member.objects.get(pk=4)
+        defaults = {
+            'message_type': 'SMS', 'message_to': '+19735688856',
+            'message_from': '+18627728556', 'member': member}
+        form = MessageForm(initial=defaults)
+    # return render(request, 'blog/post_edit.html', {'form': form})
+    messages = Message.objects.filter(message_type='SMS').order_by('-created_date')
+    return render(request, 'demo/sms.html', {
+        'messages': messages, 'form': form})
+
+
+@login_required
 def provider_edit(request, pk):
     # Post.objects.get(pk=pk)
     # post = get_object_or_404(Post, pk=pk)
@@ -74,9 +148,9 @@ def provider_edit(request, pk):
             name = request.POST.get('name', None)
             # Log an error message
             logger.error('name: ' + name)
-            account = "AC652bccbad1784e6130f04ccadb530a04"
-            token = "cec870e047ecc5e604c4596fd56f89c6"
-            client = TwilioRestClient(account, token)
+            # account = "AC652bccbad1784e6130f04ccadb530a04"
+            # token = "cec870e047ecc5e604c4596fd56f89c6"
+            # client = TwilioRestClient(account, token)
             # message = client.messages.create(
             #     to="+19735688856", from_="+18627728556",
             #     body=provider.description)
@@ -85,6 +159,14 @@ def provider_edit(request, pk):
 
             return redirect('providers')
     else:
+        # logger.error('dict: ' + request.GET.dict())
+        rdict = request.GET.dict()
+        logger.error('dict: ' + json.dumps(rdict))
+        logger.error('urlencode: ' + request.GET.urlencode())
+        for key, value in request.GET.items():
+            logger.error("item: %s %s" % (key, value))
+        for key, value in request.GET.lists():
+            logger.error("list: %s %s" % (key, value))
         name = request.GET.get('name', None)
         if not(name is None):
             logger.error('name: ' + name)

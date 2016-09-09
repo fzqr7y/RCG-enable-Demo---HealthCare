@@ -63,6 +63,23 @@ class Comment(models.Model):
         return self.text
 
 
+class Message(models.Model):
+    message_type = models.CharField(max_length=20)
+    message_from = models.CharField(max_length=20)
+    message_to = models.CharField(max_length=20)
+    text = models.TextField()
+    query_url = models.TextField(blank=True, null=True)
+    sent = models.BooleanField(default=True)
+    member = models.ForeignKey('Member', blank=True, null=True)
+    user = models.ForeignKey('auth.User')
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user_id) + "_" + str(
+            self.message_type) + "_" + self.created_date.strftime('%y%m%d')
+
+
 class Member(models.Model):
     member_id = models.CharField(max_length=12)
     tax_id = models.CharField(max_length=12)

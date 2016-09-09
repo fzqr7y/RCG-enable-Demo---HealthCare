@@ -5,9 +5,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
 # Register your models here.
-from demo.models import UserProfile
 from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, MemberMedical
+from demo.models import UserProfile, Message
 
 admin.site.register(Post)
 admin.site.register(Comment)
@@ -15,6 +15,7 @@ admin.site.register(Provider)
 admin.site.register(Member)
 admin.site.register(ProviderMember)
 admin.site.register(MemberMedical)
+admin.site.register(Message)
 
 
 # SC: extend User via UserProfile

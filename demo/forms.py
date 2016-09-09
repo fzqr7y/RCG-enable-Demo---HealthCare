@@ -1,7 +1,7 @@
 from django import forms
 
 # from .models import Post, Comment, UserProfile
-from .models import Post, Comment, Provider
+from .models import Post, Comment, Provider, Message
 
 
 class PostForm(forms.ModelForm):
@@ -23,6 +23,15 @@ class ProviderForm(forms.ModelForm):
     class Meta:
         model = Provider
         fields = ('name', 'description',)
+
+
+class MessageForm(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        fields = (
+            'message_from', 'message_to',
+            'text', 'member', )
 
 
 # SC: Add picture
