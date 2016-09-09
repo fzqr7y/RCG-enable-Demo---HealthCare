@@ -10,13 +10,14 @@ from .forms import PostForm, CommentForm, ProviderForm, MessageForm
 # pip install twilio
 from twilio.rest import TwilioRestClient
 import twilio.twiml
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django_twilio.decorators import twilio_view
+import phonenumbers
 
 # import the logging library
 import logging
 # import datetime
-from datetime import datetime
+# from datetime import datetime
 
 # serialize the request dict
 import json
@@ -96,12 +97,23 @@ def receive_sms(request):
     # sms.query_url = request.GET.urlencode() + json.dumps(request.GET.dict())
     # member = Member.objects.get(pk=4)
     message_from = rdict.get('From', '+19735688856')
-    sms.message_from = message_from
-    sms.message_to = rdict.get('To', '+18627728556')
+    try:
+        x = phonenumbers.parse(message_from, "US")
+        from_parsed = phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.NATIONAL)
+    except:
+        from_parsed = message_from
+    sms.message_from = from_parsed
+    message_to = rdict.get('To', '+18627728556')
+    try:
+        x = phonenumbers.parse(message_to, "US")
+        to_parsed = phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.NATIONAL)
+    except:
+        to_parsed = message_to
+    sms.message_to = to_parsed
     sms.text = rdict.get('Body', '-')
     sms.smssid = rdict.get('SmsSid')
     sms.smsstatus = rdict.get('SmsStatus')
-    member = Member.objects.filter(mobile_phone=message_from).first()
+    member = Member.objects.filter(mobile_phone=from_parsed).first()
     sms.member = member
     # logger.error('member: ' + str(sms.member_id))
     # logger.error('member: ' + sms.member.member_id)
