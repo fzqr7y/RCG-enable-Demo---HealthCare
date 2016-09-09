@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^providers/$', views.providers, name='providers'),
     url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
     # url(r'^member1$', views.member1_detail, name='member1_detail'),
-    url(r'^provider/(?P<pk>\d+)/edit/$', views.provider_edit, name='provider_edit'),
+    # url(r'^provider/(?P<pk>\d+)/edit/$', views.provider_edit, name='provider_edit'),
     url(r'^sms/receive/$', views.receive_sms, name='receive_sms'),
     url(r'^sms/$', views.sms, name='sms'),
 

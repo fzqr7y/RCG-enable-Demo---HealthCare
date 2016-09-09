@@ -173,50 +173,50 @@ def sms(request):
         'messages': messages, 'form': form})
 
 
-@login_required
-def provider_edit(request, pk):
-    # Post.objects.get(pk=pk)
-    # post = get_object_or_404(Post, pk=pk)
-    provider = get_object_or_404(Provider, pk=pk)
-    if request.method == "POST":
-        form = ProviderForm(request.POST, instance=provider)
-        if form.is_valid():
-            provider = form.save(commit=False)
-            # post.author = request.user
-#             post.published_date = timezone.now()
-            provider.save()
+# @login_required
+# def provider_edit(request, pk):
+#     # Post.objects.get(pk=pk)
+#     # post = get_object_or_404(Post, pk=pk)
+#     provider = get_object_or_404(Provider, pk=pk)
+#     if request.method == "POST":
+#         form = ProviderForm(request.POST, instance=provider)
+#         if form.is_valid():
+#             provider = form.save(commit=False)
+#             # post.author = request.user
+# #             post.published_date = timezone.now()
+#             provider.save()
 
-            # from_number = request.values.get('From', None)
-            name = request.POST.get('name', None)
-            # Log an error message
-            logger.error('name: ' + name)
-            # account = "AC652bccbad1784e6130f04ccadb530a04"
-            # token = "cec870e047ecc5e604c4596fd56f89c6"
-            # client = TwilioRestClient(account, token)
-            # message = client.messages.create(
-            #     to="+19735688856", from_="+18627728556",
-            #     body=provider.description)
-            # # body="Hello World!")
-            # logger.error('Sent: ' + message.body + ' to: ' + message.to)
+#             # from_number = request.values.get('From', None)
+#             name = request.POST.get('name', None)
+#             # Log an error message
+#             logger.error('name: ' + name)
+#             # account = "AC652bccbad1784e6130f04ccadb530a04"
+#             # token = "cec870e047ecc5e604c4596fd56f89c6"
+#             # client = TwilioRestClient(account, token)
+#             # message = client.messages.create(
+#             #     to="+19735688856", from_="+18627728556",
+#             #     body=provider.description)
+#             # # body="Hello World!")
+#             # logger.error('Sent: ' + message.body + ' to: ' + message.to)
 
-            return redirect('providers')
-    else:
-        # logger.error('dict: ' + request.GET.dict())
-        rdict = request.GET.dict()
-        logger.error('dict: ' + json.dumps(rdict))
-        logger.error('urlencode: ' + request.GET.urlencode())
-        for key, value in request.GET.items():
-            logger.error("item: %s %s" % (key, value))
-        for key, value in request.GET.lists():
-            logger.error("list: %s %s" % (key, value))
-        name = request.GET.get('name', None)
-        if not(name is None):
-            logger.error('name: ' + name)
-        else:
-            logger.error('no name')
+#             return redirect('providers')
+#     else:
+#         # logger.error('dict: ' + request.GET.dict())
+#         rdict = request.GET.dict()
+#         logger.error('dict: ' + json.dumps(rdict))
+#         logger.error('urlencode: ' + request.GET.urlencode())
+#         for key, value in request.GET.items():
+#             logger.error("item: %s %s" % (key, value))
+#         for key, value in request.GET.lists():
+#             logger.error("list: %s %s" % (key, value))
+#         name = request.GET.get('name', None)
+#         if not(name is None):
+#             logger.error('name: ' + name)
+#         else:
+#             logger.error('no name')
 
-        form = ProviderForm(instance=provider)
-    return render(request, 'demo/provider_edit.html', {'form': form})
+#         form = ProviderForm(instance=provider)
+#     return render(request, 'demo/provider_edit.html', {'form': form})
 
 
 def post_list(request):
