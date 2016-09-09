@@ -30,6 +30,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
+# Twilio
+TWILIO_ACCOUNT_SID = "AC652bccbad1784e6130f04ccadb530a04"
+TWILIO_AUTH_TOKEN = "cec870e047ecc5e604c4596fd56f89c6"
+
 
 # Application definition
 
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     # 'blog',
+    'django_twilio',
     'demo',
 ]
 

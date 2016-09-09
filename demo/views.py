@@ -8,6 +8,9 @@ from .forms import PostForm, CommentForm, ProviderForm, MessageForm
 # https://github.com/twilio/twilio-python
 # pip install twilio
 from twilio.rest import TwilioRestClient
+import twilio.twiml
+from django.http import HttpResponse
+from django_twilio.decorators import twilio_view
 
 # import the logging library
 import logging
@@ -62,7 +65,8 @@ def member_detail(request, pk):
 #     return render(request, 'demo/member1_detail.html', {})
 
 
-@login_required
+# @login_required
+@twilio_view
 def receive_sms(request):
     # logger.error('dict: ' + request.GET.dict())
     rdict = request.GET.dict()
@@ -95,7 +99,16 @@ def receive_sms(request):
     logger.error('user: ' + str(sms.user_id))
     sms.save()
 
-    return redirect('sms')
+    # return redirect('sms')
+    """Respond to incoming calls with a simple text message."""
+    resp = twilio.twiml.Response()
+    resp.message("Hello, Mobile Monkey")
+    # return str(resp)
+    # twiml = str(resp)
+    # thanks to twilio_view don't have to do this:
+    # return HttpResponse(resp, content_type='text/xml')
+    # Can do this:
+    return resp
 
 
 @login_required
