@@ -14,6 +14,9 @@ import twilio.twiml
 from django_twilio.decorators import twilio_view
 import phonenumbers
 
+# to get env vars
+import os
+
 # import the logging library
 import logging
 # import datetime
@@ -179,8 +182,8 @@ def sms(request):
             sms.sent = True
             sms.message_type = 'SMS'
 
-            account = "AC652bccbad1784e6130f04ccadb530a04"
-            token = "cec870e047ecc5e604c4596fd56f89c6"
+            account = os.environ.get('TWILIO_ACCOUNT_SID')
+            token = os.environ.get('TWILIO_AUTH_TOKEN')
             client = TwilioRestClient(account, token)
             message = client.messages.create(
                 # to="+19735688856", from_="+18627728556",
