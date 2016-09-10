@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment, Provider, Member, ProviderMember, Message
-from .forms import PostForm, CommentForm, ProviderForm, MessageForm
+# from .forms import ProviderForm
+from .forms import PostForm, CommentForm, MessageForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -65,6 +66,34 @@ def member_detail(request, pk):
 # @login_required
 # def member1_detail(request):
 #     return render(request, 'demo/member1_detail.html', {})
+
+
+@login_required
+def heartrate(request, pk):
+    member = get_object_or_404(Member, pk=pk)
+    # providers = member.provider_set.order_by('id')
+    # return render(request, 'demo/member_detail.html', {'member': member, 'providers': providers})
+    providermembers = ProviderMember.objects.filter(member=member).order_by('id')
+    return render(request, 'demo/heartrate.html', {
+        'member': member, 'providermembers': providermembers})
+
+
+def get_heartrate(request):
+    if request.method == "GET" or (
+            request.method == 'POST' and request.is_ajax()):
+        response_data = {}
+        response_data['message'] = 'Heartrate Data'
+        response_data['data'] = [50, 60, 70]
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    response_data = {}
+    response_data['message'] = 'No Data'
+    return HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
 
 
 # @login_required
@@ -281,7 +310,7 @@ def post_ajax_create(request):
         form = PostForm()
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/post_ajax.html', {
+    return render(request, 'demo/post_ajax.html', {
         'form': form, 'posts': posts})
 
 
@@ -294,7 +323,7 @@ def post_ajax(request):
         form = PostForm()
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/post_ajax.html', {
+    return render(request, 'demo/post_ajax.html', {
         'form': form, 'posts': posts})
 
 

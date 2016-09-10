@@ -1,6 +1,9 @@
 {% extends 'demo/base.html' %}
 {% load staticfiles %}
 
+{% block nav_demo %}class="active"{% endblock %}
+{% block nav_ajax %}class="active"{% endblock %}
+
 {% block main_content %}
     <form method="POST" class="post-form" id="post-form">{% csrf_token %}
         {{ form.as_p }}
@@ -38,10 +41,10 @@
 
 {% block js_doc_ready %}
     <!-- DOCUMENT READY FUNCTION -->
-    <!-- <script type="text/javascript"> -->
+    <!-- <script type="text/javascript">
         // $(document).ready(function() {
         //      pageSetUp();
         // })
-    <!-- </script> -->
+    </script> -->
     <!-- END DOCUMENT READY FUNCTION -->
 {% endblock %}

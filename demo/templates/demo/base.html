@@ -366,6 +366,12 @@
 							<li {% block nav_sms %}{% endblock %} >
 								<a href="{% url 'sms' %}" title="SMS"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">SMS</span></a>
 							</li>
+							<li {% block nav_ajax %}{% endblock %} >
+								<a href="{% url 'post_ajax' %}" title="SMS"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Ajax</span></a>
+							</li>
+							<li {% block nav_heartrate %}{% endblock %} >
+								<a href="{% url 'heartrate' pk=4 %}" title="SMS"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Heartrate</span></a>
+							</li>
 						</ul>
 					</li>
 					<li class="top-menu-invisible">

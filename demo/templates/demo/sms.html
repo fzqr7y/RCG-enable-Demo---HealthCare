@@ -1,5 +1,8 @@
 {% extends 'demo/base.html' %}
 
+{% block nav_demo %}class="active"{% endblock %}
+{% block nav_sms %}class="active"{% endblock %}
+
 {% block main_content %}
     <h1>SMS List</h1>
     <form method="POST" class="message-form">{% csrf_token %}
