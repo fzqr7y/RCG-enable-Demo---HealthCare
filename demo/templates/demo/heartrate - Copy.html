@@ -1003,32 +1003,29 @@
 				var data = [], totalPoints = 100;
 				var data2 = [];
 				function getRandomData() {
-					// if (data.length > 0)
-					// 	data = data.slice(1);
-					// // do a random walk
-					// while (data.length < totalPoints) {
-					// 	var prev = data.length > 0 ? data[data.length - 1] : 50;
-					// 	var y = prev + Math.random() * 10 - 5;
-					// 	if (y < 0)
-					// 		y = 0;
-					// 	if (y > 100)
-					// 		y = 100;
-					// 	data.push(y);
-			  //           // console.log(data);
-			  //           // console.log(data.length);
-			  //           // console.log(data[0]);
-					// }
-     //    			// console.log("data: "+data);
+					if (data.length > 0)
+						data = data.slice(1);
+					// do a random walk
+					while (data.length < totalPoints) {
+						var prev = data.length > 0 ? data[data.length - 1] : 50;
+						var y = prev + Math.random() * 10 - 5;
+						if (y < 0)
+							y = 0;
+						if (y > 100)
+							y = 100;
+						data.push(y);
+			            // console.log(data);
+			            // console.log(data.length);
+			            // console.log(data[0]);
+					}
+        console.log("data: "+data);
 
 					if (data2.length > 0)
 						data2 = data2.slice(1);
 					// do a random walk
 					while (data2.length < totalPoints) {
-						// var prevx = data2.length > 0 ? data2[data2.length - 1][0] : 5;
-						// var x = prevx + 1
-						min = (new Date(2016, 0, 1)).getTime()
-						var prevx = data2.length > 0 ? data2[data2.length - 1][0] : min;
-						var x = prevx + 1000*3600*24;
+						var prevx = data2.length > 0 ? data2[data2.length - 1][0] : 5;
+						var x = prevx + 1
 						var prevy = data2.length > 0 ? data2[data2.length - 1][1] : 50;
 						var y = prevy + Math.random() * 10 - 5;
 						if (y < 0)
@@ -1040,19 +1037,18 @@
 			            // console.log(data2.length);
 			            // console.log(data2[0]);
 					}
-			        console.log("data2: "+data2);
-			        console.log(data2[0]);
-			        console.log(data2[0][1]);
+        console.log("data2: "+data2);
+        console.log(data2[0]);
+        console.log(data2[0][1]);
 
-					// // zip the generated y values with the x values
-					// var res = [];
-					// for (var i = 0; i < data.length; ++i)
-					// 	res.push([i, data[i]])
-			  //       // console.log("res: "+res);
-			  //       // console.log(res[0]);
-			  //       // console.log(res[0][1]);
-					// // return res;
-
+					// zip the generated y values with the x values
+					var res = [];
+					for (var i = 0; i < data.length; ++i)
+						res.push([i, data[i]])
+        console.log("res: "+res);
+        console.log(res[0]);
+        console.log(res[0][1]);
+					// return res;
 					return data2;
 				}
 
@@ -1076,15 +1072,10 @@
 						min : 0,
 						max : 100
 					},
-					// xaxis : {
-					// 	min : 0,
-					// 	// max : 100
-					// 	max : 110
-					// },
-					xaxis: {
-						mode: "time",
-						min: (new Date(2016, 0, 1)).getTime(),
-						max: (new Date(2017, 0, 1)).getTime()
+					xaxis : {
+						min : 0,
+						// max : 100
+						max : 110
 					},
 					colors : [$chrt_fourth],
 					series : {
