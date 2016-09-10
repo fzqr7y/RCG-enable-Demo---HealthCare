@@ -17,6 +17,8 @@ urlpatterns = [
     # url(r'^user_profile_upload/$', views.user_profile_upload,
     #     name='user_profile_upload'),
 
+    url(r'^posts2/new/$', views.post_ajax_create, name='post_ajax'),
+    url(r'^posts2/$', views.post_ajax, name='post_ajax'),
     url(r'^posts$', views.post_list, name='post_list'),
     url(r'^drafts$', views.post_draft_list, name='post_draft_list'),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail,

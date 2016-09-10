@@ -10,7 +10,6 @@ from .forms import PostForm, CommentForm, ProviderForm, MessageForm
 # pip install twilio
 from twilio.rest import TwilioRestClient
 import twilio.twiml
-# from django.http import HttpResponse
 from django_twilio.decorators import twilio_view
 import phonenumbers
 
@@ -21,6 +20,7 @@ import logging
 
 # serialize the request dict
 import json
+from django.http import HttpResponse
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
@@ -236,6 +236,66 @@ def post_detail(request, pk):
     # Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+
+def create_post(request):
+    rdict = request.POST
+    logger.error('Message received: ' + json.dumps(rdict.dict()))
+    form = PostForm(request.POST)
+    if form.is_valid():
+        # logger.error('Form is valid')
+        post = form.save(commit=False)
+        if request.user.__class__.__name__ == 'User':
+            user = request.user
+        else:
+            user = User.objects.order_by('id').first()
+        # logger.error('User: ' + user.username)
+        post.author = user
+        # logger.error('Post Before: ' + str(post.id))
+        post.save()
+        # logger.error('Post after: ' + str(post.id))
+        post.publish()
+        logger.error('Post publish: ' + str(post.id))
+        # return redirect('post_ajax')
+    else:
+        logger.error('Form NOT valid')
+    return form, post
+
+
+def post_ajax_create(request):
+    if request.method == "POST":
+        form, post = create_post(request)
+        if form.is_valid():
+            # return redirect('post_ajax')
+            response_data = {}
+            response_data['result'] = 'Create post successful!'
+            response_data['postpk'] = post.pk
+            response_data['text'] = post.text
+            response_data['created'] = post.published_date.strftime('%B %d, %Y %I:%M %p')
+            response_data['author'] = post.author.username
+            return HttpResponse(
+                json.dumps(response_data),
+                content_type="application/json"
+            )
+    else:
+        form = PostForm()
+    posts = Post.objects.filter(
+        published_date__lte=timezone.now()).order_by('-published_date')
+    return render(request, 'blog/post_ajax.html', {
+        'form': form, 'posts': posts})
+
+
+def post_ajax(request):
+    if request.method == "POST":
+        form, post = create_post(request)
+        if form.is_valid():
+            return redirect('post_ajax')
+    else:
+        form = PostForm()
+    posts = Post.objects.filter(
+        published_date__lte=timezone.now()).order_by('-published_date')
+    return render(request, 'blog/post_ajax.html', {
+        'form': form, 'posts': posts})
 
 
 @login_required

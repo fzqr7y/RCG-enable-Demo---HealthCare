@@ -5,10 +5,15 @@ from .models import Post, Comment, Provider, Message
 
 
 class PostForm(forms.ModelForm):
-
     class Meta:
         model = Post
-        fields = ('title', 'text',)
+        # exclude = ['author', 'updated', 'created', ]
+        fields = ['title', 'text']
+        widgets = {
+            'text': forms.TextInput(
+                attrs={'id': 'post-text', 'required': True, 'placeholder': 'Say something...'}
+            ),
+        }
 
 
 class CommentForm(forms.ModelForm):
