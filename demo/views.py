@@ -81,24 +81,6 @@ def heartrate(request, pk):
         'member': member, 'providermembers': providermembers})
 
 
-def get_heartrate(request):
-    if request.method == "GET" or (
-            request.method == 'POST' and request.is_ajax()):
-        response_data = {}
-        response_data['message'] = 'Heartrate Data'
-        response_data['data'] = [50, 60, 70]
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
-    response_data = {}
-    response_data['message'] = 'No Data'
-    return HttpResponse(
-        json.dumps(response_data),
-        content_type="application/json"
-    )
-
-
 # @login_required
 @twilio_view
 def receive_sms(request):

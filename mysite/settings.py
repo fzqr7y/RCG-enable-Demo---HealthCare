@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 'blog',
     'django_twilio',
     'demo',
+    'fitbit',
 ]
 
 MIDDLEWARE_CLASSES = [
