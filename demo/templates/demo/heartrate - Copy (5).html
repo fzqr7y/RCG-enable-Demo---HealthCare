@@ -1051,7 +1051,7 @@
 						},
 						xaxis: {
 							min: plotMin, max: plotMax,
-							mode: "time", timezone: "browser"
+							mode: "time",
 						},
 						colors : [$chrt_fourth],
 						series : {
@@ -1066,7 +1066,7 @@
 							}
 						}
 					};
-		        console.log("Plot Options: plotMin: " + (new Date(options['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(options['xaxis']['max'])).toLocaleTimeString());
+		        console.log("Plot: plotMin: " + (new Date(options['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(options['xaxis']['max'])).toLocaleTimeString());
 					return options;
 				};
 
@@ -1169,16 +1169,9 @@ alert("getData");
 						// dataMax = queryMax - dataOffset;
 					// }
 					queryData = getRandomData();
+				// plotOptions = getOptions();
 		        console.log("query1: queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString());
 		        console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-
-					// plotOptions = getOptions();
-					// if (typeof plot != 'undefined')
-					// 	plot.destroy();
-				plotOptions = getOptions();
-		        console.log("Plot Options 2: plotMin: " + (new Date(plotOptions['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(plotOptions['xaxis']['max'])).toLocaleTimeString());
-					plot = $.plot($("#updating-chart"), [plotData], plotOptions);
-console.log(typeof plot)
 					return queryData;
 				}
 
@@ -1191,15 +1184,13 @@ console.log(typeof plot)
 						plotData.push(queryData[0])
 						queryData = queryData.slice(1);
 					}
-					while (plotData.length > 0 && plotData[0][0] < plotMin - updateInterval) {
+					while (plotData.length > 0 && plotData[0][0] < plotMin) {
 						plotData = plotData.slice(1);
 					}
 		            if (queryData.length == 0) {
 		            	// alert("query");
 		            	console.log("query");
-				queryData = getQueryData();
-						plot.setData([plotData]);
-						// $on = false;
+						$on = false;
 		            } else {
 			            // console.log("queryData[0][0]: " + queryData[0][0]);
 		            }
@@ -1212,7 +1203,7 @@ console.log(typeof plot)
 
 		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
 				queryData = getQueryData();
-				// plotOptions = getOptions();
+				plotOptions = getOptions();
 				// plotData = getPlotData();
 		        // console.log("query1: queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString());
 		        // console.log("queryData: queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
@@ -1220,9 +1211,7 @@ console.log(typeof plot)
 		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
 		        // console.log("queryData.length: " + queryData.length + " queryData[0]: " + queryData[0] + " queryData[queryData.length-1]: " + queryData[queryData.length-1] );
 
-				// plot = $.plot($("#updating-chart"), [getPlotData()], plotOptions);
-				plot.setData([getPlotData()]);
-				plot.draw();
+				plot = $.plot($("#updating-chart"), [getPlotData()], plotOptions);
 		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
 		        // console.log("queryData.length: " + queryData.length + " queryData[0]: " + queryData[0] + " queryData[queryData.length-1]: " + queryData[queryData.length-1] );
 		        // console.log("plotData.length: " + plotData.length + " plotData[0]: " + plotData[0] + " plotData[plotData.length-1]: " + plotData[plotData.length-1] );
@@ -1243,10 +1232,10 @@ console.log(typeof plot)
 					 //    console.log("ok");  // sanity check
 
 						queryData = getQueryData();
-						// plotOptions = getOptions();
-						// plot.destroy();
+						plotOptions = getOptions();
+						plot.destroy();
 		        // console.log("Plot: plotMin: " + (new Date(plotOptions['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(plotOptions['xaxis']['max'])).toLocaleTimeString());
-						// plot = $.plot($("#updating-chart"), [getPlotData()], getOptions());
+						plot = $.plot($("#updating-chart"), [getPlotData()], getOptions());
 						update();
 					} else {
 						clearInterval(updateInterval);
@@ -1258,7 +1247,6 @@ console.log(typeof plot)
 					if ($on == true) {
 						totalPoints++;
 						dataMax += updateInterval;
-console.log(typeof plot)
 						plot.setData([getPlotData()]);
 						plot.draw();
 						setTimeout(update, updateInterval);

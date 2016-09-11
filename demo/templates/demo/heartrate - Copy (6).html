@@ -1047,11 +1047,20 @@
 				function getOptions() {
 					var options = {
 						yaxis : {
-							min : 0, max : 100
+							min : 0,
+							max : 100
 						},
+						// xaxis : {
+						// 	min : 0,
+						// 	// max : 100
+						// 	max : 110
+						// },
 						xaxis: {
-							min: plotMin, max: plotMax,
-							mode: "time", timezone: "browser"
+							mode: "time",
+							// min: (new Date(2016, 0, 1)).getTime(),
+							// max: (new Date(2017, 0, 1)).getTime()
+							min: plotMin,
+							max: plotMax
 						},
 						colors : [$chrt_fourth],
 						series : {
@@ -1060,9 +1069,13 @@
 								fill : true,
 								fillColor : {
 									colors : [{
-										opacity : 0.4 }, { opacity : 0 }]
+										opacity : 0.4
+									}, {
+										opacity : 0
+									}]
 								},
 								steps : false
+
 							}
 						}
 					};

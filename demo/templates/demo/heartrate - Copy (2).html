@@ -998,27 +998,21 @@
 			/* updating chart */
 			if ($('#updating-chart').length) {
 
-				var plotMax = (new Date($.now())).getTime();
-				var plotDuration = 30 * 1000;
-				var plotMin = plotMax - plotDuration;
-				// var updateIntervalDefault = 1000;
-				var updateInterval = 1000;
-				var plotOptions;
-				var plot;
 
-				var queryOffset = 10 * 1000;
-				var queryMax = plotMax - queryOffset;
-				var dataOffset = 5 * 1000;
-				var dataMax = queryMax - dataOffset;
-				// var queryMin = plotMin;
-
+				var updateIntervalDefault = 1000;
+				var updateInterval = updateIntervalDefault;
+				var queryOffset = 1 * 60 * 1000;
+				var dataOffset = 15 * 1000;
 				var dataDuration = 2 * 60 * 1000;
 				var dataMin = (new Date($.now() - queryOffset - dataOffset - dataDuration)).getTime();
+				var dataMax = (new Date($.now() - queryOffset - dataOffset)).getTime();
 				var queryMin = dataMin;
+				var queryMax = (new Date($.now() - queryOffset)).getTime();
+				var plotMin = queryMin;
+				var plotMax = (new Date($.now())).getTime();
 				// var totalPoints = 100;
 		        // console.log("min: " + plotMin + " max: " + plotMax + " diff: " + (plotMax - plotMin));
-		        console.log("plotMin: " + plotMin + " dataMin: " + dataMin);
-				var totalPoints = Math.round((dataMax - dataMin)/updateInterval)
+				var totalPoints = Math.round((dataMax - dataMin)/updateIntervalDefault)
 
 				// For the demo we use generated data, but normally it would be coming from the server
 				// var data = [], totalPoints = 200;
@@ -1026,52 +1020,7 @@
 				var data = [];
 				var data2 = [];
 				var alerted = 0;
-				var plotData = []
-				var queryData = []
-
-				// setup control widget
-				// var updateInterval = updateIntervalDefault;
-				// $("#updating-chart").val(updateInterval).change(function() {
-				// 	var v = $(this).val();
-				// 	if (v && !isNaN(+v)) {
-				// 		updateInterval = +v;
-				// 		if (updateInterval < 1)
-				// 			updateInterval = 1;
-				// 		if (updateInterval > 2000)
-				// 			updateInterval = 2000;
-				// 		$(this).val("" + updateInterval);
-				// 	}
-				// });
-
-				// setup plot
-				function getOptions() {
-					var options = {
-						yaxis : {
-							min : 0, max : 100
-						},
-						xaxis: {
-							min: plotMin, max: plotMax,
-							mode: "time", timezone: "browser"
-						},
-						colors : [$chrt_fourth],
-						series : {
-							lines : {
-								lineWidth : 1,
-								fill : true,
-								fillColor : {
-									colors : [{
-										opacity : 0.4 }, { opacity : 0 }]
-								},
-								steps : false
-							}
-						}
-					};
-		        console.log("Plot Options: plotMin: " + (new Date(options['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(options['xaxis']['max'])).toLocaleTimeString());
-					return options;
-				};
-
-				function getData() {
-alert("getData");
+				function getRandomData() {
 					// if (data.length > 0)
 					// 	data = data.slice(1);
 					// // do a random walk
@@ -1098,9 +1047,8 @@ alert("getData");
 						// min = (new Date(2016, 0, 1)).getTime()
 						// var prevx = data2.length > 0 ? data2[data2.length - 1][0] : min;
 						// var x = prevx + 1000*3600*24;
-						// var prevx = data2.length > 0 ? data2[data2.length - 1][0] : queryMin;
 						var prevx = data2.length > 0 ? data2[data2.length - 1][0] : queryMin;
-						var x = prevx + updateInterval;
+						x = prevx + updateInterval;
 						if (x > queryMax && alerted == 0) {
 							alert("timeout");
 							alerted = 1;
@@ -1116,7 +1064,7 @@ alert("getData");
 			            // console.log(data2.length);
 			            // console.log(data2[0]);
 					}
-			        console.log("data2: "+data2);
+			        // console.log("data2: "+data2);
 			        // console.log(data2[0]);
 			        // console.log(data2[0][1]);
 
@@ -1132,121 +1080,77 @@ alert("getData");
 					return data2;
 				}
 
-				function getRandomData() {
-					var x = 0
-					var data = []
-					while (x < queryMax) {
-						var prevx = data.length > 0 ? data[data.length - 1][0] : queryMin;
-						x = prevx + updateInterval;
-						// if (x > queryMax && alerted == 0) {
-						// 	alert("random timeout");
-						// 	alerted = 1;
-						// }
-						var prevy = data.length > 0 ? data[data.length - 1][1] : 50;
-						var y = prevy + Math.random() * 10 - 5;
-						if (y < 0)
-							y = 0;
-						if (y > 100)
-							y = 100;
-						data.push([x, y]);
-			            // console.log(data);
+				// setup control widget
+				// var updateInterval = updateIntervalDefault;
+				// $("#updating-chart").val(updateInterval).change(function() {
+				// 	var v = $(this).val();
+				// 	if (v && !isNaN(+v)) {
+				// 		updateInterval = +v;
+				// 		if (updateInterval < 1)
+				// 			updateInterval = 1;
+				// 		if (updateInterval > 2000)
+				// 			updateInterval = 2000;
+				// 		$(this).val("" + updateInterval);
+				// 	}
+				// });
+
+				// setup plot
+				var options = {
+					yaxis : {
+						min : 0,
+						max : 100
+					},
+					// xaxis : {
+					// 	min : 0,
+					// 	// max : 100
+					// 	max : 110
+					// },
+					xaxis: {
+						mode: "time",
+						// min: (new Date(2016, 0, 1)).getTime(),
+						// max: (new Date(2017, 0, 1)).getTime()
+						min: plotMin,
+						max: plotMax
+					},
+					colors : [$chrt_fourth],
+					series : {
+						lines : {
+							lineWidth : 1,
+							fill : true,
+							fillColor : {
+								colors : [{
+									opacity : 0.4
+								}, {
+									opacity : 0
+								}]
+							},
+							steps : false
+
+						}
 					}
-			        // console.log("RandomData: "+data[[0]]);
-			        // console.log("RandomData: "+data.length);
-			        // console.log("3plotMin: "+plotMin+" plotMax: "+plotMax);
-					return data;
-				}
-
-				function getQueryData() {
-					// if ($on == true) {
-						// update the query max time
-						plotMax = (new Date($.now())).getTime();
-						plotMin = plotMax - plotDuration;
-						queryMax = plotMax - queryOffset;
-						if (plotData.length > 0)
-							queryMin =  plotData[plotData.length - 1][0];
-						dataMax = queryMax - dataOffset;
-						// dataMax = queryMax - dataOffset;
-					// }
-					queryData = getRandomData();
-		        console.log("query1: queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString());
-		        console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-
-					// plotOptions = getOptions();
-					// if (typeof plot != 'undefined')
-					// 	plot.destroy();
-				plotOptions = getOptions();
-		        console.log("Plot Options 2: plotMin: " + (new Date(plotOptions['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(plotOptions['xaxis']['max'])).toLocaleTimeString());
-					plot = $.plot($("#updating-chart"), [plotData], plotOptions);
-console.log(typeof plot)
-					return queryData;
-				}
-
-				function getPlotData() {
-					// inital population of data or no updating
-					// if ($on == false || dataOffset == 0)
-					// 	plotData = getQueryData();
-					// 	return plotData;
-					while (queryData.length > 0 && queryData[0][0] < dataMax) {
-						plotData.push(queryData[0])
-						queryData = queryData.slice(1);
-					}
-					while (plotData.length > 0 && plotData[0][0] < plotMin - updateInterval) {
-						plotData = plotData.slice(1);
-					}
-		            if (queryData.length == 0) {
-		            	// alert("query");
-		            	console.log("query");
-				queryData = getQueryData();
-						plot.setData([plotData]);
-						// $on = false;
-		            } else {
-			            // console.log("queryData[0][0]: " + queryData[0][0]);
-		            }
-		            // console.log(" dataMax " + dataMax + " queryData " + queryData.length);
-		        console.log("data1: dataMin: " + (new Date(dataMin)).toLocaleTimeString() + " dataMax: " + (new Date(dataMax)).toLocaleTimeString());
-		        console.log("data: length: " + plotData.length + " Min: " + (new Date(plotData[0][0])).toLocaleTimeString() + " max: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
-		        console.log("-----")
-		            return plotData;
-				}
-
-		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
-				queryData = getQueryData();
-				// plotOptions = getOptions();
-				// plotData = getPlotData();
-		        // console.log("query1: queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString());
-		        // console.log("queryData: queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-		        // console.log("Plot1: plotMin: " + (new Date(plotOptions['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(plotOptions['xaxis']['max'])).toLocaleTimeString());
-		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
-		        // console.log("queryData.length: " + queryData.length + " queryData[0]: " + queryData[0] + " queryData[queryData.length-1]: " + queryData[queryData.length-1] );
-
-				// plot = $.plot($("#updating-chart"), [getPlotData()], plotOptions);
-				plot.setData([getPlotData()]);
-				plot.draw();
-		        // console.log("plotMin: " + plotMin + " plotMax: " + plotMax + " dataMin: " + dataMin + " dataMax: " + dataMax);
-		        // console.log("queryData.length: " + queryData.length + " queryData[0]: " + queryData[0] + " queryData[queryData.length-1]: " + queryData[queryData.length-1] );
-		        // console.log("plotData.length: " + plotData.length + " plotData[0]: " + plotData[0] + " plotData[plotData.length-1]: " + plotData[plotData.length-1] );
+				};
+				// var plot = $.plot($("#updating-chart"), [getRandomData()], options);
+				pdata = getRandomData();
+	            // console.log(pdata);
+				var plot = $.plot($("#updating-chart"), [pdata], options);
 
 				/* live switch */
 				$('input[type="checkbox"]#start_interval').click(function() {
 					if ($(this).prop('checked')) {
 						$on = true;
-// alert("yes");
+						updateInterval = updateIntervalDefault;
+alert("yes");
 					    console.log("starting");  // sanity check
-						// $.getJSON("/heartrate/get/",
-						// function(json){
-						//     // alert(json);
-						//     console.log(json);  // sanity check
-						//     // <!--$.each(json.items, function(i,item){
-						//     // });-->
-						// });
-					 //    console.log("ok");  // sanity check
+						$.getJSON("/heartrate/get/",
+						function(json){
+						    // alert(json);
+						    console.log(json);  // sanity check
+						    // <!--$.each(json.items, function(i,item){
+						    // });-->
+						});
+					    console.log("ok");  // sanity check
 
-						queryData = getQueryData();
-						// plotOptions = getOptions();
-						// plot.destroy();
-		        // console.log("Plot: plotMin: " + (new Date(plotOptions['xaxis']['min'])).toLocaleTimeString() + " plotMax: " + (new Date(plotOptions['xaxis']['max'])).toLocaleTimeString());
-						// plot = $.plot($("#updating-chart"), [getPlotData()], getOptions());
+
 						update();
 					} else {
 						clearInterval(updateInterval);
@@ -1257,9 +1161,7 @@ console.log(typeof plot)
 				function update() {
 					if ($on == true) {
 						totalPoints++;
-						dataMax += updateInterval;
-console.log(typeof plot)
-						plot.setData([getPlotData()]);
+						plot.setData([getRandomData()]);
 						plot.draw();
 						setTimeout(update, updateInterval);
 					} else {
