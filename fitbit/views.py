@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 
 from demo.models import Member
-from .models import ApiData
+from .models import IntradayData
 
 import logging
 import json
@@ -46,11 +46,19 @@ def get_heartrate(request):
         rdict = request.GET
     else:
         return respond_with
-    if not('member_id' in rdict):
+
+    response_data['dict'] = rdict
+    respond_with = HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
+    if not('member_id' in rdict and 'from' in rdict and 'to' in rdict):
         return respond_with
 
     member = Member.objects.get(id=rdict['member_id'])
-    api_data = ApiData.objects.filter(member=member).values('record_date', 'value')
+    api_data = IntradayData.objects.filter(
+        record_date__range=["2016-09-11 00:00:00", "2016-09-12 00:00:00"], member=member).values('record_date', 'value')
+        # member=member).values('record_date', 'value'
     serial_data = list(api_data)
 
     # user = request.user if (
