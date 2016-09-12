@@ -266,3 +266,44 @@ class MemberMedical(models.Model):
         alertlo = (self.weight().value_1_alert_lo is None) or (
             self.weight().value_1 < self.weight().value_1_alert_lo)
         return alerthi and alertlo
+
+
+class RxClaim(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+    drug_ndc = models.CharField(max_length=12)
+    drug_name = models.CharField(max_length=20)
+    drug_details = models.CharField(max_length=40)
+    drug_type = models.CharField(max_length=20)
+    therapeutic_class = models.CharField(max_length=20)
+    pharmacy_name = models.CharField(max_length=20)
+    pharmacy_key = models.CharField(max_length=20)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=2)
+    zip = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=40)
+    prescription_ref = models.CharField(max_length=20)
+    prescribed_date = models.DateTimeField()
+    filled_date = models.DateTimeField()
+    refills_remaining = models.DecimalField(max_digits=2, decimal_places=0)
+    script_quantity = models.DecimalField(max_digits=8, decimal_places=2)
+    script_units = models.CharField(max_length=10)
+    days_supply = models.DecimalField(max_digits=4, decimal_places=0)
+    dose = models.DecimalField(max_digits=10, decimal_places=4)
+    dose_units = models.CharField(max_length=10)
+    take_quantity = models.DecimalField(max_digits=8, decimal_places=2)
+    take_units = models.CharField(max_length=10)
+    take_frequency = models.DecimalField(max_digits=2, decimal_places=0)
+    frequency_units = models.CharField(max_length=10)
+    billed = models.DecimalField(max_digits=8, decimal_places=2)
+    allowed = models.DecimalField(max_digits=8, decimal_places=2)
+    plan_paid = models.DecimalField(max_digits=8, decimal_places=2)
+    member_paid = models.DecimalField(max_digits=8, decimal_places=2)
+    plan_deductible = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return str(self.member_id) + "_" + self.drug_name + "_" + str(
+            self.filled_date.strftime('%y%m%d'))
