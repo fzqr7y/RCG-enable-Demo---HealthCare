@@ -72,6 +72,12 @@ def member_detail(request, pk):
 
 
 @login_required
+def members2(request):
+    members = Member.objects.all
+    return render(request, 'demo/members2.html', {'members': members})
+
+
+@login_required
 def heartrate(request, pk):
     member = get_object_or_404(Member, pk=pk)
     # providers = member.provider_set.order_by('id')
