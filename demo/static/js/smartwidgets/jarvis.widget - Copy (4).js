@@ -28,14 +28,14 @@
 
 (function ($, window, document, undefined) {
 
-    //"use strict"; 
+    //"use strict";
 
     var pluginName = 'jarvisWidgets';
 
 	/**
 	 * Check for touch support and set right click events.
 	 **/
-	var clickEvent = (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch ? 
+	var clickEvent = (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch ?
 		'touchstart' : 'click') + '.' + pluginName;
 
     function Plugin(element, options) {
@@ -86,7 +86,7 @@
             var self = this;
 
             var da = new Date(t);
-            
+
 
             /**
              * Get and set the date and time.
@@ -189,7 +189,7 @@
         },
 
 		_loadKeys : function () {
-			
+
 			var self = this;
 
 			//*****************************************************************//
@@ -209,7 +209,7 @@
 			}
 
 		},
- 
+
         /**
          * Save all settings to the localStorage.
          *
@@ -253,7 +253,7 @@
             /**
              * Run the callback function.
              **/
-            
+
             if (typeof self.o.onSave == 'function') {
                 self.o.onSave.call(this, null, storeSettingsObj, storage.keySettings);
             }
@@ -311,7 +311,7 @@
         init: function () {
 
             var self = this;
-			
+
 			if (self.initialized) return;
 
             self._initStorage(self.storage);
@@ -444,8 +444,8 @@
                 var tWidget = $(this),
                 	thisHeader = $(this).children('header'),
                 	customBtn,
-                	deleteBtn,  
-                	editBtn,  
+                	deleteBtn,
+                	editBtn,
                 	fullscreenBtn,
                 	widgetcolorBtn,
                 	toggleBtn,
@@ -693,7 +693,7 @@
                              * intervalArr.push(setInterval(intervalOne, 2000)  );
                              **/
                             $.intervalArr.push( setInterval(function () {self._loadAjaxFile(thisItem, pathToFile, thisItemHeader)}, reloadTime) );
-                            
+
                         } else {
 
                             /**
@@ -838,7 +838,7 @@
 
 				storage.getKeySettings = localStorage.getItem(storage.keySettings);
 				storage.getKeyPosition = localStorage.getItem(storage.keyPosition);
-				
+
             } // end if
 
         },
@@ -916,7 +916,6 @@
             function heightFullscreen() {
                 if ($('#jarviswidget-fullscreen-mode')
                     .length) {
-
                     /**
                      * Setting height variables.
                      **/
@@ -934,9 +933,22 @@
                         .children(self.o.widgets)
                         .children('div')
                         .height(heightWindow - heightHeader - 15);
+
+                    /**
+                     * SC: Capture the original table height.
+                     * Be sure to put an id on the div containing the table.
+                     **/
+                    if (tblid) {
+                        height = $('#'+tblid).height();
+                        // alert("id: " + tblid + " height: " + height);
+                        $('#'+tblid)
+                            .height(heightWindow - heightHeader - 15);
+                        tblid = false;
+                    }
                 }
             }
-
+var height;
+var tblid;
             /**
              * On click go to fullscreen mode.
              **/
@@ -956,7 +968,7 @@
                  **/
                 if ($('#jarviswidget-fullscreen-mode')
                     .length) {
-
+                    // SC: Closing the fullsize. alert("Close");
                     /**
                      * Remove class from the body.
                      **/
@@ -979,6 +991,8 @@
                         .children('a')
                         .show();
 
+                    // thisWidget.wrap('<div style="height:150px;"/>')
+
                     /**
                      * Reset collapsed widgets.
                      **/
@@ -987,8 +1001,18 @@
                             .removeClass('jarviswidget-visible');
                     }
 
-                } else {
+                    /**
+                     * SC: Reset the height.
+                     **/
+                    var t2 = thisWidget
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll.table-responsive');
+                    // alert("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id'));
+                    t2.height(height);
 
+                } else {
+                    // SC: Opening the fullsize. alert("Open.");
                     /**
                      * Prevent the body from scrolling.
                      **/
@@ -997,7 +1021,6 @@
 
                     /**
 					 * Wrap, append it to the body, show the right button
-
 					 * and hide all other buttons.
 					 **/
                     thisWidget.wrap('<div id="jarviswidget-fullscreen-mode"/>')
@@ -1009,6 +1032,18 @@
                         .parents(self.pwCtrls)
                         .children('a:not(.jarviswidget-fullscreen-btn)')
                         .hide();
+
+                    /**
+                     * SC: Capture the id of the table being expanded.
+                     * Be sure to put an id on the div containing the table.
+                     **/
+                    tblid = $('#jarviswidget-fullscreen-mode')
+                        .children(self.o.widgets)
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll')
+                        .attr('id');
+                    // alert("id: " + tblid);
 
                     /**
                      * Show collapsed widgets.
@@ -1228,9 +1263,9 @@
                 /**
                  * Delete the widgets with a confirm popup.
                  **/
-                
+
                 if ($.SmartMessageBox) {
-   
+
                    $.SmartMessageBox({
 	                    title: "<i class='fa fa-times' style='color:#ed1c24'></i> " + self.o.labelDelete +
 	                        ' "' + widTitle + '"',
@@ -1243,16 +1278,16 @@
 	                         * Run function for the indicator image.
 	                         **/
 	                        self._runLoaderWidget($(this));
-	
+
 	                        /**
 	                         * Delete the right widget.
 	                         **/
 	                        $('#' + removeId)
 	                            .fadeOut(self.o.deleteSpeed, function () {
-	
+
 	                                $(this)
 	                                    .remove();
-	
+
 	                                /**
 	                                 * Run the callback function.
 	                                 **/
@@ -1261,11 +1296,11 @@
 	                                }
 	                            });
 	                    }
-	
+
 	                });
-	                	
+
                 } else {
-                	
+
                 	/**
                      * Delete the right widget.
                      **/
@@ -1282,7 +1317,7 @@
                             self.o.onDelete.call(this, tWidget);
                         }
                     });
-                	
+
                 }
 
                 e.preventDefault();
@@ -1320,7 +1355,7 @@
 
                 e.preventDefault();
             });
-			
+
 			headers = null;
         },
 
@@ -1330,10 +1365,10 @@
          * @param:
          **/
         destroy: function () {
-            var self = this, 
-            namespace = '.' + pluginName, 
+            var self = this,
+            namespace = '.' + pluginName,
             sortItem = self.obj.find(self.o.grid + '.sortable-grid').not('[data-widget-excludegrid]');
-            
+
             sortItem.sortable('destroy');
             self.widget.children('header').off(namespace);
 			$(self.o.deleteSettingsKey).off(namespace);

@@ -916,6 +916,7 @@
             function heightFullscreen() {
                 if ($('#jarviswidget-fullscreen-mode')
                     .length) {
+
                     /**
                      * Setting height variables.
                      **/
@@ -934,21 +935,41 @@
                         .children('div')
                         .height(heightWindow - heightHeader - 15);
 
-                    /**
-                     * SC: Capture the original table height.
-                     * Be sure to put an id on the div containing the table.
-                     **/
-                    if (tblid) {
-                        height = $('#'+tblid).height();
-                        // alert("id: " + tblid + " height: " + height);
+alert(           $('#jarviswidget-fullscreen-mode')
+                        .children(self.o.widgets)
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll.table-responsive')
+                        .attr('id'));
+
+tblid =           $('#jarviswidget-fullscreen-mode')
+                        .children(self.o.widgets)
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll.table-responsive')
+                        .attr('id');
+
+height =           $('#'+tblid)
+                        .height();
+
+alert("id: " + tblid + " height: " + height);
+                    $('#jarviswidget-fullscreen-mode')
+                        .children(self.o.widgets)
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll.table-responsive')
+                        .height(heightWindow - heightHeader - 15);
+                } else {
+// alert("else");
+                if ($('#'+tblid)
+                    .length) {
                         $('#'+tblid)
-                            .height(heightWindow - heightHeader - 15);
-                        tblid = false;
+                            .height(height);
                     }
-                }
+               }
             }
 var height;
-var tblid;
+
             /**
              * On click go to fullscreen mode.
              **/
@@ -968,7 +989,7 @@ var tblid;
                  **/
                 if ($('#jarviswidget-fullscreen-mode')
                     .length) {
-                    // SC: Closing the fullsize. alert("Close");
+alert("Close");
                     /**
                      * Remove class from the body.
                      **/
@@ -1001,18 +1022,14 @@ var tblid;
                             .removeClass('jarviswidget-visible');
                     }
 
-                    /**
-                     * SC: Reset the height.
-                     **/
-                    var t2 = thisWidget
-                        .children('div')
-                        .children('div.widget-body.no-padding')
-                        .children('div.custom-scroll.table-responsive');
-                    // alert("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id'));
-                    t2.height(height);
-
                 } else {
-                    // SC: Opening the fullsize. alert("Open.");
+// alert("2");
+// alert(thisWidget.parent().id);
+// http://myorange.ca/supportforum/question/how-to-add-a-callback-function-to-jarviswidgets
+//alert( $("#jarviswidget-fullscreen-mode >:first-child").attr('id') );
+alert( 'Open: ' + thisWidget.attr('id') );
+//alert( thisWidget.find(':first-child').attr('id') );
+// alert( thisWidget.parent().attr('id') );
                     /**
                      * Prevent the body from scrolling.
                      **/
@@ -1021,6 +1038,7 @@ var tblid;
 
                     /**
 					 * Wrap, append it to the body, show the right button
+
 					 * and hide all other buttons.
 					 **/
                     thisWidget.wrap('<div id="jarviswidget-fullscreen-mode"/>')
@@ -1032,18 +1050,6 @@ var tblid;
                         .parents(self.pwCtrls)
                         .children('a:not(.jarviswidget-fullscreen-btn)')
                         .hide();
-
-                    /**
-                     * SC: Capture the id of the table being expanded.
-                     * Be sure to put an id on the div containing the table.
-                     **/
-                    tblid = $('#jarviswidget-fullscreen-mode')
-                        .children(self.o.widgets)
-                        .children('div')
-                        .children('div.widget-body.no-padding')
-                        .children('div.custom-scroll')
-                        .attr('id');
-                    // alert("id: " + tblid);
 
                     /**
                      * Show collapsed widgets.
