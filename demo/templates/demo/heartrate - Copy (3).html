@@ -1188,16 +1188,9 @@ console.log("queryData: queryData.length: " + queryData.length + " queryDataMin:
 		            return plotData;
 				}
 
-				var $initialRun = true;
-				var $on = false;
 				resetChart();
 				plot.setData([getPlotData()]);
 				plot.draw();
-				if ($initialRun) {
-					$on = true
-					resetChart();
-					update();
-				}
 
 				/* live switch */
 				$('input[type="checkbox"]#start_interval').click(function() {
@@ -1213,22 +1206,15 @@ console.log("queryData: queryData.length: " + queryData.length + " queryDataMin:
 
 				function update() {
 					if ($on == true) {
-						// if (initialRun)
-						// 	$on = false
 						dataMax += updateInterval;
 						plot.setData([getPlotData()]);
-console.log("update: " + plotData.length + " " + (plotData.length > 0 && $initialRun == true))
-console.log($on + ": " + (plotData.length > 0) + " " + ($initialRun == true))
-						if (plotData.length > 0 && $initialRun) {
-							$on = false;
-							$initialRun = false;
-						}
 						plot.draw();
 						setTimeout(update, updateInterval);
 					} else {
 						clearInterval(updateInterval)
 					}
 				}
+				var $on = false;
 			}
 			/*end updating chart*/
 			/* end flot charts */

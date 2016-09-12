@@ -1130,16 +1130,32 @@
 						        // console.log("index: " + index + " time: " + (new Date(value.record_date)).getTime() + " value: " + value.value);
 						        t = (new Date(value.record_date)).getTime();
 						        val = value.value
-								jdata.push([t, val]);
+								// jdata.push([t, val]);
+								queryData.push([t, val]);
 						    });
-				    		queryData = jdata
+				    		// queryData = jdata
 // console.log("query data: " + queryData);  // sanity check
 console.log("query1: queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString());
 console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-						});
+					});
+					// checkData();
+					// if (queryData.length == 0)
+					// 	setTimeout(checkData, updateInterval);
+					// if (queryData.length == 0)
+					// 	setTimeout(checkData, updateInterval);
+					// if (queryData.length == 0)
+					// 	setTimeout(checkData, updateInterval);
+					// if (queryData.length == 0)
+					// 	setTimeout(checkData, updateInterval);
 					// call is asynchronous so data is not populated by this point
 				    return;
 				};
+
+				var ct = 0;
+				function checkData() {
+					ct++;
+					console.log("qData " + ct + ": " + queryData.length);
+				}
 
 				function resetChart() {
 					// update the query max time
@@ -1188,16 +1204,12 @@ console.log("queryData: queryData.length: " + queryData.length + " queryDataMin:
 		            return plotData;
 				}
 
-				var $initialRun = true;
-				var $on = false;
 				resetChart();
-				plot.setData([getPlotData()]);
+				plotData = getPlotData;
+				// if (plotData.length == 0)
+				// 	setTimeout(getPlotData, updateInterval);
+				plot.setData([plotData]);
 				plot.draw();
-				if ($initialRun) {
-					$on = true
-					resetChart();
-					update();
-				}
 
 				/* live switch */
 				$('input[type="checkbox"]#start_interval').click(function() {
@@ -1213,22 +1225,15 @@ console.log("queryData: queryData.length: " + queryData.length + " queryDataMin:
 
 				function update() {
 					if ($on == true) {
-						// if (initialRun)
-						// 	$on = false
 						dataMax += updateInterval;
 						plot.setData([getPlotData()]);
-console.log("update: " + plotData.length + " " + (plotData.length > 0 && $initialRun == true))
-console.log($on + ": " + (plotData.length > 0) + " " + ($initialRun == true))
-						if (plotData.length > 0 && $initialRun) {
-							$on = false;
-							$initialRun = false;
-						}
 						plot.draw();
 						setTimeout(update, updateInterval);
 					} else {
 						clearInterval(updateInterval)
 					}
 				}
+				var $on = false;
 			}
 			/*end updating chart*/
 			/* end flot charts */
