@@ -713,6 +713,8 @@
 				</header>
 				<!-- widget div-->
 				<div>
+				<!--<div style="height:150px; overflow-y: scroll; overflow-x:hidden;">-->
+				<!--<div style="height:150px; overflow-y: scroll;">-->
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						<div class="widget-body-toolbar">
@@ -731,7 +733,9 @@
 							</div>
 						</div> <!-- / widget-body-toolbar -->
 
-						<div class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
+						<div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
+						<!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
+						<!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -813,8 +817,9 @@
 				<div>
 					<!-- widget content -->
 					<div class="widget-body no-padding">
-						<div class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
-							<table class="table table-bordered">
+						<div id="wid-claims-table-div" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
+							<!--<table class="table table-bordered">-->
+							<table class="table table-responsive">
 								<thead>
 									<tr>
 										<th><i class="fa fa-key text-warning"></i> Date</th>
@@ -1487,7 +1492,8 @@
 		<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
 
 		<!-- JARVIS WIDGETS -->
-		<script src="{% static 'js/smartwidgets/jarvis.widget.min.js' %}"></script>
+		<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
+		<script src="{% static 'js/smartwidgets/jarvis.widget.js' %}"></script>
 
 		<!-- EASY PIE CHARTS -->
 		<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
