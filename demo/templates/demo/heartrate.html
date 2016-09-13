@@ -34,7 +34,13 @@
 		<span id="activity" class="activity-dropdown">
 			<!-- <i class="fa fa-user"></i>  -->
 			{# <img src="{% static 'img/avatars/4.png' %}" alt="demo user"> #}
-			<img src="{% static member.picture_path %}" alt="{# member.name #}" />
+            {% if member.picture_path %}
+                <img src="{% static member.picture_path %}" alt="{# member.name #}" />
+            {% elif member.sex == 'F' %}
+                <img src="{% static 'img/avatars/female.png' %}" alt="{# member.name #}" />
+            {% else %}
+                <img src="{% static 'img/avatars/fale.png' %}" alt="{# member.name #}" />
+            {% endif %}
 			<b class="badge"> 21 </b>
 		</span>
 		<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
