@@ -1156,14 +1156,6 @@
 		            return plotData;
 				}
 
-				resetChart();
-				plot.setData([getPlotData()]);
-				plot.draw();
-				if (initialRun) {
-					$on = true
-					update();
-				}
-
 				/* live switch */
 				$('input[type="checkbox"]#start_interval').click(function() {
 					if ($(this).prop('checked')) {
@@ -1195,6 +1187,14 @@
 					} else {
 						clearInterval(updateInterval)
 					}
+				}
+
+				resetChart();
+				plot.setData([getPlotData()]);
+				plot.draw();
+				if (initialRun) {
+					$on = true
+					update();
 				}
 			}
 			/*end updating chart*/
