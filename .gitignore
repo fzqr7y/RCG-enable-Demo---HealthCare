@@ -9,6 +9,7 @@ db.sqlite3
 .DS_Store
 local_settings.py
 HealthCareDemo.sublime-workspace
+HealthCareDemo.sublime-project
 .idea
 .idea2
 act.bat
