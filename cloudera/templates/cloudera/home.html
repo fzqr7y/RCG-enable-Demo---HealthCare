@@ -1,0 +1,47 @@
+{% extends 'demo/base.html' %}
+{% load staticfiles %}
+
+{% block page-title %}{% endblock %}
+
+{% block page-stylesheets %}
+    <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
+{% endblock %}
+
+{% block nav_dashboard %}class="active"{% endblock %}
+{% block nav_index %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+	<li>Home</li>
+{% endblock %}
+
+
+{% block main_content %}
+
+    <!--<img src="{# static 'img/fitbit/fitbit-logo.png' #}" alt="FitBit">-->
+    Cloudera
+
+{% endblock %} <!-- main content -->
+
+
+<!-- copied here for reference and to remove the comments in base from rendered pages -->
+{% block js_touch %}
+{% endblock %}
+
+{% block js_smartadmin %}
+{% endblock %} <!-- js_smartadmin -->
+
+{% block js_voice_chat %}
+{% endblock %}
+
+{% block js_page_plugins %}
+{% endblock %} <!-- js_page_plugins -->
+
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+             pageSetUp();
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->

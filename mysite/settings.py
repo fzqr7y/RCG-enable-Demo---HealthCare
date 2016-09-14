@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_twilio',
     'demo',
     'fitbit',
+    'cloudera',
 ]
 
 MIDDLEWARE_CLASSES = [

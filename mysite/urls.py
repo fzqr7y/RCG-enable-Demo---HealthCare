@@ -39,5 +39,6 @@ urlpatterns = [
     url(r'^fitbit/', include('fitbit.urls')),
     # url(r'^userprofile$', RedirectView.as_view(
     #     url='/user_profile_upload/', permanent=True)),
+    url(r'^cloudera/', include('cloudera.urls')),
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
