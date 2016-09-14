@@ -26,7 +26,8 @@ def home(request):
 def impyla(request):
     conn = connect(host='quickstart.cloudera', port=21050)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM categories LIMIT 100')
+    # cursor.execute('SELECT * FROM categories LIMIT 100')
+    cursor.execute('SELECT * FROM fitbit_intradaydata LIMIT 100')
     print(cursor.description)  # prints the result set's schema
     results = cursor.fetchall()
 
