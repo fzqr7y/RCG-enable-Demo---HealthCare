@@ -81,8 +81,10 @@ def members2(request):
 def heartrate(request, pk):
     member = get_object_or_404(Member, pk=pk)
     # providers = member.provider_set.order_by('id')
-    # return render(request, 'demo/member_detail.html', {'member': member, 'providers': providers})
-    providermembers = ProviderMember.objects.filter(member=member).order_by('id')
+    # return render(request, 'demo/member_detail.html', {
+    # 'member': member, 'providers': providers})
+    providermembers = ProviderMember.objects.filter(
+        member=member).order_by('id')
     return render(request, 'demo/heartrate.html', {
         'member': member, 'providermembers': providermembers})
 
