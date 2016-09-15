@@ -1061,9 +1061,9 @@
 				var $on = false;
 				var ajaxComplete = false;
 				var updateInterval = 1000;
-				var plotDuration = 70 * updateInterval;
-				var queryOffset = 15 * updateInterval;
-				var dataOffset = 15 * updateInterval;
+				var plotDuration = 30 * updateInterval;
+				var queryOffset = 5 * updateInterval;
+				var dataOffset = 10 * updateInterval;
 				var member_id = {{ member.id }};
 
 				var plotMax, plotMin;
@@ -1101,7 +1101,9 @@
 
 				function getFitbitData() {
 				    // var jdata = []
-				    var t, val
+				    var t, val, qmin
+				    qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
+console.log(qmax)
 					$.getJSON("/cloudera/heartrate/get", {
 					        member_id: member_id,
 					        from: (new Date(queryMin)).toISOString(),
@@ -1111,12 +1113,20 @@
 						        t = (new Date(value[0])).getTime();
 						        val = value[1];
 								// jdata.push([t, val]);
-								queryData.push([t, val]);
+								if (t > qmax) {
+									queryData.push([t, val]);
+								}
 						    });
 				    		// queryData = jdata;
 							ajaxComplete = true;
 							// console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
-							console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
+							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
+							console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
+							if (plotData.length > 0) {
+								console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
+							}
+					// console.log("p: " + plotData);
+					// console.log("q: " + queryData);
 						    $('.heartrate-status').html('');
 					});
 					// asynchronous call so no data at this point
@@ -1140,7 +1150,16 @@
 				}
 
 				function getPlotData() {
-					while (queryData.length > 1 && queryData[0][0] < dataMax) {
+					// var maxp = 0;
+					// if (plotData.length > 0) {
+					// 	maxp = plotData[plotData.length-1][0]
+					// 	console.log("maxp: " + maxp)
+					// }
+					// while (queryData.length > 0 && queryData[0][0] <= maxp) {
+					// 	console.log("q: " + queryData[0][0])
+					// 	queryData = queryData.slice(1);
+					// }
+					while (queryData.length > 0 && queryData[0][0] < dataMax) {
 						plotData.push(queryData[0])
 						queryData = queryData.slice(1);
 					}
@@ -1151,6 +1170,7 @@
 					while (plotData.length > 0 && plotData[0][0] < plotMin - updateInterval) {
 						plotData = plotData.slice(1);
 					}
+					// console.log(plotData);
 		   //          if (plotData.length > 0) {
 					// 	console.log("PlotData: plotData.length: " + plotData.length + " plotDataMax: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
 					// }

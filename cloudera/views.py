@@ -112,7 +112,8 @@ def get_heartrate(request):
     # test_date = "(id + cast(now() + interval 4 hour - interval 1 minute as bigint)) * 1000 "
     # test_date = "record_date + {diff}".format(**{'diff': diff})
     # test_select = "SELECT " + test_date + ", value "
-    from_clause = "FROM fitbit_intradaydata "
+    # from_clause = "FROM fitbit_intradaydata "
+    from_clause = "FROM fitbit2 "
     where1 = "where member_id = {mem_id} ".format(**{'mem_id': member_id})
     where2 = "and record_date > {min_jsts} ".format(**{'min_jsts': min_jsts})
     where3 = "and record_date < {max_jsts} ".format(**{'max_jsts': max_jsts})
