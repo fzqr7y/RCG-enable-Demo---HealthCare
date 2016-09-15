@@ -1103,7 +1103,7 @@
 				    // var jdata = []
 				    var t, val, qmin
 				    qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
-console.log(qmax)
+// console.log(qmax)
 					$.getJSON("/cloudera/heartrate/get", {
 					        member_id: member_id,
 					        from: (new Date(queryMin)).toISOString(),
@@ -1121,10 +1121,10 @@ console.log(qmax)
 							ajaxComplete = true;
 							// console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
 							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-							console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
-							if (plotData.length > 0) {
-								console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
-							}
+							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
+							// if (plotData.length > 0) {
+							// 	console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
+							// }
 					// console.log("p: " + plotData);
 					// console.log("q: " + queryData);
 						    $('.heartrate-status').html('');
@@ -1175,7 +1175,7 @@ console.log(qmax)
 					// 	console.log("PlotData: plotData.length: " + plotData.length + " plotDataMax: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
 					// }
 		            if (queryData.length <= 4) {
-					    console.log("requerying fitbit");
+					    // console.log("requerying fitbit");
 					    $('.heartrate-status').html('Querying FitBit');
 						setupChart();
 						getFitbitData();
@@ -1205,9 +1205,9 @@ console.log(qmax)
 						plot.setData([plotData]);
 						// console.log("update plotted: " + plotData.length + " " + initialRun + " " + ajaxComplete)
 						// console.log("up axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + " " + (new Date(plotOptions.xaxis.max)).toLocaleTimeString());
-			            if (plotData.length > 0) {
-							console.log("Update: plotData.length: " + plotData.length + " queryData.length: " + queryData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
-						}
+			   //          if (plotData.length > 0) {
+						// 	console.log("Update: plotData.length: " + plotData.length + " queryData.length: " + queryData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
+						// }
 						if (plotData.length > 0 && initialRun) {
 							$on = false;
 							initialRun = false;
