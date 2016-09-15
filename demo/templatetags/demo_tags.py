@@ -3,8 +3,21 @@
 from django import template
 from django.utils.translation import gettext_lazy as _
 import re
-# SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/
+# SC: https://snakeycode.wordpress.com/2014/10/26/
+# django-template-filter-for-formating-currency/
 from django.contrib.humanize.templatetags.humanize import intcomma
+# http://stackoverflow.com/questions/18364547/django-custom-filter-to-check-if-file-exists
+# from django.core.files.storage import default_storage
+# from django.contrib.staticfiles.storage import staticfiles_storage
+# from django.contrib.staticfiles import finders
+
+# import os
+# from django.conf import settings
+# from django.templatetags.static import static
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -30,6 +43,7 @@ class ExprNode(template.Node):
         except:
             raise
 
+
 r_expr = re.compile(r'(.*?)\s+as\s+(\w+)', re.DOTALL)
 
 
@@ -37,18 +51,22 @@ def do_expr(parser, token):
     try:
         tag_name, arg = token.contents.split(None, 1)
     except ValueError:
-        # raise template.TemplateSyntaxError, "%r tag requires arguments" % token.contents[0]
+        # raise template.TemplateSyntaxError, "%r tag requires
+        # arguments" % token.contents[0]
         raise
     m = r_expr.search(arg)
     if m:
         expr_string, var_name = m.groups()
     else:
         if not arg:
-            # raise template.TemplateSyntaxError, "%r tag at least require one argument" % tag_name
+            # raise template.TemplateSyntaxError, "%r tag at
+            # least require one argument" % tag_name
             raise
 
         expr_string, var_name = arg, None
     return ExprNode(expr_string, var_name)
+
+
 do_expr = register.tag('expr', do_expr)
 
 
@@ -68,3 +86,30 @@ def prepend_whole_dollars(dollars):
         return "$%s" % (intcomma(int(dollars)))
     else:
         return ''
+
+
+# @register.filter
+# def safe_avatar(filepath, malefemale):
+#     # fp = filepath
+#     # logger.error(static(filepath))
+#     # logger.error(settings.BASE_DIR)
+#     # tmp_filepath = static(filepath).strip("/")
+#     # logger.error(tmp_filepath)
+#     # new_filepath = os.path.join(
+#     #     settings.BASE_DIR, static(filepath).strip("/"))
+#     # logger.error(new_filepath)
+#     # logger.error(fp)
+#     # if default_storage.exists(static(filepath).strip("/")):
+#     # logger.error(finders.find(filepath))
+#     if (filepath and finders.find(filepath)):
+#         return filepath
+#     elif malefemale == 'F':
+#         # new_filepath = os.path.join(
+#         #     settings.BASE_DIR, static('img/avatars/female.png'))
+#         new_filepath = 'img/avatars/female.png'
+#         return new_filepath
+#     else:
+#         # index = filepath.rfind('/')
+#         # new_filepath = filepath[:index] + '/image.png'
+#         new_filepath = 'img/avatars/male.png'
+#         return new_filepath

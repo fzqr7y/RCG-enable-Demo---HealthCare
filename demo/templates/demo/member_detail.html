@@ -263,9 +263,10 @@
 		<div class="row">
 			<div class="col-sm-4 profile-pic">
 				<br><br>
-				{% if member.pcp.picture_path %}
-					<img src="{% static member.pcp.picture_path %}" alt="{{ member.pcp.name }}">
-				{% endif %}
+            	{% include "demo/_avatar.html" with person=member.pcp %}
+				{# if member.pcp.picture_path #}
+					<!--<img src="{# static member.pcp.picture_path #}" alt="{{ member.pcp.name }}">-->
+				{# endif #}
 				<div class="padding-10">
 					<h5 class="font-md">
 						<strong>Specialty</strong>
@@ -1074,9 +1075,10 @@
 		<div class="row">
 			<div class="col-sm-4 profile-pic">
 				<br><br>
-				{% if providermember.provider.picture_path %}
-					<img src="{% static providermember.provider.picture_path %}" alt="{{ providermember.provider.name }}">
-				{% endif %}
+            	{% include "demo/_avatar.html" with person=providermember.provider %}
+				{# if providermember.provider.picture_path #}
+					<!--<img src="{# static providermember.provider.picture_path #}" alt="{# providermember.provider.name #}">-->
+				{# endif #}
 				<div class="padding-10">
 					<h5 class="font-md">
 						<strong>Specialty</strong>
