@@ -196,18 +196,12 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						<!--on/off switch-->
-						<span class="demo-liveupdate-1">
-							<span class="onoffswitch-title">Live switch</span>
-							<span class="onoffswitch">
-								<input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="start_interval">
-								<label class="onoffswitch-label" for="start_interval">
-									<span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
-									<span class="onoffswitch-switch"></span>
-							</label></span>
-							<small><sup><span class="heartrate-status" style="font-weight: lighter;"></span></sup></small>
-						</span>
+						<span class="demo-liveupdate-1"> <span class="onoffswitch-title">Live switch</span> <span class="onoffswitch">
+						<input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="start_interval">
+						<label class="onoffswitch-label" for="start_interval">
+							<span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+							<span class="onoffswitch-switch"></span> </label> </span> </span>
 						<!--on/off switch-->
-
 						<div id="updating-chart" class="chart"></div>
 
 						<div class="show-stat-microcharts">
@@ -1063,7 +1057,7 @@
 				var updateInterval = 1000;
 				var plotDuration = 70 * updateInterval;
 				var queryOffset = 15 * updateInterval;
-				var dataOffset = 15 * updateInterval;
+				var dataOffset = 30 * updateInterval;
 				var member_id = {{ member.id }};
 
 				var plotMax, plotMin;
@@ -1099,27 +1093,47 @@
 					return options;
 				};
 
+				function getRandomData() {
+					var x = 0
+					var data = []
+					while (x < queryMax) {
+						var prevx = data.length > 0 ? data[data.length - 1][0] : queryMin;
+						x = prevx + updateInterval;
+						var prevy = data.length > 0 ? data[data.length - 1][1] : 50;
+						var y = prevy + Math.random() * 10 - 5;
+						if (y < 0)
+							y = 0;
+						if (y > 100)
+							y = 100;
+						data.push([x, y]);
+					}
+					return data;
+				}
+
 				function getFitbitData() {
-				    // var jdata = []
+				    var jdata = []
 				    var t, val
 					$.getJSON("/cloudera/heartrate/get", {
 					        member_id: member_id,
 					        from: (new Date(queryMin)).toISOString(),
 					        to: (new Date(queryMax)).toISOString() },
 						function(json){
+						    // console.log(json);  // sanity check
 						    $.each(json, function (index, value) {
+							    // console.log(index + " " + value);
+						        // t = (new Date(value.record_date)).getTime();
+						        // val = value.value;
 						        t = (new Date(value[0])).getTime();
 						        val = value[1];
-								// jdata.push([t, val]);
-								queryData.push([t, val]);
+								jdata.push([t, val]);
 						    });
-				    		// queryData = jdata;
+				    		queryData = jdata;
 							ajaxComplete = true;
-							// console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
+							// console.log(queryData);
+							console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
 							console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
-						    $('.heartrate-status').html('');
-					});
-					// asynchronous call so no data at this point
+						});
+					// call is asynchronous so data is not populated by this point
 				    return;
 				};
 
@@ -1156,7 +1170,6 @@
 					// }
 		            if (queryData.length <= 4) {
 					    console.log("requerying fitbit");
-					    $('.heartrate-status').html('Querying FitBit');
 						setupChart();
 						getFitbitData();
 		            }
@@ -1166,8 +1179,6 @@
 				$('input[type="checkbox"]#start_interval').click(function() {
 					if ($(this).prop('checked')) {
 						$on = true;
-						// plotData = [];
-						queryData = [];
 						update();
 					} else {
 						clearInterval(updateInterval);
