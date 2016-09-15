@@ -1055,9 +1055,9 @@
 				var $on = false;
 				var ajaxComplete = false;
 				var updateInterval = 1000;
-				var plotDuration = 70 * updateInterval;
-				var queryOffset = 15 * updateInterval;
-				var dataOffset = 30 * updateInterval;
+				var plotDuration = 30 * updateInterval;
+				var queryOffset = 5 * updateInterval;
+				var dataOffset = 15 * updateInterval;
 				var member_id = {{ member.id }};
 
 				var plotMax, plotMin;
@@ -1132,27 +1132,35 @@
 							// console.log(queryData);
 							console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
 							console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
+							while (queryData.length > 1 && queryData[0][0] < dataMax) {
+								plotData.push(queryData[0])
+								queryData = queryData.slice(1);
+// console.log("-" + queryData);
+// console.log("--" + plotData);
+// console.log("-" + queryData[0]);
+// console.log("--" + plotData[plotData.length-1]);
+							}
 						});
 					// call is asynchronous so data is not populated by this point
 				    return;
 				};
 
-			// 	function resetChart() {
-			// 		// update the query max time
-			// 		plotMax = (new Date($.now())).getTime();
-			// 		plotMin = plotMax - plotDuration;
-			// 		queryMax = plotMax - queryOffset;
-			// 		queryMin = (plotData.length > 0) ? plotData[plotData.length - 1][0] : plotMin;
-			// 		dataMax = queryMax - dataOffset;
+				function resetChart() {
+					// update the query max time
+					plotMax = (new Date($.now())).getTime();
+					plotMin = plotMax - plotDuration;
+					queryMax = plotMax - queryOffset;
+					queryMin = (plotData.length > 0) ? plotData[plotData.length - 1][0] : plotMin;
+					dataMax = queryMax - dataOffset;
 
-			// 		getFitbitData();
-			// 		plotOptions = getOptions();
-			// console.log(plotOptions.xaxis.min);
-			// 		plotOptions.xaxis.min = plotMin;
-			// console.log(plotOptions.xaxis.min);
-			// 		plot = $.plot($("#updating-chart"), [plotData], plotOptions);
-			// 		return;
-			// 	}
+					getFitbitData();
+					plotOptions = getOptions();
+			console.log(plotOptions.xaxis.min);
+					plotOptions.xaxis.min = plotMin;
+			console.log(plotOptions.xaxis.min);
+					plot = $.plot($("#updating-chart"), [plotData], plotOptions);
+					return;
+				}
 
 				function setupChart() {
 					// update the query max time
@@ -1163,8 +1171,7 @@
 					dataMax = queryMax - dataOffset;
 
 					plotOptions = getOptions();
-console.log("axis: " + plotOptions.xaxis.min + " " + plotOptions.xaxis.max);
-console.log("axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + " " + (new Date(plotOptions.xaxis.max)).toLocaleTimeString());
+			console.log(plotOptions.xaxis.min);
 					plot = $.plot($("#updating-chart"), [plotData], plotOptions);
 					plot.draw();
 					return;
@@ -1175,34 +1182,20 @@ console.log("axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + 
 					// 	plotData.push(queryData[0])
 					// 	queryData = queryData.slice(1);
 					// }
-					while (queryData.length > 1 && queryData[0][0] < dataMax) {
-						plotData.push(queryData[0])
-						queryData = queryData.slice(1);
-// console.log("-" + queryData);
-// console.log("--" + plotData);
-// console.log("-" + queryData[0]);
-// console.log("--" + plotData[plotData.length-1]);
-					}
 					console.log("plotData: " + plotData.length + " " + queryData.length);
-					if (plotData.length > 0) {
-						console.log("Query plotData: plotData.length: " + plotData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
-					}
-				// console.log(": " + plotData);
-					while (plotData.length > 0 && plotData[0][0] < plotMin - updateInterval) {
-						console.log("- " + plotData[0]);
-						console.log("- " + plotData[0][0]);
-						console.log("m " + plotMin);
-						console.log("u " + updateInterval);
-						console.log("- " + plotData.length + " " + plotData[0][0] + " " + (plotMin - updateInterval));
-						plotData = plotData.slice(1);
-					}
+					console.log(": " + plotData);
+					// while (plotData.length > 0 && plotData[0][0] < plotMin - updateInterval) {
+					// 	console.log("- " + plotData[0]);
+					// 	console.log("- " + plotData[0][0]);
+					// 	console.log("m " + plotMin);
+					// 	console.log("u " + updateInterval);
+					// 	console.log("- " + plotData.length + " " + plotData[0][0] + " " + (plotMin - updateInterval));
+					// 	plotData = plotData.slice(1);
+					// }
 		    //         if (queryData.length == 1) {
 						// resetChart();
 						// plot.setData([plotData]);
 		    //         }
-		            if (plotData.length > 0) {
-						console.log("PlotData: plotData.length: " + plotData.length + " plotDataMax: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
-					}
 		            if (queryData.length <= 4) {
 		    console.log("requerying fitbit");
 						setupChart();
@@ -1216,7 +1209,7 @@ console.log("axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + 
 				$('input[type="checkbox"]#start_interval').click(function() {
 					if ($(this).prop('checked')) {
 						$on = true;
-						// resetChart();
+						resetChart();
 						update();
 					} else {
 						clearInterval(updateInterval);
@@ -1224,22 +1217,15 @@ console.log("axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + 
 					}
 				});
 
-var updateCount = 0;
 				function update() {
-					updateCount++;
-			console.log("update start: " + updateCount);
 					if ($on == true) {
 						dataMax += updateInterval;
 						getPlotData();
 						plot.setData([plotData]);
-			console.log("update plotted: " + plotData.length + " " + initialRun + " " + ajaxComplete)
-console.log("up axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + " " + (new Date(plotOptions.xaxis.max)).toLocaleTimeString());
-			            if (plotData.length > 0) {
-							console.log("Update: plotData.length: " + plotData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
-						}
-			// console.log(plotOptions.xaxis.min + " " + plotOptions.xaxis.max);
+						console.log("update: " + plotData.length)
+			console.log(plotOptions.xaxis.min + " " + plotOptions.xaxis.max);
 						if (plotData.length > 0) {
-			// console.log(plotData[0][0], plotData[plotData.length-1][0]);
+			console.log(plotData[0][0], plotData[plotData.length-1][0]);
 						}
 						if (plotData.length > 0 && initialRun) {
 							$on = false;
@@ -1257,7 +1243,7 @@ console.log("up axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString()
 					}
 				}
 
-				// setupChart();
+				setupChart();
 				// resetChart();
 				// plot.setData([getPlotData()]);
 				// plot.draw();

@@ -8,7 +8,7 @@ from django.http import HttpResponse
 # import time
 import dateutil.parser
 # for test remove for prod
-# import datetime
+import datetime
 
 # for env vars
 from os import environ
@@ -81,8 +81,8 @@ def get_heartrate(request):
     max_jsts = round(max_time.timestamp() * 1000)
     min_time = dateutil.parser.parse(query_min)
     min_jsts = round(min_time.timestamp() * 1000)
-    logger.error('from: ' + '{:d}'.format(min_jsts))
-    logger.error('to: ' + '{:d}'.format(max_jsts))
+    # logger.error('from: ' + '{:d}'.format(min_jsts))
+    # logger.error('to: ' + '{:d}'.format(max_jsts))
     # conn = connect(host='quickstart.cloudera', port=21050)
     host = environ.get('CLOUDERA_HOST')
     port = int(float(environ.get('CLOUDERA_PORT')))
@@ -91,15 +91,15 @@ def get_heartrate(request):
     conn = connect(host=host, port=port)
     cursor = conn.cursor()
 
-    # now = datetime.datetime.now()
-    # logger.error(now)
-    # logger.error(now.timestamp())
-    # select = "select (cast(now() - interval 1 minute as bigint) * 1000) - min(record_date) as diff from fitbit_intradaydata"
-    # cursor.execute(select)
+    now = datetime.datetime.now()
+    logger.error(now)
+    logger.error(now.timestamp())
+    select = "select (cast(now() - interval 1 minute as bigint) * 1000) - min(record_date) as diff from fitbit_intradaydata"
+    cursor.execute(select)
     # print(cursor.description)  # prints the result set's schema
-    # results = cursor.fetchall()
-    # diff = results[0][0] + (4 * 3600 * 1000)
-    # print("-" + '{:d}'.format(diff))
+    results = cursor.fetchall()
+    diff = results[0][0] + 4*3600*1000
+    print("-" + '{:d}'.format(diff))
     # my_tuple = ('world', '.')
     # "Hello {}{}".format(*my_tuple)
     # my_dict = {'subs': 'world', 'period': '.'}
@@ -110,8 +110,8 @@ def get_heartrate(request):
     # where2 = "and record_date < {max_jsts} ".format(**my_dict)
     select = "SELECT record_date, value "
     # test_date = "(id + cast(now() + interval 4 hour - interval 1 minute as bigint)) * 1000 "
-    # test_date = "record_date + {diff}".format(**{'diff': diff})
-    # test_select = "SELECT " + test_date + ", value "
+    test_date = "record_date + {diff}".format(**{'diff': diff})
+    test_select = "SELECT " + test_date + ", value "
     from_clause = "FROM fitbit_intradaydata "
     where1 = "where member_id = {mem_id} ".format(**{'mem_id': member_id})
     where2 = "and record_date > {min_jsts} ".format(**{'min_jsts': min_jsts})
@@ -119,22 +119,21 @@ def get_heartrate(request):
     where = where1 + where2 + where3
     # test_where2 = "and record_date > 1473796199000 "
     # test_where3 = "and record_date < 1473796211000 "
-    # test_where = where1  # + test_where2 + test_where3
+    test_where = where1  # + test_where2 + test_where3
     order_by = "order by record_date "
-    # limit = "LIMIT 100"
-    limit = ""
+    limit = "LIMIT 100"
     # stmt_dict = {'select': select, 'where': where, 'limit': limit}
     # stmt = "{select} {where} {limit}".format(**stmt_dict)
     stmt = select + from_clause + where + order_by + limit
-    # test_stmt = test_select + from_clause + test_where + order_by + limit
-    logger.error("live: " + stmt)
-    # logger.error("test: " + test_stmt)
-    cursor.execute(stmt)
-    # cursor.execute(test_stmt)
+    test_stmt = test_select + from_clause + test_where + order_by + limit
+    # logger.error("live: " + stmt)
+    logger.error("test: " + test_stmt)
+    # cursor.execute(stmt)
+    cursor.execute(test_stmt)
     # print(cursor.description)  # prints the result set's schema
     results = cursor.fetchall()
-    # row = [item for item in results]
-    # print(row)
+    row = [item for item in results]
+    print(row)
 
     jresults = json.dumps(results)
     return HttpResponse(
