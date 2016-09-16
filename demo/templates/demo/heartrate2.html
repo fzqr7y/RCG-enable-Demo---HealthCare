@@ -1133,7 +1133,7 @@ var queryCount = 0;
 							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
 							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
 							// if (plotData.length > 0) {
-							// 	console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
+								// console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
 							// }
 					// console.log("p: " + plotData);
 					// console.log("q: " + queryData);
@@ -1205,7 +1205,7 @@ var queryCount = 0;
 					}
 				});
 
-// var updateCount = 0;
+				// var updateCount = 0;
 				function update() {
 					// updateCount++;
 					// console.log("update start: " + updateCount);
@@ -1215,7 +1215,7 @@ var queryCount = 0;
 						plot.setData([plotData]);
 						// console.log("update plotted: " + plotData.length + " " + initialRun + " " + ajaxComplete)
 						// console.log("up axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + " " + (new Date(plotOptions.xaxis.max)).toLocaleTimeString());
-			   //          if (plotData.length > 0) {
+			   			// if (plotData.length > 0) {
 						// 	console.log("Update: plotData.length: " + plotData.length + " queryData.length: " + queryData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
 						// }
 						if (plotData.length > 0 && initialRun) {
