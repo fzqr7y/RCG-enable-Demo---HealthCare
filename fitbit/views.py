@@ -50,7 +50,7 @@ def get_heartrate(request):
         rdict = request.GET
     else:
         return respond_with
-
+    logger.error("fitbit")
     response_data['dict'] = rdict
     respond_with = HttpResponse(
         json.dumps(response_data),

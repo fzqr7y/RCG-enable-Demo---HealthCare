@@ -6,17 +6,15 @@ import json
 from django.http import HttpResponse
 # from django.core.serializers.json import DjangoJSONEncoder
 # import time
+import calendar
 import dateutil.parser
 # for test remove for prod
 # import datetime
-
 # for env vars
 from os import environ
-
 # cloudera
 from impala.dbapi import connect
 
-from django.core.serializers.json import DjangoJSONEncoder
 from fitbit.models import IntradayData
 
 # Get an instance of a logger
@@ -47,6 +45,18 @@ def impyla(request):
 
 
 @login_required
+def get_heartrate(request):
+    use_cloudera = environ.get('CLOUDERA')
+    print(use_cloudera)
+    if (use_cloudera == 'TRUE'):
+        print('cloudera')
+        return get_cloudera_heartrate(request)
+    else:
+        print('fitbit')
+        return get_pg_heartrate(request)
+
+
+@login_required
 def get_pg_heartrate(request):
     response_data = {}
     response_data['message'] = 'No Data'
@@ -69,7 +79,7 @@ def get_pg_heartrate(request):
     if not('member_id' in rdict and 'from' in rdict and 'to' in rdict):
         return respond_with
 
-    # logger.error('urlencode: ' + request.GET.urlencode())
+    logger.error('urlencode: ' + request.GET.urlencode())
 
     # member = Member.objects.get(id=rdict['member_id'])
     member_id = rdict['member_id']
@@ -83,17 +93,30 @@ def get_pg_heartrate(request):
         member_id=member_id).values('record_date', 'value').order_by(
             'record_date')
 
-    serial_data = list(api_data)
-    rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
+    logger.error(api_data.count())
+    logger.error(json.dumps(rdict))
+    # serial_data = list(api_data)
+    # rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
+
+    rlist = []
+    for item in api_data:
+        t = item['record_date']
+        # tt = (time.mktime(t.timetuple()) - (5 * 3600)) * 1000
+        tz = calendar.timegm(t.timetuple()) * 1000
+        v = item['value']
+        # rlist.append(['{:.0f}'.format(tt), '{:.1f}'.format(v)])
+        rlist.append([int(tz), float(v)])
+    # print(rlist)
+    jresults = json.dumps(rlist)  # , cls=DjangoJSONEncoder)
 
     return HttpResponse(
-        rdata,
+        jresults,
         content_type="application/json"
     )
 
 
 @login_required
-def get_heartrate2(request):
+def get_cloudera_heartrate(request):
     response_data = {}
     response_data['message'] = 'No Data'
     respond_with = HttpResponse(
@@ -208,7 +231,7 @@ def get_heartrate2(request):
 
 
 @login_required
-def get_heartrate(request):
+def get_heartrate_save(request):
     response_data = {}
     response_data['message'] = 'No Data'
     respond_with = HttpResponse(
