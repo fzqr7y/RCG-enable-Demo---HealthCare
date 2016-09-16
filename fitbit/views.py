@@ -118,6 +118,7 @@ def get_access(request):
 
     # This is the Fitbit URL
     TokenURL = "https://api.fitbit.com/oauth2/token"
+    # TokenURL = "http://127.0.0.1/fitbit/callback"
 
     # I got this from the first verifier part when authorising my application
     # Have to get this within 10 minutes of running this view
@@ -125,12 +126,12 @@ def get_access(request):
 
     # Form the data payload
     BodyText = {'code': AuthCode,
-                # 'redirect_uri': 'http://pdwhomeautomation.blogspot.co.uk/',
-                'redirect_uri': 'https://rcghc-demo-1.herokuapp.com/',
+                'redirect_uri': "http://127.0.0.1:8000/fitbit/callback",
                 'client_id': OAuthTwoClientID,
                 'grant_type': 'authorization_code'}
 
     BodyURLEncoded = urllib.parse.urlencode(BodyText)
+    # BodyURLEncoded = BodyText
     print(BodyURLEncoded)
 
     # Start the request
@@ -148,16 +149,58 @@ def get_access(request):
     req.add_header('Authorization', 'Basic ' + bb.decode('utf-8'))
     req.add_header('Content-Type', 'application/x-www-form-urlencoded')
 
-    # response_data = {}
-
+    FullResponse = []
     # Fire off the request
     try:
         response = urllib.request.urlopen(req)
-        FullResponse = response.read()
-        print("Output >>> " + FullResponse)
+        # FullResponse = response.read()
+        for word in response.readlines():
+            FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+
+        print("Output >>> " + json.dumps(FullResponse))
         # response_data['message'] = 'success'
         # response_data['FullResponse'] = FullResponse
-        response_text = 'success: ' + FullResponse
+        response_text = 'success: ' + json.dumps(FullResponse)
+        # response_text = 'success: '
+    except urllib.error.URLError as e:
+        print(e.code)
+        print(e.read())
+        # response_data['message'] = 'error'
+        # response_data['FullResponse'] = e.read()
+        # response_text = 'Error: ' + e.read()
+        response_text = 'Error: '
+
+    respond_with = HttpResponse(
+        response_text,
+        content_type="text/plain"
+    )
+    return respond_with
+
+@login_required
+def get_data(request):
+    # This is the Fitbit URL
+    # DataURL = "https://api.fitbit.com/1/user/-/profile.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d.json"
+
+    # Access Token from above
+    AuthToken = environ.get('FITBIT_TOKEN')
+
+    # Start the request
+    req = urllib.request.Request(DataURL)
+    req.add_header('Authorization', 'Bearer ' + AuthToken)
+
+    FullResponse = []
+    # Fire off the request
+    try:
+        response = urllib.request.urlopen(req)
+        # FullResponse = response.read()
+        for word in response.readlines():
+            FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+
+        print("Output >>> " + json.dumps(FullResponse))
+        # response_data['message'] = 'success'
+        # response_data['FullResponse'] = FullResponse
+        response_text = 'success: ' + json.dumps(FullResponse)
         # response_text = 'success: '
     except urllib.error.URLError as e:
         print(e.code)
