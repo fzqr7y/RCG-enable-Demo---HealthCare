@@ -306,15 +306,10 @@ def read_heartrate_file(request):
     # f = open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json'))
     # file_text = f.read()
     # f.close()
-<<<<<<< HEAD
-    # with open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json')) as f:
-    with open(os.path.join(settings.BASE_DIR, '../Data/iheart1d-2016-09-13.json')) as f:
-=======
     # with open(os.path.join(settings.BASE_DIR,
     # '../Data/ihearttest.json')) as f:
     with open(os.path.join(
             settings.BASE_DIR, '../Data/iheart1d-2016-09-13.json')) as f:
->>>>>>> 52d78a4e0c83fad957c8e94ec24337dbb4224929
         file_text = f.read()
 
     json_obj = json.loads(file_text)
