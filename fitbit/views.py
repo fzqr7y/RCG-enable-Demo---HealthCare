@@ -75,3 +75,27 @@ def get_heartrate(request):
         rdata,
         content_type="application/json"
     )
+
+
+@login_required
+def callback(request):
+    response_data = {}
+    response_data['message'] = 'No Data'
+    respond_with = HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
+    if request.method == "POST":
+        rdict = request.POST
+    elif request.method == "GET":
+        rdict = request.GET
+    else:
+        return respond_with
+
+    response_data['message'] = 'OK'
+    response_data['dict'] = rdict
+    respond_with = HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
+    return respond_with
