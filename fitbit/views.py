@@ -12,9 +12,15 @@ import logging
 import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
+from datetime import date
 
 # for env vars
+import os
 from os import environ
+
+# get settings
+from django.conf import settings
+
 
 # http://pdwhomeautomation.blogspot.co.uk/2016/01/fitbit-api-access-using-oauth20-and.html
 import base64
@@ -176,11 +182,16 @@ def get_access(request):
     )
     return respond_with
 
+
 @login_required
-def get_data(request):
+def get_data1(request):
     # This is the Fitbit URL
     # DataURL = "https://api.fitbit.com/1/user/-/profile.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1m.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-08-17/1m.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-09-13/1d/1sec.json"
 
     # Access Token from above
     AuthToken = environ.get('FITBIT_TOKEN')
@@ -212,6 +223,75 @@ def get_data(request):
 
     respond_with = HttpResponse(
         response_text,
+        content_type="text/plain"
+    )
+    return respond_with
+
+
+@login_required
+def get_data(request):
+    # This is the Fitbit URL
+    # DataURL = "https://api.fitbit.com/1/user/-/profile.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1m.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-08-17/1m.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-09-13/1d/1sec.json"
+    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
+
+    # Access Token from above
+    AuthToken = environ.get('FITBIT_TOKEN')
+
+    # Start the request
+    req = urllib.request.Request(DataURL)
+    req.add_header('Authorization', 'Bearer ' + AuthToken)
+
+    FullResponse = []
+    # Fire off the request
+    try:
+        response = urllib.request.urlopen(req)
+        # FullResponse = response.read()
+        # for word in response.readlines():
+        #     FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+
+        # print("Output >>> " + json.dumps(FullResponse))
+        # # response_data['message'] = 'success'
+        # # response_data['FullResponse'] = FullResponse
+        # response_text = 'success: ' + json.dumps(FullResponse)
+        # # response_text = 'success: '
+
+        rtext = response.read().decode('UTF-8')  # Use loads to decode from text
+        json_obj = json.loads(rtext)
+        print(json_obj['activities-heart'])
+        print(json_obj['activities-heart-intraday'])
+        response_text = json.dumps(json_obj)
+
+    except urllib.error.URLError as e:
+        print(e.code)
+        print(e.read())
+        # response_data['message'] = 'error'
+        # response_data['FullResponse'] = e.read()
+        # response_text = 'Error: ' + e.read()
+        response_text = 'Error: '
+
+    respond_with = HttpResponse(
+        response_text,
+        content_type="text/plain"
+    )
+    return respond_with
+
+
+@login_required
+def read_heartrate_file(request):
+
+    # f = open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json'))
+    # file_text = f.read()
+    # f.close()
+    with open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json')) as f:
+        file_text = f.read()
+
+    respond_with = HttpResponse(
+        file_text,
         content_type="text/plain"
     )
     return respond_with

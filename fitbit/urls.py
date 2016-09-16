@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^callback/$', views.callback, name='callback'),
     url(r'^get_access/$', views.get_access, name='get_access'),
     url(r'^get_data/$', views.get_data, name='get_data'),
+    url(r'^read_hr/$', views.read_heartrate_file, name='read_hr'),
 ]
