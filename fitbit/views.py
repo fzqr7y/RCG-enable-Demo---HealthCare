@@ -126,7 +126,7 @@ def get_access(request):
     # Form the data payload
     BodyText = {'code': AuthCode,
                 # 'redirect_uri': 'http://pdwhomeautomation.blogspot.co.uk/',
-                'redirect_uri': 'http://127.0.0.1/fitbit/callback/',
+                'redirect_uri': 'https://rcghc-demo-1.herokuapp.com/fitbit/callback/',
                 'client_id': OAuthTwoClientID,
                 'grant_type': 'authorization_code'}
 
