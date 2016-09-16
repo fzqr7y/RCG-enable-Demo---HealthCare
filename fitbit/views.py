@@ -13,6 +13,14 @@ import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 
+# for env vars
+from os import environ
+
+# http://pdwhomeautomation.blogspot.co.uk/2016/01/fitbit-api-access-using-oauth20-and.html
+import base64
+# import urllib2
+import urllib
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -97,5 +105,70 @@ def callback(request):
     respond_with = HttpResponse(
         json.dumps(response_data),
         content_type="application/json"
+    )
+    return respond_with
+
+
+@login_required
+def get_access(request):
+
+    # These are the secrets etc from Fitbit developer
+    OAuthTwoClientID = environ.get('FITBIT_CLIENT_ID')
+    ClientOrConsumerSecret = environ.get('FITBIT_CLIENT_SECRET')
+
+    # This is the Fitbit URL
+    TokenURL = "https://api.fitbit.com/oauth2/token"
+
+    # I got this from the first verifier part when authorising my application
+    # Have to get this within 10 minutes of running this view
+    AuthCode = "9ca29f04ada8604193799fc33f13eac728c6b560"
+
+    # Form the data payload
+    BodyText = {'code': AuthCode,
+                # 'redirect_uri': 'http://pdwhomeautomation.blogspot.co.uk/',
+                'redirect_uri': 'http://127.0.0.1/fitbit/callback/',
+                'client_id': OAuthTwoClientID,
+                'grant_type': 'authorization_code'}
+
+    BodyURLEncoded = urllib.parse.urlencode(BodyText)
+    print(BodyURLEncoded)
+
+    # Start the request
+    # req = urllib.request.Request(TokenURL, BodyURLEncoded)
+    binary_data = BodyURLEncoded.encode('utf8')
+    req = urllib.request.Request(TokenURL, binary_data)
+    # req = request.Request(TokenURL, binary_data)
+    # Add the headers, first we base64 encode the client id
+    # and client secret with a : inbetween and create the authorisation header
+    # req.add_header('Authorization', 'Basic ' + base64.b64encode(
+    # OAuthTwoClientID + ":" + ClientOrConsumerSecret))
+    b = bytes(OAuthTwoClientID + ":" + ClientOrConsumerSecret, 'utf8')
+    bb = base64.b64encode(b)
+    # req.add_header('Authorization', bb.decode('utf-8'))
+    req.add_header('Authorization', 'Basic ' + bb.decode('utf-8'))
+    req.add_header('Content-Type', 'application/x-www-form-urlencoded')
+
+    # response_data = {}
+
+    # Fire off the request
+    try:
+        response = urllib.request.urlopen(req)
+        FullResponse = response.read()
+        print("Output >>> " + FullResponse)
+        # response_data['message'] = 'success'
+        # response_data['FullResponse'] = FullResponse
+        response_text = 'success: ' + FullResponse
+        # response_text = 'success: '
+    except urllib.error.URLError as e:
+        print(e.code)
+        print(e.read())
+        # response_data['message'] = 'error'
+        # response_data['FullResponse'] = e.read()
+        # response_text = 'Error: ' + e.read()
+        response_text = 'Error: '
+
+    respond_with = HttpResponse(
+        response_text,
+        content_type="text/plain"
     )
     return respond_with
