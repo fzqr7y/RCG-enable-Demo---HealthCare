@@ -15,5 +15,6 @@ HealthCareDemo.sublime-project
 act.bat
 act.ps1
 Thumbs.db
+*.java
 
 demo/static/img/realestate/thumbs/
