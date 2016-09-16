@@ -16,7 +16,8 @@ from os import environ
 # cloudera
 from impala.dbapi import connect
 
-# from .models import IntradayData
+from django.core.serializers.json import DjangoJSONEncoder
+from fitbit.models import IntradayData
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -41,6 +42,52 @@ def impyla(request):
     jresults = json.dumps(results)
     return HttpResponse(
         jresults,
+        content_type="application/json"
+    )
+
+
+@login_required
+def get_pg_heartrate(request):
+    response_data = {}
+    response_data['message'] = 'No Data'
+    respond_with = HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
+    if request.method == "POST" and request.is_ajax():
+        rdict = request.POST
+    elif request.method == "GET":
+        rdict = request.GET
+    else:
+        return respond_with
+
+    response_data['dict'] = rdict
+    respond_with = HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )
+    if not('member_id' in rdict and 'from' in rdict and 'to' in rdict):
+        return respond_with
+
+    # logger.error('urlencode: ' + request.GET.urlencode())
+
+    # member = Member.objects.get(id=rdict['member_id'])
+    member_id = rdict['member_id']
+    query_min = rdict['from']
+    query_max = rdict['to']
+    api_data = IntradayData.objects.filter(
+        # record_date__range=["2016-09-11 20:00:00", "2016-09-12 00:00:00"],
+        # record_date__range=["2016-09-10T20:00:00.000Z",
+        # "2016-09-12T20:00:00.000Z"],
+        record_date__range=[query_min, query_max],
+        member_id=member_id).values('record_date', 'value').order_by(
+            'record_date')
+
+    serial_data = list(api_data)
+    rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
+
+    return HttpResponse(
+        rdata,
         content_type="application/json"
     )
 
@@ -94,7 +141,8 @@ def get_heartrate2(request):
     # now = datetime.datetime.now()
     # logger.error(now)
     # logger.error(now.timestamp())
-    # select = "select (cast(now() - interval 1 minute as bigint) * 1000) - min(record_date) as diff from fitbit_intradaydata"
+    # select = "select (cast(now() - interval 1 minute as bigint)
+    # * 1000) - min(record_date) as diff from fitbit_intradaydata"
     # cursor.execute(select)
     # print(cursor.description)  # prints the result set's schema
     # results = cursor.fetchall()
@@ -108,8 +156,9 @@ def get_heartrate2(request):
     # stmt = "SELECT record_date, value FROM fitbit_intradaydata LIMIT 100"
     # my_dict = {'member_id': member_id, 'max_jsts': max_jsts}
     # where2 = "and record_date < {max_jsts} ".format(**my_dict)
-    select = "SELECT record_date, value "
-    select = "SELECT unix_timestamp(cast(record_date as timestamp))*1000, value "
+    # select = "SELECT record_date, value "
+    select = "SELECT unix_timestamp(cast(record_date "
+    select = select + "as timestamp))*1000, value "
     # test_date = "(id + cast(now() + interval 4 hour - interval
     # 1 minute as bigint)) * 1000 "
     # test_date = "record_date + {diff}".format(**{'diff': diff})
@@ -156,8 +205,6 @@ def get_heartrate2(request):
         jresults,
         content_type="application/json"
     )
-
-
 
 
 @login_required
@@ -209,7 +256,8 @@ def get_heartrate(request):
     # now = datetime.datetime.now()
     # logger.error(now)
     # logger.error(now.timestamp())
-    # select = "select (cast(now() - interval 1 minute as bigint) * 1000) - min(record_date) as diff from fitbit_intradaydata"
+    # select = "select (cast(now() - interval 1 minute as bigint) * 1000)"
+    #  - min(record_date) as diff from fitbit_intradaydata"
     # cursor.execute(select)
     # print(cursor.description)  # prints the result set's schema
     # results = cursor.fetchall()
@@ -224,7 +272,8 @@ def get_heartrate(request):
     # my_dict = {'member_id': member_id, 'max_jsts': max_jsts}
     # where2 = "and record_date < {max_jsts} ".format(**my_dict)
     select = "SELECT record_date, value "
-    # test_date = "(id + cast(now() + interval 4 hour - interval 1 minute as bigint)) * 1000 "
+    # test_date = "(id + cast(now() + interval 4 hour - interval
+    # 1 minute as bigint)) * 1000 "
     # test_date = "record_date + {diff}".format(**{'diff': diff})
     # test_select = "SELECT " + test_date + ", value "
     # from_clause = "FROM fitbit_intradaydata "
