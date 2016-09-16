@@ -1099,19 +1099,28 @@
 					return options;
 				};
 
+var queryCount = 0;
+
 				function getFitbitData() {
 				    // var jdata = []
 				    var t, val, qmin
 				    qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
 // console.log(qmax)
-					$.getJSON("/cloudera/heartrate/get", {
+					queryCount++;
+// console.log(queryCount);
+					if (queryCount > 10) {
+						ajaxComplete = true;
+					}
+					$.getJSON("/cloudera/heartrate2/get", {
 					        member_id: member_id,
 					        from: (new Date(queryMin)).toISOString(),
 					        to: (new Date(queryMax)).toISOString() },
 						function(json){
 						    $.each(json, function (index, value) {
+// console.log(value)
 						        t = (new Date(value[0])).getTime();
 						        val = value[1];
+// console.log("qmax: " + qmax + " t: " + t + " val: " + val);
 								// jdata.push([t, val]);
 								if (t > qmax) {
 									queryData.push([t, val]);
@@ -1119,6 +1128,7 @@
 						    });
 				    		// queryData = jdata;
 							ajaxComplete = true;
+							queryCount = 0;
 							// console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
 							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
 							// console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
@@ -1216,6 +1226,7 @@
 							$on = false;
 							console.log("Query returned no data. user_id:" + member_id + " from: " + (new Date(queryMin)).toLocaleTimeString() + " to: " + (new Date(queryMax)).toLocaleTimeString());
 							alert("Query returned no data. user_id:" + member_id + " from: " + (new Date(queryMin)).toLocaleTimeString() + " to: " + (new Date(queryMax)).toLocaleTimeString());
+						    $('.heartrate-status').html('');
 						}
 						plot.draw();
 						setTimeout(update, updateInterval);

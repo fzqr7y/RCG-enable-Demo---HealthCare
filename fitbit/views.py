@@ -67,14 +67,17 @@ def get_heartrate(request):
     query_max = rdict['to']
     api_data = IntradayData.objects.filter(
         # record_date__range=["2016-09-11 20:00:00", "2016-09-12 00:00:00"],
-        # record_date__range=["2016-09-10T20:00:00.000Z", "2016-09-12T20:00:00.000Z"],
+        # record_date__range=["2016-09-10T20:00:00.000Z",
+        # "2016-09-12T20:00:00.000Z"],
         record_date__range=[query_min, query_max],
-        member_id=member_id).values('record_date', 'value').order_by('record_date')
+        member_id=member_id).values('record_date', 'value').order_by(
+            'record_date')
     # member=member).values('record_date', 'value'
     serial_data = list(api_data)
 
     # user = request.user if (
-    #     request.user.__class__.__name__ == 'User') else User.objects.order_by('id').first()
+    #     request.user.__class__.__name__ == 'User') else
+    # User.objects.order_by('id').first()
     # response_data['serial_data'] = serial_data
     # # response_data['api_data'] = api_data.first().id
     # response_data['api_data'] = api_data.first()['value']
@@ -161,7 +164,7 @@ def get_access(request):
         response = urllib.request.urlopen(req)
         # FullResponse = response.read()
         for word in response.readlines():
-            FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+            FullResponse.append(word.strip().decode('utf-8'))
 
         print("Output >>> " + json.dumps(FullResponse))
         # response_data['message'] = 'success'
@@ -187,11 +190,17 @@ def get_access(request):
 def get_data1(request):
     # This is the Fitbit URL
     # DataURL = "https://api.fitbit.com/1/user/-/profile.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1m.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-08-17/1m.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-09-13/1d/1sec.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1m.json"
+    URLBase = "https://api.fitbit.com/1/user/-/"
+    # DataURL = URLBase + "activities/heart/date/2016-08-17/1m.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1d/1sec/time/00:00/00:01.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1d/1sec.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # 2016-09-13/1d/1sec.json"
+    DataURL = URLBase + "activities/heart/date/today/1d/1sec.json"
 
     # Access Token from above
     AuthToken = environ.get('FITBIT_TOKEN')
@@ -206,7 +215,8 @@ def get_data1(request):
         response = urllib.request.urlopen(req)
         # FullResponse = response.read()
         for word in response.readlines():
-            FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+            FullResponse.append(word.strip().decode('utf-8'))
+            # utf-8 works in this case
 
         print("Output >>> " + json.dumps(FullResponse))
         # response_data['message'] = 'success'
@@ -232,12 +242,19 @@ def get_data1(request):
 def get_data(request):
     # This is the Fitbit URL
     # DataURL = "https://api.fitbit.com/1/user/-/profile.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1m.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-08-17/1m.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json"
-    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/2016-09-13/1d/1sec.json"
-    DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec/time/00:00/00:01.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1m.json"
+    URLBase = "https://api.fitbit.com/1/user/-/"
+    # DataURL = URLBase + "activities/heart/date/2016-08-17/1m.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1d/1sec/time/00:00/00:01.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # today/1d/1sec.json"
+    # DataURL = "https://api.fitbit.com/1/user/-/activities/heart/date/
+    # 2016-09-13/1d/1sec.json"
+    # DataURL = URLBase + "activities/heart/date/today/1d/1sec.json"
+    HRURL = "activities/heart/date/"
+    DataURL = URLBase + + HRURL + "today/1d/1sec/time/00:00/00:01.json"
 
     # Access Token from above
     AuthToken = environ.get('FITBIT_TOKEN')
@@ -246,13 +263,14 @@ def get_data(request):
     req = urllib.request.Request(DataURL)
     req.add_header('Authorization', 'Bearer ' + AuthToken)
 
-    FullResponse = []
+    # FullResponse = []
     # Fire off the request
     try:
         response = urllib.request.urlopen(req)
         # FullResponse = response.read()
         # for word in response.readlines():
-        #     FullResponse.append(word.strip().decode('utf-8'))  # utf-8 works in your case
+        #     FullResponse.append(word.strip().decode('utf-8'))
+        # utf-8 works in your case
 
         # print("Output >>> " + json.dumps(FullResponse))
         # # response_data['message'] = 'success'
@@ -260,7 +278,8 @@ def get_data(request):
         # response_text = 'success: ' + json.dumps(FullResponse)
         # # response_text = 'success: '
 
-        rtext = response.read().decode('UTF-8')  # Use loads to decode from text
+        rtext = response.read().decode('UTF-8')
+        # Use loads to decode from text
         json_obj = json.loads(rtext)
         print(json_obj['activities-heart'])
         print(json_obj['activities-heart-intraday'])
