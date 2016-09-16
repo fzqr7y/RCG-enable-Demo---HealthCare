@@ -12,7 +12,7 @@ import logging
 import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
-from datetime import date
+import datetime
 
 # for env vars
 import os
@@ -287,8 +287,28 @@ def read_heartrate_file(request):
     # f = open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json'))
     # file_text = f.read()
     # f.close()
-    with open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json')) as f:
+    # with open(os.path.join(settings.BASE_DIR, '../Data/ihearttest.json')) as f:
+    with open(os.path.join(settings.BASE_DIR, '../Data/iheart1d-2016-09-13.json')) as f:
         file_text = f.read()
+
+    json_obj = json.loads(file_text)
+    dataset = json_obj['activities-heart-intraday']['dataset']
+    hrdate = json_obj['activities-heart'][0]['dateTime']
+    if (hrdate == 'today'):
+        hrdate = datetime.date.today().strftime('%Y-%m-%d')
+    print(hrdate)
+    for item in dataset:
+        # print(item['time'])
+        hrdatetime = hrdate + " " + item['time'] + " Z-0400"
+        d = datetime.datetime.strptime(hrdatetime, '%Y-%m-%d %H:%M:%S Z%z')
+        idata = IntradayData(record_date=d)
+        idata.api_record_id = 2
+        idata.member_id = 3
+        idata.created_by_id = 3
+        idata.record_type = 'activities-heart-intraday'
+        idata.value = dataset[0]['value']
+        idata.save()
+        # idata.id
 
     respond_with = HttpResponse(
         file_text,
