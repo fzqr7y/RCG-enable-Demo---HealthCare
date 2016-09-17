@@ -1,0 +1,9 @@
+{% load staticfiles %}
+
+{% if person.picture_path %}
+    <img src="{% static member.picture_path %}" alt="{{ person.name }}" />
+{% elif person.sex == 'F' %}
+    <img src="{% static 'img/avatars/female.png' %}" alt="{{ person.name }}" />
+{% else %}
+    <img src="{% static 'img/avatars/male.png' %}" alt="{{ person.name }}" />
+{% endif %}

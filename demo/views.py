@@ -89,6 +89,18 @@ def heartrate(request, pk):
         'member': member, 'providermembers': providermembers})
 
 
+@login_required
+def heartrate2(request, pk):
+    member = get_object_or_404(Member, pk=pk)
+    # providers = member.provider_set.order_by('id')
+    # return render(request, 'demo/member_detail.html', {
+    # 'member': member, 'providers': providers})
+    providermembers = ProviderMember.objects.filter(
+        member=member).order_by('id')
+    return render(request, 'demo/heartrate2.html', {
+        'member': member, 'providermembers': providermembers})
+
+
 # @login_required
 @twilio_view
 def receive_sms(request):
@@ -121,14 +133,16 @@ def receive_sms(request):
     message_from = rdict.get('From', '+19735688856')
     try:
         x = phonenumbers.parse(message_from, "US")
-        from_parsed = phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.NATIONAL)
+        from_parsed = phonenumbers.format_number(
+            x, phonenumbers.PhoneNumberFormat.NATIONAL)
     except:
         from_parsed = message_from
     sms.message_from = from_parsed
     message_to = rdict.get('To', '+18627728556')
     try:
         x = phonenumbers.parse(message_to, "US")
-        to_parsed = phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.NATIONAL)
+        to_parsed = phonenumbers.format_number(
+            x, phonenumbers.PhoneNumberFormat.NATIONAL)
     except:
         to_parsed = message_to
     sms.message_to = to_parsed
@@ -190,7 +204,8 @@ def sms(request):
             'message_from': '+18627728556', 'member': member}
         form = MessageForm(initial=defaults)
     # return render(request, 'blog/post_edit.html', {'form': form})
-    messages = Message.objects.filter(message_type='SMS').order_by('-created_date')
+    messages = Message.objects.filter(
+        message_type='SMS').order_by('-created_date')
     return render(request, 'demo/sms.html', {
         'messages': messages, 'form': form})
 
