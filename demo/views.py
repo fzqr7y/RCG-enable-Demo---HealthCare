@@ -72,7 +72,7 @@ def provider_members(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
     members = Member.objects.filter(providermember__provider_id=pk).values(
-        'first_name', 'last_name', 'address', 'city', 'state', 'zip')
+        'id', 'first_name', 'last_name', 'address', 'city', 'state', 'zip')
     serial_data = list(members)
     rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
     return HttpResponse(
