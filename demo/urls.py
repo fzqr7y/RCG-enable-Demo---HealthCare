@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^heartrate/(?P<pk>\d+)/$', views.heartrate, name='heartrate'),
     url(r'^members2/$', views.members2, name='members2'),
     url(r'^heartrate2/(?P<pk>\d+)/$', views.heartrate2, name='heartrate2'),
+    url(r'^provider_map/(?P<pk>\d+)/$', views.provider_map, name='provider_map'),
+    url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
     # url(r'^user_profile_upload/$', views.user_profile_upload,

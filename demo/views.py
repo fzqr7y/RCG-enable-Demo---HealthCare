@@ -25,6 +25,7 @@ import logging
 # serialize the request dict
 import json
 from django.http import HttpResponse
+from django.core.serializers.json import DjangoJSONEncoder
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
@@ -55,6 +56,29 @@ def members(request):
 def providers(request):
     providers = Provider.objects.all
     return render(request, 'demo/providers.html', {'providers': providers})
+
+
+@login_required
+def provider_map(request, pk):
+    provider = get_object_or_404(Provider, pk=pk)
+    members = Member.objects.filter(providermember__provider_id=pk)
+    # logger.error(members.count())
+    return render(request, 'demo/provider_map.html', {
+        'provider': provider, 'members': members})
+
+
+@login_required
+def provider_members(request, pk):
+    provider = get_object_or_404(Provider, pk=pk)
+    logger.error(provider.id)
+    members = Member.objects.filter(providermember__provider_id=pk).values(
+        'first_name', 'last_name', 'address', 'city', 'state', 'zip')
+    serial_data = list(members)
+    rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
+    return HttpResponse(
+        rdata,
+        content_type="application/json"
+    )
 
 
 @login_required
