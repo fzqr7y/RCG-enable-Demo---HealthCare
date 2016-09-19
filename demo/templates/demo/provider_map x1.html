@@ -1,8 +1,9 @@
+{% extends 'demo/base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Member Location</title>
+
+{% block page_title %}| My Members{% endblock %}
+
+{% block page_stylesheets %}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -15,20 +16,17 @@
         height: 100%;
       }
     </style>
-    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>
-      if (!window.jQuery) {
-        document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
-      }
-    </script>
+{% endblock %}
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script>
-      if (!window.jQuery.ui) {
-        document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
-      }
-    </script>
+{% block nav_demo %}class="active"{% endblock %}
+{% block nav_provider_map %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+  <li>Provider / My Members</li>
+{% endblock %}
+
+
+{% block js-head %}
     <script>
       function getQueryVariable(variable)
       {
@@ -40,8 +38,7 @@
              }
              return(false);
       }
-    </script>
-    <script>
+
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -455,9 +452,10 @@
         markers = [];
       }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+{% endblock %} <!-- js-head -->
 
-  </head>
-  <body>
+{% block main_content %}
     <div id="provider_name">{{provider.name}}</div>
     <div id="member_list">
     {
@@ -489,5 +487,6 @@
     </div>
     <div id="map"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
-  </body>
-</html>
+
+{% endblock %} <!-- main content -->
+

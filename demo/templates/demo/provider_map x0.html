@@ -56,7 +56,7 @@
       // var pinImage1, pinImage2, pinShadow;
       var pinColor = "0000AA";
 
-       function initMap() {
+      function initMap() {
         // var pyrmont = {lat: -33.867, lng: 151.195};
 
         // pinImage1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor1,
@@ -76,7 +76,7 @@
         map = new google.maps.Map(document.getElementById('map'), {
           center: nyc,
           // zoom: 15      // zoomed in neighborhood
-          zoom: 13      // zoomed
+          zoom: 12      // zoomed
           // zoom: 10   // zoomed out super county
           // SC for fun
           //, mapTypeId: 'terrain'
@@ -103,19 +103,8 @@
         infoWindow = new google.maps.InfoWindow({map: map});
         getMyAddress(map, infoWindow);
 
-        console.log(navigator.userAgent.toLowerCase())
-        chrome = /chrome/.test(navigator.userAgent.toLowerCase());
-        // chrome = navigator.userAgent.toLowerCase().indexOf('chrom')
-        console.log(chrome)
-        // console.log("after me")
-        // map = new google.maps.Map(document.getElementById('map'), {
-        //   center: nyc,
-        //   zoom: 13      // zoomed
-        // });
-        // var geocoder = new google.maps.Geocoder();
-        if (!chrome) {
-          geocodeAddress(geocoder, map, 'My Address');
-        }
+
+        geocodeAddress(geocoder, map, 'My Address');
 
         // pinColor = "FE7569";
 
@@ -162,8 +151,6 @@
         infoWindow.setContent(browserHasGeolocation ?
                               'Could not determine your location.' :
                               'Error: Your browser doesn\'t support geolocation.');
-        map.setCenter(nyc);
-        console.log("error")
       }
 
       function callback(results, status) {
@@ -199,13 +186,9 @@
           map: map,
           position: location,
           title: hover
+          // icon: pinImage1,
+          // shadow: pinShadow
         });
-        // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        if (membid == 0) {
-          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        } else {
-          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-        }
         // console.log(hover, membid)
         google.maps.event.addListener(marker, 'click', function() {
           // infoWindow.setContent('<a href= "http://127.0.0.1:8000/">'+popup+'</a>');
@@ -214,8 +197,8 @@
             infoWindow.setContent(popup);
           } else {
             // mstr = 'member_detail pk=' + id
-            memburl = "{% url 'member_detail' pk=1 %}"
-            url2 = memburl.substr(0,memburl.length-2) + membid + '/'
+            murl = "{% url 'member_detail' pk=1 %}"
+            url2 = murl.substr(0,murl.length-2) + membid
             console.log(url2)
             infoWindow.setContent('<a href= "' + url2 + '">'+popup+'</a>');
           }
