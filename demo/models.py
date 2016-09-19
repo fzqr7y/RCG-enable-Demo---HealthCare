@@ -271,60 +271,60 @@ class MemberMedical(models.Model):
         return alerthi and alertlo
 
 
+# class CountyMetrics(models.Model)
+#     year = models.IntegerField()
+#     measure_key = models.CharField(max_length=10)
+#     measure_name = models.CharField(max_length=40)
+#     measure_desc = models.TextField(max_length=40)
+#     val_1_key = models.CharField(max_length=10)
+#     val_1_name = models.CharField(max_length=40)
+#     val_1_desc = models.TextField(max_length=40)
+#     val_2_key = models.CharField(max_length=10)
+#     val_2_name = models.CharField(max_length=40)
+#     val_2_desc = models.TextField(max_length=40)
+#     val_3_key = models.CharField(max_length=10)
+#     val_3_name = models.CharField(max_length=40)
+#     val_3_desc = models.TextField(max_length=40)
+#     val_4_key = models.CharField(max_length=10)
+#     val_4_name = models.CharField(max_length=40)
+#     val_4_desc = models.TextField(max_length=40)
+#     val_5_key = models.CharField(max_length=10)
+#     val_5_name = models.CharField(max_length=40)
+#     val_5_desc = models.TextField(max_length=40)
+#     val_6_key = models.CharField(max_length=10)
+#     val_6_name = models.CharField(max_length=40)
+#     val_6_desc = models.TextField(max_length=40)
+#     val_7_key = models.CharField(max_length=10)
+#     val_7_name = models.CharField(max_length=40)
+#     val_7_desc = models.TextField(max_length=40)
+
+#     def __str__(self):
+#         return str(self.year) + "_" + self.measure_key #}
+
+
+# class CountyData(models.Model):
+#     year = models.IntegerField()
+#     fips = models.IntegerField()
+#     state = models.CharField(max_length=2)
+#     state_name = models.CharField(max_length=20)
+#     county = models.CharField(max_length=20)
+#     measure_key = models.CharField(max_length=10)
+#     category = models.CharField(max_length=40)
+#     measure_name = models.CharField(max_length=40)
+#     measure_desc = models.TextField(max_length=40)
+
+#     def __str__(self):
+#         return str(self.year) + "_" + self.measure_key
+
+
 class CountyMetricWidget(models.Model):
     widget_name = models.CharField(max_length=20)
     category = models.CharField(max_length=40, blank=True, null=True)
     measure_name = models.CharField(max_length=20)
     display_order = models.IntegerField(blank=True, null=True)
-    val1_col = models.CharField(max_length=20, blank=True, null=True)
-    val2_col = models.CharField(max_length=20, blank=True, null=True)
-    val3_col = models.CharField(max_length=20, blank=True, null=True)
+    val1_ref = models.CharField(max_length=20, blank=True, null=True)
+    val2_ref = models.CharField(max_length=20, blank=True, null=True)
+    val3_ref = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.widget_name + "_" + str(self.display_order) + "_" + self.measure_key
-
-
-class CountyMetrics(models.Model):
-    year = models.IntegerField()
-    measure_key = models.CharField(max_length=10)
-    measure_name = models.CharField(max_length=40)
-    measure_desc = models.TextField(max_length=40)
-    val_1_key = models.CharField(max_length=10)
-    val_1_name = models.CharField(max_length=40)
-    val_1_desc = models.TextField(max_length=40)
-    val_2_key = models.CharField(max_length=10)
-    val_2_name = models.CharField(max_length=40)
-    val_2_desc = models.TextField(max_length=40)
-    val_3_key = models.CharField(max_length=10)
-    val_3_name = models.CharField(max_length=40)
-    val_3_desc = models.TextField(max_length=40)
-    val_4_key = models.CharField(max_length=10)
-    val_4_name = models.CharField(max_length=40)
-    val_4_desc = models.TextField(max_length=40)
-    val_5_key = models.CharField(max_length=10)
-    val_5_name = models.CharField(max_length=40)
-    val_5_desc = models.TextField(max_length=40)
-    val_6_key = models.CharField(max_length=10)
-    val_6_name = models.CharField(max_length=40)
-    val_6_desc = models.TextField(max_length=40)
-    val_7_key = models.CharField(max_length=10)
-    val_7_name = models.CharField(max_length=40)
-    val_7_desc = models.TextField(max_length=40)
-
-    def __str__(self):
-        return str(self.year) + "_" + self.measure_key
-
-
-class CountyData(models.Model):
-    year = models.IntegerField()
-    fips = models.IntegerField()
-    state = models.CharField(max_length=2)
-    state_name = models.CharField(max_length=20)
-    county = models.CharField(max_length=20)
-    measure_key = models.CharField(max_length=10)
-    category = models.CharField(max_length=40)
-    measure_name = models.CharField(max_length=40)
-    measure_desc = models.TextField(max_length=40)
-
-    def __str__(self):
-        return str(self.year) + "_" + self.measure_key
