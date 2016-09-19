@@ -1,9 +1,7 @@
-{% extends 'demo/base-map2.html' %}
+{% extends 'demo/base-map.html' %}
 {% load staticfiles %}
 
-  {% block js-head %}
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+  {% block js_head %}
     <style>
       html, body {
         height: 100%;
@@ -14,8 +12,11 @@
         height: 100%;
       }
     </style>
+  {% endblock %}
+
+  {% block js_touch %}
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
       if (!window.jQuery) {
         document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
@@ -27,7 +28,7 @@
       if (!window.jQuery.ui) {
         document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
       }
-    </script>
+    </script>-->
     <script>
       function getQueryVariable(variable)
       {
@@ -39,8 +40,6 @@
              }
              return(false);
       }
-    </script>
-    <script>
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -454,9 +453,14 @@
         markers = [];
       }
     </script>
-  {% endblock %}
+  {% endblock %} <!-- js_head -->
+
+  {% block main_panel %}
+  {% endblock %} <!--- main_panel -->
 
   {% block main_body %}
+        {# <div class="row"> #}
+
     <div id="provider_name">{{provider.name}}</div>
     <div id="member_list">
     {
@@ -487,5 +491,10 @@
       <input id="submitText" type="button" value="Search">-->
     </div>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+        {# </div> #}
   {% endblock %} <!-- main content -->
+
+  {% block js_page_plugins %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+  {% endblock %} <!-- js_page_plugins -->
+

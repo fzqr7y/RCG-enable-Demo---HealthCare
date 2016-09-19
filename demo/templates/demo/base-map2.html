@@ -71,7 +71,7 @@
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (max-device-width: 320px)">
-    {% block js-head %}
+    {% block js_head %}
         <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
     {% endblock %}
 
@@ -427,6 +427,7 @@
 
 
 		<!-- #MAIN PANEL -->
+	    {% block main_panel %}
 		<div id="main" role="main">
 
 			<!-- RIBBON -->
@@ -487,6 +488,7 @@
 			<!-- END MAIN CONTENT -->
 
 		</div>
+		{% endblock %} <!--- main_panel -->
 		<!-- END MAIN PANEL -->
 
 		{% block main_body %}

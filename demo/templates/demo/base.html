@@ -71,7 +71,7 @@
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/RCG-Logo.png' %}" media="screen and (max-device-width: 320px)">
-    {% block js-head %}
+    {% block js_head %}
         <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
     {% endblock %}
 
@@ -315,7 +315,7 @@
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
 		<aside id="left-panel">
-    	{% block left-panel %}
+    	{% block left_panel %}
 			<!-- User info -->
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
