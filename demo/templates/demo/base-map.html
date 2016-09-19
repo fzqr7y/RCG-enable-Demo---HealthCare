@@ -428,10 +428,10 @@
 
 		<!-- #MAIN PANEL -->
 	    {% block main_panel %}
-		<div id="main" role="main">
+		<div id="main" role="main" style="height:100%; width:100%;" >
 
 			<!-- RIBBON -->
-			<div id="ribbon">
+			<div id="ribbon"  style="height:100%;">
 
                 <!-- reset widget settings -->
 				<span class="ribbon-button-alignment">
@@ -469,7 +469,7 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
+			<div id="content" style="height:100%; width:100%;" >
                         <!--{{ user.userprofile.picture }}<br>
                         {{ user.userprofile.picture.name }}<br>
                         {{ user.userprofile.picture.url }}<br>
@@ -482,6 +482,8 @@
 						<img src="{# static 'img/avatars/Scott.jpg' #}" alt="me" class="online" /><br>-->
             {% block main_content %}
                 <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
+            {% endblock %} <!-- main content -->
+            {% block main_content2 %}
             {% endblock %} <!-- main content -->
 
 			</div>
