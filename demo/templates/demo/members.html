@@ -3,8 +3,8 @@
 
 {% load staticfiles %}
 
-{% block page-title %}Members{% endblock %}
-{% block page-stylesheets %}{% endblock %}
+{% block page_title %}Members{% endblock %}
+{% block page_stylesheets %}{% endblock %}
 
 {% block nav_dashboard %}class="active"{% endblock %}
 {% block nav_members %}class="active"{% endblock %}
@@ -249,7 +249,7 @@
 		    });
 
 		    // custom toolbar
-		    $("div.toolbar").html('<div class="text-right"><img src="{% static 'img/rcg/rcg-logo.png' %}" alt="RCG HealthCare" style="width: 30px; margin-top: 3px; margin-right: 10px;"></div>');
+		    $("div.toolbar").html('<div class="text-right"><img src="{% static 'img/rcg/RCG-Logo.png' %}" alt="RCG HealthCare" style="width: 30px; margin-top: 3px; margin-right: 10px;"></div>');
 
 		    // Apply the filter
 		    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {

@@ -1,23 +1,23 @@
 /*
  * It is advised not to edit the smartadmin_production.css
- * as this will override any changes you make in the 
- * later versions of this theme. 
- * 
- * We advise that you use use this CSS to override 
- * SmartAdmin styles. 
- * 
+ * as this will override any changes you make in the
+ * later versions of this theme.
+ *
+ * We advise that you use use this CSS to override
+ * SmartAdmin styles.
+ *
  * Rename the stylesheet to whatever your liking so it will stay
  * unique to you with each update of SmartAdmin.
  */
 
 /*
  * INDEX
- * 
+ *
  * - HTML
  * - BODY
  * - CUSTOM STYLES
  */
- 
+
 li.active {
     color: #FFF205;
 }
@@ -28,7 +28,8 @@ li.active2 {
 
 #rcg-right-profile {
 /*    display: none !important; */
-    padding-right: 2px !important;
+    padding-right: 2p
+    x !important;
     padding-left: 2px !important;
 }
 
@@ -43,6 +44,28 @@ li.active2 {
     margin-top: -5px;
     margin-right: 20px;
     margin-left: 5px;
+}
+
+#logo-group {
+    width: 400px !important;
+}
+
+img.rcg-left-logo {
+    width: 37px !important;
+    /*height: 50px  !important;*/
+    height: auto;
+    padding-left: 5px;
+    padding-top: 2px;
+}
+
+.rcg-brand-text {
+    /*font-family: "Century Gothic";*/
+    font-family: "Calibri LIght";
+    font-size: 24px;
+    /*font-weight: 50;*/
+    /*line-height: 36px;*/
+    padding-top: 10px;
+    /*padding-bottom: -30px;*/
 }
 
 

@@ -9,6 +9,8 @@
         <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin‐ext" rel="stylesheet" type="text/css">
 
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        {% block js-head %}
+        {% endblock %}
     </head>
     <body>
         <div class="page‐header">
@@ -26,6 +28,8 @@
             <div class="row">
                 <div class="col‐md‐8">
                     {% block content %}
+                    {% endblock %}
+                    {% block main_content %}
                     {% endblock %}
                 </div>
             </div>
