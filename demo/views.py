@@ -77,6 +77,15 @@ def provider_map2(request, pk):
 
 
 @login_required
+def provider_map3(request, pk):
+    provider = get_object_or_404(Provider, pk=pk)
+    members = Member.objects.filter(providermember__provider_id=pk)
+    # logger.error(members.count())
+    return render(request, 'demo/provider_map3.html', {
+        'provider': provider, 'members': members})
+
+
+@login_required
 def provider_members(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
