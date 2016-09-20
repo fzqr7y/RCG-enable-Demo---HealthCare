@@ -1,0 +1,236 @@
+{% extends 'demo/base.html' %}
+{% load staticfiles %}
+<!--SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/-->
+{% load humanize %}
+<!--SC: https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/ -->
+<!--SC: https://djangosnippets.org/snippets/9/ -->
+{% load demo_tags %}
+
+{% block page_title %}Member Detail{% endblock %}
+
+{# {% block nav_demo %}class="top-menu-invisible active"{% endblock %} #}
+{% block nav_demo %}class="active"{% endblock %}
+{% block nav_member_detail %}class="active"{% endblock %}
+
+{% block page_stylesheets %}
+        <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
+{% endblock %}
+
+{% block breadcrumb %}
+	<li>Home</li><li>Member</li><li>Detail</li>
+{% endblock %}
+
+
+{% block main_content %}
+
+{# expr member.pcp() as pcp #}
+
+{# include 'demo/_member_header.html' #}
+
+<!-- SC notification row -->
+<div class="row">
+	<!-- Notification Section -->
+	<article class="col-sm-12">
+		<div class="alert alert-warning fade in">
+			<button class="close" data-dismiss="alert">
+				×
+			</button>
+			<i class="fa-fw fa fa-warning"></i>
+			<strong>Notice: </strong> Patient has not filled <code>Zocor</code> as prescribed.
+		</div>
+		<div class="alert alert-success fade in">
+			<button class="close" data-dismiss="alert">
+				×
+			</button>
+			<i class="fa-fw fa fa-check"></i>
+			<strong>Indicators: </strong> Patient health indicators currently within care plan guidelines.
+		</div>
+	</article>
+</div>
+<!-- end SC notification row -->
+
+
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+	<!-- SC main grid row -->
+	<div class="row">
+
+		<!-- NEW WIDGET PATIENT INFO COLUMN 1 START -->
+		<article class="col-sm-12 col-md-12 col-lg-4">
+
+			<!-- Widget ID (each widget will need unique ID)-->
+			<!-- Patient Vitals Widget-->
+			<div class="jarviswidget jarviswidget-color-greenDark" id="wid-pat-vitals"> <!--data-widget-editbutton="true"-->
+				<!-- widget options:
+				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				data-widget-colorbutton="false"
+				data-widget-editbutton="false"
+				data-widget-togglebutton="false"
+				data-widget-deletebutton="false"
+				data-widget-fullscreenbutton="false"
+				data-widget-custombutton="false"
+				data-widget-collapsed="true"
+				data-widget-sortable="false"
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+					<h2>Vitals </h2>
+				</header>
+				<!-- widget div-->
+				<div>
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox"> -->
+						<!-- This area used as dropdown edit box -->
+						<input class="form-control" type="text">
+						<span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+					</div>
+					<!-- end widget edit box -->
+					<!-- widget content -->
+					<div class="widget-body no-padding">
+						<div class="alert alert-info no-margin fade in">
+							<button class="close" data-dismiss="alert">
+								×
+							</button>
+							<i class="fa-fw fa fa-info"></i>
+							<code>Blood Pressure</code> at <code>lower</code> edge of range.
+						</div>
+						<div class="table-responsive">
+							<!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
+							</div> -->
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Type</th>
+										<th> <i class="fa fa-building"></i> Value</th>
+										<th> <i class="fa fa-calendar"></i> Recorded</th>
+										<th> <i class="glyphicon glyphicon-send"></i> Target / Alert</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Height</td>
+										<td>{{ member.height.value_str }}</td>
+										<td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>-</td>
+									</tr>
+									<tr class="success">
+										<td>Weight</td>
+										<td>{{ member.weight.value_1 | floatformat:"0" }}</td>
+										<td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.weight.value_1_tgt_hi | floatformat:"0" }} - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
+									</tr>
+									<tr>
+										<td>BP</td>
+										<td>{{ member.bp.value_str }}</td>
+										<td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.bp.value_1_tgt_hi | floatformat:"0" }} - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
+									</tr>
+									<tr class="danger">
+										<td>HR</td>
+										<td>{{ member.hr.value_1 | floatformat:"0" }}</td>
+										<td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
+										<td>{{ member.hr.value_1_tgt_hi | floatformat:"0" }} - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- end widget content -->
+				</div>
+				<!-- end widget div -->
+			</div>
+			<!-- end patient vitals widget -->
+
+		</article>
+		<!-- WIDGET END -->
+
+	</div>
+	<!-- end row -->
+	<!-- /SC Dygraphs -->
+
+</section>
+<!-- end widget grid -->
+
+
+<!-- row for news ticker -->
+<div class="row">
+	<div class="simple-marquee-container">
+		<div class="marquee-sibling">
+			HealthCare News:
+		</div>
+		<div class="marquee">
+			<ul class="marquee-content-items">
+				<li>Item 1</li>
+				<li>Item 2</li>
+				<li>Item 3</li>
+				<li>Item 4</li>
+				<li>Item 5</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- end row for news ticker -->
+
+{% endblock %} <!-- main content -->
+
+
+<!-- copied here for reference -->
+{% block js_touch %}
+{% endblock %}
+
+{% block js_smartadmin %}
+		<!-- CUSTOM NOTIFICATION -->
+		{# // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> #}
+
+		<!-- JARVIS WIDGETS -->
+		<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
+		<script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
+
+		<!-- EASY PIE CHARTS -->
+		{# // <script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> #}
+
+		<!-- SPARKLINES -->
+		{# // <script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script> #}
+
+		<!-- JQUERY VALIDATE -->
+		{# // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> #}
+
+		<!-- JQUERY MASKED INPUT -->
+		{# // <script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> #}
+
+		<!-- JQUERY SELECT2 INPUT -->
+		{# // <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script> #}
+
+		<!-- JQUERY UI + Bootstrap Slider -->
+		{# // <script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> #}
+{% endblock %} <!-- js_smartadmin -->
+
+{% block js_voice_chat %}
+{% endblock %}
+
+{% block js_page_plugins %}
+		<!-- SC: news ticker -->
+		<!-- https://github.com/conradfeyt/Simple-Marquee -->
+		<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+		<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+		<script>
+			$(function (){
+				$('.simple-marquee-container').SimpleMarquee();
+			});
+		</script>
+		<!-- /SC: news ticker -->
+
+{% endblock %} <!-- js_page_plugins -->
+
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+		// PAGE RELATED DECLARATIONS
+		$(document).ready(function() {
+			pageSetUp();
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en-us">
+	<head>
+    {% block js-head %}
+        <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
+    {% endblock %}
+
+	</head>
+
+
+	<body class="">
+
+
+			<!-- MAIN CONTENT -->
+			<div id="content">
+			</div>
+            {% block main_body %}
+            {% endblock %} <!-- main content -->
+
+
+	</body>
+
+</html>
