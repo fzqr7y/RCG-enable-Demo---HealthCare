@@ -16,6 +16,10 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 # from django.templatetags.static import static
 import logging
 
+import re
+from django import template
+from django.conf import settings
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -113,3 +117,25 @@ def prepend_whole_dollars(dollars):
 #         # new_filepath = filepath[:index] + '/image.png'
 #         new_filepath = 'img/avatars/male.png'
 #         return new_filepath
+
+# app/templatetags/getattribute.py
+
+# http://stackoverflow.com/questions/844746/performing-a-getattr-style-lookup-in-a-django-template
+numeric_test = re.compile("^\d+$")
+register = template.Library()
+
+
+def getattribute(value, arg):
+    """Gets an attribute of an object dynamically from a string name"""
+
+    if hasattr(value, str(arg)):
+        return getattr(value, arg)
+    elif hasattr(value, 'has_key') and arg in value:
+        return value[arg]
+    elif numeric_test.match(str(arg)) and len(value) > int(arg):
+        return value[int(arg)]
+    else:
+        return settings.TEMPLATE_STRING_IF_INVALID
+
+
+register.filter('getattribute', getattribute)

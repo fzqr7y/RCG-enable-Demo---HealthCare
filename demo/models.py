@@ -311,16 +311,17 @@ class MemberMedical(models.Model):
 #     measure_key = models.CharField(max_length=10)
 #     category = models.CharField(max_length=40)
 #     measure_name = models.CharField(max_length=40)
-#     measure_desc = models.TextField(max_length=40)
+#     measure_desc = models.TextField()
 
 #     def __str__(self):
 #         return str(self.year) + "_" + self.measure_key
 
 
-class CountyMetricWidget(models.Model):
+class CountyWidget(models.Model):
     widget_name = models.CharField(max_length=20)
     category = models.CharField(max_length=40, blank=True, null=True)
-    measure_name = models.CharField(max_length=20)
+    measure_name = models.CharField(max_length=40)
+    description = models.TextField(blank=True, null=True)
     display_order = models.IntegerField(blank=True, null=True)
     val1_ref = models.CharField(max_length=20, blank=True, null=True)
     val2_ref = models.CharField(max_length=20, blank=True, null=True)
@@ -335,7 +336,7 @@ class CountyData(models.Model):
     fips = models.IntegerField()
     state_name = models.CharField(max_length=20)
     state = models.CharField(max_length=2)
-    county = models.CharField(max_length=20)
+    county = models.CharField(max_length=40)
     death_1 = models.IntegerField(blank=True, null=True)
     death_2 = models.IntegerField(blank=True, null=True)
     death_lo = models.IntegerField(blank=True, null=True)
@@ -402,15 +403,15 @@ class CountyData(models.Model):
     unins_q = models.IntegerField(blank=True, null=True)
     pcp_1 = models.IntegerField(blank=True, null=True)
     pcp_2 = models.IntegerField(blank=True, null=True)
-    pcp_3 = models.IntegerField(blank=True, null=True)
+    pcp_3 = models.CharField(max_length=10, blank=True, null=True)
     pcp_q = models.IntegerField(blank=True, null=True)
     dent_1 = models.IntegerField(blank=True, null=True)
     dent_2 = models.IntegerField(blank=True, null=True)
-    dent_3 = models.IntegerField(blank=True, null=True)
+    dent_3 = models.CharField(max_length=10, blank=True, null=True)
     dent_q = models.IntegerField(blank=True, null=True)
     mhp_1 = models.IntegerField(blank=True, null=True)
     mhp_2 = models.IntegerField(blank=True, null=True)
-    mhp_3 = models.IntegerField(blank=True, null=True)
+    mhp_3 = models.CharField(max_length=10, blank=True, null=True)
     mhp_q = models.IntegerField(blank=True, null=True)
     phosp_1 = models.IntegerField(blank=True, null=True)
     phosp_2 = models.IntegerField(blank=True, null=True)

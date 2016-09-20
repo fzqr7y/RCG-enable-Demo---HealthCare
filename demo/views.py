@@ -3,7 +3,9 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Post, Comment, Provider, Member, ProviderMember, Message
+from .models import Post, Comment
+from .models import Provider, Member, ProviderMember, Message
+from .models import CountyData, CountyWidget
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm, MessageForm
 
@@ -97,6 +99,21 @@ def provider_members(request, pk):
         rdata,
         content_type="application/json"
     )
+
+
+@login_required
+def county_data(request, pk):
+    provider = get_object_or_404(Provider, pk=pk)
+    logger.error(provider.id)
+    behaviors = CountyWidget.objects.filter(
+        widget_name='Health Behaviors').values(
+        'category', 'measure_name', 'description', 'val1_ref',
+        'val2_ref').order_by('display_order')
+    county_dataset = CountyData.objects.filter(
+        state=provider.state, county=provider.county)
+    return render(request, 'demo/county_data.html', {
+        'provider': provider, 'behaviors': behaviors,
+        'county_dataset': county_dataset})
 
 
 @login_required
