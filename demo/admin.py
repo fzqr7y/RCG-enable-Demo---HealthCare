@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 # Register your models here.
 from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, MemberMedical
+from .models import CountyData, CountyWidget
 from demo.models import UserProfile, Message
 
 admin.site.register(Post)
@@ -16,6 +17,8 @@ admin.site.register(Member)
 admin.site.register(ProviderMember)
 admin.site.register(MemberMedical)
 admin.site.register(Message)
+admin.site.register(CountyData)
+admin.site.register(CountyWidget)
 
 
 # SC: extend User via UserProfile

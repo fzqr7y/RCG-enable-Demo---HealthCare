@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^provider_map2/(?P<pk>\d+)/$', views.provider_map2, name='provider_map2'),
     url(r'^provider_map3/(?P<pk>\d+)/$', views.provider_map3, name='provider_map3'),
     url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
+    url(r'^county_data/(?P<pk>\d+)/$', views.county_data, name='county_data'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
     # url(r'^user_profile_upload/$', views.user_profile_upload,
