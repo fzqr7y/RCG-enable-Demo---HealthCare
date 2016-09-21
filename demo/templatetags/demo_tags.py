@@ -16,8 +16,6 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 # from django.templatetags.static import static
 import logging
 
-from django.conf import settings
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -120,7 +118,6 @@ def prepend_whole_dollars(dollars):
 
 # http://stackoverflow.com/questions/844746/performing-a-getattr-style-lookup-in-a-django-template
 numeric_test = re.compile("^\d+$")
-register = template.Library()
 
 
 def getattribute(value, arg):
@@ -133,7 +130,7 @@ def getattribute(value, arg):
     elif numeric_test.match(str(arg)) and len(value) > int(arg):
         return value[int(arg)]
     else:
-        return settings.TEMPLATE_STRING_IF_INVALID
+        return 'NA'
 
 
 register.filter('getattribute', getattribute)
