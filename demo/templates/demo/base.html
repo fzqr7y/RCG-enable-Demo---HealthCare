@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+
 <html lang="en-us">
 	<head>
 		<meta charset="utf-8">
@@ -371,7 +372,10 @@
 								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
 							</li>
 							<li {% block nav_provider_map %}{% endblock %} >
-								<a href="{% url 'provider_map' pk=3 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Provider Map</span></a>
+								<a href="{% url 'provider_map' pk=3 %}" title="Map"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Provider Map</span></a>
+							</li>
+							<li {% block nav_county_data %}{% endblock %} >
+								<a href="{% url 'county_data' pk=3 %}" title="County"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">County Data</span></a>
 							</li>
 							<li {% block nav_sms %}{% endblock %} >
 								<a href="{% url 'sms' %}" title="SMS"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">SMS</span></a>
