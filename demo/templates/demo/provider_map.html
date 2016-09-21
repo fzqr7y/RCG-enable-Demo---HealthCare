@@ -1,10 +1,7 @@
+{% extends 'demo/base-map.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Member Location</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+
+  {% block js_head %}
     <style>
       html, body {
         height: 100%;
@@ -15,8 +12,11 @@
         height: 100%;
       }
     </style>
+  {% endblock %}
+
+  {% block js_touch %}
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
       if (!window.jQuery) {
         document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
@@ -28,7 +28,7 @@
       if (!window.jQuery.ui) {
         document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
       }
-    </script>
+    </script>-->
     <script>
       function getQueryVariable(variable)
       {
@@ -40,8 +40,6 @@
              }
              return(false);
       }
-    </script>
-    <script>
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -455,39 +453,48 @@
         markers = [];
       }
     </script>
+  {% endblock %} <!-- js_touch -->
 
-  </head>
-  <body>
-    <div id="provider_name">{{provider.name}}</div>
-    <div id="member_list">
-    {
-    {% for member in members %}
-      {'name': "{{member.first_name}} {{member.last_name}}",
-      'address': "{{member.address}}",
-      'city': "{{member.city}}",
-      'state': "{{member.state}}",
-      'zip': "{{member.zip}}"}
-    {% endfor %}
-    }
-    </div>
-    <input id="getMembers" type="button" value="Members">
-    <div id="floating-panel">
-      <input id="address" type="textbox" value="New York, NY">
+                {% block breadcrumb %}
+          Provider Map
+                {% endblock %}
 
-      <select id = "searchType">
-       <option value = "doctor">doctor</option>
-       <option value = "dentist">dentist</option>
-       <option value = "hospital">hospital</option>
-       <option value = "parking">parking</option>
-       <option value = "pharmacy">pharmacy</option>
-       <option value = "physiotherapist">physiotherapist</option>
-      </select>
-      <input id="submitNearby" type="button" value="Find">
+  {# {% block main_panel %} #}
+  {# {% endblock %} <!--- main_panel --> #}
 
-      <!--<input id="searchTerm" type="textbox" value="hospital">
-      <input id="submitText" type="button" value="Search">-->
-    </div>
-    <div id="map"></div>
+  {% block main_body %}
+  {# {% block main_content %} #}
+    {# <div id="main" role="main" style="height:100%;"> #}
+      {# <div id="content" style="height:100%;"> #}
+        {# <div class="row" style="height:100%;"> #}
+
+      <input id="getMembers" type="button" value="Members">
+      <div id="floating-panel">
+        <input id="address" type="textbox" value="New York, NY">
+
+        <select id = "searchType">
+         <option value = "doctor">doctor</option>
+         <option value = "dentist">dentist</option>
+         <option value = "hospital">hospital</option>
+         <option value = "parking">parking</option>
+         <option value = "pharmacy">pharmacy</option>
+         <option value = "physiotherapist">physiotherapist</option>
+        </select>
+        <input id="submitNearby" type="button" value="Find">
+
+        <!--<input id="searchTerm" type="textbox" value="hospital">
+        <input id="submitText" type="button" value="Search">-->
+      </div>
+
+      <!-- google maps div -->
+      <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
+      <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
+      <div id="map"></div>
+      {# </div> #}
+    {# </div> #}
+  {% endblock %} <!-- main content -->
+
+  {% block js_page_plugins %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
-  </body>
-</html>
+  {% endblock %} <!-- js_page_plugins -->
+
