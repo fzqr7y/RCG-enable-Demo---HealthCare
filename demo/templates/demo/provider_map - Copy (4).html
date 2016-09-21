@@ -282,16 +282,33 @@
 
   {% endblock %} <!-- main content -->
 
-{% block js_touch %}
-{% endblock %} <!-- js_smartadmin -->
+  {% block js_page_plugins %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+  {% endblock %} <!-- js_page_plugins -->
 
 {% block js_smartadmin %}
     <!-- JARVIS WIDGETS -->
     <script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
 {% endblock %} <!-- js_smartadmin -->
 
-{% block js_voice_chat %}
-  {# // <script src="{% static 'js/rcg/provider_map.js' %}"></script> #}
+  {% block js_voice_chat %}
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      if (!window.jQuery) {
+        document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
+      }
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+      $(function (){
+        $('.simple-marquee-container').SimpleMarquee();
+      });
+      if (!window.jQuery.ui) {
+        document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
+      }
+    </script>-->
     <script>
       function getQueryVariable(variable)
       {
@@ -717,29 +734,4 @@
         markers = [];
       }
     </script>
-{% endblock %} <!-- js_voice_chat -->
-
-  {% block js_page_plugins %}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
-
-    <script src="{% static 'js/rcg/county_data.js' %}"></script>
-    <!-- SC: news ticker -->
-    <!-- https://github.com/conradfeyt/Simple-Marquee -->
-    <script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
-    <script>
-      $(function (){
-        $('.simple-marquee-container').SimpleMarquee();
-      });
-  {% endblock %} <!-- js_page_plugins -->
-
-{% block js_doc_ready %}
-    <!-- DOCUMENT READY FUNCTION -->
-    <script type="text/javascript">
-    // PAGE RELATED DECLARATIONS
-    $(document).ready(function() {
-      pageSetUp();
-        })
-    </script>
-    <!-- END DOCUMENT READY FUNCTION -->
-{% endblock %} <!-- js_doc_ready -->
-
+  {% endblock %} <!-- js_touch -->

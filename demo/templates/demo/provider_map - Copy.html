@@ -1,4 +1,4 @@
-{% extends 'demo/base.html' %}
+{% extends 'demo/base-map.html' %}
 {% load staticfiles %}
 <!--SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/-->
 {% load humanize %}
@@ -16,12 +16,7 @@
 {% block page_stylesheets %}
     <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
     <style>
-/*      html {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-*/      body {
+      html, body {
         height: 100%;
         margin: 0;
         padding: 0;
@@ -53,33 +48,15 @@
 <!-- end SC county form row -->
 
 <!-- widget grid -->
-<section id="widget-grid" class="">
-
+<section id="widget-grid" class="" style="height:100%; width:100%;" >
   <!-- WIDGET ROW START -->
-	<div class="row">
+  <div class="row" style="height:100%; width:100%;" >
     <!-- WIDGET COLUMN 1 START -->
-		<article class="col-sm-12 col-md-12 col-lg-6">
-
+    <article class="col-sm-12 col-md-12 col-lg-6" style="height:100%; width:100%;">
       <!-- Widget ID (each widget will need unique ID)-->
       <!-- Provider Map Widget-->
       <div class="jarviswidget jarviswidget-color-greenDark"
-          id="wid-provider-map" style="height:100%; width:100%;"
-          data-widget-colorbutton="false"
-          data-widget-editbutton="false"
-          data-widget-togglebutton="false"
-          data-widget-deletebutton="false"
-          data-widget-fullscreenbutton="false">
-        <!-- widget options:
-        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-        data-widget-colorbutton="false"
-        data-widget-editbutton="false"
-        data-widget-togglebutton="false"
-        data-widget-deletebutton="false"
-        data-widget-fullscreenbutton="false"
-        data-widget-custombutton="false"
-        data-widget-collapsed="true"
-        data-widget-sortable="false"
-        -->
+          id="wid-provider-map" style="height:100%; width:100%;">
         <header>
           <span class="widget-icon"> <i class="fa fa-table"></i> </span>
           <h2>County Health Behaviors</h2>
@@ -87,7 +64,7 @@
         <!-- widget div-->
 
 
-            <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;">
+            <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
       <div id="floating-panel">
         {# <input id="address" type="textbox" value="New York, NY"> #}
         <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
@@ -120,178 +97,37 @@
       <!-- end provider map widget -->
     </article>
     <!-- WIDGET COLUMN 1 END -->
-
-
-    <!-- WIDGET COLUMN 2 START -->
-    <article class="col-sm-12 col-md-12 col-lg-6">
-
-      <!-- Widget ID (each widget will need unique ID)-->
-      <!-- County Health Widget-->
-      <div class="jarviswidget jarviswidget-color-greenDark" id="wid-county-health"> <!--data-widget-editbutton="true"-->
-        <!-- widget options:
-        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-        data-widget-colorbutton="false"
-        data-widget-editbutton="false"
-        data-widget-togglebutton="false"
-        data-widget-deletebutton="false"
-        data-widget-fullscreenbutton="false"
-        data-widget-custombutton="false"
-        data-widget-collapsed="true"
-        data-widget-sortable="false"
-        -->
-        <header>
-          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>County Health Behaviors</h2>
-        </header>
-        <!-- widget div-->
-        <div>
-          <!-- widget content -->
-          <div class="widget-body no-padding">
-            <div class="alert alert-info no-margin fade in">
-              <button class="close" data-dismiss="alert">
-                ×
-              </button>
-              <i class="fa-fw fa fa-info"></i>
-              <code>{{ countydata.county }}</code> County, <code>{{ countydata.state_name }}</code>
-            </div>
-            <div class="table-responsive">
-            <!-- uncomment this line to limit table height -->
-            {# <div id="wid-scripts-table-div-1" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;"> #}
-              <!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
-              </div> -->
-              <table class="table table-hover">
-  <thead>
-    <tr>
-      <th> <i class="fa fa-building"></i> Focus Area</th>
-      <th> <i class="fa fa-calendar"></i> Measure</th>
-      <th> <i class="glyphicon glyphicon-send"></i> Description </th>
-      <th>County</th>
-      <th>Quartile Rank/State</th>
-      <th>US Overall</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% regroup behaviors by category as grouped %}
-      {% for group in grouped %}
-        {% for obj in group.list %}
-          {% if countydata|getattribute:obj.val2_ref > 3 %}
-            {% with tdtag='<td class="success">' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% elif countydata|getattribute:obj.val2_ref < 2 %}
-            {% with tdtag='<td class="danger">' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% else %}
-            {% with tdtag='<td>' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% endif %}
-        {% endfor %}
-    {% endfor %}
-  </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- end widget content -->
-        </div>
-        <!-- end widget div -->
-      </div>
-      <!-- end health behaviors widget -->
-
-      <!-- Widget ID (each widget will need unique ID)-->
-      <!-- County CLinical Care Widget-->
-      <div class="jarviswidget jarviswidget-color-greenDark" id="wid-county-health">
-        <header>
-          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>County Clinical Care</h2>
-        </header>
-        <div>
-          <!-- widget content -->
-          <div class="widget-body no-padding">
-            <div class="table-responsive">
-            <!-- uncomment this line to limit table height -->
-            {# <div id="wid-scripts-table-div-2" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;"> #}
-              <table class="table table-hover">
-  <thead>
-    <tr>
-      <th> <i class="fa fa-building"></i> Focus Area</th>
-      <th> <i class="fa fa-calendar"></i> Measure</th>
-      <th> <i class="glyphicon glyphicon-send"></i> Description </th>
-      <th>County</th>
-      <th>Quartile Rank/State</th>
-      <th>US Overall</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% regroup clinical by category as grouped %}
-      {% for group in grouped %}
-        {% for obj in group.list %}
-          {% if countydata|getattribute:obj.val2_ref > 3 %}
-            {% with tdtag='<td class="success">' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% elif countydata|getattribute:obj.val2_ref < 2 %}
-            {% with tdtag='<td class="danger">' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% else %}
-            {% with tdtag='<td>' %}
-              {% include "demo/_countydata_row.html" %}
-            {% endwith %}
-          {% endif %}
-        {% endfor %}
-    {% endfor %}
-  </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- end widget content -->
-        </div>
-        <!-- end widget div -->
-      </div>
-      <!-- end health behaviors widget -->
-
-    </article>
-    <!-- WIDGET COLUMN 2 END -->
   </div>
   <!-- WIDGET ROW END -->
-
 </section>
 <!-- end widget grid -->
 
-
-<!-- row for news ticker -->
-<div class="row">
-	<div class="simple-marquee-container">
-		<div class="marquee-sibling">
-			HealthCare News:
-		</div>
-		<div class="marquee">
-			<ul class="marquee-content-items">
-				<li>Item 1</li>
-				<li>Item 2</li>
-				<li>Item 3</li>
-				<li>Item 4</li>
-				<li>Item 5</li>
-			</ul>
-		</div>
-	</div>
-</div>
-<!-- end row for news ticker -->
-
   {% endblock %} <!-- main content -->
 
-{% block js_touch %}
-{% endblock %} <!-- js_smartadmin -->
+  {% block js_page_plugins %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+  {% endblock %} <!-- js_page_plugins -->
 
 {% block js_smartadmin %}
     <!-- JARVIS WIDGETS -->
     <script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
 {% endblock %} <!-- js_smartadmin -->
 
-{% block js_voice_chat %}
-  {# // <script src="{% static 'js/rcg/provider_map.js' %}"></script> #}
+  {% block js_voice_chat %}
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      if (!window.jQuery) {
+        document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
+      }
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+      if (!window.jQuery.ui) {
+        document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
+      }
+    </script>-->
     <script>
       function getQueryVariable(variable)
       {
@@ -717,29 +553,4 @@
         markers = [];
       }
     </script>
-{% endblock %} <!-- js_voice_chat -->
-
-  {% block js_page_plugins %}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
-
-    <script src="{% static 'js/rcg/county_data.js' %}"></script>
-    <!-- SC: news ticker -->
-    <!-- https://github.com/conradfeyt/Simple-Marquee -->
-    <script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
-    <script>
-      $(function (){
-        $('.simple-marquee-container').SimpleMarquee();
-      });
-  {% endblock %} <!-- js_page_plugins -->
-
-{% block js_doc_ready %}
-    <!-- DOCUMENT READY FUNCTION -->
-    <script type="text/javascript">
-    // PAGE RELATED DECLARATIONS
-    $(document).ready(function() {
-      pageSetUp();
-        })
-    </script>
-    <!-- END DOCUMENT READY FUNCTION -->
-{% endblock %} <!-- js_doc_ready -->
-
+  {% endblock %} <!-- js_touch -->

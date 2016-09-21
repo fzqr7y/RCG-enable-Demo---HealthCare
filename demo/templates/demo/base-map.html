@@ -431,8 +431,7 @@
 
 
 		<!-- #MAIN PANEL -->
-	    {% block main_panel %}
-		<div id="main" role="main" style="height:100%; width:100%;" >
+		<div id="main" role="main" style="height:90%; width:80%;" >
 
 			<!-- RIBBON -->
 			<div id="ribbon">
@@ -473,7 +472,7 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content" style="height:70%; width:70%" >
+			<div id="content" style="width:100%" >
                         <!--{{ user.userprofile.picture }}<br>
                         {{ user.userprofile.picture.name }}<br>
                         {{ user.userprofile.picture.url }}<br>
@@ -487,19 +486,13 @@
             {% block main_content %}
                 <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
             {% endblock %} <!-- main content -->
-            {% block main_content2 %}
-            {% endblock %} <!-- main content -->
 
 			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
-		{% endblock %} <!--- main_panel -->
 		<!-- END MAIN PANEL -->
 
-		{% block main_body %}
-		    <!--img src="{% static 'img/rcg/ideas-realized.png' %}" alt="RCG HealthCare">-->
-		{% endblock %} <!-- main content -->
 
 
 		<!-- PAGE FOOTER -->
@@ -689,7 +682,7 @@
 		<!-- DOCUMENT READY FUNCTION -->
 		<!--<script type="text/javascript">-->
 
-			// PAGE RELATED DECLARATIONS
+<!--			// PAGE RELATED DECLARATIONS
 
 			// $(document).ready(function() {
 
@@ -745,6 +738,7 @@
 				 */
 
 			// })
+-->
 		<!--</script>-->
 		<!-- END DOCUMENT READY FUNCTION -->
     {% endblock %} <!-- js_doc_ready -->
