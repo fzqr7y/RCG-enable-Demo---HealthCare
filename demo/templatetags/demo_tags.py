@@ -16,8 +16,6 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 # from django.templatetags.static import static
 import logging
 
-import re
-from django import template
 from django.conf import settings
 
 # Get an instance of a logger
