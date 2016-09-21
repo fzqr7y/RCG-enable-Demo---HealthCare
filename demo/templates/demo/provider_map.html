@@ -1,4 +1,4 @@
-{% extends 'demo/base-map.html' %}
+{% extends 'demo/base.html' %}
 {% load staticfiles %}
 
   {% block js_head %}
@@ -84,8 +84,8 @@
 
         document.getElementById('submitNearby').addEventListener('click', function() {
           geocodeAddress(geocoder, map, 'My Address');
-          searchNearby(geocoder, map);
-          // searchBoth(geocoder, map);
+          // searchNearby(geocoder, map);
+          searchBoth(geocoder, map);
         });
 
         /* document.getElementById('submitText').addEventListener('click', function() {
