@@ -7,7 +7,8 @@ from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, Message
 from .models import CountyData, CountyWidget
 # from .forms import ProviderForm
-from .forms import PostForm, CommentForm, MessageForm
+from .forms import PostForm, CommentForm
+from .forms import MessageForm, CountyDataForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -28,6 +29,7 @@ import logging
 import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
+# from django.core.serializers import serialize
 
 # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
 # https://github.com/axelpale/minimal-django-file-upload-example/blob/master/src/for_django_1-9/myproject/myproject/myapp/views.py
@@ -102,18 +104,53 @@ def provider_members(request, pk):
 
 
 @login_required
+def county_lookup(request):
+    if request.method == "POST":
+        state = request.POST['state']
+        counties = CountyData.objects.filter(
+            state=state).values_list(
+            "county").distinct().order_by('county')
+        rdata = json.dumps(list(counties), cls=DjangoJSONEncoder)
+        # counties = CountyData.objects.filter(
+        #     state=state).distinct().order_by('county')
+        # rdata = serialize('json', counties, fields=('county', 'county'))
+        return HttpResponse(
+            rdata,
+            content_type="application/json"
+        )
+
+
+@login_required
 def county_data(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
+    if request.method == "POST":
+        rdict = request.POST
+        # response_data = {}
+        # response_data['dict'] = rdict
+        # respond_with = HttpResponse(
+        #     json.dumps(response_data),
+        #     content_type="application/json"
+        # )
+        # return respond_with
+        state = rdict['state']
+        # county = rdict['county']
+        logger.error(rdict)
+        return county_lookup(request)
+    else:
+        state = provider.state
+        county = provider.county
+    logger.error(state + " " + county)
+    form = CountyDataForm()
     behaviors = CountyWidget.objects.filter(
         widget_name='Health Behaviors').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref').order_by('display_order')
-    county_dataset = CountyData.objects.filter(
-        state=provider.state, county=provider.county)
+    countydata = CountyData.objects.filter(
+        state=provider.state, county=provider.county).first()
     return render(request, 'demo/county_data.html', {
         'provider': provider, 'behaviors': behaviors,
-        'county_dataset': county_dataset})
+        'countydata': countydata, 'form': form})
 
 
 @login_required
@@ -360,6 +397,7 @@ def create_post(request):
 
 def post_ajax_create(request):
     if request.method == "POST":
+        logger.error("post_ajax_create")
         form, post = create_post(request)
         if form.is_valid():
             # return redirect('post_ajax')
@@ -382,10 +420,12 @@ def post_ajax_create(request):
 
 
 def post_ajax(request):
+    logger.error("post_ajax")
     if request.method == "POST":
         form, post = create_post(request)
         if form.is_valid():
-            return redirect('post_ajax')
+            logger.error("redirecting")
+            return redirect('post_ajax_create')
     else:
         form = PostForm()
     posts = Post.objects.filter(

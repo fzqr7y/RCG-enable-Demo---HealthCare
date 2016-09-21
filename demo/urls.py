@@ -20,12 +20,13 @@ urlpatterns = [
     url(r'^provider_map3/(?P<pk>\d+)/$', views.provider_map3, name='provider_map3'),
     url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
     url(r'^county_data/(?P<pk>\d+)/$', views.county_data, name='county_data'),
+    url(r'^county_lookup/$', views.county_lookup, name='county_lookup'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
     # url(r'^user_profile_upload/$', views.user_profile_upload,
     #     name='user_profile_upload'),
 
-    url(r'^posts2/new/$', views.post_ajax_create, name='post_ajax'),
+    url(r'^posts2/new/$', views.post_ajax_create, name='post_ajax_create'),
     url(r'^posts2/$', views.post_ajax, name='post_ajax'),
     url(r'^posts$', views.post_list, name='post_list'),
     url(r'^drafts$', views.post_draft_list, name='post_draft_list'),

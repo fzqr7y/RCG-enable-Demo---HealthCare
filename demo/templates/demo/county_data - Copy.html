@@ -19,7 +19,6 @@
 
 {% block breadcrumb %}
 	<li>Care Manager</li><li>County Data</li>
-	&nbsp;&nbsp;
 {% endblock %}
 
 
@@ -46,17 +45,6 @@
 	</article>
 </div>
 <!-- end SC notification row -->
-
-<!-- SC county form row -->
-<div class="row">
-    <form method="POST" class="countydata-form" id="countydata-form">
-    	{% csrf_token %}
-        {{ form.as_p }}
-        <div id="countydata-form-results"></div> <!-- errors go here -->
-        <button type="submit" class="save btn btn-default">Get</button>
-    </form>
-</div>
-<!-- end SC county form row -->
 
 <!-- widget grid -->
 <section id="widget-grid" class="">
@@ -217,18 +205,16 @@
 {% endblock %}
 
 {% block js_page_plugins %}
-    <script src="{% static 'js/rcg/county_data.js' %}"></script>
-
-	<!-- SC: news ticker -->
-	<!-- https://github.com/conradfeyt/Simple-Marquee -->
-	<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-	<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
-	<script>
-		$(function (){
-			$('.simple-marquee-container').SimpleMarquee();
-		});
-	</script>
-	<!-- /SC: news ticker -->
+		<!-- SC: news ticker -->
+		<!-- https://github.com/conradfeyt/Simple-Marquee -->
+		<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+		<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+		<script>
+			$(function (){
+				$('.simple-marquee-container').SimpleMarquee();
+			});
+		</script>
+		<!-- /SC: news ticker -->
 
 {% endblock %} <!-- js_page_plugins -->
 

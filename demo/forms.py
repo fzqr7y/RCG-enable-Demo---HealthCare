@@ -1,7 +1,11 @@
 from django import forms
 
 # from .models import Post, Comment, UserProfile
-from .models import Post, Comment, Provider, Message
+from .models import Post, Comment
+from .models import Provider, Message, CountyData
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 class PostForm(forms.ModelForm):
@@ -37,6 +41,25 @@ class MessageForm(forms.ModelForm):
         fields = (
             'message_from', 'message_to',
             'text', 'member', )
+
+
+class CountyDataForm(forms.ModelForm):
+    # state = forms.ChoiceField(choices=[
+    #     ('NY', 'New York'), ('NJ', 'New Jersey')], required=False)
+    state = forms.ChoiceField(choices=[], required=True)
+    county = forms.ChoiceField(choices=[], required=False)
+
+    class Meta:
+        model = CountyData
+        fields = ('state', 'county',)
+
+    def __init__(self, *args, **kwargs):
+        super(CountyDataForm, self).__init__(*args, **kwargs)
+        states = CountyData.objects.all().values_list(
+            "state", "state_name").distinct().order_by('state_name')
+        BLANK_CHOICE = (('', '---------'),)
+        state_choices = BLANK_CHOICE + tuple(states)
+        self.fields['state'].choices = state_choices
 
 
 # SC: Add picture
