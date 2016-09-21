@@ -56,7 +56,7 @@ $.ajaxSetup({
 
 // Submit post on submit
 $('#countydata-form').on('submit', function(event){
-    event.preventDefault();
+    // event.preventDefault();
     // alert("form submitted!");
     console.log("form submitted!");  // sanity check
     // get_counties();

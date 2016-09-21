@@ -134,9 +134,9 @@ def county_data(request, pk):
         # )
         # return respond_with
         state = rdict['state']
-        # county = rdict['county']
+        county = rdict['county']
         logger.error(rdict)
-        return county_lookup(request)
+        # return county_lookup(request)
     else:
         state = provider.state
         county = provider.county
@@ -146,11 +146,16 @@ def county_data(request, pk):
         widget_name='Health Behaviors').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref').order_by('display_order')
+    clinical = CountyWidget.objects.filter(
+        widget_name='Clinical Care').values(
+        'category', 'measure_name', 'description', 'val1_ref',
+        'val2_ref').order_by('display_order')
     countydata = CountyData.objects.filter(
-        state=provider.state, county=provider.county).first()
+        state=state, county=county).first()
     return render(request, 'demo/county_data.html', {
-        'provider': provider, 'behaviors': behaviors,
-        'countydata': countydata, 'form': form})
+        'provider': provider, 'form': form,
+        'behaviors': behaviors, 'clinical': clinical,
+        'countydata': countydata})
 
 
 @login_required

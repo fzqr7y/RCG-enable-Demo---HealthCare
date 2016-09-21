@@ -25,35 +25,15 @@
 
 {% block main_content %}
 
-<!-- SC notification row -->
-<div class="row">
-	<!-- Notification Section -->
-	<article class="col-sm-12">
-		<div class="alert alert-warning fade in">
-			<button class="close" data-dismiss="alert">
-				×
-			</button>
-			<i class="fa-fw fa fa-warning"></i>
-			<strong>Notice: </strong> Patient has not filled <code>Zocor</code> as prescribed.
-		</div>
-		<div class="alert alert-success fade in">
-			<button class="close" data-dismiss="alert">
-				×
-			</button>
-			<i class="fa-fw fa fa-check"></i>
-			<strong>Indicators: </strong> Patient health indicators currently within care plan guidelines.
-		</div>
-	</article>
-</div>
-<!-- end SC notification row -->
-
 <!-- SC county form row -->
 <div class="row">
     <form method="POST" class="countydata-form" id="countydata-form">
+	<ol class="breadcrumb">
     	{% csrf_token %}
-        {{ form.as_p }}
-        <div id="countydata-form-results"></div> <!-- errors go here -->
-        <button type="submit" class="save btn btn-default">Get</button>
+        {{ form.as_ul }}
+        <li><button type="submit" class="btn btn-default btn-xs">Get</button></li>
+    </ol>
+    <div id="countydata-form-results"></div> <!-- errors go here -->
     </form>
 </div>
 <!-- end SC county form row -->
@@ -61,10 +41,9 @@
 <!-- widget grid -->
 <section id="widget-grid" class="">
 
-	<!-- SC main grid row -->
+	<!-- WIDGET ROW START -->
 	<div class="row">
-
-		<!-- NEW WIDGET PATIENT INFO COLUMN 1 START -->
+		<!-- WIDGET COLUMN 1 START -->
 		<article class="col-sm-12 col-md-12 col-lg-6">
 
 			<!-- Widget ID (each widget will need unique ID)-->
@@ -83,17 +62,10 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2>Health Behaviors</h2>
+					<h2>County Health Behaviors</h2>
 				</header>
 				<!-- widget div-->
 				<div>
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox"> -->
-						<!-- This area used as dropdown edit box -->
-						<input class="form-control" type="text">
-						<span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
-					</div>
-					<!-- end widget edit box -->
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						<div class="alert alert-info no-margin fade in">
@@ -101,45 +73,42 @@
 								×
 							</button>
 							<i class="fa-fw fa fa-info"></i>
-							<code>Blood Pressure</code> at <code>lower</code> edge of range.
+							<code>{{ countydata.county }}</code>, {{ countydata.state }}
 						</div>
 						<div class="table-responsive">
 							<!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
 							</div> -->
 							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th> <i class="fa fa-building"></i> Focus Area</th>
-										<th> <i class="fa fa-calendar"></i> Measure</th>
-										<th> <i class="glyphicon glyphicon-send"></i> Description </th>
-										<th>County</th>
-										<th>Quartile Rank/State</th>
-										<th>US Overall</th>
-									</tr>
-								</thead>
-								<tbody>
-								    {% regroup behaviors by category as grouped %}
-								    {% for group in grouped %}
-									    {% for obj in group.list %}
-									    	{% if countydata|getattribute:obj.val2_ref > 3 %}
-										    <tr class="success">
-										    {% elif countydata|getattribute:obj.val2_ref < 2 %}
-										    <tr class="danger">
-										    {% else %}
-										    <tr>
-										    {% endif %}
-										      {% ifchanged %}<td rowspan="{{ group.list|length }}">
-										      	{{ obj.category }}</td>{% endifchanged %}
-										      <td>{{ obj.measure_name }}</td>
-										      <td>{{ obj.description }}</td>
-										      {# <td>{{ obj.val1_ref }}</td> #}
-										      <td>{{ countydata|getattribute:obj.val1_ref }}</td>
-										      {# <td>{{ county_dataset.first.smoke_1 }}</td> #}
-										      <td>{{ countydata|getattribute:obj.val2_ref }}</td>
-										    </tr>
-									    {% endfor %}
-									{% endfor %}
-								</tbody>
+	<thead>
+		<tr>
+			<th> <i class="fa fa-building"></i> Focus Area</th>
+			<th> <i class="fa fa-calendar"></i> Measure</th>
+			<th> <i class="glyphicon glyphicon-send"></i> Description </th>
+			<th>County</th>
+			<th>Quartile Rank/State</th>
+			<th>US Overall</th>
+		</tr>
+	</thead>
+	<tbody>
+	    {% regroup behaviors by category as grouped %}
+	    {% for group in grouped %}
+		    {% for obj in group.list %}
+		    	{% if countydata|getattribute:obj.val2_ref > 3 %}
+				    {% with tdtag='<td class="success">' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% elif countydata|getattribute:obj.val2_ref < 2 %}
+				    {% with tdtag='<td class="danger">' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% else %}
+				    {% with tdtag='<td>' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% endif %}
+		    {% endfor %}
+		{% endfor %}
+	</tbody>
 							</table>
 						</div>
 					</div>
@@ -147,14 +116,63 @@
 				</div>
 				<!-- end widget div -->
 			</div>
-			<!-- end patient vitals widget -->
+			<!-- end health behaviors widget -->
+
+			<!-- Widget ID (each widget will need unique ID)-->
+			<!-- County CLinical Care Widget-->
+			<div class="jarviswidget jarviswidget-color-greenDark" id="wid-county-health">
+				<header>
+					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+					<h2>County Clinical Care</h2>
+				</header>
+				<div>
+					<!-- widget content -->
+					<div class="widget-body no-padding">
+						<div class="table-responsive">
+							<table class="table table-hover">
+	<thead>
+		<tr>
+			<th> <i class="fa fa-building"></i> Focus Area</th>
+			<th> <i class="fa fa-calendar"></i> Measure</th>
+			<th> <i class="glyphicon glyphicon-send"></i> Description </th>
+			<th>County</th>
+			<th>Quartile Rank/State</th>
+			<th>US Overall</th>
+		</tr>
+	</thead>
+	<tbody>
+	    {% regroup clinical by category as grouped %}
+	    {% for group in grouped %}
+		    {% for obj in group.list %}
+		    	{% if countydata|getattribute:obj.val2_ref > 3 %}
+				    {% with tdtag='<td class="success">' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% elif countydata|getattribute:obj.val2_ref < 2 %}
+				    {% with tdtag='<td class="danger">' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% else %}
+				    {% with tdtag='<td>' %}
+				    	{% include "demo/_countydata_row.html" %}
+				    {% endwith %}
+			    {% endif %}
+		    {% endfor %}
+		{% endfor %}
+	</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- end widget content -->
+				</div>
+				<!-- end widget div -->
+			</div>
+			<!-- end health behaviors widget -->
 
 		</article>
-		<!-- WIDGET END -->
-
+		<!-- WIDGET COLUMN 1 END -->
 	</div>
-	<!-- end row -->
-	<!-- /SC Dygraphs -->
+	<!-- WIDGET ROW END -->
 
 </section>
 <!-- end widget grid -->
