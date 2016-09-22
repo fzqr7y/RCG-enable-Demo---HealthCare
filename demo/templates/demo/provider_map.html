@@ -82,38 +82,39 @@
         -->
         <header>
           <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>County Health Behaviors</h2>
+          <h2>Member Homes</h2>
         </header>
         <!-- widget div-->
 
 
-            <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;">
-      <div id="floating-panel">
-        {# <input id="address" type="textbox" value="New York, NY"> #}
-        <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
+        {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
+        <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
+          <div id="floating-panel">
+            {# <input id="address" type="textbox" value="New York, NY"> #}
+            <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
 
-        <select id = "searchType">
-         <option value = "doctor">doctor</option>
-         <option value = "dentist">dentist</option>
-         <option value = "hospital">hospital</option>
-         <option value = "parking">parking</option>
-         <option value = "pharmacy">pharmacy</option>
-         <option value = "physiotherapist">physiotherapist</option>
-        </select>
-        <input id="submitNearby" type="button" value="Find">
-        <input id="getMembers" type="button" value="Members">
+            <select id = "searchType">
+             <option value = "doctor">doctor</option>
+             <option value = "dentist">dentist</option>
+             <option value = "hospital">hospital</option>
+             <option value = "parking">parking</option>
+             <option value = "pharmacy">pharmacy</option>
+             <option value = "physiotherapist">physiotherapist</option>
+            </select>
+            <input id="submitNearby" type="button" value="Find">
+            {# <input id="getMembers" type="button" value="Members"> #}
 
-        <!--<input id="searchTerm" type="textbox" value="hospital">
-        <input id="submitText" type="button" value="Search">-->
-      </div>
+            <!--<input id="searchTerm" type="textbox" value="hospital">
+            <input id="submitText" type="button" value="Search">-->
+          </div>
 
-      <!-- google maps div -->
-      <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
-      <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
-      <div id="map"></div>
-            </div> <!--wid-scripts-table-div>-->
-      {# </div> #}
-    {# </div> #}
+          <!-- google maps div -->
+          <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
+          <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
+          <div id="map"></div>
+        </div> <!--wid-scripts-table-div>-->
+          {# </div> #}
+        {# </div> #}
 
 
       </div>
@@ -356,27 +357,28 @@
           searchText(geocoder, map);
         }); */
 
-         document.getElementById('getMembers').addEventListener('click', function() {
-          addMemberAddresses(geocoder, map);
-        });
+        //  document.getElementById('getMembers').addEventListener('click', function() {
+        //   addMemberAddresses(geocoder, map);
+        // });
 
         // My location
         infoWindow = new google.maps.InfoWindow({map: map});
-        getMyAddress(map, infoWindow);
 
-        console.log(navigator.userAgent.toLowerCase())
+        // console.log(navigator.userAgent.toLowerCase())
         chrome = /chrome/.test(navigator.userAgent.toLowerCase());
         // chrome = navigator.userAgent.toLowerCase().indexOf('chrom')
-        console.log(chrome)
+        console.log('is chrome: ' + chrome)
         // console.log("after me")
         // map = new google.maps.Map(document.getElementById('map'), {
         //   center: nyc,
         //   zoom: 13      // zoomed
         // });
         // var geocoder = new google.maps.Geocoder();
-        if (!chrome) {
-          geocodeAddress(geocoder, map, 'My Address');
+        if (!chrome || true) {
+          getMyAddress(map, infoWindow);
         }
+        geocodeAddress(geocoder, map, 'My Address');
+        addMemberAddresses(geocoder, map);
 
         // pinColor = "FE7569";
 
@@ -495,7 +497,7 @@
         // var address = city + ", " + state;
         // document.getElementById('address').value = address;
         address = document.getElementById('address').value;
-        // alert(address);
+        console.log('address: ' + address)
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -730,6 +732,7 @@
       $(function (){
         $('.simple-marquee-container').SimpleMarquee();
       });
+    </script>
   {% endblock %} <!-- js_page_plugins -->
 
 {% block js_doc_ready %}
