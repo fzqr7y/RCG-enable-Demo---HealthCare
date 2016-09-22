@@ -85,14 +85,16 @@ def get_pg_heartrate(request):
     member_id = rdict['member_id']
     query_min = rdict['from']
     query_max = rdict['to']
+
     today = datetime.date.today()
     delta = (today - datetime.date(2016, 9, 16)).days
     qmin_dt = dateutil.parser.parse(query_min)
     qmax_dt = dateutil.parser.parse(query_max)
-    logger.error(str(delta) + " " + str(qmax_dt) + " " + str(qmin_dt))
+    # logger.error(str(delta) + " " + str(qmax_dt) + " " + str(qmin_dt))
     qmin_adj = qmin_dt - datetime.timedelta(days=delta)
     qmax_adj = qmax_dt - datetime.timedelta(days=delta)
-    logger.error(str(delta) + " " + str(qmax_adj) + " " + str(qmin_adj))
+    member_adj = 3
+    logger.error(str(member_adj) + " " + str(qmax_adj) + " " + str(qmin_adj))
 
     api_data = IntradayData.objects.filter(
         # record_date__range=["2016-09-11 20:00:00", "2016-09-12 00:00:00"],
@@ -100,7 +102,7 @@ def get_pg_heartrate(request):
         # "2016-09-12T20:00:00.000Z"],
         # record_date__range=[query_min, query_max],
         record_date__range=[qmin_adj, qmax_adj],
-        member_id=member_id).values('record_date', 'value').order_by(
+        member_id=member_adj).values('record_date', 'value').order_by(
             'record_date')
 
     logger.error(api_data.count())
