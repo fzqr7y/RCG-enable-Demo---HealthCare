@@ -18,6 +18,20 @@
  * - CUSTOM STYLES
  */
 
+/* For google maps */
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    height: 100%;
+}
+
+.menu-on-top .menu-item-parent {
+    max-width: 98px !important;
+}
+
 li.active {
     color: #FFF205;
 }
@@ -66,14 +80,4 @@ img.rcg-left-logo {
     /*line-height: 36px;*/
     padding-top: 10px;
     /*padding-bottom: -30px;*/
-}
-
-/* For google maps */
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-#map {
-    height: 100%;
 }

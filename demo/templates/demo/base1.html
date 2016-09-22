@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-		<title class="rcg-brand-text"> RCG|enable HealthCare {% block page_title %}{% endblock %}</title>
+		<title class="rcg-brand-text"> RCG|enable Health {% block page_title %}{% endblock %}</title>
 		<meta name="description" content="RCG HealthCare Demo">
 		<meta name="author" content="RCG Global Services">
 
@@ -29,11 +29,9 @@
 		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/your_style.css' %}"> -->
 
-	{% if "Test" in user.username %}
         <!-- SC: this is the twirling gears at top right that dynamically change page properties -->
 		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/demo.min.css' %}">
-    {% endif %}
 
         <!-- SC: RCG Styles -->
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/rcghc_demo.css' %}">
@@ -124,11 +122,7 @@
 		* 'fixed-page-footer' - Fixes footer
 		* 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
 	-->
-	{% if "Test" in user.username %}
 	<body class="">
-	{% else %}
-	<body class="menu-on-top fixed-navigation fixed-header">
-	{% endif %}
 
 		<!-- #HEADER -->
  		<header id="header">
@@ -141,7 +135,7 @@
 					<img class="rcg-left-logo" src="{% static 'img/rcg/rcg-logo.png' %}" alt="RCG HealthCare">
 				</span>
 				<span class="rcg-brand-text">
-					&nbsp;RCG|<span style="color:red;">enable</span>&trade; HealthCare
+					&nbsp;RCG|<span style="color:red;">enable</span>&trade; Health
 				</span>
 				<!-- END LOGO PLACEHOLDER -->
 			</div>
@@ -154,27 +148,7 @@
 			<!-- pulled right: nav area -->
 			<div class="pull-right">
 
-				<!-- collapse menu button -->
-				<div id="hide-menu" class="btn-header pull-right">
-					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu">
-						<i class="fa fa-reorder"></i></a> </span>
-				</div>
-				<!-- end collapse menu -->
-
-				<!-- logout button -->
-				<div id="logout" class="btn-header transparent pull-right">
-					<span> <a href="{% url 'logout' %}" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
-						<i class="fa fa-sign-out"></i></a> </span>
-				</div>
-				<!-- end logout button -->
-
-				<!-- fullscreen button -->
-				<div id="fullscreen" class="btn-header transparent pull-right">
-					<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen">
-						<i class="fa fa-arrows-alt"></i></a> </span>
-				</div>
-				<!-- end fullscreen button -->
-
+				<!-- #MOBILE -->
 				<!-- Top menu profile link : this shows only when top menu is active -->
 				<!-- SC: turn this on for demo purpose -->
             {% if user.is_authenticated %}
@@ -182,7 +156,6 @@
 				<ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10">
 					<li class="">
 						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-						{{ user.first_name }} {{ user.last_name }}
 						    &nbsp;&nbsp;
 							<!--<img id="rcg-right-profile-img" src="{# static 'img/avatars/Scott.jpg' #}" alt="Scott" class="online" />-->
 							<!-- this works for media files but not doing that due to heroku
@@ -191,7 +164,6 @@
 							<img id="rcg-right-profile-img" src="{% static user.userprofile.picture_path %}" alt="{{ user.name }}" class="online" />
 						</a>
 						<ul class="dropdown-menu pull-right">
-						{% if "Test" in user.username %}
 							<li>
 								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
 							</li>
@@ -204,7 +176,6 @@
 								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
 							</li>
 							<li class="divider"></li>
-						{% endif %}
 							<li>
 								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
 							</li>
@@ -217,6 +188,18 @@
 				</ul>
 				<!-- end top menu profile link -->
             {% endif %}
+
+				<!-- collapse menu button -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				<!-- end collapse menu -->
+
+				<!-- logout button -->
+				<div id="logout" class="btn-header transparent pull-right">
+					<span> <a href="{% url 'logout' %}" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+				<!-- end logout button -->
 
 				<!-- #MOBILE -->
 				<!-- search mobile button (this is hidden till mobile view port) -->
@@ -257,6 +240,12 @@
 					<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
 				</form>-->
 				<!-- end input: search field -->
+
+				<!-- fullscreen button -->
+				<div id="fullscreen" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+				</div>
+				<!-- end fullscreen button -->
 
 				<!-- #Voice Command: Start Speech -->
 				<!--<div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
@@ -359,38 +348,30 @@
 				traditional href="" links. See documentation for details.
 				-->
 				<ul>
-					<li {% block nav_rcg %}{% endblock %} >
-						<a href="/" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
-							<span class="menu-item-parent">RCG</span></a>
-					</li>
-					<li {% block nav_members %}{% endblock %}>
-						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
-							<span class="menu-item-parent">Members</span></a>
-					</li>
-					<li {% block nav_providers %}{% endblock %}>
-						<a href="{% url 'providers' %}" title="Provider List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
-							<span class="menu-item-parent">Providers</span></a>
+					<li {% block nav_dashboard %}{% endblock %} >
+						<a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+						<ul>
+							<li {% block nav_index %}{% endblock %} >
+								<a href="/" title="Index"><span class="menu-item-parent">Home</span></a>
+							</li>
+							<li {% block nav_members %}{% endblock %}>
+								<a href="{% url 'members' %}" title="Members"><span class="menu-item-parent">Member List</span></a>
+							</li>
+							<li {% block nav_providers %}{% endblock %}>
+								<a href="{% url 'providers' %}" title="Providers"><span class="menu-item-parent">Provider List</span></a>
+							</li>
+							<li>
+								<a href="{% static 'index-orig.html' %}" title="Analytics"><span class="menu-item-parent">Analytics Dashboard</span></a>
+							</li>
+						</ul>
 					</li>
 					<li {% block nav_demo %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Demo</span></a>
 						<ul>
 							<li {% block nav_member_detail %}{% endblock %} >
-								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
-									<span class="menu-item-parent">Member Detail</span></a>
+								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
 							</li>
 							<li {% block nav_provider_map %}{% endblock %} >
-								<a href="{% url 'provider_map' pk=3 %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
-									<span class="menu-item-parent">Provider Map</span></a>
-							</li>
-						</ul>
-					</li>
-					<li {% block nav_test %}{% endblock %} >
-						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Test</span></a>
-						<ul>
-							<li {% block nav_member_detail1 %}{% endblock %} >
-								<a href="{% url 'member_detail1' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
-							</li>
-							<li {% block nav_provider_map1 %}{% endblock %} >
 								<a href="{% url 'provider_map' pk=3 %}" title="Map"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Provider Map</span></a>
 							</li>
 							<li {% block nav_county_data %}{% endblock %} >
@@ -413,26 +394,7 @@
 							</li>
 						</ul>
 					</li>
-					{% if "Test" in user.username %}
-					<li {% block nav_dashboard %}{% endblock %} >
-						<a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i>
-							<span class="menu-item-parent">Dashboard</span></a>
-						<ul>
-							<li {% block nav_index %}{% endblock %} >
-								<a href="/" title="Index"><span class="menu-item-parent">Home</span></a>
-							</li>
-							<li {% block nav_members1 %}{% endblock %}>
-								<a href="{% url 'members' %}" title="Members"><span class="menu-item-parent">Member List</span></a>
-							</li>
-							<li {% block nav_providers1 %}{% endblock %}>
-								<a href="{% url 'providers' %}" title="Providers"><span class="menu-item-parent">Provider List</span></a>
-							</li>
-							<li>
-								<a href="{% static 'index-orig.html' %}" title="Analytics"><span class="menu-item-parent">Analytics Dashboard</span></a>
-							</li>
-						</ul>
-					</li>
-					<li class="top-menu-invisible">
+					<li class="todp-menu-invisible">
 						<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Graphs</span></a>
 						<ul>
 							<li class="">
@@ -457,24 +419,7 @@
 							</li>
 						</ul>
 					</li>
-					{% endif %}
 				</ul>
-            <div class="pull-right">
-			<div id="ribbon">
-            {% if user.is_authenticated %}
-                <!-- Top menu profile link : this shows only when top menu is active -->
-				<!-- breadcrumb -->
-				<ol class="breadcrumb">
-                {% block breadcrumb %}
-					<li>Home</li>
-                {% endblock %}
-				</ol>
-				<!-- end breadcrumb -->
-                <!-- end top menu profile link -->
-            {% endif %}
-            </div>
-            </div>
-            <!-- end pulled right: nav area -->
 			</nav>
 
 			<span class="minifyme" data-action="minifyMenu">
@@ -488,9 +433,9 @@
 		<!-- #MAIN PANEL -->
 		<div id="main" role="main" >
 
-			{% if "Test" in user.username%}
 			<!-- RIBBON -->
 			<div id="ribbon">
+
                 <!-- reset widget settings -->
 				<span class="ribbon-button-alignment">
 					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
@@ -500,7 +445,7 @@
 
 				<!-- breadcrumb -->
 				<ol class="breadcrumb">
-                {% block breadcrumb1 %}
+                {% block breadcrumb %}
 					<!--<li>Home</li>-->
                 {% endblock %}
 				</ol>
@@ -525,7 +470,6 @@
 				</span>
 			</div>
 			<!-- END RIBBON -->
-			{% endif %}
 
 			<!-- MAIN CONTENT -->
 			<div id="content" >
@@ -555,8 +499,9 @@
 		<div class="page-footer">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
-					<span class="txt-color-white">RCG|enable&trade; HealthCare © 2016 RCG.
-					    <span class="hidden-xs">All Rights Reserved. Proprietary and Confidential.</span></span>
+					<span class="txt-color-white">RCG HealthCare
+					    <span class="hidden-xs"> - Big Data Demo</span>
+					    © 2015-2016</span>
 				</div>
 
 				<div class="col-xs-6 col-sm-6 text-right hidden-xs">
@@ -567,7 +512,6 @@
 				            <strong> {{ user.last_login }} &nbsp;</strong>
                         {% endif %}
 						</i>
-					{% if "Test" in user.username %}
 						<div class="btn-group dropup">
 							<button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
 								<i class="fa fa-link"></i> <span class="caret"></span>
@@ -607,14 +551,12 @@
 								</li>
 							</ul>
 						</div>
-					{% endif %}
 					</div>
 				</div> <!-- bottom right -->
 			</div> <!-- row -->
 		</div>
 		<!-- END PAGE FOOTER -->
 
-	{% if "Test" in user.username %}
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
 		Note: These tiles are completely responsive,
 		you can add as many as you like
@@ -642,7 +584,6 @@
 			</ul>
 		</div>
 		<!-- END SHORTCUT AREA -->
-	{% endif %}
 
 		<!--================================================== -->
 
@@ -714,11 +655,9 @@
 
 		<![endif]-->
 
-	{% if "Test" in user.username %}
         <!-- SC: this is the twirling gears at top right that dynamically change page properties -->
 		<!-- Demo purpose only -->
 		<script src="{% static 'js/demo.min.js' %}"></script>
-	{% endif %}
 
 		<!-- MAIN APP JS FILE -->
 		<script src="{% static 'js/app.min.js' %}"></script>
