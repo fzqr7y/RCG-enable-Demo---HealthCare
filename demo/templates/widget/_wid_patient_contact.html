@@ -1,0 +1,168 @@
+{% load demo_tags %}
+            <!-- Widget ID (each widget will need unique ID)-->
+            <!-- patient contact widget -->
+            <div class="jarviswidget jarviswidget-color-teal" id="wid-patient-contact" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false">
+                <header>
+                    <h2><strong>Contact</strong></h2>
+                    <ul id="widget-tab-1" class="nav nav-tabs pull-right">
+                        <li class="active">
+                            <a data-toggle="tab" href="#hr1"> <i class="fa fa-lg fa-arrow-circle-o-down"></i> <span class="hidden-mobile hidden-tablet"> Patient </span> </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#hr2"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span class="hidden-mobile hidden-tablet"> Care Mgr </span></a>
+                        </li>
+                    </ul>
+                </header>
+                <!-- widget div-->
+                <div>
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <!-- widget body text-->
+                        <div class="tab-content padding-10">
+                            <div class="tab-pane fade in active" id="hr1">
+                            {% if "Test" in user.username %}
+                                <h4 class="alert alert-danger"> Contact Patient </h4>
+                            {% endif %}
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <p class="text-muted">
+                                            <i class="fa fa-phone"></i>&nbsp;&nbsp;
+                                            <!--(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>-->
+                                            <span class="txt-color-darken">{{ member.mobile_phone }}</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="text-muted">
+                                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ member.email }}">{{ member.email }}</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="text-muted">
+                                            <i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.social or member.email %}</span>
+                                        </p>
+                                    </li>
+                                    <!--<li>
+                                        <p class="text-muted">
+                                            <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+                                        </p>
+                                    </li>-->
+                                </ul>
+                                <br>
+                                <form method="post" class="well padding-bottom-10" onsubmit="return false;">
+                                    <textarea rows="2" class="form-control" placeholder="Text Patient"></textarea>
+                                    <div class="margin-top-10">
+                                        <button type="submit" class="btn btn-sm btn-primary pull-right">
+                                            Post
+                                        </button>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Location"><i class="fa fa-location-arrow"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Voice"><i class="fa fa-microphone"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Photo"><i class="fa fa-camera"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add File"><i class="fa fa-file"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="hr2">
+                            {% if "Test" in user.username %}
+                                <h4 class="alert alert-warning"> Contact Caregiver </h4>
+                            {% endif %}
+                                <form method="post" class="well padding-bottom-10" onsubmit="return false;">
+<div> <!-- section 1 -->
+    <h4>PCP</h4>
+    <div class="padding-0">
+        <div class="row">
+            <div class="col-sm-4 profile-pic">
+                <br><br>
+                {% include "demo/_avatar.html" with person=member.pcp %}
+                {# if member.pcp.picture_path #}
+                    <!--<img src="{# static member.pcp.picture_path #}" alt="{{ member.pcp.name }}">-->
+                {# endif #}
+                <div class="padding-10">
+                    <h5 class="font-md">
+                        <strong>Specialty</strong>
+                        <small>{{ member.pcp.specialty }}</small><br>
+                        <!-- </h4> -->
+                        <br>
+                        <!-- <h4 class="font-md"> -->
+                        <strong>Languages</strong>
+                        <small>{{ member.pcp.languages }}</small><br>
+                        <br>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <h1><span class="semi-bold">{{ member.pcp.name }}</span>
+                <br>
+                <small>{{ member.pcp.practice_name }}</small></h1>
+                <ul class="list-unstyled">
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-phone"></i>&nbsp;&nbsp;
+                            <!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
+                            <span class="txt-color-darken"><!--tbd-->{{ member.pcp.office_phone }}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ member.pcp.email }}">{{ member.pcp.email }}</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{% expr member.pcp() and (member.pcp().social or member.pcp().email) %}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ member.pcp.next_appt }}</a></span>
+                        </p>
+                    </li>
+                </ul>
+                <br>
+                <!--<p class="font-md">
+                    <i>A little about me...</i>
+                </p>
+                <p>
+                    {{ member.pcp.description }}
+                </p>
+                <br>-->
+                <!--<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>-->
+                <br>
+            </div> <!-- col-sm-8 -->
+        </div> <!-- row -->
+    </div> <!-- padding-0 -->
+</div> <!-- section 1 -->
+                                    <textarea rows="2" class="form-control" placeholder="Text Caregiver"></textarea>
+                                    <div class="margin-top-10">
+                                        <button type="submit" class="btn btn-sm btn-primary pull-right">
+                                            Post
+                                        </button>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Location"><i class="fa fa-location-arrow"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Voice"><i class="fa fa-microphone"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Photo"><i class="fa fa-camera"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add File"><i class="fa fa-file"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- end widget body text-->
+                        <!-- widget footer -->
+                        <div class="widget-footer text-right">
+                            <span class="onoffswitch-title">
+                                <i class="fa fa-check"></i> Show Tabs
+                            </span>
+                            <span class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="show-tabs" checked="checked">
+                                <label class="onoffswitch-label" for="show-tabs">
+                                    <span class="onoffswitch-inner" data-swchon-text="True" data-swchoff-text="NO"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </span>
+                        </div>
+                        <!-- end widget footer -->
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end patient contact widget -->
+

@@ -1,0 +1,40 @@
+{% load demo_tags %}
+            <!-- Risk Scores Widget -->
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-patient-risk" data-widget-editbutton="false">
+            <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2>Risk Scores</h2>
+                </header>
+                <!-- widget div-->
+                <div>
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <!-- progress bars -->
+                        <p>
+                            Medical and Pharmacy Risk Scores
+                        </p>
+                        <div class="well no-padding">
+                            <div class="bar-holder">
+                                <div class="progress">Medical</div>
+                                <div class="progress">
+                                  <div class="progress-bar bg-color-redLight" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {% expr member.medical_risk and round(100*member.medical_risk/2) %}%;">
+                                    {{ member.medical_risk }}
+                                  </div>
+                                </div>
+                                <!-- SC: https://djangosnippets.org/snippets/9/ -->
+                                <div class="progress">Pharmacy </div>
+                                <div class="progress">
+                                  <div class="progress-bar bg-color-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {% expr member.pharmacy_risk and round(100*member.pharmacy_risk/2) %}%;">
+                                    {{ member.pharmacy_risk }}
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div id="bar-chart-h" class="chart"></div> -->
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
