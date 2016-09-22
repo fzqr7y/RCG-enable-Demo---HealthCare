@@ -182,4 +182,4 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # SC: Try to get errors emailed
 ADMINS = (('Scott Chesney', 'scott.chesney@rcg-healthcare.com'),)
 
-TEMPLATE_STRING_IF_INVALID = 'N/A'
+# TEMPLATE_STRING_IF_INVALID = 'N/A'

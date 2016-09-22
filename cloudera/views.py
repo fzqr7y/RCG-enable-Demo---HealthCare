@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 import logging
 import json
 from django.http import HttpResponse
-# from django.core.serializers.json import DjangoJSONEncoder
-# import time
+from django.core.serializers.json import DjangoJSONEncoder
+
 import calendar
 import dateutil.parser
-# for test remove for prod
-# import datetime
+# import time
+import datetime
 # for env vars
 from os import environ
 # cloudera
@@ -85,32 +85,45 @@ def get_pg_heartrate(request):
     member_id = rdict['member_id']
     query_min = rdict['from']
     query_max = rdict['to']
+    today = datetime.date.today()
+    delta = (today - datetime.date(2016, 9, 16)).days
+    qmin_dt = dateutil.parser.parse(query_min)
+    qmax_dt = dateutil.parser.parse(query_max)
+    logger.error(str(delta) + " " + str(qmax_dt) + " " + str(qmin_dt))
+    qmin_adj = qmin_dt - datetime.timedelta(days=delta)
+    qmax_adj = qmax_dt - datetime.timedelta(days=delta)
+    logger.error(str(delta) + " " + str(qmax_adj) + " " + str(qmin_adj))
+
     api_data = IntradayData.objects.filter(
         # record_date__range=["2016-09-11 20:00:00", "2016-09-12 00:00:00"],
         # record_date__range=["2016-09-10T20:00:00.000Z",
         # "2016-09-12T20:00:00.000Z"],
-        record_date__range=[query_min, query_max],
+        # record_date__range=[query_min, query_max],
+        record_date__range=[qmin_adj, qmax_adj],
         member_id=member_id).values('record_date', 'value').order_by(
             'record_date')
 
     logger.error(api_data.count())
     logger.error(json.dumps(rdict))
+
     # serial_data = list(api_data)
     # rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
 
     rlist = []
     for item in api_data:
         t = item['record_date']
+        t = t + datetime.timedelta(days=delta)
         # tt = (time.mktime(t.timetuple()) - (5 * 3600)) * 1000
         tz = calendar.timegm(t.timetuple()) * 1000
         v = item['value']
         # rlist.append(['{:.0f}'.format(tt), '{:.1f}'.format(v)])
-        rlist.append([int(tz), float(v)])
+        rlist.append([int(tz), float(v), t.isoformat()])
     # print(rlist)
     jresults = json.dumps(rlist)  # , cls=DjangoJSONEncoder)
 
     return HttpResponse(
         jresults,
+        # rdata,
         content_type="application/json"
     )
 
