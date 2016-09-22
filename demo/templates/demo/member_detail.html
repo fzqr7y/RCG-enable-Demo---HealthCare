@@ -76,6 +76,14 @@
 			<!-- Plan Payments Widget -->
         	{% include "widget/_wid_patient_payments.html" %}
 
+			<!-- Map directions widget -->
+        	{% include "widget/_wid_map2_directions.html" %}
+
+		{% if "Test" in user.username %}
+			<!-- Widget Template -->
+        	{% include "widget/_wid_template.html" %}
+		{% endif %}
+
 		</article>
 		<!-- WIDGET COLUMN 1 END -->
 
@@ -85,11 +93,11 @@
 			<!-- SC Flot Auto Updating Chart -->
         	{% include "widget/_wid_heartrate_demo.html" %}
 
+			<!-- Heartrate History  -->
+        	{% include "widget/_wid_heartrate_history.html" %}
+
 			<!-- Map 1 and Weather Widget -->
         	{% include "widget/_wid_map1_weather.html" %}
-
-			<!-- Map directions widget -->
-        	{% include "widget/_wid_map2_directions.html" %}
 
 		</article>
 		<!-- WIDGET COLUMN 2 ENDi -->
@@ -109,116 +117,8 @@
 			<!-- Notes Widget -->
         	{% include "widget/_wid_patient_notes.html" %}
 
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-01" data-widget-colorbutton="false" data-widget-editbutton="false">
-				<header>
-					<h2><strong>Providers</strong> <i>Contacts</i></h2>
-				</header>
-				<!-- widget div-->
-				<div>
-					<!-- widget content -->
-					<div class="widget-body no-padding">
-						<div class="well well-sm well-light">
-							<h3>Providers
-								<!-- <br><small>With fontawesome icons</small> -->
-							</h3>
-							<div id="accordion"> <!-- accordion -->
-{# {% for provider in providers %} #}
-{% for providermember in providermembers %}
-{# expr providermember.provider as provider #}
-<div> <!-- section 1 -->
-	<h4>{{ providermember.role }}</h4>
-	<div class="padding-0">
-		<div class="row">
-			<div class="col-sm-4 profile-pic">
-				<br><br>
-            	{% include "demo/_avatar.html" with person=providermember.provider %}
-				{# if providermember.provider.picture_path #}
-					<!--<img src="{# static providermember.provider.picture_path #}" alt="{# providermember.provider.name #}">-->
-				{# endif #}
-				<div class="padding-10">
-					<h5 class="font-md">
-						<strong>Specialty</strong>
-						<small>{{ providermember.provider.specialty }}</small><br>
-						<!-- </h4> -->
-						<br>
-						<!-- <h4 class="font-md"> -->
-						<strong>Languages</strong>
-						<small>{{ providermember.provider.languages }}</small><br>
-						<br>
-					</h5>
-				</div>
-			</div>
-			<div class="col-sm-8">
-				<h1><span class="semi-bold">{{ providermember.provider.name }}</span>
-				<br>
-				<small>{{ providermember.provider.practice_name }}</small></h1>
-				<ul class="list-unstyled">
-					<li>
-						<p class="text-muted">
-							<i class="fa fa-phone"></i>&nbsp;&nbsp;
-							<!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
-							<span class="txt-color-darken"><!--tbd-->{{ providermember.provider.office_phone }}</span>
-						</p>
-					</li>
-					<li>
-						<p class="text-muted">
-							<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ providermember.provider.email }}">{{ providermember.provider.email }}</a>
-						</p>
-					</li>
-					<li>
-						<p class="text-muted">
-							<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ providermember.provider.social }}</span>
-						</p>
-					</li>
-					<li>
-						<p class="text-muted">
-							<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ providermember.provider.next_appt }}</a></span>
-						</p>
-					</li>
-				</ul>
-				<br>
-				<p class="font-md">
-					<i>A little about me...</i>
-				</p>
-				<p>
-					{{ providermember.provider.description }}
-				</p>
-				<br>
-				<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-				<br>
-			</div> <!-- col-sm-8 -->
-		</div> <!-- row -->
-	</div> <!-- padding-0 -->
-</div> <!-- section 1 -->
-{% endfor %}
-
-							</div>  <!-- accordion -->
-						</div>  <!-- well -->
-					</div>
-					<!-- end widget content -->
-				</div>
-				<!-- end widget div -->
-			</div>
-			<!-- end widget -->
-
-
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-00" data-widget-colorbutton="false" data-widget-editbutton="false">
-				<header>
-					<h2><strong>Basic</strong> <i>Widget</i></h2>
-				</header>
-				<!-- widget div-->
-				<div>
-					<!-- widget content -->
-					<div class="widget-body no-padding">
-						Content
-					</div>
-					<!-- end widget content -->
-				</div>
-				<!-- end widget div -->
-			</div>
-			<!-- end widget -->
+			<!-- Providers Widget -->
+        	{% include "widget/_wid_patient_providers.html" %}
 
 		</article>
 		<!-- WIDGET CLINICAL INFO COLUMN 3 END -->
@@ -226,171 +126,8 @@
 	</div>
 	<!-- end SC main grid row -->
 
-
-	<!-- SC Dygraphs -->
-	<!-- row -->
-	<div class="row">
-
-		<!-- NEW WIDGET START -->
-		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-0">
-				<header>
-					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Historical Data </h2>
-				</header>
-				<!-- widget div-->
-				<div>
-					<!-- widget content -->
-					<div class="widget-body">
-						<!-- this is what the user will see -->
-						<div id="noroll" style="width:100%; height:300px;"></div>
-					</div>
-					<!-- end widget content -->
-				</div>
-				<!-- end widget div -->
-			</div>
-			<!-- end widget -->
-		</article>
-		<!-- WIDGET END -->
-
-	</div>
-	<!-- end row -->
-	<!-- /SC Dygraphs -->
-
 </section>
 <!-- end widget grid -->
-
-
-<!-- row -->
-<div class="row">
-	<div class="col-sm-12">
-			<div class="well well-sm">
-				<div class="row">
-					<div class="col-sm-12 col-md-12 col-lg-6">
-						<div class="well well-light well-sm no-margin no-padding">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="row">
-										<div class="col-sm-3 profile-pic">
-											<br><br>
-											<img src="{% static 'img/avatars/sunny-big.png' %}" alt="demo user">
-											<div class="padding-10">
-												<h4 class="font-md">
-													<small>Sex</small>
-													<strong>M</strong><br>
-													<!-- </h4> -->
-													<br>
-													<!-- <h4 class="font-md"> -->
-													<small>Age</small>
-													<strong>48</strong>
-													<br>
-												</h4>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<h1>John <span class="semi-bold">Doe</span>
-											<br>
-											<small> CEO, SmartAdmin</small></h1>
-
-											<ul class="list-unstyled">
-												<li>
-													<p class="text-muted">
-														<i class="fa fa-phone"></i>&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>
-													</p>
-												</li>
-												<li>
-													<p class="text-muted">
-														<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
-													</p>
-												</li>
-												<li>
-													<p class="text-muted">
-														<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
-													</p>
-												</li>
-												<li>
-													<p class="text-muted">
-														<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
-													</p>
-												</li>
-											</ul>
-											<br>
-											<p class="font-md">
-												<i>A little about me...</i>
-											</p>
-											<p>
-
-												Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-
-											</p>
-											<br>
-											<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-											<br>
-											<br>
-
-										</div>
-										<div class="col-sm-3">
-											<h1><small>Providers</small></h1>
-											<ul class="list-inline friends-list">
-												<li><img src="{% static 'img/avatars/1.png' %}" alt="friend-1">
-												</li>
-												<li><img src="{% static 'img/avatars/2.png' %}" alt="friend-2">
-												</li>
-												<li><img src="{% static 'img/avatars/3.png' %}" alt="friend-3">
-												</li>
-												<li><img src="{% static 'img/avatars/4.png' %}" alt="friend-4">
-												</li>
-												<li><img src="{% static 'img/avatars/5.png' %}" alt="friend-5">
-												</li>
-												<li><img src="{% static 'img/avatars/male.png' %}" alt="friend-6">
-												</li>
-												<li><img src="{% static 'img/avatars/female.png' %}" alt="friend-7">
-												<li>
-													<a href="javascript:void(0);"> more</a>
-												</li>
-											</ul>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-
-						</div>
-
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6">
-
-						<form method="post" class="well padding-bottom-10" onsubmit="return false;">
-							<textarea rows="2" class="form-control" placeholder="What are you thinking?"></textarea>
-							<div class="margin-top-10">
-								<button type="submit" class="btn btn-sm btn-primary pull-right">
-									Post
-								</button>
-								<a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Location"><i class="fa fa-location-arrow"></i></a>
-								<a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Voice"><i class="fa fa-microphone"></i></a>
-								<a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add Photo"><i class="fa fa-camera"></i></a>
-								<a href="javascript:void(0);" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="Add File"><i class="fa fa-file"></i></a>
-							</div>
-						</form>
-
-						<br>
-
-
-
-					</div>
-				</div>
-
-			</div>
-
-
-	</div>
-
-</div>
-<!-- end row -->
 
 <!-- row for news ticker -->
 <div class="row">
@@ -419,67 +156,67 @@
 {% endblock %}
 
 {% block js_smartadmin %}
-		<!-- CUSTOM NOTIFICATION -->
-		<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
+	<!-- CUSTOM NOTIFICATION -->
+	<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
 
-		<!-- JARVIS WIDGETS -->
-		<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-		<script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
+	<!-- JARVIS WIDGETS -->
+	<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
+	<script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
 
-		<!-- EASY PIE CHARTS -->
-		<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
+	<!-- EASY PIE CHARTS -->
+	<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
 
-		<!-- SPARKLINES -->
-		<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+	<!-- SPARKLINES -->
+	<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
 
-		<!-- JQUERY VALIDATE -->
-		<script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script>
+	<!-- JQUERY VALIDATE -->
+	{# // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> #}
 
-		<!-- JQUERY MASKED INPUT -->
-		<script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script>
+	<!-- JQUERY MASKED INPUT -->
+	{# // <script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> #}
 
-		<!-- JQUERY SELECT2 INPUT -->
-		<script src="{% static 'js/plugin/select2/select2.min.js' %}"></script>
+	<!-- JQUERY SELECT2 INPUT -->
+	{# // <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script> #}
 
-		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+	<!-- JQUERY UI + Bootstrap Slider -->
+	{# // <script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> #}
 {% endblock %} <!-- js_smartadmin -->
 
 {% block js_voice_chat %}
 {% endblock %}
 
 {% block js_page_plugins %}
-		<!-- SC: dygraph -->
-		<script src="{% static 'js/plugin/dygraphs/demo-data.min.js' %}"></script>
-		<!-- DYGRAPH -->
-		<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
-		<!-- progress bars -->
-		<script src="{% static 'js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
-		</script>
-		<!-- /SC: dygraph -->
+	<!-- SC: dygraph -->
+	<script src="{% static 'js/plugin/dygraphs/demo-data.min.js' %}"></script>
+	<!-- DYGRAPH -->
+	<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
+	<!-- progress bars -->
+	<script src="{% static 'js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+	</script>
+	<!-- /SC: dygraph -->
 
-		<!-- SC: flot -->
-		<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-		<script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script>
-		<!-- /SC: flot -->
+	<!-- SC: flot -->
+	<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+	<script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script>
+	<script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script>
+	<!-- /SC: flot -->
 
 
-		<!-- SC: news ticker -->
-		<!-- https://github.com/conradfeyt/Simple-Marquee -->
-		<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-		<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
-		<script>
-			$(function (){
-				$('.simple-marquee-container').SimpleMarquee();
-			});
-		</script>
-		<!-- /SC: news ticker -->
+	<!-- SC: news ticker -->
+	<!-- https://github.com/conradfeyt/Simple-Marquee -->
+	<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+	<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+	<script>
+		$(function (){
+			$('.simple-marquee-container').SimpleMarquee();
+		});
+	</script>
+	<!-- /SC: news ticker -->
 
 {% endblock %} <!-- js_page_plugins -->
 

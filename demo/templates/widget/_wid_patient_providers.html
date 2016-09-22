@@ -1,0 +1,94 @@
+            <!-- Providers Widget -->
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-greenDark"
+            id="wid-patient-providers" data-widget-colorbutton="false" data-widget-editbutton="false">
+                <header>
+                    <h2><strong>Providers</strong> <i>Contacts</i></h2>
+                </header>
+                <!-- widget div-->
+                <div>
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <div class="well well-sm well-light">
+                            <h3>Providers
+                                <!-- <br><small>With fontawesome icons</small> -->
+                            </h3>
+                            <div id="accordion"> <!-- accordion -->
+{# {% for provider in providers %} #}
+{% for providermember in providermembers %}
+{# expr providermember.provider as provider #}
+<div> <!-- section 1 -->
+    <h4>{{ providermember.role }}</h4>
+    <div class="padding-0">
+        <div class="row">
+            <div class="col-sm-4 profile-pic">
+                <br><br>
+                {% include "demo/_avatar.html" with person=providermember.provider %}
+                {# if providermember.provider.picture_path #}
+                    <!--<img src="{# static providermember.provider.picture_path #}" alt="{# providermember.provider.name #}">-->
+                {# endif #}
+                <div class="padding-10">
+                    <h5 class="font-md">
+                        <strong>Specialty</strong>
+                        <small>{{ providermember.provider.specialty }}</small><br>
+                        <!-- </h4> -->
+                        <br>
+                        <!-- <h4 class="font-md"> -->
+                        <strong>Languages</strong>
+                        <small>{{ providermember.provider.languages }}</small><br>
+                        <br>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <h1><span class="semi-bold">{{ providermember.provider.name }}</span>
+                <br>
+                <small>{{ providermember.provider.practice_name }}</small></h1>
+                <ul class="list-unstyled">
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-phone"></i>&nbsp;&nbsp;
+                            <!-- (<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span> -->
+                            <span class="txt-color-darken"><!--tbd-->{{ providermember.provider.office_phone }}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:{{ providermember.provider.email }}">{{ providermember.provider.email }}</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">{{ providermember.provider.social }}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-muted">
+                            <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Next appt: <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">{{ providermember.provider.next_appt }}</a></span>
+                        </p>
+                    </li>
+                </ul>
+                <br>
+                <p class="font-md">
+                    <i>A little about me...</i>
+                </p>
+                <p>
+                    {{ providermember.provider.description }}
+                </p>
+                <br>
+                <a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
+                <br>
+            </div> <!-- col-sm-8 -->
+        </div> <!-- row -->
+    </div> <!-- padding-0 -->
+</div> <!-- section 1 -->
+{% endfor %}
+
+                            </div>  <!-- accordion -->
+                        </div>  <!-- well -->
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
