@@ -470,6 +470,7 @@ class Pharmacy(models.Model):
     pharmacy_key = models.CharField(max_length=20, blank=True, null=True)
     pharmacy_name = models.CharField(max_length=20)
     pharmacy_chain = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=40)
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=2)
     zip = models.CharField(max_length=10)

@@ -63,7 +63,7 @@ def providers(request):
 
 
 @login_required
-def provider_map(request, pk):
+def map_county(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     members = Member.objects.filter(providermember__provider_id=pk)
     # logger.error(members.count())
@@ -97,28 +97,28 @@ def provider_map(request, pk):
         'val2_ref').order_by('display_order')
     countydata = CountyData.objects.filter(
         state=state, county=county).first()
-    return render(request, 'demo/provider_map.html', {
+    return render(request, 'demo/map_county.html', {
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
         'countydata': countydata, 'members': members})
 
 
-@login_required
-def provider_map2(request, pk):
-    provider = get_object_or_404(Provider, pk=pk)
-    members = Member.objects.filter(providermember__provider_id=pk)
-    # logger.error(members.count())
-    return render(request, 'demo/provider_map2.html', {
-        'provider': provider, 'members': members})
+# @login_required
+# def map_county2(request, pk):
+#     provider = get_object_or_404(Provider, pk=pk)
+#     members = Member.objects.filter(providermember__provider_id=pk)
+#     # logger.error(members.count())
+#     return render(request, 'demo/map_county2.html', {
+#         'provider': provider, 'members': members})
 
 
-@login_required
-def provider_map3(request, pk):
-    provider = get_object_or_404(Provider, pk=pk)
-    members = Member.objects.filter(providermember__provider_id=pk)
-    # logger.error(members.count())
-    return render(request, 'demo/provider_map3.html', {
-        'provider': provider, 'members': members})
+# @login_required
+# def map_county3(request, pk):
+#     provider = get_object_or_404(Provider, pk=pk)
+#     members = Member.objects.filter(providermember__provider_id=pk)
+#     # logger.error(members.count())
+#     return render(request, 'demo/map_county3.html', {
+#         'provider': provider, 'members': members})
 
 
 @login_required
@@ -152,81 +152,81 @@ def county_lookup(request):
         )
 
 
-@login_required
-def county_data(request, pk):
-    provider = get_object_or_404(Provider, pk=pk)
-    members = Member.objects.filter(providermember__provider_id=pk)
-    logger.error(provider.id)
-    if request.method == "POST":
-        rdict = request.POST
-        # response_data = {}
-        # response_data['dict'] = rdict
-        # respond_with = HttpResponse(
-        #     json.dumps(response_data),
-        #     content_type="application/json"
-        # )
-        # return respond_with
-        state = rdict['state']
-        county = rdict['county']
-        logger.error(rdict)
-        # return county_lookup(request)
-    else:
-        state = provider.state
-        county = provider.county
-    logger.error(state + " " + county)
-    form = CountyDataForm()
-    behaviors = CountyWidget.objects.filter(
-        widget_name='Health Behaviors').values(
-        'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
-    clinical = CountyWidget.objects.filter(
-        widget_name='Clinical Care').values(
-        'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
-    countydata = CountyData.objects.filter(
-        state=state, county=county).first()
-    return render(request, 'demo/county_data.html', {
-        'provider': provider, 'form': form,
-        'behaviors': behaviors, 'clinical': clinical,
-        'countydata': countydata, 'members': members})
+# @login_required
+# def county_data(request, pk):
+#     provider = get_object_or_404(Provider, pk=pk)
+#     members = Member.objects.filter(providermember__provider_id=pk)
+#     logger.error(provider.id)
+#     if request.method == "POST":
+#         rdict = request.POST
+#         # response_data = {}
+#         # response_data['dict'] = rdict
+#         # respond_with = HttpResponse(
+#         #     json.dumps(response_data),
+#         #     content_type="application/json"
+#         # )
+#         # return respond_with
+#         state = rdict['state']
+#         county = rdict['county']
+#         logger.error(rdict)
+#         # return county_lookup(request)
+#     else:
+#         state = provider.state
+#         county = provider.county
+#     logger.error(state + " " + county)
+#     form = CountyDataForm()
+#     behaviors = CountyWidget.objects.filter(
+#         widget_name='Health Behaviors').values(
+#         'category', 'measure_name', 'description', 'val1_ref',
+#         'val2_ref').order_by('display_order')
+#     clinical = CountyWidget.objects.filter(
+#         widget_name='Clinical Care').values(
+#         'category', 'measure_name', 'description', 'val1_ref',
+#         'val2_ref').order_by('display_order')
+#     countydata = CountyData.objects.filter(
+#         state=state, county=county).first()
+#     return render(request, 'demo/county_data.html', {
+#         'provider': provider, 'form': form,
+#         'behaviors': behaviors, 'clinical': clinical,
+#         'countydata': countydata, 'members': members})
 
 
-@login_required
-def county_data2(request, pk):
-    provider = get_object_or_404(Provider, pk=pk)
-    logger.error(provider.id)
-    if request.method == "POST":
-        rdict = request.POST
-        # response_data = {}
-        # response_data['dict'] = rdict
-        # respond_with = HttpResponse(
-        #     json.dumps(response_data),
-        #     content_type="application/json"
-        # )
-        # return respond_with
-        state = rdict['state']
-        county = rdict['county']
-        logger.error(rdict)
-        # return county_lookup(request)
-    else:
-        state = provider.state
-        county = provider.county
-    logger.error(state + " " + county)
-    form = CountyDataForm()
-    behaviors = CountyWidget.objects.filter(
-        widget_name='Health Behaviors').values(
-        'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
-    clinical = CountyWidget.objects.filter(
-        widget_name='Clinical Care').values(
-        'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
-    countydata = CountyData.objects.filter(
-        state=state, county=county).first()
-    return render(request, 'demo/county_data.html', {
-        'provider': provider, 'form': form,
-        'behaviors': behaviors, 'clinical': clinical,
-        'countydata': countydata})
+# @login_required
+# def county_data2(request, pk):
+#     provider = get_object_or_404(Provider, pk=pk)
+#     logger.error(provider.id)
+#     if request.method == "POST":
+#         rdict = request.POST
+#         # response_data = {}
+#         # response_data['dict'] = rdict
+#         # respond_with = HttpResponse(
+#         #     json.dumps(response_data),
+#         #     content_type="application/json"
+#         # )
+#         # return respond_with
+#         state = rdict['state']
+#         county = rdict['county']
+#         logger.error(rdict)
+#         # return county_lookup(request)
+#     else:
+#         state = provider.state
+#         county = provider.county
+#     logger.error(state + " " + county)
+#     form = CountyDataForm()
+#     behaviors = CountyWidget.objects.filter(
+#         widget_name='Health Behaviors').values(
+#         'category', 'measure_name', 'description', 'val1_ref',
+#         'val2_ref').order_by('display_order')
+#     clinical = CountyWidget.objects.filter(
+#         widget_name='Clinical Care').values(
+#         'category', 'measure_name', 'description', 'val1_ref',
+#         'val2_ref').order_by('display_order')
+#     countydata = CountyData.objects.filter(
+#         state=state, county=county).first()
+#     return render(request, 'demo/county_data.html', {
+#         'provider': provider, 'form': form,
+#         'behaviors': behaviors, 'clinical': clinical,
+#         'countydata': countydata})
 
 
 @login_required

@@ -24,7 +24,7 @@
         {% endif %}
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <!-- dropdown -->
         <div class="project-context hidden-xs">
             <span class="project-selector  dropdown-toggle" data-toggle="dropdown" style="text-transform: none; margin-top: -10px;">
@@ -35,9 +35,11 @@
                 <small>{{ member.plan_name }}</small>
             </h1>
             <span class="text-muted" style="margin-top: -10px; display: inline;">
-                &nbsp;&nbsp; <a href="#contact" title="Text: {{member.mobile_phone}}">
+                &nbsp;<a href="tel:{{member.mobile_phone}}" title="Call: {{member.mobile_phone}}">
                     <i class="fa fa-phone"></i></a>
-                &nbsp;&nbsp; <a href="mailto:{{member.email}}" title="Email: {{member.email}}">
+                &nbsp;<a href="#contact" title="Text: {{member.mobile_phone}}">
+                    <i class="fa fa-mobile"></i></a>
+                &nbsp;<a href="mailto:{{member.email}}" title="Email: {{member.email}}">
                     <i class="fa fa-envelope"></i></a>
             </span>
 
@@ -61,24 +63,6 @@
         </div>
         <!-- end projects dropdown -->
    </div>
-
-    <!-- contact col -->
-    <div class="col-sm-1">
-        <!--{# <ul class="list-unstyled">
-            <li>
-                <p class="text-muted">
-                    <i class="fa fa-phone"></i>
-                    &nbsp;&nbsp;<span class="txt-color-darken">{{ member.mobile_phone }}</span>
-                </p>
-            </li>
-            <li>
-                <p class="text-muted">
-                    <i class="fa fa-envelope"></i>
-                    &nbsp;&nbsp;<a href="mailto:{{ member.email }}">{{ member.email }}</a>
-                </p>
-            </li>
-        </ul> #}-->
-    </div>
 
     <!-- right side of the page with the sparkline graphs -->
     <!-- sparkline col -->

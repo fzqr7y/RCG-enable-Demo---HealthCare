@@ -15,24 +15,12 @@
 
 {% block page_stylesheets %}
     <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
-    <style>
-/*      html {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-*/      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
   {% endblock %}
 
 {% block breadcrumb %}
+  <li>Care Manager</li><li>Members &amp; County Data</li>
+ {% endblock %}
+{% block breadcrumb1 %}
   <li>Care Manager</li><li>Members &amp; County Data</li>
  {% endblock %}
 
@@ -82,38 +70,39 @@
         -->
         <header>
           <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>County Health Behaviors</h2>
+          <h2>Member Homes</h2>
         </header>
         <!-- widget div-->
 
 
-            <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;">
-      <div id="floating-panel">
-        {# <input id="address" type="textbox" value="New York, NY"> #}
-        <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
+        {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
+        <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
+          <div id="floating-panel">
+            {# <input id="address" type="textbox" value="New York, NY"> #}
+            <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
 
-        <select id = "searchType">
-         <option value = "doctor">doctor</option>
-         <option value = "dentist">dentist</option>
-         <option value = "hospital">hospital</option>
-         <option value = "parking">parking</option>
-         <option value = "pharmacy">pharmacy</option>
-         <option value = "physiotherapist">physiotherapist</option>
-        </select>
-        <input id="submitNearby" type="button" value="Find">
-        <input id="getMembers" type="button" value="Members">
+            <select id = "searchType">
+             <option value = "doctor">doctor</option>
+             <option value = "dentist">dentist</option>
+             <option value = "hospital">hospital</option>
+             <option value = "parking">parking</option>
+             <option value = "pharmacy">pharmacy</option>
+             <option value = "physiotherapist">physiotherapist</option>
+            </select>
+            <input id="submitNearby" type="button" value="Find">
+            {# <input id="getMembers" type="button" value="Members"> #}
 
-        <!--<input id="searchTerm" type="textbox" value="hospital">
-        <input id="submitText" type="button" value="Search">-->
-      </div>
+            <!--<input id="searchTerm" type="textbox" value="hospital">
+            <input id="submitText" type="button" value="Search">-->
+          </div>
 
-      <!-- google maps div -->
-      <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
-      <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
-      <div id="map"></div>
-            </div> <!--wid-scripts-table-div>-->
-      {# </div> #}
-    {# </div> #}
+          <!-- google maps div -->
+          <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
+          <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
+          <div id="map"></div>
+        </div> <!--wid-scripts-table-div>-->
+          {# </div> #}
+        {# </div> #}
 
 
       </div>
@@ -128,17 +117,6 @@
       <!-- Widget ID (each widget will need unique ID)-->
       <!-- County Health Widget-->
       <div class="jarviswidget jarviswidget-color-greenDark" id="wid-county-health"> <!--data-widget-editbutton="true"-->
-        <!-- widget options:
-        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-        data-widget-colorbutton="false"
-        data-widget-editbutton="false"
-        data-widget-togglebutton="false"
-        data-widget-deletebutton="false"
-        data-widget-fullscreenbutton="false"
-        data-widget-custombutton="false"
-        data-widget-collapsed="true"
-        data-widget-sortable="false"
-        -->
         <header>
           <span class="widget-icon"> <i class="fa fa-table"></i> </span>
           <h2>County Health Behaviors</h2>
@@ -282,33 +260,24 @@
 
   {% endblock %} <!-- main content -->
 
-  {% block js_page_plugins %}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
-  {% endblock %} <!-- js_page_plugins -->
+{% block js_touch %}
+{% endblock %} <!-- js_smartadmin -->
 
 {% block js_smartadmin %}
     <!-- JARVIS WIDGETS -->
     <script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
 {% endblock %} <!-- js_smartadmin -->
 
-  {% block js_voice_chat %}
-    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% block js_voice_chat %}
     <script>
-      if (!window.jQuery) {
-        document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
-      }
+      var $provider_id = {{ provider.id }};
+      var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
+    <script src="{% static 'js/rcg/map_county.js' %}"></script>
+{% endblock %} <!-- js_voice_chat -->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script>
-      $(function (){
-        $('.simple-marquee-container').SimpleMarquee();
-      });
-      if (!window.jQuery.ui) {
-        document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
-      }
-    </script>-->
+{% block xxxjs_voice_chat %}
+  {# // <script src="{% static 'js/rcg/map_county.js' %}"></script> #}
     <script>
       function getQueryVariable(variable)
       {
@@ -373,27 +342,28 @@
           searchText(geocoder, map);
         }); */
 
-         document.getElementById('getMembers').addEventListener('click', function() {
-          addMemberAddresses(geocoder, map);
-        });
+        //  document.getElementById('getMembers').addEventListener('click', function() {
+        //   addMemberAddresses(geocoder, map);
+        // });
 
         // My location
         infoWindow = new google.maps.InfoWindow({map: map});
-        getMyAddress(map, infoWindow);
 
-        console.log(navigator.userAgent.toLowerCase())
+        // console.log(navigator.userAgent.toLowerCase())
         chrome = /chrome/.test(navigator.userAgent.toLowerCase());
         // chrome = navigator.userAgent.toLowerCase().indexOf('chrom')
-        console.log(chrome)
+        console.log('is chrome: ' + chrome)
         // console.log("after me")
         // map = new google.maps.Map(document.getElementById('map'), {
         //   center: nyc,
         //   zoom: 13      // zoomed
         // });
         // var geocoder = new google.maps.Geocoder();
-        if (!chrome) {
-          geocodeAddress(geocoder, map, 'My Address');
+        if (!chrome || true) {
+          getMyAddress(map, infoWindow);
         }
+        geocodeAddress(geocoder, map, 'My Address');
+        addMemberAddresses(geocoder, map);
 
         // pinColor = "FE7569";
 
@@ -512,7 +482,7 @@
         // var address = city + ", " + state;
         // document.getElementById('address').value = address;
         address = document.getElementById('address').value;
-        // alert(address);
+        console.log('address: ' + address)
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -734,4 +704,30 @@
         markers = [];
       }
     </script>
-  {% endblock %} <!-- js_touch -->
+{% endblock %} <!-- js_voice_chat -->
+
+  {% block js_page_plugins %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
+
+    <script src="{% static 'js/rcg/county_data.js' %}"></script>
+    <!-- SC: news ticker -->
+    <!-- https://github.com/conradfeyt/Simple-Marquee -->
+    <script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+    <script>
+      $(function (){
+        $('.simple-marquee-container').SimpleMarquee();
+      });
+    </script>
+  {% endblock %} <!-- js_page_plugins -->
+
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+    // PAGE RELATED DECLARATIONS
+    $(document).ready(function() {
+      pageSetUp();
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->
+

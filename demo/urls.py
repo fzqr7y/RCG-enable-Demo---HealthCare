@@ -16,11 +16,11 @@ urlpatterns = [
     url(r'^heartrate/(?P<pk>\d+)/$', views.heartrate, name='heartrate'),
     url(r'^members2/$', views.members2, name='members2'),
     url(r'^heartrate2/(?P<pk>\d+)/$', views.heartrate2, name='heartrate2'),
-    url(r'^provider_map/(?P<pk>\d+)/$', views.provider_map, name='provider_map'),
-    url(r'^provider_map2/(?P<pk>\d+)/$', views.provider_map2, name='provider_map2'),
-    url(r'^provider_map3/(?P<pk>\d+)/$', views.provider_map3, name='provider_map3'),
+    url(r'^map_county/(?P<pk>\d+)/$', views.map_county, name='map_county'),
+    # url(r'^map_county2/(?P<pk>\d+)/$', views.map_county2, name='map_county2'),
+    # url(r'^map_county3/(?P<pk>\d+)/$', views.map_county3, name='map_county3'),
     url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
-    url(r'^county_data/(?P<pk>\d+)/$', views.county_data, name='county_data'),
+    # url(r'^county_data/(?P<pk>\d+)/$', views.county_data, name='county_data'),
     url(r'^county_lookup/$', views.county_lookup, name='county_lookup'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
