@@ -411,6 +411,9 @@
 							<li {% block nav_members2 %}{% endblock %}>
 								<a href="{% url 'members2' %}" title="Members2"><span class="menu-item-parent">Members2</span></a>
 							</li>
+							<li>
+								<a href="{% static 'index-orig.html' %}" title="Analytics"><span class="menu-item-parent">Analytics Dashboard</span></a>
+							</li>
 						</ul>
 					</li>
 					{% if "Test" in user.username %}
