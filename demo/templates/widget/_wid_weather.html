@@ -15,8 +15,8 @@
                         {% expr "city=" + person.city + "&state=" + person.state as addr %}
                         <!-- /SC www.weatherforecastmap.com -->
                         <div align="center">
-                            <script src="http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ person.city }}">
-                            </script>
+                            <!-- theres an close tag error in this script but it does not affect anything -->
+                            <script src='http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ person.city }}'></script>
                             <a title="{{ person.city }} Forecast" href="http://www.weatherforecastmap.com/united_states/{{ person.city }}" >{{ person.city }} Forecast</a>
                         </div>
                         <!-- /SC www.weatherforecastmap.com -->

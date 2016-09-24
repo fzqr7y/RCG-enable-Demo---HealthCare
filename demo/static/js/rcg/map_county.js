@@ -22,7 +22,7 @@
       // var pinImage1, pinImage2, pinShadow;
       var pinColor = "0000AA";
 
-       function initMap() {
+      function initMap() {
         // var pyrmont = {lat: -33.867, lng: 151.195};
 
         // pinImage1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor1,
@@ -72,17 +72,22 @@
         chrome = /chrome/.test(navigator.userAgent.toLowerCase());
         // chrome = navigator.userAgent.toLowerCase().indexOf('chrom')
         console.log('is chrome: ' + chrome)
+        console.log(location.hostname);
+        console.log(document.domain);
+        console.log(location.protocol)
+        // window.location.protocol != "https:"
         // console.log("after me")
         // map = new google.maps.Map(document.getElementById('map'), {
         //   center: nyc,
         //   zoom: 13      // zoomed
         // });
         // var geocoder = new google.maps.Geocoder();
-        if (!chrome || true) {
-          getMyAddress(map, infoWindow);
-        }
         geocodeAddress(geocoder, map, 'My Address');
         addMemberAddresses(geocoder, map);
+        if (!chrome || location.protocol == "https:" ||
+          location.hostname == '127.0.0.1' || location.hostname == 'localhost') {
+          getMyLocation(map, infoWindow);
+        }
 
         // pinColor = "FE7569";
 
@@ -95,7 +100,24 @@
         }, callback);*/
       }
 
-      function getMyAddress(map, infoWindow) {
+
+      function initMemberMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: nyc,
+          zoom: 13      // zoomed
+        });
+        var geocoder = new google.maps.Geocoder();
+        infoWindow = new google.maps.InfoWindow({map: map});
+
+        document.getElementById('submitNearby').addEventListener('click', function() {
+          geocodeAddress(geocoder, map, 'My Address');
+          searchBoth(geocoder, map);
+        });
+
+        geocodeAddress(geocoder, map, 'My Address');
+      }
+
+      function getMyLocation(map, infoWindow) {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -114,6 +136,8 @@
             //   title: 'Me'
             // });
             addPerson(pos, 'Me', 'Me', 0)
+            // console.log('Me' + people.length);
+            // console.log('Me' + people[people.length-1]);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -190,6 +214,8 @@
           infoWindow.open(map, this);
         });
         people.push(marker);
+        // console.log('Addr:' + people.length);
+        // console.log('Addr:' + people[people.length-1]);
       }
 
 //SC: http://127.0.0.1:8000/static/map.html?city=Morris%20Plains
@@ -234,7 +260,7 @@
           var i = 0, j = 0
           var name, addr
           jdata = []
-          $.getJSON("/provider_members/" + $provider_id, {},
+          $.getJSON("/provider_members/" + $person_id, {},
             function(json){
               // console.log(json);  // sanity check
               $.each(json, function (index, value) {

@@ -47,7 +47,7 @@
 		<article class="col-sm-12 col-md-12 col-lg-5">
 
       <!-- Provider Map Widget-->
-      {% include "widget/_wid_provider_map.html" %}
+      {% include "widget/_wid_map_local.html" with person=provider %}
 
       <!-- Map directions widget -->
       {% include "widget/_wid_map2_directions.html" %}
@@ -107,7 +107,7 @@
 
 {% block js_voice_chat %}
     <script>
-      var $provider_id = {{ provider.id }};
+      var $person_id = {{ provider.id }};
       var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
     <script src="{% static 'js/rcg/map_county.js' %}"></script>

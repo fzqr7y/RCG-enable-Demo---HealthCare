@@ -1,7 +1,7 @@
       <!-- Widget ID (each widget will need unique ID)-->
-      <!-- Provider Map Widget-->
+      <!-- person Map Widget-->
       <div class="jarviswidget jarviswidget-color-greenDark"
-          id="wid-provider-map" style="height:100%; width:100%;"
+          id="wid-map-local" style="height:100%; width:100%;"
           data-widget-colorbutton="false"
           data-widget-editbutton="false"
           data-widget-togglebutton="false"
@@ -20,7 +20,7 @@
         -->
         <header>
           <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>Member Homes</h2>
+          <h2>Local Area</h2>
         </header>
         <!-- widget div-->
 
@@ -29,7 +29,7 @@
         <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
           <div id="floating-panel">
             {# <input id="address" type="textbox" value="New York, NY"> #}
-            <input id="address" type="textbox" value="{{provider.address}} {{provider.city}}, {{provider.state}}  {{provider.zip}}">
+            <input id="address" type="textbox" value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
 
             <select id = "searchType">
              <option value = "doctor">doctor</option>
@@ -56,4 +56,4 @@
 
 
       </div>
-      <!-- end provider map widget -->
+      <!-- end person map widget -->

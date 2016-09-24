@@ -97,7 +97,10 @@
         	{% include "widget/_wid_heartrate_history.html" %}
 
 			<!-- Map 1 Widget -->
-        	{% include "widget/_wid_map1.html" %}
+        	{# {% include "widget/_wid_map1.html" %} #}
+
+  	        <!-- Provider Map Widget-->
+	        {% include "widget/_wid_map_local.html" with person=member %}
 
 			<!-- Weather Widget -->
 		    {% include "widget/_wid_weather.html" with person=member %}
@@ -170,7 +173,13 @@
 {% endblock %} <!-- js_smartadmin -->
 
 {% block js_voice_chat %}
-{% endblock %}
+    <script>
+      var $person_id = {{ member.id }};
+      var $member_detail_url = "{% url 'member_detail' pk=1 %}"
+    </script>
+    <script src="{% static 'js/rcg/map_county.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMemberMap" async defer></script>
+{% endblock %} <!-- js_voice_chat -->
 
 {% block js_page_plugins %}
 	<!-- DYGRAPH -->
