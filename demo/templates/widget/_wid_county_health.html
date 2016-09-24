@@ -1,0 +1,64 @@
+{% load demo_tags %}
+      <!-- Widget ID (each widget will need unique ID)-->
+      <!-- County Health Widget-->
+      <div class="jarviswidget jarviswidget-color-greenDark"
+        id="wid-county-health"> <!--data-widget-editbutton="true"-->
+        <header>
+          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+          <h2>County Health Behaviors</h2>
+        </header>
+        <!-- widget div-->
+        <div>
+          <!-- widget content -->
+          <div class="widget-body no-padding">
+            <div class="alert alert-info no-margin fade in">
+              <button class="close" data-dismiss="alert">
+                ×
+              </button>
+              <i class="fa-fw fa fa-info"></i>
+              <code>{{ countydata.county }}</code> County, <code>{{ countydata.state_name }}</code>
+            </div>
+            <div class="table-responsive">
+            <!-- uncomment this line to limit table height -->
+            {# <div id="wid-scripts-table-div-1" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;"> #}
+              <!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
+              </div> -->
+              <table class="table table-hover">
+  <thead>
+    <tr>
+      <th> <i class="fa fa-building"></i> Focus Area</th>
+      <th width="20%"> <i class="fa fa-calendar"></i> Measure</th>
+      <th> <i class="glyphicon glyphicon-send"></i> Description </th>
+      <th>County</th>
+      <th>Quartile in State</th>
+      <th>US Overall</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% regroup behaviors by category as grouped %}
+      {% for group in grouped %}
+        {% for obj in group.list %}
+          {% if countydata|getattribute:obj.val2_ref > 3 %}
+            {% with tdtag='<td class="danger">' %}
+              {% include "demo/_countydata_row.html" %}
+            {% endwith %}
+          {% elif countydata|getattribute:obj.val2_ref < 2 %}
+            {% with tdtag='<td class="success">' %}
+              {% include "demo/_countydata_row.html" %}
+            {% endwith %}
+          {% else %}
+            {% with tdtag='<td>' %}
+              {% include "demo/_countydata_row.html" %}
+            {% endwith %}
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+  </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- end widget content -->
+        </div>
+        <!-- end widget div -->
+      </div>
+      <!-- end health behaviors widget -->

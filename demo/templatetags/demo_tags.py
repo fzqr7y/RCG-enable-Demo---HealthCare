@@ -88,6 +88,21 @@ def prepend_whole_dollars(dollars):
         return ''
 
 
+@register.filter
+def percentage(fraction):
+    try:
+        return ("%.2f" % float(fraction)).rstrip('0').rstrip('.') + "%"
+    except ValueError:
+        return ''
+
+
+@register.filter
+def decimalize(fraction):
+    try:
+        return ("%0.1f" % float(fraction)).rstrip('0').rstrip('.')
+    except ValueError:
+        return ''
+
 # @register.filter
 # def safe_avatar(filepath, malefemale):
 #     # fp = filepath

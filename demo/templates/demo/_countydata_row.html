@@ -5,7 +5,26 @@
               {{ tdtag }}{{ obj.measure_name }}</td>
               {{ tdtag }}{{ obj.description }}</td>
               {# <td>{{ obj.val1_ref }}</td> #}
-              {{ tdtag }}{{ countydata|getattribute:obj.val1_ref }}</td>
               {# <td>{{ county_dataset.first.smoke_1 }}</td> #}
+              {# tdtag }}{{ countydata|getattribute:obj.val1_ref %}</td>#}
+              {% if obj.us_val_type == 'string' %}
+                {{ tdtag }}{{ countydata|getattribute:obj.val1_ref }}</td>
+              {% elif obj.us_val_type == 'percent' %}
+                {{ tdtag }}{{ countydata|getattribute:obj.val1_ref|percentage }}</td>
+              {% elif obj.us_val_type == 'integer' %}
+                {{ tdtag }}{{ countydata|getattribute:obj.val1_ref|stringformat:'d' }}</td>
+              {% elif obj.us_val_type == 'decimal' %}
+                {{ tdtag }}{{ countydata|getattribute:obj.val1_ref|decimalize }}</td>
+              {% endif %}
               {{ tdtag }}{{ countydata|getattribute:obj.val2_ref }}</td>
+              {# {{ tdtag }}{% firstof obj.us_str obj.us_val|percentage %}</td> #}
+              {% if obj.us_val_type == 'string' %}
+                {{ tdtag }}{{ obj.us_str }}</td>
+              {% elif obj.us_val_type == 'percent' %}
+                {{ tdtag }}{{ obj.us_val|percentage }}</td>
+              {% elif obj.us_val_type == 'integer' %}
+                {{ tdtag }}{{ obj.us_val|stringformat:'d' }}</td>
+              {% elif obj.us_val_type == 'decimal' %}
+                {{ tdtag }}{{ obj.us_val|decimalize }}</td>
+              {% endif %}
             </tr>

@@ -90,11 +90,13 @@ def map_county(request, pk):
     behaviors = CountyWidget.objects.filter(
         widget_name='Health Behaviors').values(
         'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
+        'val2_ref', 'val1_type', 'us_str',
+        'us_val', 'us_val_type').order_by('display_order')
     clinical = CountyWidget.objects.filter(
         widget_name='Clinical Care').values(
         'category', 'measure_name', 'description', 'val1_ref',
-        'val2_ref').order_by('display_order')
+        'val2_ref', 'val1_type', 'us_str',
+        'us_val', 'us_val_type').order_by('display_order')
     countydata = CountyData.objects.filter(
         state=state, county=county).first()
     return render(request, 'demo/map_county.html', {
