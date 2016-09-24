@@ -29,6 +29,8 @@ class UserProfile(models.Model):
     provider = models.ForeignKey('demo.Provider', blank=True, null=True)
     mobile_phone = models.CharField(max_length=20, blank=True, null=True)
 
+    def safe_provider(self):
+        return self.provider_id or 3
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
