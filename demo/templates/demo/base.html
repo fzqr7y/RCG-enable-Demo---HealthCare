@@ -381,7 +381,7 @@
 						</ul>
 					</li>
 					<li {% block nav_map_county %}{% endblock %} >
-						<a href="{# url 'map_county' pk=user.userprofile.safe_provider #}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
+						<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
 							<span class="menu-item-parent">Community</span></a>
 					</li>
 					<li {% block nav_test %}{% endblock %} >
@@ -391,7 +391,7 @@
 								<a href="{% url 'member_detail1' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
 							</li>
 							<li {% block nav_map_county1 %}{% endblock %} >
-								<a href="{# url 'map_county' pk=user.userprofile.safe_provider #}" title="Map"><i class="fa fa-lg fa-fw fa-gear"></i>
+								<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-gear"></i>
 									<span class="menu-item-parent"> {{user.userprofile.provider_id}} Provider Map</span></a>
 							</li>
  							{# <li {% block nav_county_data %}{% endblock %} >
