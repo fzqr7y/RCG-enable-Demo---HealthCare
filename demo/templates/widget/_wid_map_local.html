@@ -1,59 +1,57 @@
-      <!-- Widget ID (each widget will need unique ID)-->
-      <!-- person Map Widget-->
-      <div class="jarviswidget jarviswidget-color-greenDark"
-          id="wid-map-local" style="height:100%; width:100%;"
-          data-widget-colorbutton="false"
-          data-widget-editbutton="false"
-          data-widget-togglebutton="false"
-          data-widget-deletebutton="false"
-          data-widget-fullscreenbutton="false">
-        <!-- widget options:
-        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-        data-widget-colorbutton="false"
-        data-widget-editbutton="false"
-        data-widget-togglebutton="false"
-        data-widget-deletebutton="false"
-        data-widget-fullscreenbutton="false"
-        data-widget-custombutton="false"
-        data-widget-collapsed="true"
-        data-widget-sortable="false"
-        -->
-        <header>
-          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-          <h2>Local Area</h2>
-        </header>
-        <!-- widget div-->
+<!-- Widget ID (each widget will need unique ID)-->
+<!-- person Map Widget-->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-map-local"
+    data-widget-editbutton="false"
+    data-widget-fullscreenbutton="false"
+    data-widget-deletebutton="false">
+    <!-- widget options:
+    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+    data-widget-colorbutton="false"
+    data-widget-editbutton="false"
+    data-widget-togglebutton="false"
+    data-widget-deletebutton="false"
+    data-widget-fullscreenbutton="false"
+    data-widget-custombutton="false"
+    data-widget-collapsed="true"
+    data-widget-sortable="false"
+    -->
+   <header>
+    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+    <h2>Local Area</h2>
+  </header>
+  <!-- widget div-->
 
 
-        {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
-        <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
-          <div id="floating-panel">
-            {# <input id="address" type="textbox" value="New York, NY"> #}
-            <input id="address" type="textbox" value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
+  {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
+  <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
+    <div id="floating-panel">
+      {# <input id="address" type="textbox" value="New York, NY"> #}
+      <input id="address" type="textbox" value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
 
-            <select id = "searchType">
-             <option value = "doctor">doctor</option>
-             <option value = "dentist">dentist</option>
-             <option value = "hospital">hospital</option>
-             <option value = "parking">parking</option>
-             <option value = "pharmacy">pharmacy</option>
-             <option value = "physiotherapist">physiotherapist</option>
-            </select>
-            <input id="submitNearby" type="button" value="Find">
-            {# <input id="getMembers" type="button" value="Members"> #}
+      <select id = "searchType">
+       <option value = "doctor">doctor</option>
+       <option value = "dentist">dentist</option>
+       <option value = "hospital">hospital</option>
+       <option value = "parking">parking</option>
+       <option value = "pharmacy">pharmacy</option>
+       <option value = "physiotherapist">physiotherapist</option>
+      </select>
+      <input id="submitNearby" type="button" value="Find">
+      {# <input id="getMembers" type="button" value="Members"> #}
 
-            <!--<input id="searchTerm" type="textbox" value="hospital">
-            <input id="submitText" type="button" value="Search">-->
-          </div>
+      <!--<input id="searchTerm" type="textbox" value="hospital">
+      <input id="submitText" type="button" value="Search">-->
+    </div>
 
-          <!-- google maps div -->
-          <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
-          <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
-          <div id="map"></div>
-        </div> <!--wid-scripts-table-div>-->
-          {# </div> #}
-        {# </div> #}
+    <!-- google maps div -->
+    <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
+    <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
+    <div id="map"></div>
+  </div> <!--wid-scripts-table-div>-->
+    {# </div> #}
+  {# </div> #}
 
 
-      </div>
-      <!-- end person map widget -->
+</div>
+<!-- end person map widget -->

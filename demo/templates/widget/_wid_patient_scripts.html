@@ -1,111 +1,114 @@
-            <!-- Widget ID (each widget will need unique ID)-->
-            <!-- Prescription Widget -->
-            <div class="jarviswidget jarviswidget-color-greenDark" id="wid-patient-scripts" data-widget-colorbutton="false" data-widget-editbutton="false">
-                <header>
-                    <h2><strong>Recent</strong> <i>Prescriptions</i></h2>
-                    <div class="widget-toolbar">
-                        <!-- place your buttons here with .btn .btn-xs class -->
-                        <a href="{% url 'providers' %}" style="color:white;"
-                            class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
-                            <i class="fa fa-external-link "></i></a>
-                        <!--<a href="{% url 'providers' %}" style="color:white;" class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
-                            <i class="fa fa-expand "></i></a>
-                        <button class="button-icon"><a href="{% url 'providers' %}">
-                            <i class="fa fa-external-link"></i>
-                        </button></a>-->
+<!-- Widget ID (each widget will need unique ID)-->
+<!-- Prescription Widget -->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-scripts"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <h2><strong>Recent</strong> <i>Prescriptions</i></h2>
+        <div class="widget-toolbar">
+            <!-- place your buttons here with .btn .btn-xs class -->
+            <a href="{% url 'providers' %}" style="color:white;"
+                class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
+                <i class="fa fa-external-link "></i></a>
+            <!--<a href="{% url 'providers' %}" style="color:white;" class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
+                <i class="fa fa-expand "></i></a>
+            <button class="button-icon"><a href="{% url 'providers' %}">
+                <i class="fa fa-external-link"></i>
+            </button></a>-->
+        </div>
+    </header>
+    <!-- widget div-->
+    <div>
+    <!--<div style="height:150px; overflow-y: scroll; overflow-x:hidden;">-->
+    <!--<div style="height:150px; overflow-y: scroll;">-->
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-9 col-sm-5 col-md-5 col-lg-5">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input class="form-control" id="prepend" placeholder="Filter" type="text">
+                        </div>
                     </div>
-                </header>
-                <!-- widget div-->
-                <div>
-                <!--<div style="height:150px; overflow-y: scroll; overflow-x:hidden;">-->
-                <!--<div style="height:150px; overflow-y: scroll;">-->
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        <div class="widget-body-toolbar">
-                            <div class="row">
-                                <div class="col-xs-9 col-sm-5 col-md-5 col-lg-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                        <input class="form-control" id="prepend" placeholder="Filter" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-xs-3 col-sm-7 col-md-7 col-lg-7 text-right">
-                                    <button class="btn btn-success">
-                                        <i class="fa fa-plus"></i> <span class="hidden-mobile">Add New Row</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div> <!-- / widget-body-toolbar -->
-
-                        <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
-                        <!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
-                        <!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th><i class="fa fa-key text-warning"></i> Date</th>
-                                        <th>Script</th>
-                                        <th>Ct</th>
-                                        <th>Dose <i class="text-danger">!</i></th>
-                                        <th>Pharmacy</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td style="white-space:nowrap">Zocor</td>
-                                        <td>30</td>
-                                        <td style="white-space:nowrap">10 mg 1x day</td>
-                                        <td style="white-space:nowrap">CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>8/6/2016</strong></td>
-                                        <td>Zocor</td>
-                                        <td>30</td>
-                                        <td>10 mg 1x day</td>
-                                        <td>CVS #5325</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> <!-- /table-responsive -->
+                    <div class="col-xs-3 col-sm-7 col-md-7 col-lg-7 text-right">
+                        <button class="btn btn-success">
+                            <i class="fa fa-plus"></i> <span class="hidden-mobile">Add New Row</span>
+                        </button>
                     </div>
-                    <!-- end widget content -->
                 </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
+            </div> <!-- / widget-body-toolbar -->
+
+            <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
+            <!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
+            <!--<div class="custom-scroll table-responsive" style="overflow:hidden;">-->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-key text-warning"></i> Date</th>
+                            <th>Script</th>
+                            <th>Ct</th>
+                            <th>Dose <i class="text-danger">!</i></th>
+                            <th>Pharmacy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td style="white-space:nowrap">Zocor</td>
+                            <td>30</td>
+                            <td style="white-space:nowrap">10 mg 1x day</td>
+                            <td style="white-space:nowrap">CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> <!-- /table-responsive -->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end widget -->

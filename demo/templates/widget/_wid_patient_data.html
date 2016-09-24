@@ -1,50 +1,53 @@
-            <!-- Patient Data Widget-->
-            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-patient-data" data-widget-editbutton="false">
-                <header>
-                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Patient Reported Data </h2>
-                </header>
-                <!-- widget div-->
-                <div>
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Type</th>
-                                        <th> <i class="fa fa-building"></i> Value </th>
-                                        <th> <i class="fa fa-calendar"></i> Recorded </th>
-                                        <th> <i class="glyphicon glyphicon-send"></i> Target / Alert</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for rpt in member.reported %}
-                                    <tr>
-                                        <td>{{ rpt.measure_label }}</td>
-                                        <td>{{ rpt.display }}{{ rpt.value_str }}</td>
-                                        <td>{{ rpt.measure_date | date:"n/j/y g:i A"}}</td>
-                                        <td>{{ rpt.value_1_tgt_lo | floatformat:"0" }} - {{ rpt.value_1_tgt_hi | floatformat:"0" }}</td>
-                                    </tr>
-                                {% endfor %}
-                                    <tr class="warning">
-                                        <td>Pain (1-10)</td>
-                                        <td>3</td>
-                                        <td>7/28/16</td>
-                                        <td>1 - 5</td>
-                                    </tr>
-                                    <tr class="info">
-                                        <td>Mood (1-10)</td>
-                                        <td>6</td>
-                                        <td>7/28/16</td>
-                                        <td>7 - 5</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
+<!-- Patient Data Widget-->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-data"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+        <h2>Patient Reported Data </h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th> <i class="fa fa-building"></i> Value </th>
+                            <th> <i class="fa fa-calendar"></i> Recorded </th>
+                            <th> <i class="glyphicon glyphicon-send"></i> Target / Alert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for rpt in member.reported %}
+                        <tr>
+                            <td>{{ rpt.measure_label }}</td>
+                            <td>{{ rpt.display }}{{ rpt.value_str }}</td>
+                            <td>{{ rpt.measure_date | date:"n/j/y g:i A"}}</td>
+                            <td>{{ rpt.value_1_tgt_lo | floatformat:"0" }} - {{ rpt.value_1_tgt_hi | floatformat:"0" }}</td>
+                        </tr>
+                    {% endfor %}
+                        <tr class="warning">
+                            <td>Pain (1-10)</td>
+                            <td>3</td>
+                            <td>7/28/16</td>
+                            <td>1 - 5</td>
+                        </tr>
+                        <tr class="info">
+                            <td>Mood (1-10)</td>
+                            <td>6</td>
+                            <td>7/28/16</td>
+                            <td>7 - 5</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <!-- end patient data widget -->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end patient data widget -->

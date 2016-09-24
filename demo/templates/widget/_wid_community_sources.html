@@ -1,20 +1,13 @@
-<!-- Widget Template -->
+<!-- Community Sources Widget -->
 <!-- Widget ID (each widget will need unique ID)-->
 <div class="jarviswidget jarviswidget-color-blueDark"
-    id="wid-template">
-    <!-- widget options:
-    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-    data-widget-colorbutton="false"
-    data-widget-editbutton="false"
-    data-widget-togglebutton="false"
-    data-widget-deletebutton="false"
-    data-widget-fullscreenbutton="false"
-    data-widget-custombutton="false"
+    id="wid-community-sources"
     data-widget-collapsed="true"
-    data-widget-sortable="false"
-    -->
+    data-widget-togglebutton="false"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
     <header>
-        <h2><strong>Basic</strong> <i>Widget</i></h2>
+        <h2><strong>Community Data Sources</strong></h2>
     </header>
     <!-- widget div-->
     <div>
@@ -27,7 +20,8 @@
         <!-- end widget edit box -->
         <!-- widget content -->
         <div class="widget-body no-padding">
-            Content
+{% include 'rcg/community_data_sources_filtered.htm' %}
+
         </div>
         <!-- end widget content -->
     </div>

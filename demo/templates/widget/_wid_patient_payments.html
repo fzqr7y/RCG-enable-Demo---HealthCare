@@ -1,67 +1,67 @@
 {% load demo_tags %}
-            <!-- Plan Payments Widget -->
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-greenDark"
-                id="wid-patient-payments"
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false">
-                <header>
-                    <h2><strong>Plan</strong> <i>Payments</i></h2>
-                </header>
-                <!-- widget div-->
-                <div>
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        &nbsp;
-                        <div class="well" style="margin-left: 20px; margin-right: 20px">
-                            <div class="show-stat-microcharts">
-                                <!-- <span class="easy-pie-title"> -->
-                                    Deductible Met <br><!-- </span> -->
-                                <div class="easy-pie-chart txt-color-green" data-percent="33" data-pie-size="50">
-                                    <span class="percent percent-sign">35<!--tbd--></span>
-                                </div>
-                                <ul class="stat hidden-sm pull-right">
-                                    <li>
-                                        <span class="label bg-color-greenLight">Deductible {{ member.plan_deductible | prepend_whole_dollars }}</span>
-                                    </li>
-                                    <li>
-                                        <span class="label bg-color-blueLight">Member Paid $150<!--tbd--></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div><!--/well-->
-                        &nbsp;
-                        <div class="well no-padding">
-                            <div class="bar-holder">
-                                <div class="progress">Claims Paid <!--<span class="pull-right">$6500</span>--> </div>
-                                <div class="progress">
-                                  <div class="progress-bar bg-color-greenLight" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><!--tbd-->
-                                    $6500<!--tbd-->
-                                  </div>
-                                </div>
-                                <div class="progress">Member Out-of-Pocket <span class="pull-right">Maximum: {{ member.plan_oop_max | prepend_whole_dollars }}</span> </div>
-                                <div class="progress">
-                                  <div class="progress-bar bg-color-blue" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {% expr round(100*1500/member.plan_oop_max) %}%;"><!--tbd-->
-                                    $1500<!--tbd-->
-                                  </div>
-                                </div>
-                            </div>
-                        </div><!--/well-->
-                        <!-- &nbsp;
-                        <div class="well no-padding">
-                            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Member Out-of-Pocket <span class="pull-right">$2500</span> </span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-color-blue" style="width: 77%;"></div>
-                                </div> </div>
-                            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Claims Paid <span class="pull-right">%6500</span> </span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-color-greenLight" style="width: 84%;"></div>
-                                </div>
-                            </div>
-                        </div> --><!--/well-->
+<!-- Plan Payments Widget -->
+<!-- Widget ID (each widget will need unique ID)-->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-payments"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <h2><strong>Plan</strong> <i>Payments</i></h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            &nbsp;
+            <div class="well" style="margin-left: 20px; margin-right: 20px">
+                <div class="show-stat-microcharts">
+                    <!-- <span class="easy-pie-title"> -->
+                        Deductible Met <br><!-- </span> -->
+                    <div class="easy-pie-chart txt-color-green" data-percent="33" data-pie-size="50">
+                        <span class="percent percent-sign">35<!--tbd--></span>
                     </div>
-                    <!-- end widget content -->
+                    <ul class="stat hidden-sm pull-right">
+                        <li>
+                            <span class="label bg-color-greenLight">Deductible {{ member.plan_deductible | prepend_whole_dollars }}</span>
+                        </li>
+                        <li>
+                            <span class="label bg-color-blueLight">Member Paid $150<!--tbd--></span>
+                        </li>
+                    </ul>
                 </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
+            </div><!--/well-->
+            &nbsp;
+            <div class="well no-padding">
+                <div class="bar-holder">
+                    <div class="progress">Claims Paid <!--<span class="pull-right">$6500</span>--> </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-color-greenLight" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><!--tbd-->
+                        $6500<!--tbd-->
+                      </div>
+                    </div>
+                    <div class="progress">Member Out-of-Pocket <span class="pull-right">Maximum: {{ member.plan_oop_max | prepend_whole_dollars }}</span> </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-color-blue" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {% expr round(100*1500/member.plan_oop_max) %}%;"><!--tbd-->
+                        $1500<!--tbd-->
+                      </div>
+                    </div>
+                </div>
+            </div><!--/well-->
+            <!-- &nbsp;
+            <div class="well no-padding">
+                <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Member Out-of-Pocket <span class="pull-right">$2500</span> </span>
+                    <div class="progress">
+                        <div class="progress-bar bg-color-blue" style="width: 77%;"></div>
+                    </div> </div>
+                <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Claims Paid <span class="pull-right">%6500</span> </span>
+                    <div class="progress">
+                        <div class="progress-bar bg-color-greenLight" style="width: 84%;"></div>
+                    </div>
+                </div>
+            </div> --><!--/well-->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end widget -->

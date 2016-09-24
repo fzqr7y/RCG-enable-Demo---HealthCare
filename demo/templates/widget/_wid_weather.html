@@ -1,28 +1,32 @@
 {% load staticfiles %}
 {% load demo_tags %}
 
-            <!-- Widget ID (each widget will need unique ID)-->
-            <!-- Map 1 and Weather Widget -->
-            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-map1-weather" data-widget-editbutton="false"> <!--data-widget-sortable="false"-->
-                <header>
-                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Weather</h2>
-                </header>
-                <!-- widget div-->
-                <div>
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        {% expr "city=" + person.city + "&state=" + person.state as addr %}
-                        <!-- /SC www.weatherforecastmap.com -->
-                        <div align="center">
-                            <!-- theres an close tag error in this script but it does not affect anything -->
-                            <script src='http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ person.city }}'></script>
-                            <a title="{{ person.city }} Forecast" href="http://www.weatherforecastmap.com/united_states/{{ person.city }}" >{{ person.city }} Forecast</a>
-                        </div>
-                        <!-- /SC www.weatherforecastmap.com -->
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
+<!-- Widget ID (each widget will need unique ID)-->
+<!-- Map 1 and Weather Widget -->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-map1-weather"
+    data-widget-editbutton="false"
+    data-widget-fullscreenbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+        <h2>Weather</h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            {% expr "city=" + person.city + "&state=" + person.state as addr %}
+            <!-- /SC www.weatherforecastmap.com -->
+            <div align="center">
+                <!-- theres an close tag error in this script but it does not affect anything -->
+                <script src='http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ person.city }}'></script>
+                <a title="{{ person.city }} Forecast" href="http://www.weatherforecastmap.com/united_states/{{ person.city }}" >{{ person.city }} Forecast</a>
             </div>
-            <!-- end Map 1 & Weather widget -->
+            <!-- /SC www.weatherforecastmap.com -->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end Map 1 & Weather widget -->

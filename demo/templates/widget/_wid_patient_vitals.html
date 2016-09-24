@@ -1,83 +1,89 @@
-            <!-- Widget ID (each widget will need unique ID)-->
-            <!-- Patient Vitals Widget-->
-            <div class="jarviswidget jarviswidget-color-greenDark"
-            id="wid-patient-vitals">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="false"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-                -->
-                <header>
-                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Vitals </h2>
-                </header>
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox"> -->
-                        <!-- This area used as dropdown edit box -->
-                        <input class="form-control" type="text">
-                        <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        <div class="alert alert-info no-margin fade in">
-                            <button class="close" data-dismiss="alert">
-                                ×
-                            </button>
-                            <i class="fa-fw fa fa-info"></i>
-                            <code>Blood Pressure</code> at <code>lower</code> edge of range.
-                        </div>
-                        <div class="table-responsive">
-                            <!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
-                            </div> -->
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Type</th>
-                                        <th> <i class="fa fa-building"></i> Value</th>
-                                        <th> <i class="fa fa-calendar"></i> Recorded</th>
-                                        <th> <i class="glyphicon glyphicon-send"></i> Target / Alert</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Height</td>
-                                        <td>{{ member.height.value_str }}</td>
-                                        <td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <td>Weight</td>
-                                        <td>{{ member.weight.value_1 | floatformat:"0" }}</td>
-                                        <td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
-                                        <td>{{ member.weight.value_1_tgt_hi | floatformat:"0" }} - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BP</td>
-                                        <td>{{ member.bp.value_str }}</td>
-                                        <td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
-                                        <td>{{ member.bp.value_1_tgt_hi | floatformat:"0" }} - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>HR</td>
-                                        <td>{{ member.hr.value_1 | floatformat:"0" }}</td>
-                                        <td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
-                                        <td>{{ member.hr.value_1_tgt_hi | floatformat:"0" }} - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
+<!-- Widget ID (each widget will need unique ID)-->
+<!-- Patient Vitals Widget-->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-vitals"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <!-- widget options:
+    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+    data-widget-colorbutton="false"
+    data-widget-editbutton="false"
+    data-widget-togglebutton="false"
+    data-widget-deletebutton="false"
+    data-widget-fullscreenbutton="false"
+    data-widget-custombutton="false"
+    data-widget-collapsed="true"
+    data-widget-sortable="false"
+    -->
+    <header>
+        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+        <h2>Vitals </h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox"> -->
+            <!-- This area used as dropdown edit box -->
+            <input class="form-control" type="text">
+            <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+        </div>
+        <!-- end widget edit box -->
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            <div class="alert alert-info no-margin fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-info"></i>
+                <code>Blood Pressure</code> at <code>lower</code> edge of range.
             </div>
-            <!-- end patient vitals widget -->
+            <div class="table-responsive">
+                <!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
+                </div> -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th> <i class="fa fa-building"></i> Value</th>
+                            <th> <i class="fa fa-calendar"></i> Recorded</th>
+                            <th> <i class="glyphicon glyphicon-send"></i> Alert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Height</td>
+                            <td>{{ member.height.value_str }}</td>
+                            <td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td>
+                            <td>-</td>
+                        </tr>
+                        <!-- <tr class="success"> -->
+                        <tr>
+                            <td>Weight</td>
+                            <td>{{ member.weight.value_1 | floatformat:"0" }}</td>
+                            <td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
+                            <td>{{ member.weight.value_1_tgt_hi | floatformat:"0" }}
+                                - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>BP</td>
+                            <td>{{ member.bp.value_str }}</td>
+                            <td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
+                            <td>{{ member.bp.value_1_tgt_hi | floatformat:"0" }}
+                                - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
+                        </tr>
+                        {# <tr class="danger"> #}
+                        <tr>
+                            <td>HR</td>
+                            <td>{{ member.hr.value_1 | floatformat:"0" }}</td>
+                            <td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
+                            <td>{{ member.hr.value_1_tgt_hi | floatformat:"0" }} - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end patient vitals widget -->

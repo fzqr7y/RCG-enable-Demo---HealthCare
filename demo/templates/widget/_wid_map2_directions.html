@@ -1,20 +1,23 @@
 {% load staticfiles %}
-            <!-- Widget ID (each widget will need unique ID)-->
-            <!-- Map directions widget -->
-            <div class="jarviswidget jarviswidget-color-greenDark" id="wid-map2-directions" data-widget-colorbutton="false" data-widget-editbutton="false">
-                <header>
-                    <h2><strong>Directions</strong> <i>(to Provider etc.)</i></h2>
-                </header>
-                <!-- widget div-->
-                <div>
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-                        <!-- SC Google Maps Directions Javascript API -->
-                        <iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'mapdirections.html' %}" allowfullscreen></iframe>
-                        <!-- SC Google Maps Javascript API -->
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
+<!-- Widget ID (each widget will need unique ID)-->
+<!-- Map directions widget -->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-map2-directions"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <h2><strong>Directions</strong> <i>(to Provider etc.)</i></h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            <!-- SC Google Maps Directions Javascript API -->
+            <iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'mapdirections.html' %}" allowfullscreen></iframe>
+            <!-- SC Google Maps Javascript API -->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end widget -->
