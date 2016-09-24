@@ -359,6 +359,13 @@
 				traditional href="" links. See documentation for details.
 				-->
 				<ul>
+				{% if {{ request.META.HTTP_HOST }} == "127.0.0.1:8000"
+					or {{ request.META.HTTP_HOST }} == "demo1.rcg-healthcare.com"
+					or {{ request.META.HTTP_HOST }} == "hcdev1.rcgenable.com" %}
+					<li>
+						<a href="" title="Development"><i class="fa fa-lg fa-fw fa-gear txt-color-yellow"></i>
+							<span class="menu-item-parent">DEV</span></a>
+					</li>
 					<li {% block nav_rcg %}{% endblock %} >
 						<a href="/" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
 							<span class="menu-item-parent">RCG</span></a>
