@@ -96,8 +96,11 @@
 			<!-- Heartrate History  -->
         	{% include "widget/_wid_heartrate_history.html" %}
 
-			<!-- Map 1 and Weather Widget -->
-        	{% include "widget/_wid_map1_weather.html" %}
+			<!-- Map 1 Widget -->
+        	{% include "widget/_wid_map1.html" %}
+
+			<!-- Weather Widget -->
+		    {% include "widget/_wid_weather.html" with person=member %}
 
 		</article>
 		<!-- WIDGET COLUMN 2 ENDi -->

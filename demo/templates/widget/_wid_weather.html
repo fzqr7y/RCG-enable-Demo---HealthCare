@@ -6,26 +6,18 @@
             <div class="jarviswidget jarviswidget-color-greenLight" id="wid-map1-weather" data-widget-editbutton="false"> <!--data-widget-sortable="false"-->
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Environment </h2>
+                    <h2>Weather</h2>
                 </header>
                 <!-- widget div-->
                 <div>
                     <!-- widget content -->
                     <div class="widget-body no-padding">
-                        {% expr "city=" + member.city + "&state=" + member.state as addr %}
-                        {# {{ addr }} #}
-                        <!-- SC Google Maps Javascript API -->
-                        <!--<iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'map.html' %}" allowfullscreen>-->
-                        <iframe width="100%" height="400" frameborder="0" style="border:0"
-                            src="{% static 'map.html' %}?{{ addr }}" allowfullscreen>
-                        </iframe>
-                        <!-- SC Google Maps Javascript API -->
-                    <br>
+                        {% expr "city=" + person.city + "&state=" + person.state as addr %}
                         <!-- /SC www.weatherforecastmap.com -->
                         <div align="center">
-                            <script src="http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ member.city }}">
+                            <script src="http://www.weatherforecastmap.com/weather2F.php?zona=united-states_{{ person.city }}">
                             </script>
-                            <a title="{{ member.city }} Forecast" href="http://www.weatherforecastmap.com/united_states/{{ member.city }}" >{{ member.city }} Forecast</a>
+                            <a title="{{ person.city }} Forecast" href="http://www.weatherforecastmap.com/united_states/{{ person.city }}" >{{ person.city }} Forecast</a>
                         </div>
                         <!-- /SC www.weatherforecastmap.com -->
                     </div>
