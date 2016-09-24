@@ -91,7 +91,10 @@
 		<article class="col-sm-12 col-md-12 col-lg-4">
 
 			<!-- SC Flot Auto Updating Chart -->
-        	{% include "widget/_wid_heartrate_demo.html" %}
+        	{# {% include "widget/_wid_heartrate_demo.html" %} #}
+
+			<!-- SC Fitbit Heartrate Chart -->
+        	{% include "widget/_wid_heartrate_fitbit.html" %}
 
 			<!-- Heartrate History  -->
         	{% include "widget/_wid_heartrate_history.html" %}
@@ -271,7 +274,8 @@
 
 			/* SC: flot */
 			/* updating chart */
-            loadScript("{% static 'js/rcg/flot_update.js' %}", true);
+            // loadScript("{% static 'js/rcg/flot_update.js' %}", true);
+            loadScript("{% static 'js/rcg/heartrate.js' %}", true);
 
         })
     </script>
