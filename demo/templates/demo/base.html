@@ -463,22 +463,22 @@
 					</li>
 					{% endif %}
 				</ul>
-            <div class="pull-right">
-			<div id="ribbon">
-            {% if user.is_authenticated %}
-                <!-- Top menu profile link : this shows only when top menu is active -->
-				<!-- breadcrumb -->
-				<ol class="breadcrumb">
-                {% block breadcrumb %}
-					<li>Home</li>
-                {% endblock %}
-				</ol>
-				<!-- end breadcrumb -->
-                <!-- end top menu profile link -->
-            {% endif %}
-            </div>
-            </div>
-            <!-- end pulled right: nav area -->
+	            <div class="pull-right">
+					<div id="ribbon">
+		            {% if user.is_authenticated %}
+		                <!-- Top menu profile link : this shows only when top menu is active -->
+						<!-- breadcrumb -->
+						<ol class="breadcrumb">
+		                {% block breadcrumb %}
+							<li>Home</li>
+		                {% endblock %}
+						</ol>
+						<!-- end breadcrumb -->
+		                <!-- end top menu profile link -->
+		            {% endif %}
+		            </div>
+	            </div>
+	            <!-- end pulled right: nav area -->
 			</nav>
 
 			<span class="minifyme" data-action="minifyMenu">
