@@ -57,26 +57,38 @@
                             <td>-</td>
                         </tr>
                         <!-- <tr class="success"> -->
+                        {% if member.weight.value_1 > member.weight.value_1_alert_hi %}
+                        <tr class="danger">
+                        {% else %}
                         <tr>
+                        {% endif %}
                             <td>Weight</td>
                             <td>{{ member.weight.value_1 | floatformat:"0" }}</td>
                             <td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
-                            <td>{{ member.weight.value_1_tgt_hi | floatformat:"0" }}
-                                - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
+                            <!--{# {{ member.weight.value_1_tgt_hi | floatformat:"0" }} #}-->
+                            <td> &nbsp;&nbsp;&nbsp; - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>
+                        {% if member.bp.value_1 > member.bp.value_1_alert_hi %}
+                        <tr class="danger">
+                        {% else %}
                         <tr>
+                        {% endif %}
                             <td>BP</td>
                             <td>{{ member.bp.value_str }}</td>
                             <td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
-                            <td>{{ member.bp.value_1_tgt_hi | floatformat:"0" }}
-                                - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
+                            <!--<td>{# {{ member.bp.value_1_tgt_hi | floatformat:"0" }} #}-->
+                            <td> &nbsp;&nbsp;&nbsp; - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>
-                        {# <tr class="danger"> #}
+                        {% if member.hr.value_1 > member.hr.value_1_alert_hi %}
+                        <tr class="danger">
+                        {% else %}
                         <tr>
+                        {% endif %}
                             <td>HR</td>
                             <td>{{ member.hr.value_1 | floatformat:"0" }}</td>
                             <td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
-                            <td>{{ member.hr.value_1_tgt_hi | floatformat:"0" }} - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
+                            <!--<td>{# {{ member.hr.value_1_tgt_hi | floatformat:"0" }} #}-->
+                            <td> &nbsp;&nbsp;&nbsp; - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>
                     </tbody>
                 </table>
