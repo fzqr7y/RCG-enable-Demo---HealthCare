@@ -28,28 +28,30 @@
                     <thead>
                         <tr>
                             <th data-class="expand">Rx #</th>
-                            <th data-hide="phone, tablet" style="width:12%">Birth Date</th>
+                            <th data-hide="phone, tablet" style="width:12%">Date</th>
                             <th data-class="expand">For</th>
                             <th>Count</th>
                             <th>Dose</th>
                             <th data-hide="phone,tablet">Pharmacy</th>
                             <th>Take</th>
-                            <th>Days</th>
+                            <th>Price</th>
                             <!-- looks like you cant have more than 8 cols for the js to work -->
                         </tr>
                     </thead>
                     <tbody>
                         {% for obj in member.rxclaims %}
                         <!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
-                        <tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">
+                        <!--<tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">-->
+                        <tr>
                             <td>{{ obj.prescription_ref }}</td>
-                            <td>{{ member.first_name }}</td>
-                            <td>{{ member.last_name }}</td>
-                            <td>{{ member.address }}</td>
-                            <td>{{ member.city }}</td>
-                            <td>{{ member.state }}</td>
-                            <td>{{ member.zip }}</td>
-                            <td>{{ member.birth_date | date:"M d, Y" }}</td>
+                            <!--<td>{# obj.service_date | date:"M d, Y" }}</td>-->
+                            <td>{{ obj.service_date | date:"m/d/y" }}</td>
+                            <td>{{ obj.drug.name }}</td>
+                            <td>{{ obj.script_quantity }}</td>
+                            <td>{{ obj.drug.dose }}</td>
+                            <td>{{ obj.pharmacy.name }}</td>
+                            <td>{{ obj.drug.take_instructions }}</td>
+                            <td>{{ obj.member_paid }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
