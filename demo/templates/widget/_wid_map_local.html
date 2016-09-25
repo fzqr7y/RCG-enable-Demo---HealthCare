@@ -27,9 +27,11 @@
   <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
     <div id="floating-panel">
       {# <input id="address" type="textbox" value="New York, NY"> #}
-      <input id="address" type="textbox" value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
+      <input id="address" type="textbox" style="width:300px;"
+      value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
 
       <select id = "searchType">
+       <option value = "none"></option>
        <option value = "doctor">doctor</option>
        <option value = "dentist">dentist</option>
        <option value = "hospital">hospital</option>

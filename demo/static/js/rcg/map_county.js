@@ -380,40 +380,46 @@
       function searchBoth(geocoder, resultsMap) {
         var address = document.getElementById('address').value;
         geocoder.geocode({'address': address}, function(results, status) {
+          var searchField = document.getElementById('searchType').value;
           if (status === 'OK') {
 
-            deleteMarkers();
-
             resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-            });
+            addPerson(results[0].geometry.location, address, address, 0)
 
-            infowindow = new google.maps.InfoWindow();
-            var service = new google.maps.places.PlacesService(resultsMap);
-            // alert('Search: ' + document.getElementById('searchType').value);
-            var request = {
-              location: results[0].geometry.location,
-              radius: 500,
-              type: [document.getElementById('searchType').value]
-              // type: ['hospital']
-              // type: ['store']
-              // valid types: https://developers.google.com/places/supported_types
+            if (searchField != 'none') {
+
+              deleteMarkers();
+
+              // resultsMap.setCenter(results[0].geometry.location);
+              // var marker = new google.maps.Marker({
+              //   map: resultsMap,
+              //   position: results[0].geometry.location
+              // });
+
+              infowindow = new google.maps.InfoWindow();
+              var service = new google.maps.places.PlacesService(resultsMap);
+              // alert('Search: ' + document.getElementById('searchType').value);
+              var request = {
+                location: results[0].geometry.location,
+                radius: 500,
+                type: [searchField]
+                // type: ['hospital']
+                // type: ['store']
+                // valid types: https://developers.google.com/places/supported_types
+              }
+              service.nearbySearch(request, callback);
+
+              var request = {
+                location: results[0].geometry.location,
+                radius: 500,
+  //              type: ['store']
+                query: [searchField]
+              }
+              service.textSearch(request, callback);
+
+              // setMapOnAll(resultsMap)
+              showMarkers();
             }
-            service.nearbySearch(request, callback);
-
-            var request = {
-              location: results[0].geometry.location,
-              radius: 500,
-//              type: ['store']
-              query: [document.getElementById('searchType').value]
-            }
-            service.textSearch(request, callback);
-
-            // setMapOnAll(resultsMap)
-            showMarkers();
-
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
