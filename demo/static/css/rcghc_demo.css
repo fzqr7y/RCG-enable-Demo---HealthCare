@@ -82,12 +82,41 @@ img.rcg-left-logo {
     /*padding-bottom: -30px;*/
 }
 
-.custom-scroll .dt-toolbar {
     /*background-color: lightblue;*/
-    display: none;
+    /*display: none;*/
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    /*height: 0px;*/
+.custom-scroll .dt-toolbar {
+    opacity: 0;
+    height: 0px;
 }
 
-#jarviswidget-fullscreen-mode .dt-toolbar {
+/*.custom-scroll .dataTables-filter input {
+    height: 0px;
+}
+*/
+/*.dataTables_filter .input-group-addon+.form-control {
+    height: 1px;
+}
+
+.dataTables_filter .input-group-addon {
+    height: 1px;
+}
+
+.DTTT_button div embed {
+    height: 1px !important;
+}
+
+.custom-scroll .dt-toolbar .DTTT_container {
+    height: 1px;
+}*/
+
     /*background-color: red;*/
-    display: initial;
+    /*visibility: unset;*/
+    /*display: block;*/
+    /*opacity: 1;*/
+#jarviswidget-fullscreen-mode .dt-toolbar {
+    height: inherit;
+    opacity: 1;
 }
