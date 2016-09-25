@@ -925,14 +925,6 @@
                         .children(self.o.widgets)
                         .children('header')
                         .height();
-// alert(heightWindow);
-                    /**
-                     * Setting the height to the right widget.
-                     **/
-                    $('#jarviswidget-fullscreen-mode')
-                        .children(self.o.widgets)
-                        .children('div')
-                        .height(heightWindow - heightHeader - 15);
 
                     /**
                      * SC: Capture the original table height.
@@ -946,6 +938,16 @@ console.log("id: " + tblid + " height: " + height);
                             .height(heightWindow - heightHeader - 15);
                         tblid = false;
                     }
+// alert(heightWindow);
+
+                    /**
+                     * Setting the height to the right widget.
+                     **/
+                    $('#jarviswidget-fullscreen-mode')
+                        .children(self.o.widgets)
+                        .children('div')
+                        .height(heightWindow - heightHeader - 15);
+
                 }
             }
 var height;

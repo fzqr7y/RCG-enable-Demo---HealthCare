@@ -165,6 +165,10 @@ class Member(models.Model):
         return self.rxclaim_set.filter(
             is_current=True).order_by('id')
 
+    def claimlines(self):
+        return self.claimline_set.filter(
+            is_current=True).order_by('id')
+
 
 class Provider(models.Model):
     provider_id = models.CharField(max_length=12)
