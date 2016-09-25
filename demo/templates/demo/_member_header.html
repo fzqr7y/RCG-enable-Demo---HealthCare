@@ -138,20 +138,9 @@
 <div class="row">
     <!-- Notification Section -->
     <article class="col-sm-12">
-        <div class="alert alert-warning fade in">
-            <button class="close" data-dismiss="alert">
-                ×
-            </button>
-            <i class="fa-fw fa fa-warning"></i>
-            <strong>Notice: </strong> Patient has not filled <code>Zocor</code> as prescribed.
-        </div>
-        <div class="alert alert-success fade in">
-            <button class="close" data-dismiss="alert">
-                ×
-            </button>
-            <i class="fa-fw fa fa-check"></i>
-            <strong>Indicators: </strong> Patient health indicators currently within care plan guidelines.
-        </div>
+        {% for obj in member.hdr_notifs %}
+            {% include 'demo/_notification.html' %}
+        {% endfor %}
     </article>
 </div>
 <!-- end SC notification row -->

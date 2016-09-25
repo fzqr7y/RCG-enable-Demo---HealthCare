@@ -1,0 +1,15 @@
+        <div class="alert alert-{{obj.notification_type}} fade in">
+            {% if obj.notification_type == 'danger' %}
+                <i class="fa-fw fa fa-warning"></i>
+            {% elif obj.notification_type == 'warning' %}
+                <i class="fa-fw fa fa-exclamation"></i>
+            {% elif obj.notification_type == 'info' %}
+                <i class="fa-fw fa fa-info"></i>
+            {% elif obj.notification_type == 'success' %}
+                <i class="fa-fw fa fa-check"></i>
+            {% endif %}
+            <button class="close" data-dismiss="alert">
+                ×
+            </button>
+            <strong>{{obj.title}}: </strong> {{obj.text | safe}}
+        </div>

@@ -169,6 +169,14 @@ class Member(models.Model):
         return self.claimline_set.filter(
             is_current=True).order_by('id')
 
+    def hdr_notifs(self):
+        return self.membernotification_set.filter(
+            widget="Header", is_current=True).order_by('id')
+
+    def vitals_notifs(self):
+        return self.membernotification_set.filter(
+            widget="Vitals", is_current=True).order_by('id')
+
 
 class Provider(models.Model):
     provider_id = models.CharField(max_length=12)
@@ -296,6 +304,8 @@ class MemberNotification(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey('auth.User', default=1)
+    ref_table = models.CharField(max_length=40, blank=True, null=True)
+    ref_id = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return str(self.id) + "_" + str(self.member_id) + "_" + str(
