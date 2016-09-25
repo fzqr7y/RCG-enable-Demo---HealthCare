@@ -1,3 +1,4 @@
+{% load demo_tags %}
 <!-- Widget ID (each widget will need unique ID)-->
 <div class="jarviswidget jarviswidget-color-teal"
     id="wid-patient-scripts"
@@ -24,7 +25,7 @@
             <!--<div id="wid-scripts-table-div"
                 class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">-->
             <!--<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">-->
-                <table id="datatable_tabletools" class="table table-striped table-bordered table-hover">
+                <table id="datatable_tabletools" class="table table-striped table| prepend_whole_dollars -bordered table-hover">
                     <thead>
                         <tr>
                             <th data-class="expand">Rx #</th>
@@ -45,13 +46,13 @@
                         <tr>
                             <td>{{ obj.prescription_ref }}</td>
                             <!--<td>{# obj.service_date | date:"M d, Y" }}</td>-->
-                            <td>{{ obj.service_date | date:"m/d/y" }}</td>
+                            <td>{{ obj.service_date | date:"n/j/y" }}</td>
                             <td>{{ obj.drug.name }}</td>
-                            <td>{{ obj.script_quantity }}</td>
-                            <td>{{ obj.drug.dose }}</td>
-                            <td>{{ obj.pharmacy.name }}</td>
+                            <td>{{ obj.script_quantity | floatformat:"0" }}</td>
+                            <td>{{ obj.drug.dose | floatformat:"0" }} {{ obj.drug.dose_units }}</td>
+                            <td>{{ obj.pharmacy.chain }} {{ obj.pharmacy.name }}</td>
                             <td>{{ obj.drug.take_instructions }}</td>
-                            <td>{{ obj.member_paid }}</td>
+                            <td>{{ obj.member_paid | prepend_whole_dollars }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
