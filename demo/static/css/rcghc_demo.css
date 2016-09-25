@@ -81,3 +81,13 @@ img.rcg-left-logo {
     padding-top: 10px;
     /*padding-bottom: -30px;*/
 }
+
+.custom-scroll .dt-toolbar {
+    /*background-color: lightblue;*/
+    display: none;
+}
+
+#jarviswidget-fullscreen-mode .dt-toolbar {
+    /*background-color: red;*/
+    display: initial;
+}
