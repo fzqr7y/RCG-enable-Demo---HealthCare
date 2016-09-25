@@ -1,0 +1,53 @@
+<!-- Widget ID (each widget will need unique ID)-->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-scripts"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <h2><strong>Recent</strong> <i>Prescriptions</i></h2>
+        <div class="widget-toolbar">
+            <!-- place your buttons here with .btn .btn-xs class -->
+            <a href="{% url 'providers' %}" style="color:white;"
+                class="btn btn-xs button-icon" rel="tooltip" title=""
+                data-placement="bottom" data-original-title="Providers">
+                <i class="fa fa-external-link "></i></a>
+        </div>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+            <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+                <thead>
+                    <tr>
+                        <th data-class="expand">Rx #</th>
+                        <th><i class="fa fa-key text-warning"></i> Date</th>
+                        <th data-class="expand">For</th>
+                        <th>Ct</th>
+                        <th>Dose</th>
+                        <th data-hide="phone,tablet">Provider</th>
+                        <th data-hide="phone, tablet"><th>Pharmacy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in member.rxclaims %}
+                    <!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
+                    <tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">
+                        <td>{{ obj.prescription_ref }}</td>
+<!--                        <td>{{ obj.service_date | date:"M d, Y" }}</td>
+                        <td>{{ obj.script_quantity }}</td>
+                        <td>{{ obj.script_quantity }}</td>
+                        <td>{{ obj.script_quantity }}</td>
+                        <td>{{ obj.script_quantity }}</td>
+                        <td>{{ obj.script_quantity }}</td>-->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end widget -->

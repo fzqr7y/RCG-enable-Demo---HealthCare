@@ -161,6 +161,10 @@ class Member(models.Model):
         return self.membermedical_set.filter(
             record_type="Reported", is_current=True).order_by('id')
 
+    def rxclaims(self):
+        return self.rxclaim_set.filter(
+            is_current=True).order_by('id')
+
 
 class Provider(models.Model):
     provider_id = models.CharField(max_length=12)

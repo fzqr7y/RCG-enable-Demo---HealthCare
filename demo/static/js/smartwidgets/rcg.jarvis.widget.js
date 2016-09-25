@@ -925,7 +925,7 @@
                         .children(self.o.widgets)
                         .children('header')
                         .height();
-
+// alert(heightWindow);
                     /**
                      * Setting the height to the right widget.
                      **/
@@ -938,9 +938,10 @@
                      * SC: Capture the original table height.
                      * Be sure to put an id on the div containing the table.
                      **/
+                    // alert("id: " + tblid + " height: " + height);
                     if (tblid) {
                         height = $('#'+tblid).height();
-                        // alert("id: " + tblid + " height: " + height);
+console.log("id: " + tblid + " height: " + height);
                         $('#'+tblid)
                             .height(heightWindow - heightHeader - 15);
                         tblid = false;
@@ -1008,7 +1009,7 @@ var tblid;
                         .children('div')
                         .children('div.widget-body.no-padding')
                         .children('div.custom-scroll.table-responsive');
-                    // alert("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id'));
+console.log("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id'));
                     t2.height(height);
 
                 } else {
@@ -1043,7 +1044,13 @@ var tblid;
                         .children('div.widget-body.no-padding')
                         .children('div.custom-scroll')
                         .attr('id');
-                    // alert("id: " + tblid);
+console.log("id: " + tblid);
+                    tblid = thisWidget
+                        .children('div')
+                        .children('div.widget-body.no-padding')
+                        .children('div.custom-scroll')
+                        .attr('id');
+console.log("id: " + tblid);
 
                     /**
                      * Show collapsed widgets.

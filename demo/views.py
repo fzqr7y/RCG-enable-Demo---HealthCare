@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, Message
 from .models import CountyData, CountyWidget
+# from .models import RxClaim, ClaimLine
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
 from .forms import MessageForm, CountyDataForm
@@ -237,6 +238,7 @@ def member_detail(request, pk):
     # providers = member.provider_set.order_by('id')
     # return render(request, 'demo/member_detail.html', {'member': member, 'providers': providers})
     providermembers = ProviderMember.objects.filter(member=member).order_by('id')
+    # rxclaims = member.rxclaim_set.order_by('id')
     return render(request, 'demo/member_detail.html', {
         'member': member, 'providermembers': providermembers})
 

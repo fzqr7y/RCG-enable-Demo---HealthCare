@@ -1,0 +1,141 @@
+<!-- Prescription Widget -->
+<div class="jarviswidget jarviswidget-color-blueDark"
+    id="wid-patient-scripts"
+    data-widget-editbutton="false"
+    data-widget-deletebutton="false">
+    <header>
+        <h2><strong>Recent</strong> <i>Prescriptions</i></h2>
+        <div class="widget-toolbar">
+            <!-- place your buttons here with .btn .btn-xs class -->
+            <a href="{% url 'providers' %}" style="color:white;"
+                class="btn btn-xs button-icon" rel="tooltip" title=""
+                data-placement="bottom" data-original-title="Providers">
+                <i class="fa fa-external-link "></i></a>
+        </div>
+    </header>
+    <div>
+        <div class="widget-body no-padding">
+            <!--<div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-9 col-sm-5 col-md-5 col-lg-5">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input class="form-control" id="prepend" placeholder="Filter" type="text">
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-7 col-md-7 col-lg-7 text-right">
+                        <button class="btn btn-success">
+                            <i class="fa fa-plus"></i> <span class="hidden-mobile">Add New Row</span>
+                        </button>
+                    </div>
+                </div>
+            </div>--> <!-- / widget-body-toolbar -->
+
+            <table id="datatable_tabletools"
+                class="table table-striped table-bordered table-hover" width="100%">
+<!--            <div id="wid-scripts-table-div"
+                class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">-->
+                <thead>
+                    <tr>
+                        <th data-class="expand">Member ID</th>
+                        <th>First</th>
+                        <th data-class="expand">Last</th>
+                        <th data-hide="phone,tablet">Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th data-hide="phone, tablet" style="width:12%">Birth Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in member.rxclaims %}
+                    <!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
+                    <tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">
+                        <td>{{ obj.prescription_ref }}</td>
+                        <td>{{ obj.script_quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
+                    <!--<tr class='clickable-row' data-href="{% url 'member_detail' pk=1 %}">
+                        <td>1</td>
+                        <td><a href="{% url 'member_detail' pk=1 %}">Jennifer</a></td>
+                        <td>1-342-463-8341</td>
+                        <td>Et Rutrum Non Associates</td>
+                        <td>35728</td>
+                        <td>Fogo</td>
+                        <td>03/04/14</td>
+                    </tr>-->
+                </tbody>
+            </table>
+
+            <!--<div id="wid-scripts-table-div"
+                class="custom-scroll table-responsive" style="height:150px; overflow-y: scroll;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-key text-warning"></i> Date</th>
+                            <th>Script</th>
+                            <th>Ct</th>
+                            <th>Dose <i class="text-danger">!</i></th>
+                            <th>Pharmacy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td style="white-space:nowrap">Zocor</td>
+                            <td>30</td>
+                            <td style="white-space:nowrap">10 mg 1x day</td>
+                            <td style="white-space:nowrap">CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8/6/2016</strong></td>
+                            <td>Zocor</td>
+                            <td>30</td>
+                            <td>10 mg 1x day</td>
+                            <td>CVS #5325</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>--> <!-- /table-responsive -->
+        </div>
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>
+<!-- end widget -->

@@ -61,9 +61,6 @@
 		<!-- NEW WIDGET COLUMN 1 START -->
 		<article class="col-sm-12 col-md-12 col-lg-4">
 
-			<!-- Data Volume Widget -->
-        	{% include "widget/_wid_bigdata.html" %}
-
 			<!-- Patient Vitals Widget-->
         	{% include "widget/_wid_patient_vitals.html" %}
 
@@ -114,11 +111,15 @@
 		<!-- NEW WIDGET COLUMN 3 START -->
 		<article class="col-sm-12 col-md-12 col-lg-4">
 
+            <!-- Data Volume Widget -->
+            {% include "widget/_wid_bigdata.html" %}
+
 			<!-- patient contact widget -->
         	{% include "widget/_wid_patient_contact.html" %}
 
 			<!-- Prescription Widget -->
-        	{% include "widget/_wid_patient_scripts.html" %}
+            {% include "widget/_wid_patient_scripts.html" %}
+            {# {% include "widget/_wid_members.html" %} #}
 
 			<!-- Claims Widget -->
         	{% include "widget/_wid_patient_claims.html" %}
@@ -211,8 +212,14 @@
 			$('.simple-marquee-container').SimpleMarquee();
 		});
 	</script>
-	<!-- /SC: news ticker -->
 
+    <!-- datatables (scripts & claims) -->
+    {# // <script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script> #}
+    <script src="{% static 'js/plugin/datatables/rcg.jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
 {% endblock %} <!-- js_page_plugins -->
 
 {% block js_doc_ready %}
@@ -225,6 +232,9 @@
 		// PAGE RELATED DECLARATIONS
         var $member_id = {{ member.id }};
 
+        /* SC: export tables */
+        var $sSwfPath = "{% static 'js/plugin/datatables/swf/copy_csv_xls_pdf.swf' %}"
+
 		$(document).ready(function() {
 
 			pageSetUp();
@@ -233,6 +243,9 @@
 			 * TO LOAD A SCRIPT:
 			 * loadScript(".../plugin.js", run_after_loaded);
 			 */
+
+            /* SC: table tools - search and export */
+            loadScript("{% static 'js/rcg/datatable_tabletools.js' %}", true);
 
 			/* SC: progress bar */
 			// Fill all progress bars with animation
