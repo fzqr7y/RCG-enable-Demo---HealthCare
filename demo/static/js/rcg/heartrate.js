@@ -5,9 +5,9 @@
                 var $on = false;
                 var ajaxComplete = false;
                 var updateInterval = 1000;
-                var plotDuration = 30 * updateInterval;
-                var queryOffset = 5 * updateInterval;
-                var dataOffset = 10 * updateInterval;
+                var plotDuration = 1200 * updateInterval; // total time shown
+                var queryOffset = 300 * updateInterval;   // offset from current time
+                var dataOffset = 20 * updateInterval;     // start data this far back from query
                 // var member_id = {{ member.id }};
                 var member_id = $member_id;
 
@@ -18,11 +18,13 @@
                 var plotOptions;
                 var plot;
 
+                var randomAdditive = 0;
+
                 // setup plot
                 function getOptions() {
                     var options = {
                         yaxis : {
-                            min : 40, max : 140
+                            min : 40, max : 120
                         },
                         xaxis: {
                             min: plotMin, max: plotMax,
@@ -48,7 +50,7 @@ var queryCount = 0;
 
                 function getFitbitData() {
                     // var jdata = []
-                    var t, val, qmin
+                    var t, val, qmin, valadd, rndval, nv
                     qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
 // console.log(qmax)
                     queryCount++;
@@ -67,6 +69,21 @@ console.log(queryCount);
                                 val = value[1];
 // console.log("qmax: " + qmax + " t: " + t + " val: " + val);
                                 // jdata.push([t, val]);
+                                rndval = Math.random() * 2 - 1;
+                                if (randomAdditive > 15 && rndval > 0)
+                                    rndval = -rndval;
+                                if (randomAdditive < -10 && rndval < 0)
+                                    rndval = -rndval;
+                                valadd = randomAdditive + rndval;
+                                // if (valadd < -10)
+                                //     valadd = -10;
+                                // if (valadd > 100)
+                                //     valadd = 100;
+                                randomAdditive = valadd;
+                                nv = val + Math.round(randomAdditive)
+console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
+                                val = nv;
+
                                 if (t > qmax) {
                                     queryData.push([t, val]);
                                 }

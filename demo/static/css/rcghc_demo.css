@@ -127,3 +127,15 @@ img.rcg-left-logo {
     -o-animation-duration: 0s !important;
     animation-duration: 0s !important;
 }
+
+/*-webkit-tap-highlight-color: rgba(169,3,41,.5);*/
+.simple-marquee-container a {
+    color: Black;
+    text-decoration: underline;
+}
+
+.simple-marquee-container a:visited {
+    color: Navy;
+    text-decoration: underline;
+}
+
