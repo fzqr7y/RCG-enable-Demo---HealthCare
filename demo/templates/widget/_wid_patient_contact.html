@@ -80,9 +80,10 @@
                     </form>-->
                     <div id="wid-mbm-msg-tbl-div"
                         class="custom-scroll table-responsive"
-                        style="height:250px; overflow-y: scroll;">
+                        style="height:200px; overflow: hidden;">
                         <iframe width="100%" height="95%"
-                            style="border:1px;border-style:solid;border-color:LightGrey;"
+                            scrolling="no"
+                            style="border:1px;border-style:solid;border-color:LightGrey;overflow:hidden;"
                             src="{% url 'sms' pk=member.id %}"
                             allowfullscreen></iframe>
                         <!--<div id="wid-mbm-msg-tbl-div"
