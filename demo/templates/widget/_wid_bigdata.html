@@ -13,62 +13,8 @@
     <!-- widget div-->
     <div>
         <!-- widget content -->
-        <div class="widget-body">
-            <h2 class="alert alert-warning"> Why Big Data for HealthCare? </h2>
-            <code>Data volumes in this demo:</code><br>
-            Assume 100k members<br>
-            <div class="table-responsive">
-                <!-- Enables hover effect <code>&lt;table&gt;</code> by adding the <code>.table-hover</code> with the base class
-                </div> -->
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Frequency</th>
-                            <th>Size</th>
-                            <th>Volume Per Month</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Heart Rate</td>
-                            <td>1 per second per member</td>
-                            <td>32 Bytes</td> <!-- 64MB PMPM-->
-                            <td>6 TB</td>
-                        </tr>
-                        <tr>
-                            <td>Medical Claims</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Pharmacy Claims</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Member Enrollment</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Member EMR Data</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Provider Data</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Provider Contracts</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="widget-body no-padding">
+{% include 'rcg/why_big_data_filtered.htm' %}
         </div>
         <!-- end widget content -->
     </div>

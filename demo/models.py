@@ -32,6 +32,7 @@ class UserProfile(models.Model):
     def safe_provider(self):
         return self.provider_id or 3
 
+
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)

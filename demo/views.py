@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, Message
-from .models import CountyData, CountyWidget
+from .models import CountyData, CountyWidget, UserProfile
 # from .models import RxClaim, ClaimLine
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
@@ -323,6 +323,8 @@ def receive_sms(request):
             x, phonenumbers.PhoneNumberFormat.NATIONAL)
     except:
         from_parsed = message_from
+    logger.error(rdict.get(
+        'From', 'None') + " - " + message_from + " - " + from_parsed)
     sms.message_from = from_parsed
     message_to = rdict.get('To', '+18627728556')
     try:
@@ -335,7 +337,21 @@ def receive_sms(request):
     sms.text = rdict.get('Body', '-')
     sms.smssid = rdict.get('SmsSid')
     sms.smsstatus = rdict.get('SmsStatus')
+    # This is the correct way to assign the member.
+    # But for demo purposes we pick the last member this user messaged.
     member = Member.objects.filter(mobile_phone=from_parsed).first()
+    if (member):
+        logger.error("member: " + str(member.id))
+    if (not(member) or member.id == 4):
+        user_id = User.objects.filter(userprofile__mobile_phone=message_from).first()
+        if (user_id):
+            logger.error("user: " + str(user_id))
+            last_sent = Message.objects.filter(
+                user_id=user_id).order_by('-created_date').first()
+            if (last_sent):
+                member_id = last_sent.member_id
+                logger.error("member2: " + str(member_id))
+                member = Member.objects.get(pk=member_id)
     sms.member = member
     # logger.error('member: ' + str(sms.member_id))
     # logger.error('member: ' + sms.member.member_id)
@@ -353,7 +369,9 @@ def receive_sms(request):
     # return redirect('sms')
     """Respond to incoming calls with a simple text message."""
     resp = twilio.twiml.Response()
-    resp.message("RCG has received your message.  Thank you. A patient representative will respond as soon as possible.")
+    txt = "RCG has received your message.  Thank you."
+    txt = txt + "A patient representative will respond as soon as possible."
+    resp.message(txt)
     # return str(resp)
     # twiml = str(resp)
     # thanks to twilio_view don't have to do this:
