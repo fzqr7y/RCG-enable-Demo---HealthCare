@@ -369,7 +369,7 @@ def receive_sms(request):
     # return redirect('sms')
     """Respond to incoming calls with a simple text message."""
     resp = twilio.twiml.Response()
-    txt = "RCG has received your message.  Thank you."
+    txt = "RCG Healthcare has received your message.  Thank you."
     txt = txt + "A patient representative will respond as soon as possible."
     resp.message(txt)
     # return str(resp)
