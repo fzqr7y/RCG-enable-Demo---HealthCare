@@ -27,10 +27,16 @@
     <div class="col-sm-3">
         <!-- dropdown -->
         <div class="project-context hidden-xs">
+            {% if "Test" in user.username %}
             <span class="project-selector  dropdown-toggle" data-toggle="dropdown" style="text-transform: none; margin-top: -10px;">
                 <h1>{{ member.first_name }}<span class="semi-bold"> {{ member.last_name }}</span>
                     <i class="fa fa-angle-down"></i></h1>
             </span>
+            {% else %}
+            <span class="project-selector" style="text-transform: none; margin-top: -10px;">
+                <h1>{{ member.first_name }}<span class="semi-bold"> {{ member.last_name }}</span></h1>
+            </span>
+            {% endif %}
             <h1 style="margin-top: -10px; display: inline;">
                 <small>{{ member.plan_name }}</small>
             </h1>
@@ -44,6 +50,7 @@
             </span>
 
             <!-- Suggestion: populate this list with fetch and push technique -->
+            {% if "Test" in user.username %}
             <ul class="dropdown-menu">
                 <li>
                     <a href="javascript:void(0);">Primary Conditions:</a>
@@ -59,6 +66,7 @@
                     <a href="javascript:void(0);"><i class="fa fa-power-off"></i> Clear</a>
                 </li>
             </ul>
+            {% endif %}
             <!-- end dropdown-menu-->
         </div>
         <!-- end projects dropdown -->
