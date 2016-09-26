@@ -369,7 +369,7 @@ def receive_sms(request):
     # return redirect('sms')
     """Respond to incoming calls with a simple text message."""
     resp = twilio.twiml.Response()
-    txt = "RCG Healthcare has received your message.  Thank you."
+    txt = "RCG Healthcare has received your message.  Thank you. "
     txt = txt + "A patient representative will respond as soon as possible."
     resp.message(txt)
     # return str(resp)
@@ -402,6 +402,7 @@ def sms(request, pk):
             sms.message_to = user.userprofile.mobile_phone
             sms.message_from = '+18627728556'
             sms.member_id = member.id
+            text_body = "Message from RCG|enable™ Healthcare: " + sms.text
 
             client = TwilioRestClient(account, token)
             message = client.messages.create(
@@ -409,7 +410,7 @@ def sms(request, pk):
                 # to=user.userprofile.mobile_phone, from_="+18627728556",
                 # to="+19735688856", from_="+18627728556",
                 to=sms.message_to, from_=sms.message_from,
-                body=sms.text)
+                body=text_body)
             logger.error('Sent: ' + message.body + ' to: ' + str(
                 message.to) + ' : ' + user.userprofile.mobile_phone)
 
