@@ -90,7 +90,7 @@
                     &nbsp;{{ member.weight.value_1 | floatformat:"0" }}</span>
                 </h5>
                     <!--100, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471-->
-                <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm hidden-xs">
                     {{ member.weight.value_1_history }}
                 </div>
             </li>
@@ -105,7 +105,7 @@
                     {% endif %}
                     &nbsp;{{ member.bp.value_str }}</span>
                 </h5>
-                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm hidden-xs">
                     {{ member.bp.value_1_history }}
                 </div>
             </li>

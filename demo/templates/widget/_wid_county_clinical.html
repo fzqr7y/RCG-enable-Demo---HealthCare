@@ -30,11 +30,11 @@
               {% regroup clinical by category as grouped %}
               {% for group in grouped %}
                 {% for obj in group.list %}
-                  {% if countydata|getattribute:obj.val2_ref > 3 %}
+                  {% if countydata|getattribute:obj.val2_ref < 2 %}
                     {% with tdtag='<td class="success">' %}
                       {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
-                  {% elif countydata|getattribute:obj.val2_ref < 2 %}
+                  {% elif countydata|getattribute:obj.val2_ref > 3 %}
                     {% with tdtag='<td class="danger">' %}
                       {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
