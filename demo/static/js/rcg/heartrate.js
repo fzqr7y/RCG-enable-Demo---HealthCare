@@ -54,7 +54,7 @@ var queryCount = 0;
                     qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
 // console.log(qmax)
                     queryCount++;
-console.log(queryCount);
+// console.log(queryCount);
                     if (queryCount > 10) {
                         ajaxComplete = true;
                     }
@@ -69,7 +69,7 @@ console.log(queryCount);
                                 val = value[1];
 // console.log("qmax: " + qmax + " t: " + t + " val: " + val);
                                 // jdata.push([t, val]);
-                                rndval = Math.random() * 2 - 1;
+                                rndval = Math.random() * 1 - 0.5;
                                 if (randomAdditive > 15 && rndval > 0)
                                     rndval = -rndval;
                                 if (randomAdditive < -10 && rndval < 0)
@@ -81,7 +81,7 @@ console.log(queryCount);
                                 //     valadd = 100;
                                 randomAdditive = valadd;
                                 nv = val + Math.round(randomAdditive)
-console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
+// console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
                                 val = nv;
 
                                 if (t > qmax) {
@@ -136,7 +136,7 @@ console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
                         queryData = queryData.slice(1);
                     }
                     if (queryData.length > 0) {
-                    console.log("plotData: " + plotData.length + " " + queryData.length + " dataMax: " + dataMax + " queryData[0][0]: " + queryData[0][0]);
+                        // console.log("plotData: " + plotData.length + " " + queryData.length + " dataMax: " + dataMax + " queryData[0][0]: " + queryData[0][0]);
                     }
                     // if (plotData.length > 0) {
                     //  console.log("Query plotData: plotData.length: " + plotData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
@@ -177,7 +177,7 @@ console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
                         dataMax += updateInterval;
                         getPlotData();
                         plot.setData([plotData]);
-                        console.log("update plotted: " + plotData.length + " " + initialRun + " " + ajaxComplete)
+                        // console.log("update plotted: " + plotData.length + " " + initialRun + " " + ajaxComplete)
                         // console.log("up axis: " + (new Date(plotOptions.xaxis.min)).toLocaleTimeString() + " " + (new Date(plotOptions.xaxis.max)).toLocaleTimeString());
                         // if (plotData.length > 0) {
                         //  console.log("Update: plotData.length: " + plotData.length + " queryData.length: " + queryData.length + " plotDataMin: " + (new Date(plotData[0][0])).toLocaleTimeString() + " plotDataMax: " + (new Date(plotData[plotData.length-1][0])).toLocaleTimeString());
