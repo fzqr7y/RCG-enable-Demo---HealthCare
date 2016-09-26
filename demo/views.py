@@ -9,7 +9,7 @@ from .models import CountyData, CountyWidget
 # from .models import RxClaim, ClaimLine
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
-from .forms import MessageForm, CountyDataForm
+from .forms import MessageForm, SmsForm, CountyDataForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -363,7 +363,58 @@ def receive_sms(request):
 
 
 @login_required
-def sms(request):
+def sms(request, pk):
+    member = get_object_or_404(Member, pk=pk)
+    # user = request.user if (
+    #     request.user.__class__.__name__ == 'User') else User.objects.order_by('id').first()
+    user = request.user
+    if request.method == "POST":
+        form = SmsForm(request.POST)
+        logger.error("posting text")
+        logger.error(form.is_valid)
+        if form.is_valid():
+            account = os.environ.get('TWILIO_ACCOUNT_SID')
+            token = os.environ.get('TWILIO_AUTH_TOKEN')
+            sms = form.save(commit=False)
+            sms.user = user
+            sms.sent = True
+            sms.message_type = 'SMS'
+            # remove these from the form
+            # force the message to go to the user
+            sms.message_to = user.userprofile.mobile_phone
+            sms.message_from = '+18627728556'
+            sms.member_id = member.id
+
+            client = TwilioRestClient(account, token)
+            message = client.messages.create(
+                # to=sms.message_to, from_="(862) 772-8556",
+                # to=user.userprofile.mobile_phone, from_="+18627728556",
+                # to="+19735688856", from_="+18627728556",
+                to=sms.message_to, from_=sms.message_from,
+                body=sms.text)
+            logger.error('Sent: ' + message.body + ' to: ' + str(
+                message.to) + ' : ' + user.userprofile.mobile_phone)
+
+            sms.save()
+            return redirect('sms', pk=member.id)
+    else:
+        defaults = {
+            # 'message_type': 'SMS', 'message_to': '+19735688856',
+            'message_type': 'SMS', 'message_to': member.mobile_phone,
+            # 'message_from': '+18627728556', 'member': member}
+            'message_from': '(862) 772-8556', 'member': member}
+        form = SmsForm(initial=defaults)
+    # return render(request, 'blog/post_edit.html', {'form': form})
+    # messages = Message.objects.filter(
+    #     message_type='SMS').order_by('-created_date')
+    # messages = member.smss
+    return render(request, 'demo/sms.html', {
+        'member': member,  # 'messages': messages,
+        'form': form})
+
+
+@login_required
+def sms2(request):
     if request.method == "POST":
         form = MessageForm(request.POST)
         if form.is_valid():

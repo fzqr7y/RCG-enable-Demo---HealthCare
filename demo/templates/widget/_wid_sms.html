@@ -1,24 +1,29 @@
 {% load staticfiles %}
+{% load demo_tags %}
+
 <!-- Widget ID (each widget will need unique ID)-->
-<!-- Map directions widget -->
+<!-- Map 1 and Weather Widget -->
 <div class="jarviswidget jarviswidget-color-blue"
-    id="wid-map2-directions"
+    id="wid-sms"
     data-widget-editbutton="false"
+    data-widget-fullscreenbutton="false"
     data-widget-deletebutton="false">
     <header>
-        <h2><strong>Directions</strong> <i>(to Provider etc.)</i></h2>
+        <span class="widget-icon"> <i class="fa fa-phone"></i> </span>
+        <h2>SMS</h2>
     </header>
     <!-- widget div-->
     <div>
         <!-- widget content -->
         <div class="widget-body no-padding">
-            <!-- SC Google Maps Directions Javascript API -->
-            <iframe width="100%" height="400" frameborder="0" style="border:0"
-                src="{% static 'mapdirections.html' %}" allowfullscreen></iframe>
+            <!-- Send text message -->
+            <iframe width="100%" height="122" frameborder="0"
+                style="border:0" src="{% url 'sms' pk=member.id %}"
+                allowfullscreen></iframe>
             <!-- SC Google Maps Javascript API -->
         </div>
         <!-- end widget content -->
     </div>
     <!-- end widget div -->
 </div>
-<!-- end widget -->
+<!-- end Map 1 & Weather widget -->

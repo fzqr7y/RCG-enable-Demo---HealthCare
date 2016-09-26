@@ -1,6 +1,6 @@
 <!-- Widget ID (each widget will need unique ID)-->
 <!-- person Map Widget-->
-<div class="jarviswidget jarviswidget-color-blueDark"
+<div class="jarviswidget jarviswidget-color-blue"
     id="wid-map-local"
     data-widget-editbutton="false"
     data-widget-fullscreenbutton="false"
@@ -21,38 +21,35 @@
     <h2>Local Area</h2>
   </header>
   <!-- widget div-->
-
-
-  {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
-  <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; ">
-    <div id="floating-panel">
-      {# <input id="address" type="textbox" value="New York, NY"> #}
-      <input id="address" type="textbox" style="width:300px;"
-      value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
-
-      <select id = "searchType">
-       <option value = "none"></option>
-       <option value = "doctor">doctor</option>
-       <option value = "dentist">dentist</option>
-       <option value = "hospital">hospital</option>
-       <option value = "parking">parking</option>
-       <option value = "pharmacy">pharmacy</option>
-       <option value = "physiotherapist">physiotherapist</option>
-      </select>
-      <input id="submitNearby" type="button" value="Find">
-      {# <input id="getMembers" type="button" value="Members"> #}
-
-      <!--<input id="searchTerm" type="textbox" value="hospital">
-      <input id="submitText" type="button" value="Search">-->
-    </div>
-
-    <!-- google maps div -->
-    <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
-    <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
-    <div id="map"></div>
-  </div> <!--wid-scripts-table-div>-->
-    {# </div> #}
-  {# </div> #}
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+      {# <div id="wid-scripts-table-div" class="custom-scroll table-responsive" style="height:500px; overflow-y: scroll;"> #}
+      <div id="wid-map-local-div" style="height:500px;" >
+        <div id="floating-panel">
+          <input id="address" type="textbox" style="width:300px;"
+          value="{{person.address}} {{person.city}}, {{person.state}}  {{person.zip}}">
+          <select id = "searchType">
+           <option value = "none"></option>
+           <option value = "doctor">doctor</option>
+           <option value = "dentist">dentist</option>
+           <option value = "hospital">hospital</option>
+           <option value = "parking">parking</option>
+           <option value = "pharmacy">pharmacy</option>
+           <option value = "physiotherapist">physiotherapist</option>
+          </select>
+          <input id="submitNearby" type="button" value="Find">
+          {# <input id="getMembers" type="button" value="Members"> #}
+          <!--<input id="searchTerm" type="textbox" value="hospital">
+          <input id="submitText" type="button" value="Search">-->
+        </div>
+        <!-- google maps div -->
+        <!-- every div that encloses this map div must have  style="height:100%; width:100%;" -->
+        <!--http://stackoverflow.com/questions/16349476/map-isnt-showing-on-google-maps-javascript-api-v3-when-nested-in-a-div-tag-->
+        <div id="map"></div>
+      </div> <!--wid-scripts-table-div>-->
+    </div> <!-- widget content -->
+  </div> <!-- widget div -->
 
 
 </div>

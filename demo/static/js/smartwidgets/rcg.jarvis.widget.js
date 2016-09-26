@@ -1012,6 +1012,14 @@ var tblid;
                         .children('div.widget-body.no-padding')
                         .children('div.custom-scroll.table-responsive');
 console.log("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id'));
+                    if (!t2.attr('id')) {
+                        t2 = thisWidget
+                            .children('div')
+                            .children('div.widget-body.no-padding')
+                            .children('div')
+                            .children('div.custom-scroll');
+console.log("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id') + " t2class: " + t2.attr('class'));
+                    }
                     t2.height(height);
 
                 } else {
@@ -1040,19 +1048,28 @@ console.log("tblid: " + tblid + " height: " + height + " t2id: " + t2.attr('id')
                      * SC: Capture the id of the table being expanded.
                      * Be sure to put an id on the div containing the table.
                      **/
-                    tblid = $('#jarviswidget-fullscreen-mode')
+                    /* tblid = $('#jarviswidget-fullscreen-mode')
                         .children(self.o.widgets)
                         .children('div')
                         .children('div.widget-body.no-padding')
                         .children('div.custom-scroll')
                         .attr('id');
-console.log("id: " + tblid);
+console.log("id: " + tblid); */
                     tblid = thisWidget
                         .children('div')
                         .children('div.widget-body.no-padding')
                         .children('div.custom-scroll')
                         .attr('id');
 console.log("id: " + tblid);
+                    if (!tblid) {
+                        tblid = thisWidget
+                            .children('div')
+                            .children('div.widget-body.no-padding')
+                            .children('div')
+                            .children('div.custom-scroll')
+                            .attr('id');
+console.log("id: " + tblid);
+                    }
 
                     /**
                      * Show collapsed widgets.

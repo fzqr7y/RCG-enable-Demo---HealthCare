@@ -43,6 +43,21 @@ class MessageForm(forms.ModelForm):
             'text', 'member', )
 
 
+class SmsForm(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        fields = ('text', )
+        widgets = {
+            'text': forms.Textarea(
+                attrs={
+                    'required': True, 'rows': '2',
+                    'placeholder': 'Text to member...',
+                    'class': 'form-control'}
+            ),
+        }
+
+
 class CountyDataForm(forms.ModelForm):
     # state = forms.ChoiceField(choices=[
     #     ('NY', 'New York'), ('NJ', 'New Jersey')], required=False)

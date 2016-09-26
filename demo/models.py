@@ -177,6 +177,10 @@ class Member(models.Model):
         return self.membernotification_set.filter(
             widget="Vitals", is_current=True).order_by('id')
 
+    def smss(self):
+        return self.message_set.filter(
+            message_type="SMS").order_by('-created_date')
+
 
 class Provider(models.Model):
     provider_id = models.CharField(max_length=12)

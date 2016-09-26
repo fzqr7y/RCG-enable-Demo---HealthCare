@@ -1,7 +1,7 @@
 {% load demo_tags %}
 <!-- Widget ID (each widget will need unique ID)-->
 <!-- County CLinical Care Widget-->
-<div class="jarviswidget jarviswidget-color-blueDark"
+<div class="jarviswidget jarviswidget-color-blue"
     id="wid-county-clinical"
     data-widget-editbutton="false"
     data-widget-deletebutton="false">
@@ -32,15 +32,15 @@
                 {% for obj in group.list %}
                   {% if countydata|getattribute:obj.val2_ref > 3 %}
                     {% with tdtag='<td class="success">' %}
-                      {% include "demo/_countydata_row.html" %}
+                      {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
                   {% elif countydata|getattribute:obj.val2_ref < 2 %}
                     {% with tdtag='<td class="danger">' %}
-                      {% include "demo/_countydata_row.html" %}
+                      {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
                   {% else %}
                     {% with tdtag='<td>' %}
-                      {% include "demo/_countydata_row.html" %}
+                      {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
                   {% endif %}
                 {% endfor %}
