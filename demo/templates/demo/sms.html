@@ -19,12 +19,12 @@
             style = "width:100%;height:250px;overflow-y:scroll;">
         {% for obj in member.smss %}
             {% if obj.sent == True %}
-            <li>
+            <li style="margin: 10px;">
                 <strong>{{ obj.text }}</strong><br>
                 <span>{{ obj.created_date }}</span>
             </li>
             {% else %}
-            <li dir="rtl" style="text-align: right;">
+            <li dir="rtl" style="text-align: right; margin: 10px;">
                 <strong>{{ obj.text }}</strong><br>
                 <span>{{ obj.created_date }}</span>
             </li>
