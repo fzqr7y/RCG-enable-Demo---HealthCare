@@ -5,9 +5,9 @@
                 var $on = false;
                 var ajaxComplete = false;
                 var updateInterval = 1000;
-                var plotDuration = 1200 * updateInterval; // total time shown
-                var queryOffset = 300 * updateInterval;   // offset from current time
-                var dataOffset = 20 * updateInterval;     // start data this far back from query
+                var plotDuration = 1800 * updateInterval; // total time shown
+                var queryOffset = 120 * updateInterval;   // offset from current time
+                var dataOffset = 600 * updateInterval;     // start data this far back from query
                 // var member_id = {{ member.id }};
                 var member_id = $member_id;
 
@@ -19,12 +19,17 @@
                 var plot;
 
                 var randomAdditive = 0;
+                var randomAdditive2 = 0;
+                var randomMax = 10;
+                var randomMin = -5;
+                var randomMax2 = 5;
+                var randomMin2 = -1;
 
                 // setup plot
                 function getOptions() {
                     var options = {
                         yaxis : {
-                            min : 40, max : 120
+                            min : 50, max : 100
                         },
                         xaxis: {
                             min: plotMin, max: plotMax,
@@ -50,7 +55,8 @@ var queryCount = 0;
 
                 function getFitbitData() {
                     // var jdata = []
-                    var t, val, qmin, valadd, rndval, nv
+                    var t, val, qmin;
+                    var rndval, nv, rndval2;
                     qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
 // console.log(qmax)
                     queryCount++;
@@ -69,18 +75,23 @@ var queryCount = 0;
                                 val = value[1];
 // console.log("qmax: " + qmax + " t: " + t + " val: " + val);
                                 // jdata.push([t, val]);
-                                rndval = Math.random() * 1 - 0.5;
-                                if (randomAdditive > 15 && rndval > 0)
+                                rndval = Math.random() * 0.8 - 0.4;
+                                if (randomAdditive > randomMax && rndval > 0)
                                     rndval = -rndval;
-                                if (randomAdditive < -10 && rndval < 0)
+                                if (randomAdditive < randomMin && rndval < 0)
                                     rndval = -rndval;
-                                valadd = randomAdditive + rndval;
+                                rndval2 = Math.random() * 0.4 - 0.2;
+                                if (randomAdditive2 > randomMax2 && rndval > 0)
+                                    rndval2 = 0;
+                                if (randomAdditive2 < randomMin2 && rndval < 0)
+                                    rndval2 = 0;
+                                randomAdditive += rndval;
+                                randomAdditive2 += rndval2;
                                 // if (valadd < -10)
                                 //     valadd = -10;
                                 // if (valadd > 100)
                                 //     valadd = 100;
-                                randomAdditive = valadd;
-                                nv = val + Math.round(randomAdditive)
+                                nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
 // console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
                                 val = nv;
 
@@ -91,8 +102,8 @@ var queryCount = 0;
                             // queryData = jdata;
                             ajaxComplete = true;
                             queryCount = 0;
-                            console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
-                            console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
+                            // console.log("queryMin: " + (new Date(queryMin)).toLocaleTimeString() + " queryMax: " + (new Date(queryMax)).toLocaleTimeString() + " queryData.length: " + queryData.length);
+                            // console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + (new Date(queryData[0][0])).toLocaleTimeString() + " queryDataMax: " + (new Date(queryData[queryData.length-1][0])).toLocaleTimeString());
                             // console.log("queryData: queryData.length: " + queryData.length + " queryDataMin: " + queryData[0][0] + " queryDataMax: " + queryData[queryData.length-1][0]);
                             // if (plotData.length > 0) {
                                 // console.log("plotData: plotData.length: " + plotData.length + " plotDataMin: " + plotData[0][0] + " plotDataMax: " + plotData[plotData.length-1][0]);
