@@ -49,6 +49,7 @@
                         </th>
                     </tr>-->
                     <tr>
+                        <th class="sorting-asc" aria->Status</th>
                         <th data-class="expand">Member ID</th>
                         <th>First</th>
                         <th data-class="expand">Last</th>
@@ -63,6 +64,12 @@
                     {% for member in members %}
                     <!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
                     <tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">
+                        {% if member.alert == "Alert" %}
+                            <td><span class="center-block padding-5 label label-danger">Alert</span></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+            <!--<td><span class="center-block padding-5 label label-success">Delivered</span></td>-->
                         <td>{{ member.member_id }}</td>
                         <td>{{ member.first_name }}</td>
                         <td>{{ member.last_name }}</td>

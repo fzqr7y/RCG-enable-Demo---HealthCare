@@ -53,7 +53,7 @@ def home(request):
 
 @login_required
 def members(request):
-    members = Member.objects.all
+    members = Member.objects.order_by('alert')
     return render(request, 'demo/members.html', {'members': members})
 
 
