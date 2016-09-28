@@ -73,38 +73,40 @@ var queryCount = 0;
                             from: (new Date(qdatamax)).toISOString(),
                             to: (new Date(queryMax)).toISOString() },
                         function(json){
-console.log("qdatamax: " + qdatamax + " from: " + (new Date(queryMin)).toISOString() + " to: " + (new Date(queryMax)).toISOString());
+// console.log("qdatamax: " + (new Date(qdatamax)).toISOString() + " from: " + (new Date(queryMin)).toISOString() + " to: " + (new Date(queryMax)).toISOString());
+// console.log(" start randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
                             $.each(json, function (index, value) {
 // console.log(value)
                                 t = (new Date(value[0])).getTime();
                                 val = value[1];
-// console.log("qdatamax: " + qdatamax + " t: " + t + " val: " + val);
-                                // jdata.push([t, val]);
-                                rndval = Math.random() * 0.8 - 0.4;
-                                if (randomAdditive > randomMax && rndval > 0)
-                                    rndval = -rndval;
-                                if (randomAdditive < randomMin && rndval < 0)
-                                    rndval = -rndval;
-                                rndval2 = Math.random() * 0.4 - 0.2;
-                                if (randomAdditive2 > randomMax2 && rndval > 0)
-                                    rndval2 = 0;
-                                if (randomAdditive2 < randomMin2 && rndval < 0)
-                                    rndval2 = 0;
-                                randomAdditive += rndval;
-                                randomAdditive2 += rndval2;
-                                // if (valadd < -10)
-                                //     valadd = -10;
-                                // if (valadd > 100)
-                                //     valadd = 100;
-                                // nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
-                                nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
-// console.log(" val: " + val + " randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
-                                val = nv;
 
                                 if (t > qdatamax) {
+    // console.log("qdatamax: " + qdatamax + " t: " + t + " val: " + val);
+                                    // jdata.push([t, val]);
+                                    rndval = Math.random() * 0.8 - 0.4;
+                                    if (randomAdditive > randomMax && rndval > 0)
+                                        rndval = -rndval;
+                                    if (randomAdditive < randomMin && rndval < 0)
+                                        rndval = -rndval;
+                                    rndval2 = Math.random() * 0.4 - 0.2;
+                                    if (randomAdditive2 > randomMax2 && rndval > 0)
+                                        rndval2 = 0;
+                                    if (randomAdditive2 < randomMin2 && rndval < 0)
+                                        rndval2 = 0;
+                                    randomAdditive += rndval;
+                                    randomAdditive2 += rndval2;
+                                    // if (valadd < -10)
+                                    //     valadd = -10;
+                                    // if (valadd > 100)
+                                    //     valadd = 100;
+                                    // nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
+                                    nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
+    // console.log(" val: " + val + " randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
+                                    val = nv;
                                     queryData.push([t, val]);
                                 }
                             });
+// console.log(" end randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
                             // queryData = jdata;
                             ajaxComplete = true;
                             queryCount = 0;
