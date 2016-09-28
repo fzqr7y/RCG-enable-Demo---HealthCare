@@ -85,7 +85,7 @@ def prepend_whole_dollars(dollars):
         dollars = round(float(dollars), 2)
         return "$%s" % (intcomma(int(dollars)))
     else:
-        return ''
+        return '-'
 
 
 @register.filter
@@ -130,6 +130,7 @@ def decimalize(fraction):
 #         return new_filepath
 
 # app/templatetags/getattribute.py
+
 
 # http://stackoverflow.com/questions/844746/performing-a-getattr-style-lookup-in-a-django-template
 numeric_test = re.compile("^\d+$")
