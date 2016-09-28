@@ -5,9 +5,12 @@
                 var $on = false;
                 var ajaxComplete = false;
                 var updateInterval = 1000;
-                var plotDuration = 1800 * updateInterval; // total time shown
-                var queryOffset = 120 * updateInterval;   // offset from current time
-                var dataOffset = 600 * updateInterval;     // start data this far back from query
+                // var plotDuration = 1800 * updateInterval; // total time shown
+                // var queryOffset = 120 * updateInterval;   // offset from current time
+                // var dataOffset = 600 * updateInterval;     // start data this far back from query
+                var plotDuration = 60 * updateInterval; // total time shown
+                var queryOffset = 10 * updateInterval;   // offset from current time
+                var dataOffset = 10 * updateInterval;     // start data this far back from query
                 // var member_id = {{ member.id }};
                 var member_id = $member_id;
 
@@ -92,7 +95,7 @@ var queryCount = 0;
                                 // if (valadd > 100)
                                 //     valadd = 100;
                                 nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
-// console.log(" val: " + val + " valadd: " + valadd + " new: " + nv);
+console.log(" val: " + val + " randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
                                 val = nv;
 
                                 if (t > qmax) {
