@@ -164,11 +164,11 @@ class Member(models.Model):
 
     def rxclaims(self):
         return self.rxclaim_set.filter(
-            is_current=True).order_by('id')
+            is_current=True).order_by('-service_date')
 
     def claimlines(self):
         return self.claimline_set.filter(
-            is_current=True).order_by('id')
+            is_current=True).order_by('-service_date')
 
     def hdr_notifs(self):
         return self.membernotification_set.filter(

@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from .models import Provider, Member, ProviderMember, Message
-from .models import CountyData, CountyWidget, UserProfile
+from .models import CountyData, CountyWidget
+# , UserProfile
 # from .models import RxClaim, ClaimLine
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
