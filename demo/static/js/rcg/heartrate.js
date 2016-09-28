@@ -5,12 +5,12 @@
                 var $on = false;
                 var ajaxComplete = false;
                 var updateInterval = 1000;
-                // var plotDuration = 1800 * updateInterval; // total time shown
-                // var queryOffset = 120 * updateInterval;   // offset from current time
-                // var dataOffset = 600 * updateInterval;     // start data this far back from query
-                var plotDuration = 60 * updateInterval; // total time shown
-                var queryOffset = 10 * updateInterval;   // offset from current time
-                var dataOffset = 10 * updateInterval;     // start data this far back from query
+                var plotDuration = 1800 * updateInterval; // total time shown
+                var queryOffset = 300 * updateInterval;   // offset from current time
+                var dataOffset = 600 * updateInterval;     // start data this far back from query
+                // var plotDuration = 180 * updateInterval; // total time shown
+                // var queryOffset = 60 * updateInterval;   // offset from current time
+                // var dataOffset = 10 * updateInterval;     // start data this far back from query
                 // var member_id = {{ member.id }};
                 var member_id = $member_id;
 
@@ -60,8 +60,8 @@ var queryCount = 0;
                     // var jdata = []
                     var t, val, qmin;
                     var rndval, nv, rndval2;
-                    qmax = (queryData.length>0) ? queryData[queryData.length-1][0] : 0;
-// console.log(qmax)
+                    qdatamax = (queryData.length>0) ? queryData[queryData.length-1][0] : queryMin;
+// console.log(qdatamax)
                     queryCount++;
 // console.log(queryCount);
                     if (queryCount > 10) {
@@ -70,14 +70,15 @@ var queryCount = 0;
                     $.getJSON("/cloudera/heartrate/get", {
                             member_id: member_id,
                             // from: (new Date(queryMin)).toISOString(),
-                            from: qmax,
+                            from: (new Date(qdatamax)).toISOString(),
                             to: (new Date(queryMax)).toISOString() },
                         function(json){
+console.log("qdatamax: " + qdatamax + " from: " + (new Date(queryMin)).toISOString() + " to: " + (new Date(queryMax)).toISOString());
                             $.each(json, function (index, value) {
 // console.log(value)
                                 t = (new Date(value[0])).getTime();
                                 val = value[1];
-// console.log("qmax: " + qmax + " t: " + t + " val: " + val);
+// console.log("qdatamax: " + qdatamax + " t: " + t + " val: " + val);
                                 // jdata.push([t, val]);
                                 rndval = Math.random() * 0.8 - 0.4;
                                 if (randomAdditive > randomMax && rndval > 0)
@@ -95,11 +96,12 @@ var queryCount = 0;
                                 //     valadd = -10;
                                 // if (valadd > 100)
                                 //     valadd = 100;
+                                // nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
                                 nv = val + Math.round(randomAdditive) + Math.round(randomAdditive2)
-console.log(" val: " + val + " randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
+// console.log(" val: " + val + " randomAdditive: " + randomAdditive + " randomAdditive2: " + randomAdditive2 + " new: " + nv);
                                 val = nv;
 
-                                if (t > qmax) {
+                                if (t > qdatamax) {
                                     queryData.push([t, val]);
                                 }
                             });
