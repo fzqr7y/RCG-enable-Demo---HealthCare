@@ -69,7 +69,8 @@ var queryCount = 0;
                     }
                     $.getJSON("/cloudera/heartrate/get", {
                             member_id: member_id,
-                            from: (new Date(queryMin)).toISOString(),
+                            // from: (new Date(queryMin)).toISOString(),
+                            from: qmax,
                             to: (new Date(queryMax)).toISOString() },
                         function(json){
                             $.each(json, function (index, value) {
