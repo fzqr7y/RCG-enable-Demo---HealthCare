@@ -18,7 +18,7 @@
                 <div id="accordion"> <!-- accordion -->
                     {% for providermember in providermembers %}
                     <div> <!-- section 1 -->
-                        <h4>{{ providermember.role }}</h4>
+                        <h4>{{ providermember.role }}: {{ providermember.provider.name }}</h4>
                         <div class="padding-0">
                             <div class="row">
                                 <div class="col-sm-4 profile-pic">
@@ -41,8 +41,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
-                                    <h1><span class="semi-bold">{{ providermember.provider.name }}</span>
-                                    <br>
+                                    <h1><!--<span class="semi-bold">
+                                        {# {{ providermember.provider.name }}</span> #}
+                                    <br>-->
                                     <small>{{ providermember.provider.practice_name }}</small></h1>
                                     <ul class="list-unstyled">
                                         <li>
