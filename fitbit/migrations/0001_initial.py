@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('demo', '0027_auto_20160909_1703'),
+        ('healthcare', '0027_auto_20160909_1703'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(auto_now=True)),
                 ('ext_value', models.TextField()),
                 ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('member', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='demo.Member')),
+                ('member', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='healthcare.Member')),
             ],
         ),
     ]

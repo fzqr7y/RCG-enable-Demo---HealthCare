@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 
-# from demo.models import Member
+# from healthcare.models import Member
 from .models import IntradayData
 
 import logging

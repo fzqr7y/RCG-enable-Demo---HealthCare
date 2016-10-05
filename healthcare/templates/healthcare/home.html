@@ -1,0 +1,50 @@
+{% extends 'healthcare/base.html' %}
+{% load staticfiles %}
+
+{% block page_title %}{% endblock %}
+
+{% block page_stylesheets %}
+    <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
+{% endblock %}
+
+{# {% block nav_dashboard %}class="active"{% endblock %} #}
+{% block nav_rcg %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    <li>Home</li>
+{% endblock %}
+{% block breadcrumb1 %}
+    <li>Home</li>
+{% endblock %}
+
+
+{% block main_content %}
+
+    {# <img src="{% static 'img/rcg/ideas-realized.png' %}"> #}
+    <img src="{% static 'img/rcg/rcg-enable.png' %}">
+
+{% endblock %} <!-- main content -->
+
+
+<!-- copied here for reference and to remove the comments in base from rendered pages -->
+{% block js_touch %}
+{% endblock %}
+
+{% block js_smartadmin %}
+{% endblock %} <!-- js_smartadmin -->
+
+{% block js_voice_chat %}
+{% endblock %}
+
+{% block js_page_plugins %}
+{% endblock %} <!-- js_page_plugins -->
+
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+             pageSetUp();
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->

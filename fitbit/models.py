@@ -5,7 +5,7 @@ from django.db import models
 
 
 class ApiData(models.Model):
-    member = models.ForeignKey('demo.Member', blank=True, null=True)
+    member = models.ForeignKey('healthcare.Member', blank=True, null=True)
     record_type = models.CharField(max_length=40)
     record_date = models.DateTimeField()
     value = models.DecimalField(max_digits=10, decimal_places=4)
@@ -21,7 +21,7 @@ class ApiData(models.Model):
 
 class IntradayData(models.Model):
     api_record = models.ForeignKey('ApiData')
-    member = models.ForeignKey('demo.Member', blank=True, null=True)
+    member = models.ForeignKey('healthcare.Member', blank=True, null=True)
     record_type = models.CharField(max_length=40)
     record_date = models.DateTimeField()
     value = models.DecimalField(max_digits=10, decimal_places=4)

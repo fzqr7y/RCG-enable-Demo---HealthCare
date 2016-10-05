@@ -1,0 +1,336 @@
+{% extends 'healthcare/base.html' %}
+{% load tz %}
+
+{% load staticfiles %}
+
+{% block page_title %}Members{% endblock %}
+{% block page_stylesheets %}{% endblock %}
+
+{% block nav_dashboard %}class="active"{% endblock %}
+{% block nav_members2 %}class="active"{% endblock %}
+
+
+{% block breadcrumb %}
+	<li>Home</li><li>Member</li><li>List</li>
+{% endblock %}
+
+
+{% block main_content %}
+
+				<!-- row -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+						<h1 class="page-title txt-color-blueDark" style="margin-bottom:12px;margin-top:6px;">
+							<i class="fa fa-table fa-fw "></i>
+								Member
+							<span>>
+								List
+							</span>
+						</h1>
+					</div>
+				</div> <!--/row-->
+
+				<!-- widget grid -->
+				<section id="widget-grid" class="">
+					<!-- row -->
+					<div class="row">
+						<!-- NEW WIDGET START -->
+						<!--<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+						<article class="col-sm-12 col-md-12 col-lg-4">
+							<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget jarviswidget-color-blue" id="wid-scripts" data-widget-colorbutton="false" data-widget-editbutton="false">
+				<header>
+					<h2><strong>Recent</strong> <i>Prescriptions</i></h2>
+					<div class="widget-toolbar">
+					  	<!-- place your buttons here with .btn .btn-xs class -->
+					  	<a href="{% url 'providers' %}" style="color:white;" class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
+						  	<i class="fa fa-external-link "></i></a>
+					  	<!--<a href="{% url 'providers' %}" style="color:white;" class="btn btn-xs button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen">
+						  	<i class="fa fa-expand "></i></a>
+					  	<button class="button-icon"><a href="{% url 'providers' %}">
+					  		<i class="fa fa-external-link"></i>-->
+					  	</button></a>
+					</div>
+				</header>
+								<!-- widget div-->
+								<div>
+									<!-- widget edit box -->
+									<div class="jarviswidget-editbox">
+										<!-- This area used as dropdown edit box -->
+									</div>
+									<!-- end widget edit box -->
+									<!-- widget content -->
+									<div class="widget-body no-padding">
+<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+	<thead>
+        <!-- SC: Make this work later by editing the javascript to reference datatable_tabletools instead of datatable_fixed_column.  Also include the dt_basic component of dynamic max row count. -->
+		<!--<tr>
+			<th class="hasinput" style="width:6%">
+				<input type="text" class="form-control" placeholder="ID" />
+			</th>
+			<th class="hasinput" style="width:10%">
+				<input type="text" class="form-control" placeholder="Name" />
+			</th>
+			<th class="hasinput">
+				<input type="text" class="form-control" placeholder="Phone" />
+			</th>
+			<th class="hasinput">
+				<input type="text" class="form-control" placeholder="Company Filter" />
+			</th>
+			<th class="hasinput">
+				<input type="text" class="form-control" placeholder="Zip" />
+			</th>
+			<th class="hasinput">
+				<input type="text" class="form-control" placeholder="City" />
+			</th>
+			<th class="hasinput icon-addon">
+				<label for="dateselect_filter" class="glyphicon glyphicon-calendar no-margin padding-top-15" rel="tooltip" title="" data-original-title="Date"></label>
+				<input id="dateselect_filter" type="text" placeholder="Date" class="form-control datepicker" data-dateformat="yy/mm/dd">
+			</th>
+		</tr>-->
+		<tr>
+            <th data-class="expand">Member ID</th>
+            <th>First</th>
+            <th data-class="expand">Last</th>
+            <th data-hide="phone,tablet">Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th data-hide="phone, tablet" style="width:12%">Birth Date</th>
+		</tr>
+	</thead>
+	<tbody>
+	    {% for member in members %}
+		<!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
+		<tr class='clickable-row' data-href="{% url 'member_detail' pk=member.pk %}">
+			<td>{{ member.member_id }}</td>
+			<td>{{ member.first_name }}</td>
+			<td>{{ member.last_name }}</td>
+			<td>{{ member.address }}</td>
+			<td>{{ member.city }}</td>
+			<td>{{ member.state }}</td>
+			<td>{{ member.zip }}</td>
+			<td>{{ member.birth_date | date:"M d, Y" }}</td>
+		</tr>
+	    {% endfor %}
+		<!-- //SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link -->
+		<!--<tr class='clickable-row' data-href="{% url 'member_detail' pk=1 %}">
+			<td>1</td>
+			<td><a href="{% url 'member_detail' pk=1 %}">Jennifer</a></td>
+			<td>1-342-463-8341</td>
+			<td>Et Rutrum Non Associates</td>
+			<td>35728</td>
+			<td>Fogo</td>
+			<td>03/04/14</td>
+		</tr>-->
+	</tbody>
+</table>
+
+									</div>
+									<!-- end widget content -->
+								</div>
+								<!-- end widget div -->
+							</div>
+							<!-- end widget -->
+						</article>
+						<!-- WIDGET END -->
+					</div>
+					<!-- end row -->
+				</section>
+				<!-- end widget grid -->
+{% endblock %} <!-- main content -->
+
+{% block js_touch %}{% endblock %}
+{% block js_smartadmin %}
+
+		<!-- CUSTOM NOTIFICATION -->
+		<!-- // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> -->
+
+		<!-- JARVIS WIDGETS -->
+		<script src="{% static 'js/smartwidgets/jarvis.widget.min.js' %}"></script>
+
+		<!-- EASY PIE CHARTS -->
+		<!-- // <script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> -->
+
+		<!-- SPARKLINES -->
+		<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+
+		<!-- JQUERY VALIDATE -->
+		<!-- // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> -->
+
+		<!-- JQUERY MASKED INPUT -->
+		<!-- // <script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> -->
+
+		<!-- JQUERY SELECT2 INPUT -->
+		<!-- // <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script> -->
+
+		<!-- JQUERY UI + Bootstrap Slider -->
+		<!-- // <script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> -->
+
+{% endblock %} <!-- js_smartadmin -->
+
+{% block js_voice_chat %}{% endblock %}
+{% block js_page_plugins %}
+		<!-- PAGE RELATED PLUGIN(S) -->
+		<script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
+		<script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
+		<script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
+{% endblock %} <!-- js_page_plugins -->
+
+
+{% block js_doc_ready %}
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+             pageSetUp();
+			/* // DOM Position key index //
+				l - Length changing (dropdown)
+				f - Filtering input (search)
+				t - The Table! (datatable)
+				i - Information (records)
+				p - Pagination (paging)
+				r - pRocessing
+				< and > - div elements
+				<"#id" and > - div with an id
+				<"class" and > - div with a class
+				<"#id.class" and > - div with an id and class
+				Also see: http://legacy.datatables.net/usage/features
+			*/
+
+			//SC http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link
+		    $(".clickable-row").click(function() {
+		        window.document.location = $(this).data("href");
+		    });
+			//SC
+
+			/* BASIC ;*/
+			var responsiveHelper_dt_basic = undefined;
+			var responsiveHelper_datatable_fixed_column = undefined;
+			var responsiveHelper_datatable_col_reorder = undefined;
+			var responsiveHelper_datatable_tabletools = undefined;
+
+			var breakpointDefinition = {
+				tablet : 1024,
+				phone : 480
+			};
+
+			/* END BASIC */
+
+			/* COLUMN FILTER  */
+		    var otable = $('#datatable_fixed_column').DataTable({
+		    	//"bFilter": false,
+		    	//"bInfo": false,
+		    	//"bLengthChange": false
+		    	//"bAutoWidth": false,
+		    	//"bPaginate": false,
+		    	//"bStateSave": true // saves sort state using localStorage
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>"+
+						"t"+
+						"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+				"autoWidth" : true,
+				"oLanguage": {
+					"sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					// Initialize the responsive datatables helper once.
+					if (!responsiveHelper_datatable_fixed_column) {
+						responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_datatable_fixed_column.respond();
+				}
+
+		    });
+
+		    // custom toolbar
+		    $("div.toolbar").html('<div class="text-right"><img src="{% static 'img/rcg/rcg-logo.png' %}" alt="RCG HealthCare" style="width: 30px; margin-top: 3px; margin-right: 10px;"></div>');
+
+		    // Apply the filter
+		    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+
+		        otable
+		            .column( $(this).parent().index()+':visible' )
+		            .search( this.value )
+		            .draw();
+
+		    } );
+		    /* END COLUMN FILTER */
+
+			/* COLUMN SHOW - HIDE */
+			$('#datatable_col_reorder').dataTable({
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'C>r>"+
+						"t"+
+						"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+				"autoWidth" : true,
+				"oLanguage": {
+					"sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					// Initialize the responsive datatables helper once.
+					if (!responsiveHelper_datatable_col_reorder) {
+						responsiveHelper_datatable_col_reorder = new ResponsiveDatatablesHelper($('#datatable_col_reorder'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_datatable_col_reorder.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_datatable_col_reorder.respond();
+				}
+			});
+			/* END COLUMN SHOW - HIDE */
+
+			/* TABLETOOLS */
+			$('#datatable_tabletools').dataTable({
+
+				// Tabletools options:
+				//   https://datatables.net/extensions/tabletools/button_options
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+						"t"+
+						"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+				"oLanguage": {
+					"sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+				},
+		        "oTableTools": {
+		        	 "aButtons": [
+		             "copy",
+		             "csv",
+		             "xls",
+		                {
+		                    "sExtends": "pdf",
+		                    "sTitle": "SmartAdmin_PDF",
+		                    "sPdfMessage": "SmartAdmin PDF Export",
+		                    "sPdfSize": "letter"
+		                },
+		             	{
+	                    	"sExtends": "print",
+	                    	"sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+	                	}
+		             ],
+		            "sSwfPath": "{% static 'js/plugin/datatables/swf/copy_csv_xls_pdf.swf' %}"
+		        },
+				"autoWidth" : true,
+				"preDrawCallback" : function() {
+					// Initialize the responsive datatables helper once.
+					if (!responsiveHelper_datatable_tabletools) {
+						responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_datatable_tabletools.respond();
+				}
+			});
+			/* END TABLETOOLS */
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->

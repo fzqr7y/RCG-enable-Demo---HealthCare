@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('demo', '0027_auto_20160909_1703'),
+        ('healthcare', '0027_auto_20160909_1703'),
         ('fitbit', '0001_initial'),
     ]
 
@@ -46,6 +46,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='intradaydata',
             name='member',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='demo.Member'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='healthcare.Member'),
         ),
     ]

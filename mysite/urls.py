@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^accounts/logout/$', django.contrib.auth.views.logout,
         name='logout', kwargs={'next_page': '/'}),
     # url(r'', include('blog.urls')),
-    url(r'', include('demo.urls')),
+    url(r'', include('healthcare.urls')),
     url(r'^fitbit/', include('fitbit.urls')),
     # url(r'^userprofile$', RedirectView.as_view(
     #     url='/user_profile_upload/', permanent=True)),

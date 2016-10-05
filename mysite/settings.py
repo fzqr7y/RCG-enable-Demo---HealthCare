@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     # 'blog',
     'django_twilio',
-    'demo',
+    'healthcare',
     'fitbit',
     'cloudera',
 ]

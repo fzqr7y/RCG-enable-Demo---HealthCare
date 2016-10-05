@@ -1,0 +1,107 @@
+{% extends 'healthcare/base.html' %}
+
+{% block main_content %}
+    <form method="POST" class="sms-form">
+        {% csrf_token %}
+        {# {{ form.as_p }} #}
+        {{ form.text }}
+        <!--<button type="submit" class="save btn btn-default">Save</button>-->
+        <div class="margin-top-10 margin-bottom-10" style="height: 21px">
+            <button type="submit" class="btn btn-sm btn-primary pull-right">
+                Send</button>
+        </div>
+    </form>
+
+                <ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10">
+                    <li class="">
+                        <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+                        {{ user.first_name }} {{ user.last_name }}
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href={% url 'logout' %} class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- end top menu profile link -->
+
+
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle no-margin" data-toggle="dropdown">
+            Messages<i class="fa fa-angle-down"></i></a>
+        <ul id="talk" dropdown-menu
+            style = "width:100%;margin-left:-20px;">
+        {% for obj in member.smss %}
+            {% if obj.sent == True %}
+            <li>
+                <strong>{{ obj.text }}</strong><br>
+                <span>{{ obj.created_date }}</span>
+            </li>
+            {% else %}
+            <li dir="rtl" style="text-align: right;">
+                <strong>{{ obj.text }}</strong><br>
+                <span>{{ obj.created_date }}</span>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% if "Test" in user.username %}
+    <table class="table table-striped table-bordered table-hover" width="100%">
+    <thead>
+        <tr>
+            <th>created_date</th>
+            <th>type</th>
+            <th>sent</th>
+            <th>message_from</th>
+            <th>message_to</th>
+            <th>member.last_name</th>
+            <th>user.username</th>
+            <!--<th>text</th>-->
+            <th>sid</th>
+            <th>status</th>
+            <!--<th>data</th>-->
+        </tr>
+    </thead>
+    <tbody>
+    {% for message in member.smss %}
+        <tr>
+            <td>{{ message.created_date }}</td>
+            <td>{{ message.message_type }}</td>
+            <td>{{ message.sent }}</td>
+            <td>{{ message.message_from }}</td>
+            <td>{{ message.message_to }}</td>
+            <td>{{ message.member.last_name }}</td>
+            <td>{{ message.user.username }}</td>
+            <td>{{ message.smssid }}</td>
+            <td>{{ message.smsstatus }}</td>
+        </tr>
+        <tr>
+            <td colspan="5">{{ message.text }}</td>
+            <td colspan="4">{{ message.data }}</td>
+        </tr>
+        <!--<div class="message">
+            <div class="date">
+                {{ message.created_date }}
+            </div>
+            <h1>{{ message.sent }} {{ message.message_from }} to {{ message.message_to }}</h1>
+            {{ message.member.last_name }} to {{ message.user.username }}
+            <p>{{ message.text|linebreaksbr }}</p>
+            <p>{{ message.query_url|linebreaksbr }}</p>
+        </div>-->
+    {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+{% endblock %}
+
+{% block js_doc_ready %}
+        $(document).ready(function() {
+            pageSetUp();
+        })
+{% endblock %}
