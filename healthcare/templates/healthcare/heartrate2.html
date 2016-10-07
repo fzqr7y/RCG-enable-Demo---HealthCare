@@ -4,7 +4,7 @@
 {% load humanize %}
 <!--SC: https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/ -->
 <!--SC: https://djangosnippets.org/snippets/9/ -->
-{% load demo_tags %}
+{% load healthcare_tags %}
 
 {% block page_title %}Member Detail{% endblock %}
 
@@ -238,7 +238,7 @@
 
 {% block js_page_plugins %}
 		<!-- SC: dygraph -->
-		<script src="{% static 'js/plugin/dygraphs/healthcare-data.min.js' %}"></script>
+		<script src="{% static 'js/plugin/dygraphs/demo-data.min.js' %}"></script>
 		<!-- DYGRAPH -->
 		<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
 		<!-- progress bars -->

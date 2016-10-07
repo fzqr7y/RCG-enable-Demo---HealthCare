@@ -4,7 +4,7 @@
 {% load humanize %}
 <!--SC: https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/ -->
 <!--SC: https://djangosnippets.org/snippets/9/ -->
-{% load demo_tags %}
+{% load healthcare_tags %}
 
 {% block page_title %}Member Detail{% endblock %}
 
@@ -1370,7 +1370,7 @@
 
 		<!-- JARVIS WIDGETS -->
 		<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-		<script src="{% static 'js/smartwidgets/rcg.jarvis.widget.js' %}"></script>
+		<script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script>
 
 		<!-- EASY PIE CHARTS -->
 		<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
@@ -1396,7 +1396,7 @@
 
 {% block js_page_plugins %}
 		<!-- SC: dygraph -->
-		<script src="{% static 'js/plugin/dygraphs/healthcare-data.min.js' %}"></script>
+		<script src="{% static 'js/plugin/dygraphs/demo-data.min.js' %}"></script>
 		<!-- DYGRAPH -->
 		<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
 		<!-- progress bars -->
@@ -1531,7 +1531,7 @@
 			})
 
 			/* SC: DyGraph */
-			// SC data is in file js\plugin\dygraphs\healthcare-data.min.js. Search for data_temp.  Includes HR,RR / NY,SF trend definitions.
+			// SC data is in file js\plugin\dygraphs\demo-data.min.js. Search for data_temp.  Includes HR,RR / NY,SF trend definitions.
 			g1 = new Dygraph(document.getElementById("noroll"), data_temp, {
 				customBars : true,
 				title : 'Daily Average Heartrate and Respiration',

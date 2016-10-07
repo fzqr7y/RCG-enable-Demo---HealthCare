@@ -10,6 +10,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 # from django.core.files.storage import default_storage
 # from django.contrib.staticfiles.storage import staticfiles_storage
 # from django.contrib.staticfiles import finders
+from django.contrib.auth.models import Group
 
 # import os
 # from django.conf import settings
@@ -68,6 +69,12 @@ def do_expr(parser, token):
 
 
 do_expr = register.tag('expr', do_expr)
+
+
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    group = Group.objects.get(name=group_name)
+    return group in user.groups.all()
 
 
 @register.filter

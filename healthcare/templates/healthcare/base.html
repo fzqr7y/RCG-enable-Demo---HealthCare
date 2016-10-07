@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load healthcare_tags %}
 
 <html lang="en-us">
 	<head>
@@ -7,7 +8,7 @@
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
 		<title class="rcg-brand-text"> RCG|enable Healthcare {% block page_title %}{% endblock %}</title>
-		<meta name="description" content="RCG Healthcare healthcare">
+		<meta name="description" content="RCG Healthcare Demo">
 		<meta name="author" content="RCG Global Services">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -29,10 +30,10 @@
 		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/your_style.css' %}"> -->
 
-	{% if "Test" in user.username %}
+	{% if "Test" in user.username or request.user|has_group:"Tester" %}
         <!-- SC: this is the twirling gears at top right that dynamically change page properties -->
-		<!-- healthcare purpose only: goes with healthcare.js, you can delete this css when designing your own WebApp -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/healthcare.min.css' %}">
+		<!-- demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/demo.min.css' %}">
     {% endif %}
 
         <!-- SC: RCG Styles -->
@@ -125,6 +126,7 @@
 		* 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
 	-->
 	{% if "Test" in user.username %}
+	{# {% if request.user|has_group:"Tester" %} #}
 	<body class="">
 	{% else %}
 	<body class="menu-on-top fixed-navigation fixed-header">
@@ -162,8 +164,8 @@
 				<!-- end collapse menu -->
 
 				<!-- logout button -->
-				<div id="logout" class="btn-header transparent pull-right">
-					<span> <a href="{% url 'logout' %}" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+				<div id="logout2" class="btn-header transparent pull-right">
+					<span> <a href="{% url 'logout' %}" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this browser">
 						<i class="fa fa-sign-out"></i></a> </span>
 				</div>
 				<!-- end logout button -->
@@ -176,7 +178,7 @@
 				<!-- end fullscreen button -->
 
 				<!-- Top menu profile link : this shows only when top menu is active -->
-				<!-- SC: turn this on for healthcare purpose -->
+				<!-- SC: turn this on for demo purpose -->
             {% if user.is_authenticated %}
 				<!-- <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5"> -->
 				<ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10">
@@ -193,24 +195,29 @@
 						<ul class="dropdown-menu pull-right">
 						{% if "Test" in user.username %}
 							<li>
-								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0">
+									<i class="fa fa-cog"></i> Setting</a>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
+								<a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0">
+									<i class="fa fa-user"></i> <u>P</u>rofile</a>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut">
+									<i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
 							</li>
 							<li class="divider"></li>
 						{% endif %}
 							<li>
-								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen">
+								<i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href={% url 'logout' %} class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+								<a href={% url 'logout' %} class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout">
+								<i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
 							</li>
 						</ul>
 					</li>
@@ -378,7 +385,7 @@
 							<span class="menu-item-parent">Providers</span></a>
 					</li>
 					<li {% block nav_demo %}{% endblock %} >
-						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">healthcare</span></a>
+						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Demo</span></a>
 						<ul>
 							<li {% block nav_member_detail %}{% endblock %} >
 								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
@@ -390,7 +397,7 @@
 						<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
 							<span class="menu-item-parent">Community</span></a>
 					</li>
-					{% if "Test" in user.username %}
+					{% if "Test" in user.username or request.user|has_group:"Tester" %}
 					<li {% block nav_test %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Test</span></a>
 						<ul>
@@ -472,7 +479,12 @@
 	            <div class="pull-right">
 					<div id="ribbon">
 		            {% if user.is_authenticated %}
-		                <!-- Top menu profile link : this shows only when top menu is active -->
+			            <!-- reset widget settings -->
+						<span class="ribbon-button-alignment">
+							<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+								<i class="fa fa-refresh"></i>
+							</span>
+						</span>
 						<!-- breadcrumb -->
 						<ol class="breadcrumb">
 		                {% block breadcrumb %}
@@ -726,8 +738,8 @@
 
 	{% if "Test" in user.username %}
         <!-- SC: this is the twirling gears at top right that dynamically change page properties -->
-		<!-- healthcare purpose only -->
-		<script src="{% static 'js/healthcare.min.js' %}"></script>
+		<!-- demo purpose only -->
+		<script src="{% static 'js/demo.min.js' %}"></script>
 	{% endif %}
 
 		<!-- MAIN APP JS FILE -->
