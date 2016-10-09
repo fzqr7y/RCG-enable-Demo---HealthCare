@@ -3,25 +3,18 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.home, name='index'),
-    url(r'^home/$', views.home, name='home'),
+    url(r'^$', views.big_data, name='home'),
+    url(r'^rcg/$', views.rcg, name='rcg'),
     url(r'^members/$', views.members, name='members'),
     url(r'^providers/$', views.providers, name='providers'),
     url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
     url(r'^membertest/(?P<pk>\d+)/$', views.member_detail1, name='member_detail1'),
-    # url(r'^member1$', views.member1_detail, name='member1_detail'),
-    # url(r'^provider/(?P<pk>\d+)/edit/$', views.provider_edit, name='provider_edit'),
     url(r'^sms/receive/$', views.receive_sms, name='receive_sms'),
     url(r'^sms2/$', views.sms2, name='sms2'),
     url(r'^sms/(?P<pk>\d+)/$', views.sms, name='sms'),
-    url(r'^heartrate/(?P<pk>\d+)/$', views.heartrate, name='heartrate'),
-    url(r'^members2/$', views.members2, name='members2'),
     url(r'^heartrate2/(?P<pk>\d+)/$', views.heartrate2, name='heartrate2'),
     url(r'^map_county/(?P<pk>\d+)/$', views.map_county, name='map_county'),
-    # url(r'^map_county2/(?P<pk>\d+)/$', views.map_county2, name='map_county2'),
-    # url(r'^map_county3/(?P<pk>\d+)/$', views.map_county3, name='map_county3'),
     url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
-    # url(r'^county_data/(?P<pk>\d+)/$', views.county_data, name='county_data'),
     url(r'^county_lookup/$', views.county_lookup, name='county_lookup'),
 
     # http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example

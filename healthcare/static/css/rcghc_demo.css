@@ -42,8 +42,7 @@ li.active2 {
 
 #rcg-right-profile {
 /*    display: none !important; */
-    padding-right: 2p
-    x !important;
+    padding-right: 2px !important;
     padding-left: 2px !important;
 }
 
@@ -70,6 +69,16 @@ img.rcg-left-logo {
     height: auto;
     padding-left: 5px;
     padding-top: 2px;
+}
+
+img.ahp-right-logo {
+    /*width: 37px !important;*/
+    height: 48px  !important;
+    height: auto;
+    margin-right: -5px;
+    padding-right: 0px;
+    padding-top: 2px;
+    padding-left: 10px;
 }
 
 .rcg-brand-text {

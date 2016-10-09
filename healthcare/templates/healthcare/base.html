@@ -36,6 +36,9 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/demo.min.css' %}">
     {% endif %}
 
+        <!-- SC: MFizz - Hadoop Icon -->
+		<link rel="stylesheet" href="{% static 'fonts/font-mfizz-2.3.0/font-mfizz.css' %}">
+
         <!-- SC: RCG Styles -->
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/rcghc_demo.css' %}">
     {% block page_stylesheets %}
@@ -156,6 +159,10 @@
 			<!-- pulled right: nav area -->
 			<div class="pull-right">
 
+				<div id="ahp-logo" class="btn-header transparent pull-right">
+					<img class="ahp-right-logo" src="{% static 'img/rcg/ahp-logo.png' %}" />
+				</div>
+
 				<!-- collapse menu button -->
 				<div id="hide-menu" class="btn-header pull-right">
 					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu">
@@ -181,16 +188,19 @@
 				<!-- SC: turn this on for demo purpose -->
             {% if user.is_authenticated %}
 				<!-- <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5"> -->
+				<!-- <ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10"> -->
 				<ul id="rcg-right-profile" class="header-dropdown-list hidden-xs padding-10">
 					<li class="">
 						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+						{% if "Test" in user.username %}
 						{{ user.first_name }} {{ user.last_name }}
 						    &nbsp;&nbsp;
+						{% endif %}
 							<!--<img id="rcg-right-profile-img" src="{# static 'img/avatars/Scott.jpg' #}" alt="Scott" class="online" />-->
 							<!-- this works for media files but not doing that due to heroku
 							<img id="rcg-right-profile-img" src="{# user.userprofile.picture.url #}" alt="{# user.name #}" class="online" />-->
 							<!-- <img id="rcg-right-profile-img" src="{% static user.userprofile.picture %}" alt="{{ user.name }}" class="online" /> -->
-							<img id="rcg-right-profile-img" src="{% static user.userprofile.picture_path %}" alt="{{ user.name }}" class="online" />
+							<img id="rcg-right-profile-img" src="{% static user.userprofile.picture_path %}" title="{{ user.first_name }} {{ user.last_name }}"  />
 						</a>
 						<ul class="dropdown-menu pull-right">
 						{% if "Test" in user.username %}
@@ -366,15 +376,21 @@
 				traditional href="" links. See documentation for details.
 				-->
 				<ul>
-				{% if request.META.HTTP_HOST == '127.0.0.1:8000' or request.META.HTTP_HOST == 'demo1.rcg-healthcare.com' or request.META.HTTP_HOST == 'hcdev1.rcgenable.com' %}
+					{% if request.META.HTTP_HOST == '127.0.0.1:8000' or request.META.HTTP_HOST == 'demo1.rcg-healthcare.com' or request.META.HTTP_HOST == 'hcdev1.rcgenable.com' %}
 					<li>
 						<a href="" title="Development: {{ request.META.HTTP_HOST }}"><i class="fa fa-lg fa-fw fa-gear txt-color-yellow"></i>
 							<span class="menu-item-parent">DEV</span></a>
 					</li>
-				{% endif %}
+					{% endif %}
+					{% if "Test" in user.username %}
 					<li {% block nav_rcg %}{% endblock %} >
-						<a href="/" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
+						<a href="/rcg" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
 							<span class="menu-item-parent">RCG</span></a>
+					</li>
+					{% endif %}
+					<li {% block nav_big_data %}{% endblock %} >
+						<a href="/" title="Big Data"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
+							<span class="menu-item-parent">Big Data</span></a>
 					</li>
 					<li {% block nav_members %}{% endblock %}>
 						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
@@ -411,20 +427,15 @@
  							<li {% block nav_sms %}{% endblock %} >
 								<a href="{% url 'sms' pk=4 %}" title="SMS"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">SMS</span></a>
 							</li>
- 							<li {% block nav_sms2 %}{% endblock %} >
-								<a href="{% url 'sms2' %}" title="SMS2"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">SMS2</span></a>
-							</li>
 							<li {% block nav_ajax %}{% endblock %} >
 								<a href="{% url 'post_ajax' %}" title="post_ajax"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Ajax</span></a>
-							</li>
-							<li {% block nav_heartrate %}{% endblock %} >
-								<a href="{% url 'heartrate' pk=4 %}" title="heartrate"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Heartrate</span></a>
 							</li>
 							<li {% block nav_heartrate2 %}{% endblock %} >
 								<a href="{% url 'heartrate2' pk=4 %}" title="heartrate2"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Heartrate2</span></a>
 							</li>
- 							<li {% block nav_members2 %}{% endblock %}>
-								<a href="{% url 'members2' %}" title="Members2"><span class="menu-item-parent">Members2</span></a>
+							<li {% block nav_rcg2 %}{% endblock %} >
+								<a href="/rcg" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
+									<span class="menu-item-parent">RCG</span></a>
 							</li>
 							<li>
 								<a href="{% static 'index-orig.html' %}" title="Analytics"><span class="menu-item-parent">Analytics Dashboard</span></a>
