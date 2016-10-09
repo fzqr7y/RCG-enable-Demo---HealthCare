@@ -253,31 +253,22 @@ def member_detail(request, pk):
 def member_detail1(request, pk):
     member = get_object_or_404(Member, pk=pk)
     # providers = member.provider_set.order_by('id')
-    # return render(request, 'healthcare/member_detail.html', {'member': member, 'providers': providers})
+    # return render(request, 'healthcare/member_detail.html', {
+    # 'member': member, 'providers': providers})
     providermembers = ProviderMember.objects.filter(member=member).order_by('id')
     return render(request, 'healthcare/member_detail1.html', {
         'member': member, 'providermembers': providermembers})
 
-# @login_required
-# def member1_detail(request):
-#     return render(request, 'healthcare/member1_detail.html', {})
-
 
 @login_required
-def members2(request):
-    members = Member.objects.all
-    return render(request, 'healthcare/members2.html', {'members': members})
-
-
-@login_required
-def heartrate2(request, pk):
+def heartrate(request, pk):
     member = get_object_or_404(Member, pk=pk)
     # providers = member.provider_set.order_by('id')
     # return render(request, 'healthcare/member_detail.html', {
     # 'member': member, 'providers': providers})
     providermembers = ProviderMember.objects.filter(
         member=member).order_by('id')
-    return render(request, 'healthcare/heartrate2.html', {
+    return render(request, 'healthcare/heartrate.html', {
         'member': member, 'providermembers': providermembers})
 
 
