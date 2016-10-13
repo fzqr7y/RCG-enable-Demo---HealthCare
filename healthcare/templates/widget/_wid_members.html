@@ -21,6 +21,9 @@
     <div>
         <!-- widget content -->
         <div class="widget-body no-padding">
+          {% if table_height > 0 %}
+          <div id="wid-members-table-div" class="custom-scroll table-responsive" style="height:{{table_height}}px; overflow-y: scroll;">
+          {% endif %}
             <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
                     <!-- SC: Make this work later by editing the javascript to reference datatable_tabletools instead of datatable_fixed_column.  Also include the dt_basic component of dynamic max row count. -->
@@ -92,7 +95,9 @@
                     </tr>-->
                 </tbody>
             </table>
-
+          {% if table_height > 0 %}
+          </div> <!-- wid-members-table-div -->
+          {% endif %}
         </div>
         <!-- end widget content -->
     </div>

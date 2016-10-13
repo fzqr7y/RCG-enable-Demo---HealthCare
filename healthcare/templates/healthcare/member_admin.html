@@ -13,14 +13,15 @@
 {% block nav_member_detail %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
-        <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
-	<li>Home</li><li>Member</li><li>Detail</li>
+    <!--<li>Home</li><li>Member</li><li>Detail</li>-->
+	<li>Member Detail</li>
 {% endblock %}
 {% block breadcrumb1 %}
-	<li>Home</li><li>Member</li><li>Detail</li>
+    <li>Member Detail</li>
 {% endblock %}
 
 
@@ -30,28 +31,6 @@
 
 {% include 'healthcare/_member_header.html' %}
 
-<!-- SC notification row -->
-<div class="row">
-	<!-- Notification Section -->
-	<article class="col-sm-12">
-		<div class="alert alert-warning fade in">
-			<button class="close" data-dismiss="alert">
-				×
-			</button>
-			<i class="fa-fw fa fa-warning"></i>
-			<strong>Notice: </strong> Patient has not filled <code>Zocor</code> as prescribed.
-		</div>
-		<div class="alert alert-success fade in">
-			<button class="close" data-dismiss="alert">
-				×
-			</button>
-			<i class="fa-fw fa fa-check"></i>
-			<strong>Indicators: </strong> Patient health indicators currently within care plan guidelines.
-		</div>
-	</article>
-</div>
-<!-- end SC notification row -->
-
 <!-- widget grid -->
 <section id="widget-grid" class="">
 
@@ -59,16 +38,13 @@
 	<div class="row">
 
 		<!-- NEW WIDGET COLUMN 1 START -->
-		<article class="col-sm-12 col-md-12 col-lg-4">
-
-			<!-- Data Volume Widget -->
-        	{% include "widget/_wid_bigdata.html" %}
+		<article class="col-sm-12 col-md-4 col-lg-4">
 
 			<!-- Patient Vitals Widget-->
         	{% include "widget/_wid_patient_vitals.html" %}
 
-			<!-- Patient Data Widget-->
-        	{% include "widget/_wid_patient_data.html" %}
+			<!-- Patient Reported Data Widget-->
+        	{% include "widget/_wid_patient_reported.html" %}
 
 			<!-- Risk Scores Widget -->
         	{% include "widget/_wid_patient_risk.html" %}
@@ -88,7 +64,7 @@
 		<!-- WIDGET COLUMN 1 END -->
 
 		<!-- NEW WIDGET COLUMN 2 START -->
-		<article class="col-sm-12 col-md-12 col-lg-4">
+		<article class="col-sm-12 col-md-4 col-lg-4">
 
 			<!-- SC Flot Auto Updating Chart -->
         	{# {% include "widget/_wid_heartrate_demo.html" %} #}
@@ -112,13 +88,20 @@
 		<!-- WIDGET COLUMN 2 ENDi -->
 
 		<!-- NEW WIDGET COLUMN 3 START -->
-		<article class="col-sm-12 col-md-12 col-lg-4">
+		<article class="col-sm-12 col-md-4 col-lg-4">
+
+            <!-- Test SMS Widget -->
+            {# {% include "widget/_wid_sms.html" %} #}
+
+            <!-- CGMS  -->
+            {% include "widget/_wid_cgms.html" %}
 
 			<!-- patient contact widget -->
         	{% include "widget/_wid_patient_contact.html" %}
 
 			<!-- Prescription Widget -->
-        	{% include "widget/_wid_patient_scripts.html" %}
+            {% include "widget/_wid_patient_scripts.html" %}
+            {# {% include "widget/_wid_members.html" %} #}
 
 			<!-- Claims Widget -->
         	{% include "widget/_wid_patient_claims.html" %}
@@ -211,8 +194,14 @@
 			$('.simple-marquee-container').SimpleMarquee();
 		});
 	</script>
-	<!-- /SC: news ticker -->
 
+    <!-- datatables (scripts & claims) -->
+    {# // <script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script> #}
+    <script src="{% static 'js/rcg/rcg.jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
 {% endblock %} <!-- js_page_plugins -->
 
 {% block js_doc_ready %}
@@ -225,6 +214,9 @@
 		// PAGE RELATED DECLARATIONS
         var $member_id = {{ member.id }};
 
+        /* SC: export tables */
+        var $sSwfPath = "{% static 'js/plugin/datatables/swf/copy_csv_xls_pdf.swf' %}"
+
 		$(document).ready(function() {
 
 			pageSetUp();
@@ -233,6 +225,9 @@
 			 * TO LOAD A SCRIPT:
 			 * loadScript(".../plugin.js", run_after_loaded);
 			 */
+
+            /* SC: table tools - search and export */
+            loadScript("{% static 'js/rcg/datatable_tabletools.js' %}", true);
 
 			/* SC: progress bar */
 			// Fill all progress bars with animation
@@ -259,18 +254,47 @@
 				header : "h4",
 			})
 
-			/* SC: DyGraph */
-			// SC data is in file js\plugin\dygraphs\demo-data.min.js. Search for data_temp.  Includes HR,RR / NY,SF trend definitions.
-			g1 = new Dygraph(document.getElementById("noroll"), data_temp, {
-				customBars : true,
-				title : 'Steps and Avg Heartrate',
-				ylabel : 'Steps/100 / BPM',
-				legend : 'always',
-				labelsDivStyles : {
-					'textAlign' : 'right'
-				},
-				showRangeSelector : true
-			});
+            /* SC: DyGraph */
+            // XX data is in file js\plugin\dygraphs\demo-data.min.js. Search for data_temp.  Includes HR,RR / NY,SF trend definitions.
+            // SC data is in file js\rcg\dygraph-demo-data.js. Includes HR,RR / NY,SF trend definitions.
+            g1 = new Dygraph(document.getElementById("noroll"), data_temp, {
+                customBars : true,
+                title : 'Steps and Avg Heartrate',
+                ylabel : 'Steps/100 / BPM',
+                legend : 'always',
+                labelsDivStyles : {
+                    'textAlign' : 'right'
+                },
+                showRangeSelector : true
+            });
+
+            /* SC: CGMS */
+            // SC data is in file js\rcg\dygraph-cgms.js.
+            g3 = new Dygraph(
+                document.getElementById("cgms1"),
+                "{% static 'js/rcg/glucose.csv' %}", {
+                    // customBars : true, // doesn't work when not specifying error bands
+                    title : 'Continuous Glucose Monitoring',
+                    ylabel : 'Glucose mg/dl',
+                    legend : 'always',
+                    labelsDivStyles : {
+                        'textAlign' : 'right'
+                    },
+                    showRangeSelector : true
+                    // rollPeriod: 7,
+                    // showRoller: true
+            });
+            /*cgms_g1 = new Dygraph(document.getElementById("cgms1"),
+                "{% static 'js/rcg/temperatures.csv' %}", {
+                customBars : true,
+                title : 'Continuous Glucose Monitoring',
+                ylabel : 'Glucose mg/dl',
+                legend : 'always',
+                labelsDivStyles : {
+                    'textAlign' : 'right'
+                },
+                showRangeSelector : true
+            });*/
 
 			/* SC: flot */
 			/* updating chart */

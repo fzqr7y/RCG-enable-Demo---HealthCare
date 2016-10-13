@@ -49,7 +49,8 @@
                         <tr>
                             <td>Height</td>
                             <td>{{ member.height.value_str }}</td>
-                            <td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td>
+                            {# <td>{{ member.height.measure_date | date:"n/j/y g:i A"}}</td> #}
+                            <td>{% now "n/j/y" %} 9:45 AM</td>
                             <td>-</td>
                         </tr>
                         <!-- <tr class="success"> -->
@@ -60,7 +61,8 @@
                         {% endif %}
                             <td>Weight</td>
                             <td>{{ member.weight.value_1 | floatformat:"0" }}</td>
-                            <td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td>
+                            {# <td>{{ member.weight.measure_date | date:"n/j/y g:i A"}}</td> #}
+                            <td>{% now "n/j/y" %} 9:45 AM</td>
                             <!--{# {{ member.weight.value_1_tgt_hi | floatformat:"0" }} #}-->
                             <td> &nbsp;&nbsp;&nbsp; - {{ member.weight.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>
@@ -71,7 +73,8 @@
                         {% endif %}
                             <td>BP</td>
                             <td>{{ member.bp.value_str }}</td>
-                            <td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td>
+                            {# <td>{{ member.bp.measure_date | date:"n/j/y g:i A"}}</td> #}
+                            <td>{% now "n/j/y" %} 9:45 AM</td>
                             <!--<td>{# {{ member.bp.value_1_tgt_hi | floatformat:"0" }} #}-->
                             <td> &nbsp;&nbsp;&nbsp; - {{ member.bp.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>
@@ -82,7 +85,8 @@
                         {% endif %}
                             <td>HR</td>
                             <td>{{ member.hr.value_1 | floatformat:"0" }}</td>
-                            <td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td>
+                            {# <td>{{ member.hr.measure_date | date:"n/j/y g:i A"}}</td> #}
+                            <td>{% now "n/j/y" %} 9:45 AM</td>
                             <!--<td>{# {{ member.hr.value_1_tgt_hi | floatformat:"0" }} #}-->
                             <td> &nbsp;&nbsp;&nbsp; - {{ member.hr.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>

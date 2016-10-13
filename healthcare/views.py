@@ -10,7 +10,8 @@ from .models import CountyData, CountyWidget
 # from .models import RxClaim, ClaimLine
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
-from .forms import MessageForm, SmsForm, CountyDataForm
+# from .forms import MessageForm
+from .forms import SmsForm, CountyDataForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -70,6 +71,51 @@ def providers(request):
 
 
 @login_required
+def member_map_county(request, pk, template_name):
+    provider = get_object_or_404(Provider, pk=pk)
+    members = Member.objects.filter(providermember__provider_id=pk)
+    # logger.error(members.count())
+    provider = get_object_or_404(Provider, pk=pk)
+    logger.error(provider.id)
+    if request.method == "POST":
+        rdict = request.POST
+        # response_data = {}
+        # response_data['dict'] = rdict
+        # respond_with = HttpResponse(
+        #     json.dumps(response_data),
+        #     content_type="application/json"
+        # )
+        # return respond_with
+        state = rdict['state']
+        county = rdict['county']
+        logger.error(rdict)
+        # return county_lookup(request)
+    else:
+        state = provider.state
+        county = provider.county
+    logger.error(state + " " + county)
+    form = CountyDataForm()
+    behaviors = CountyWidget.objects.filter(
+        widget_name='Health Behaviors').values(
+        'category', 'measure_name', 'description', 'val1_ref',
+        'val2_ref', 'val1_type', 'us_str',
+        'us_val', 'us_val_type').order_by('display_order')
+    clinical = CountyWidget.objects.filter(
+        widget_name='Clinical Care').values(
+        'category', 'measure_name', 'description', 'val1_ref',
+        'val2_ref', 'val1_type', 'us_str',
+        'us_val', 'us_val_type').order_by('display_order')
+    countydata = CountyData.objects.filter(
+        state=state, county=county).first()
+    return render(request, template_name, {
+        'provider': provider, 'form': form,
+        'behaviors': behaviors, 'clinical': clinical,
+        'countydata': countydata, 'members': members})
+
+
+
+
+@login_required
 def map_county(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     members = Member.objects.filter(providermember__provider_id=pk)
@@ -110,6 +156,11 @@ def map_county(request, pk):
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
         'countydata': countydata, 'members': members})
+
+
+@login_required
+def member_map(request, pk):
+    return member_map_county(request, pk, 'healthcare/member_map.html')
 
 
 # @login_required
@@ -239,14 +290,30 @@ def county_lookup(request):
 
 
 @login_required
-def member_detail(request, pk):
+def member_detail_all(request, pk, template_name):
     member = get_object_or_404(Member, pk=pk)
     # providers = member.provider_set.order_by('id')
-    # return render(request, 'healthcare/member_detail.html', {'member': member, 'providers': providers})
+    # return render(request, 'healthcare/member_detail.html', {
+    # 'member': member, 'providers': providers})
     providermembers = ProviderMember.objects.filter(member=member).order_by('id')
     # rxclaims = member.rxclaim_set.order_by('id')
-    return render(request, 'healthcare/member_detail.html', {
+    return render(request, template_name, {
         'member': member, 'providermembers': providermembers})
+
+
+@login_required
+def member_admin(request, pk):
+    return member_detail_all(request, pk, 'healthcare/member_detail.html')
+
+
+@login_required
+def member_clinical(request, pk):
+    return member_detail_all(request, pk, 'healthcare/member_detail.html')
+
+
+@login_required
+def member_detail(request, pk):
+    return member_detail_all(request, pk, 'healthcare/member_detail.html')
 
 
 @login_required
@@ -417,38 +484,38 @@ def sms(request, pk):
         'form': form})
 
 
-@login_required
-def sms2(request):
-    if request.method == "POST":
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            sms = form.save(commit=False)
-            sms.user = request.user
-            sms.sent = True
-            sms.message_type = 'SMS'
+# @login_required
+# def sms2(request):
+#     if request.method == "POST":
+#         form = MessageForm(request.POST)
+#         if form.is_valid():
+#             sms = form.save(commit=False)
+#             sms.user = request.user
+#             sms.sent = True
+#             sms.message_type = 'SMS'
 
-            account = os.environ.get('TWILIO_ACCOUNT_SID')
-            token = os.environ.get('TWILIO_AUTH_TOKEN')
-            client = TwilioRestClient(account, token)
-            message = client.messages.create(
-                # to="+19735688856", from_="+18627728556",
-                to=sms.message_to, from_="+18627728556",
-                body=sms.text)
-            logger.error('Sent: ' + message.body + ' to: ' + message.to)
+#             account = os.environ.get('TWILIO_ACCOUNT_SID')
+#             token = os.environ.get('TWILIO_AUTH_TOKEN')
+#             client = TwilioRestClient(account, token)
+#             message = client.messages.create(
+#                 # to="+19735688856", from_="+18627728556",
+#                 to=sms.message_to, from_="+18627728556",
+#                 body=sms.text)
+#             logger.error('Sent: ' + message.body + ' to: ' + message.to)
 
-            sms.save()
-            return redirect('sms')
-    else:
-        member = Member.objects.get(pk=4)
-        defaults = {
-            'message_type': 'SMS', 'message_to': '+19735688856',
-            'message_from': '+18627728556', 'member': member}
-        form = MessageForm(initial=defaults)
-    # return render(request, 'blog/post_edit.html', {'form': form})
-    messages = Message.objects.filter(
-        message_type='SMS').order_by('-created_date')
-    return render(request, 'healthcare/sms.html', {
-        'messages': messages, 'form': form})
+#             sms.save()
+#             return redirect('sms')
+#     else:
+#         member = Member.objects.get(pk=4)
+#         defaults = {
+#             'message_type': 'SMS', 'message_to': '+19735688856',
+#             'message_from': '+18627728556', 'member': member}
+#         form = MessageForm(initial=defaults)
+#     # return render(request, 'blog/post_edit.html', {'form': form})
+#     messages = Message.objects.filter(
+#         message_type='SMS').order_by('-created_date')
+#     return render(request, 'healthcare/sms.html', {
+#         'messages': messages, 'form': form})
 
 
 def post_list(request):

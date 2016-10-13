@@ -4,16 +4,19 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.big_data, name='home'),
+    url(r'^big_data/$', views.big_data, name='big_data'),
     url(r'^rcg/$', views.rcg, name='rcg'),
     url(r'^members/$', views.members, name='members'),
     url(r'^providers/$', views.providers, name='providers'),
+    url(r'^member/admin/(?P<pk>\d+)/$', views.member_admin, name='member_admin'),
+    url(r'^member/clinical/(?P<pk>\d+)/$', views.member_clinical, name='member_clinical'),
     url(r'^member/(?P<pk>\d+)/$', views.member_detail, name='member_detail'),
     url(r'^membertest/(?P<pk>\d+)/$', views.member_detail1, name='member_detail1'),
     url(r'^sms/receive/$', views.receive_sms, name='receive_sms'),
-    url(r'^sms2/$', views.sms2, name='sms2'),
     url(r'^sms/(?P<pk>\d+)/$', views.sms, name='sms'),
     url(r'^heartrate/(?P<pk>\d+)/$', views.heartrate, name='heartrate'),
     url(r'^map_county/(?P<pk>\d+)/$', views.map_county, name='map_county'),
+    url(r'^member_map/(?P<pk>\d+)/$', views.member_map, name='member_map'),
     url(r'^provider_members/(?P<pk>\d+)/$', views.provider_members, name='provider_members'),
     url(r'^county_lookup/$', views.county_lookup, name='county_lookup'),
 

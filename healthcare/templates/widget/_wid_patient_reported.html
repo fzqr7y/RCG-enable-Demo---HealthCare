@@ -30,7 +30,8 @@
                         {% endif %}
                             <td>{{ rpt.measure_label }}</td>
                             <td>{{ rpt.display }}{{ rpt.value_str }}</td>
-                            <td>{{ rpt.measure_date | date:"n/j/y g:i A"}}</td>
+                            {# <td>{{ rpt.measure_date | date:"n/j/y g:i A"}}</td> #}
+                            <td>{% now "n/j/y" %} 9:35 AM</td>
                             <td>{{ rpt.value_1_alert_lo | floatformat:"0" }}
                             - {{ rpt.value_1_alert_hi | floatformat:"0" }}</td>
                         </tr>

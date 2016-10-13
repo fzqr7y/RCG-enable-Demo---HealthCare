@@ -1,6 +1,5 @@
 {% extends 'healthcare/base.html' %}
 {% load tz %}
-
 {% load staticfiles %}
 
 {% block page_title %}Members{% endblock %}
@@ -64,7 +63,7 @@
 		<!-- // <script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> -->
 
 		<!-- SPARKLINES -->
-		<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+		<!-- // <script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script> -->
 
 		<!-- JQUERY VALIDATE -->
 		<!-- // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> -->
@@ -84,9 +83,9 @@
 {% block js_page_plugins %}
 		<!-- PAGE RELATED PLUGIN(S) -->
 		<script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script>
-		<script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
+		{# <!--script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script--> #}
 		<script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
-		<script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script>
+		{# <!--script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script--> #}
 		<script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
 {% endblock %} <!-- js_page_plugins -->
 

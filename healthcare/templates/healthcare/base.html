@@ -382,14 +382,18 @@
 							<span class="menu-item-parent">DEV</span></a>
 					</li>
 					{% endif %}
+					<li {% block nav_member_map %}{% endblock %} >
+						<a href="{% url 'member_map' pk=user.userprofile.safe_provider %}" title="Member Map"><i class="fa fa-lg fa-fw fa-home"></i>
+							<span class="menu-item-parent">Home</span></a>
+					</li>
 					{% if "Test" in user.username %}
 					<li {% block nav_rcg %}{% endblock %} >
-						<a href="/rcg" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
+						<a href="{% url 'rcg' %}" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
 							<span class="menu-item-parent">RCG</span></a>
 					</li>
 					{% endif %}
 					<li {% block nav_big_data %}{% endblock %} >
-						<a href="/" title="Big Data"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
+						<a href="{% url 'big_data' %}" title="Big Data"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
 							<span class="menu-item-parent">Big Data</span></a>
 					</li>
 					<li {% block nav_members %}{% endblock %}>
