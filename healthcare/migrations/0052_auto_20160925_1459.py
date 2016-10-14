@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='membernotification',
+            model_name='member_notification',
             name='ref_id',
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='membernotification',
+            model_name='member_notification',
             name='ref_table',
             field=models.CharField(blank=True, max_length=40, null=True),
         ),

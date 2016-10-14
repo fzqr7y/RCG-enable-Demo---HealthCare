@@ -29,12 +29,14 @@
         <div class="project-context hidden-xs">
             {% if "Test" in user.username %}
             <span class="project-selector  dropdown-toggle" data-toggle="dropdown" style="text-transform: none; margin-top: -10px;">
-                <h1>{{ member.first_name }}<span class="semi-bold"> {{ member.last_name }}</span>
+                <h1 class="no-top-bottom-margin">{{ member.first_name }}
+                    <span class="semi-bold"> {{ member.last_name }}</span>
                     <i class="fa fa-angle-down"></i></h1>
             </span>
             {% else %}
-            <span class="project-selector" style="text-transform: none; margin-top: -10px;">
-                <h1>{{ member.first_name }}<span class="semi-bold"> {{ member.last_name }}</span></h1>
+            <span style="text-transform: none; margin-top: -10px;">
+                <h1 class="no-top-bottom-margin">{{ member.first_name }}
+                    <span class="semi-bold"> {{ member.last_name }}</span></h1>
             </span>
             {% endif %}
             <h1 style="margin-top: -10px; display: inline;">
@@ -113,7 +115,8 @@
                     {% endif %}
                     &nbsp;{{ member.bp.value_str }}</span>
                 </h5>
-                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm hidden-xs">
+                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm hidden-xs"
+                    style="padding-right:10px;">
                     {{ member.bp.value_1_history }}
                 </div>
             </li>

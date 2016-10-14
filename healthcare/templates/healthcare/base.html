@@ -382,8 +382,8 @@
 							<span class="menu-item-parent">DEV</span></a>
 					</li>
 					{% endif %}
-					<li {% block nav_member_map %}{% endblock %} >
-						<a href="{% url 'member_map' pk=user.userprofile.safe_provider %}" title="Member Map"><i class="fa fa-lg fa-fw fa-home"></i>
+					<li {% block nav_home %}{% endblock %} >
+						<a href="{% url 'home' %}" title="Home"><i class="fa fa-lg fa-fw fa-home"></i>
 							<span class="menu-item-parent">Home</span></a>
 					</li>
 					{% if "Test" in user.username %}
@@ -393,36 +393,59 @@
 					</li>
 					{% endif %}
 					<li {% block nav_big_data %}{% endblock %} >
-						<a href="{% url 'big_data' %}" title="Big Data"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
-							<span class="menu-item-parent">Big Data</span></a>
+						<a href="{% url 'big_data' %}" title="Data Sources"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
+							<span class="menu-item-parent">Data Types</span></a>
 					</li>
-					<li {% block nav_members %}{% endblock %}>
-						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
-							<span class="menu-item-parent">Members</span></a>
+					{% if member %}
+					<li {% block nav_member_clinical %}{% endblock %} >
+						<a href="{% url 'member_clinical' pk=member.id %}" title="Member"><i class="fa fa-picture-o"></i>
+							<span class="menu-item-parent">Clinical</span></a>
 					</li>
-					<li {% block nav_providers %}{% endblock %}>
-						<a href="{% url 'providers' %}" title="Provider List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
-							<span class="menu-item-parent">Providers</span></a>
+					<li {% block nav_member_admin %}{% endblock %} >
+						<a href="{% url 'member_admin' pk=member.id %}" title="Member"><i class="fa fa-picture-o"></i>
+							<span class="menu-item-parent">Admin</span></a>
 					</li>
+					{% else %}
 					<li {% block nav_demo %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Demo</span></a>
 						<ul>
-							<li {% block nav_member_detail %}{% endblock %} >
-								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
-									<span class="menu-item-parent">Member Detail</span></a>
+							<li {% block nav_member_clinical2 %}{% endblock %} >
+								<a href="{% url 'member_clinical' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
+									<span class="menu-item-parent">Member Clinical</span></a>
+							</li>
+							<li {% block nav_member_admin2 %}{% endblock %} >
+								<a href="{% url 'member_admin' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
+									<span class="menu-item-parent">Member Admin</span></a>
 							</li>
 						</ul>
 					</li>
-					<li {% block nav_map_county %}{% endblock %} >
-						<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
-							<span class="menu-item-parent">Community</span></a>
-					</li>
+					{% endif %}
 					{% if "Test" in user.username or request.user|has_group:"Tester" %}
 					<li {% block nav_test %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Test</span></a>
 						<ul>
+							<li {% block nav_map_county %}{% endblock %} >
+								<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
+									<span class="menu-item-parent">Community</span></a>
+							</li>
+							<li {% block nav_member_map %}{% endblock %} >
+								<a href="{% url 'member_map' pk=user.userprofile.safe_provider %}" title="Member Map"><i class="fa fa-lg fa-fw fa-home"></i>
+									<span class="menu-item-parent">Member Map</span></a>
+							</li>
+							<li {% block nav_member_detail %}{% endblock %} >
+								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
+									<span class="menu-item-parent">Member Detail</span></a>
+							</li>
+							<li {% block nav_members %}{% endblock %}>
+								<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
+									<span class="menu-item-parent">Members</span></a>
+							</li>
+							<li {% block nav_providers %}{% endblock %}>
+								<a href="{% url 'providers' %}" title="Provider List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
+									<span class="menu-item-parent">Providers</span></a>
+							</li>
 							<li {% block nav_member_detail1 %}{% endblock %} >
-								<a href="{% url 'member_detail1' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail</span></a>
+								<a href="{% url 'member_detail1' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail Test</span></a>
 							</li>
 							<li {% block nav_map_county1 %}{% endblock %} >
 								<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-gear"></i>

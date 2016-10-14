@@ -9,6 +9,7 @@
 {# http://stackoverflow.com/questions/844746/performing-a-getattr-style-lookup-in-a-django-template #}
 
 {% block page_title %}| Members {% endblock %}
+{% block nav_home %}class="active"{% endblock %}
 {% block nav_member_map %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
@@ -47,7 +48,7 @@
 		<article class="col-sm-12 col-md-5 col-lg-5">
 
       <!-- Provider Map Widget-->
-      {% include "widget/_wid_map_local.html" with person=provider %}
+      {% include "widget/_wid_member_map.html" with person=provider %}
 
       <!-- Map directions widget -->
       {% include "widget/_wid_map2_directions.html" %}

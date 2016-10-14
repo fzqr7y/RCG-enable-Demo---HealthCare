@@ -6,22 +6,22 @@
 <!--SC: https://djangosnippets.org/snippets/9/ -->
 {% load healthcare_tags %}
 
-{% block page_title %}Member Detail{% endblock %}
+{% block page_title %}Member Admin{% endblock %}
 
 {# {% block nav_demo %}class="top-menu-invisible active"{% endblock %} #}
 {% block nav_demo %}class="active"{% endblock %}
-{% block nav_member_detail %}class="active"{% endblock %}
+{% block nav_member_admin %}class="active"{% endblock %}
+{% block nav_member_admin2 %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
     <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
-    <!--<li>Home</li><li>Member</li><li>Detail</li>-->
-	<li>Member Detail</li>
+	<li>Member Admin</li>
 {% endblock %}
 {% block breadcrumb1 %}
-    <li>Member Detail</li>
+    <li>Member Admin</li>
 {% endblock %}
 
 
@@ -40,25 +40,11 @@
 		<!-- NEW WIDGET COLUMN 1 START -->
 		<article class="col-sm-12 col-md-4 col-lg-4">
 
-			<!-- Patient Vitals Widget-->
-        	{% include "widget/_wid_patient_vitals.html" %}
-
-			<!-- Patient Reported Data Widget-->
-        	{% include "widget/_wid_patient_reported.html" %}
-
 			<!-- Risk Scores Widget -->
         	{% include "widget/_wid_patient_risk.html" %}
 
 			<!-- Plan Payments Widget -->
         	{% include "widget/_wid_patient_payments.html" %}
-
-			<!-- Map directions widget -->
-        	{% include "widget/_wid_map2_directions.html" %}
-
-		{% if "Test" in user.username %}
-			<!-- Widget Template -->
-        	{% include "widget/_wid_template.html" %}
-		{% endif %}
 
 		</article>
 		<!-- WIDGET COLUMN 1 END -->
@@ -66,38 +52,17 @@
 		<!-- NEW WIDGET COLUMN 2 START -->
 		<article class="col-sm-12 col-md-4 col-lg-4">
 
-			<!-- SC Flot Auto Updating Chart -->
-        	{# {% include "widget/_wid_heartrate_demo.html" %} #}
+            <!-- Notes Widget -->
+            {% include "widget/_wid_patient_notes.html" %}
 
-			<!-- SC Fitbit Heartrate Chart -->
-        	{% include "widget/_wid_heartrate_fitbit.html" %}
-
-			<!-- Heartrate History  -->
-        	{% include "widget/_wid_heartrate_history.html" %}
-
-			<!-- Map 1 Widget -->
-        	{# {% include "widget/_wid_map1.html" %} #}
-
-  	        <!-- Provider Map Widget-->
-	        {% include "widget/_wid_map_local.html" with person=member %}
-
-			<!-- Weather Widget -->
-		    {% include "widget/_wid_weather.html" with person=member %}
+            <!-- Providers Widget -->
+            {% include "widget/_wid_patient_providers.html" %}
 
 		</article>
 		<!-- WIDGET COLUMN 2 ENDi -->
 
 		<!-- NEW WIDGET COLUMN 3 START -->
 		<article class="col-sm-12 col-md-4 col-lg-4">
-
-            <!-- Test SMS Widget -->
-            {# {% include "widget/_wid_sms.html" %} #}
-
-            <!-- CGMS  -->
-            {% include "widget/_wid_cgms.html" %}
-
-			<!-- patient contact widget -->
-        	{% include "widget/_wid_patient_contact.html" %}
 
 			<!-- Prescription Widget -->
             {% include "widget/_wid_patient_scripts.html" %}
@@ -106,11 +71,8 @@
 			<!-- Claims Widget -->
         	{% include "widget/_wid_patient_claims.html" %}
 
-			<!-- Notes Widget -->
-        	{% include "widget/_wid_patient_notes.html" %}
-
-			<!-- Providers Widget -->
-        	{% include "widget/_wid_patient_providers.html" %}
+            <!-- patient contact widget -->
+            {% include "widget/_wid_patient_contact.html" %}
 
 		</article>
 		<!-- WIDGET CLINICAL INFO COLUMN 3 END -->

@@ -144,7 +144,7 @@ class Member(models.Model):
         return self.provider_set.filter(providermember__role__exact="PCP").first()
 
     def vitals(self):
-        return self.membermedical_set.filter(record_type="Vitals", is_current=True).order_by('id')
+        return self.member_medical_set.filter(record_type="Vitals", is_current=True).order_by('id')
 
     def height(self):
         return self.vitals().get(measure_type="Height")
@@ -159,7 +159,7 @@ class Member(models.Model):
         return self.vitals().get(measure_type="Heart Rate")
 
     def reported(self):
-        return self.membermedical_set.filter(
+        return self.member_medical_set.filter(
             record_type="Reported", is_current=True).order_by('id')
 
     def rxclaims(self):
@@ -171,11 +171,11 @@ class Member(models.Model):
             is_current=True).order_by('-service_date')
 
     def hdr_notifs(self):
-        return self.membernotification_set.filter(
+        return self.member_notification_set.filter(
             widget="Header", is_current=True).order_by('id')
 
     def vitals_notifs(self):
-        return self.membernotification_set.filter(
+        return self.member_notification_set.filter(
             widget="Vitals", is_current=True).order_by('id')
 
     def smss(self):
@@ -228,7 +228,7 @@ class ProviderMember(models.Model):
         return str(self.provider_id) + "_" + str(self.member_id)
 
 
-class MemberMedical(models.Model):
+class Member_Medical(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     record_type = models.CharField(max_length=40)
     measure_type = models.CharField(max_length=40)
@@ -299,7 +299,7 @@ class MemberMedical(models.Model):
         return alerthi and alertlo
 
 
-class MemberNotification(models.Model):
+class Member_Notification(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     notification_type = models.CharField(max_length=20)
     widget = models.CharField(max_length=20)

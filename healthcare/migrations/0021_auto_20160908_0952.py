@@ -8,12 +8,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0020_membermedical'),
+        ('healthcare', '0020_member_medical'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1_history',
             field=models.TextField(blank=True, null=True),
         ),
@@ -93,42 +93,42 @@ class Migration(migrations.Migration):
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='measure_label',
             field=models.CharField(blank=True, max_length=40, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1_alert_hi',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1_tgt_hi',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_2',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_2_alert_lo',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_2_tgt_lo',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_str',
             field=models.CharField(blank=True, max_length=40, null=True),
         ),

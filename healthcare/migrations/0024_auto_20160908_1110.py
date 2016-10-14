@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='measure_date',
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),

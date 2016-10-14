@@ -49,6 +49,17 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
+def home(request):
+    if request.user.__class__.__name__ == 'User':
+        user = request.user
+    if user.userprofile.safe_provider:
+        provider_id = user.userprofile.safe_provider()
+    if provider_id:
+        return redirect('member_map', pk=provider_id)
+    return render(request, 'healthcare/big_data.html', {})
+
+
+@login_required
 def rcg(request):
     return render(request, 'healthcare/rcg.html', {})
 
@@ -303,12 +314,12 @@ def member_detail_all(request, pk, template_name):
 
 @login_required
 def member_admin(request, pk):
-    return member_detail_all(request, pk, 'healthcare/member_detail.html')
+    return member_detail_all(request, pk, 'healthcare/member_admin.html')
 
 
 @login_required
 def member_clinical(request, pk):
-    return member_detail_all(request, pk, 'healthcare/member_detail.html')
+    return member_detail_all(request, pk, 'healthcare/member_clinical.html')
 
 
 @login_required

@@ -14,27 +14,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1_alert_lo',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AddField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_1_tgt_lo',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AddField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_2_alert_hi',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AddField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='value_2_tgt_hi',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),
         migrations.AlterField(
-            model_name='membermedical',
+            model_name='member_medical',
             name='measure_date',
             field=models.DateField(default=django.utils.timezone.now),
         ),

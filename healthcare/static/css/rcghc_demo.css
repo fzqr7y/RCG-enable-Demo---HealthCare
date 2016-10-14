@@ -149,3 +149,7 @@ img.ahp-right-logo {
     text-decoration: underline;
 }
 
+.no-top-bottom-margin {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

@@ -6,22 +6,22 @@
 <!--SC: https://djangosnippets.org/snippets/9/ -->
 {% load healthcare_tags %}
 
-{% block page_title %}Member Detail{% endblock %}
+{% block page_title %}Member Clinical{% endblock %}
 
 {# {% block nav_demo %}class="top-menu-invisible active"{% endblock %} #}
 {% block nav_demo %}class="active"{% endblock %}
-{% block nav_member_detail %}class="active"{% endblock %}
+{% block nav_member_clinical %}class="active"{% endblock %}
+{% block nav_member_clinical2 %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
     <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
-    <!--<li>Home</li><li>Member</li><li>Detail</li>-->
-	<li>Member Detail</li>
+	<li>Member Clinical</li>
 {% endblock %}
 {% block breadcrumb1 %}
-    <li>Member Detail</li>
+    <li>Member Clinical</li>
 {% endblock %}
 
 
@@ -46,20 +46,6 @@
 			<!-- Patient Reported Data Widget-->
         	{% include "widget/_wid_patient_reported.html" %}
 
-			<!-- Risk Scores Widget -->
-        	{% include "widget/_wid_patient_risk.html" %}
-
-			<!-- Plan Payments Widget -->
-        	{% include "widget/_wid_patient_payments.html" %}
-
-			<!-- Map directions widget -->
-        	{% include "widget/_wid_map2_directions.html" %}
-
-		{% if "Test" in user.username %}
-			<!-- Widget Template -->
-        	{% include "widget/_wid_template.html" %}
-		{% endif %}
-
 		</article>
 		<!-- WIDGET COLUMN 1 END -->
 
@@ -75,15 +61,6 @@
 			<!-- Heartrate History  -->
         	{% include "widget/_wid_heartrate_history.html" %}
 
-			<!-- Map 1 Widget -->
-        	{# {% include "widget/_wid_map1.html" %} #}
-
-  	        <!-- Provider Map Widget-->
-	        {% include "widget/_wid_map_local.html" with person=member %}
-
-			<!-- Weather Widget -->
-		    {% include "widget/_wid_weather.html" with person=member %}
-
 		</article>
 		<!-- WIDGET COLUMN 2 ENDi -->
 
@@ -98,19 +75,6 @@
 
 			<!-- patient contact widget -->
         	{% include "widget/_wid_patient_contact.html" %}
-
-			<!-- Prescription Widget -->
-            {% include "widget/_wid_patient_scripts.html" %}
-            {# {% include "widget/_wid_members.html" %} #}
-
-			<!-- Claims Widget -->
-        	{% include "widget/_wid_patient_claims.html" %}
-
-			<!-- Notes Widget -->
-        	{% include "widget/_wid_patient_notes.html" %}
-
-			<!-- Providers Widget -->
-        	{% include "widget/_wid_patient_providers.html" %}
 
 		</article>
 		<!-- WIDGET CLINICAL INFO COLUMN 3 END -->
