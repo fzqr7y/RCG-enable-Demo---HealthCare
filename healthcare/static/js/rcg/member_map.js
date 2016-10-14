@@ -262,11 +262,12 @@
 
       }
 
-      // var jdata = []
+      // need jdata because geocode is asynchronous
+      var jdata = []
       function addMemberAddresses(geocoder, resultsMap) {
           var i = 0, j = 0
           var member_name, member_addr, member_id, member_alert
-          // jdata = []
+          jdata = []
           $.getJSON("/provider_members/" + $person_id, {},
             function(json){
               // console.log(json);  // sanity check
@@ -276,15 +277,15 @@
                   member_id = value.id;
                   member_alert = value.alert;
                   // console.log(nm + addr);
-                  // jdata.push([nm, addr, member_id]);
+                  jdata.push([member_name, member_addr, member_id]);
                   // console.log(jdata[i])
                   geocoder.geocode({'address': member_addr}, function(results, status) {
                     if (status === 'OK') {
                       // console.log("--"+nm+j+results)
                       // console.log(j+"--"+jdata[j][0])
                       // resultsMap.setCenter(results[0].geometry.location);
-                      // addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2])
-                      addPerson(results[0].geometry.location, member_name, member_name + " " + member_addr, member_id)
+                      // addPerson(results[0].geometry.location, member_name, member_name + " " + member_addr, member_id)
+                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2])
                       j++
                     } else {
                       alert('Geocode was not successful for the following reason: ' + status);
