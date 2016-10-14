@@ -2,7 +2,7 @@ from django import forms
 
 # from .models import Post, Comment, UserProfile
 from .models import Post, Comment
-from .models import Provider, Message, CountyData
+from .models import Provider, Message, County_Data
 
 import logging
 logger = logging.getLogger(__name__)
@@ -58,19 +58,19 @@ class SmsForm(forms.ModelForm):
         }
 
 
-class CountyDataForm(forms.ModelForm):
+class County_DataForm(forms.ModelForm):
     # state = forms.ChoiceField(choices=[
     #     ('NY', 'New York'), ('NJ', 'New Jersey')], required=False)
     state = forms.ChoiceField(choices=[], required=True)
     county = forms.ChoiceField(choices=[], required=False)
 
     class Meta:
-        model = CountyData
+        model = County_Data
         fields = ('state', 'county',)
 
     def __init__(self, *args, **kwargs):
-        super(CountyDataForm, self).__init__(*args, **kwargs)
-        states = CountyData.objects.all().values_list(
+        super(County_DataForm, self).__init__(*args, **kwargs)
+        states = County_Data.objects.all().values_list(
             "state", "state_name").distinct().order_by('state_name')
         BLANK_CHOICE = (('', '---------'),)
         state_choices = BLANK_CHOICE + tuple(states)

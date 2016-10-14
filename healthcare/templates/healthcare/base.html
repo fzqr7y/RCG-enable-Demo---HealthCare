@@ -386,12 +386,6 @@
 						<a href="{% url 'home' %}" title="Home"><i class="fa fa-lg fa-fw fa-home"></i>
 							<span class="menu-item-parent">Home</span></a>
 					</li>
-					{% if "Test" in user.username %}
-					<li {% block nav_rcg %}{% endblock %} >
-						<a href="{% url 'rcg' %}" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
-							<span class="menu-item-parent">RCG</span></a>
-					</li>
-					{% endif %}
 					<li {% block nav_big_data %}{% endblock %} >
 						<a href="{% url 'big_data' %}" title="Data Sources"><i class="font-mfizz icon-hadoop" style="font-size:36px; margin-top:-3px; margin-bottom:-8px;"></i>
 							<span class="menu-item-parent">Data Types</span></a>
@@ -424,6 +418,10 @@
 					<li {% block nav_test %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Test</span></a>
 						<ul>
+							<li {% block nav_rcg %}{% endblock %} >
+								<a href="{% url 'rcg' %}" title="RCG"><i class="fa fa-lg fa-fw fa-home"></i>
+									<span class="menu-item-parent">RCG</span></a>
+							</li>
 							<li {% block nav_map_county %}{% endblock %} >
 								<a href="{% url 'map_county' pk=user.userprofile.safe_provider %}" title="Map"><i class="fa fa-lg fa-fw fa-map-marker"></i>
 									<span class="menu-item-parent">Community</span></a>
@@ -736,13 +734,13 @@
 		<!-- BOOTSTRAP JS -->
 		<script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 
-    {% block js_smartadmin %}
 		<!-- CUSTOM NOTIFICATION -->
-		<!-- // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> -->
+		<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
 
 		<!-- JARVIS WIDGETS -->
-		<!-- // <script src="{% static 'js/smartwidgets/jarvis.widget.min.js' %}"></script> -->
+		<script src="{% static 'js/smartwidgets/jarvis.widget.min.js' %}"></script>
 
+    {% block js_smartadmin %}
 		<!-- EASY PIE CHARTS -->
 		<!-- // <script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> -->
 

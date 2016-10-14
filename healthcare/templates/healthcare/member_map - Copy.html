@@ -27,13 +27,13 @@
 
 <!-- SC county form row -->
 <div class="row">
-    <form method="POST" class="countydata-form" id="countydata-form">
+    <form method="POST" class="county_data-form" id="county_data-form">
 	<ol class="breadcrumb">
     	{% csrf_token %}
         {{ form.as_ul }}
         <li><button type="submit" class="btn btn-default btn-xs">Get</button></li>
     </ol>
-    <div id="countydata-form-results"></div> <!-- errors go here -->
+    <div id="county_data-form-results"></div> <!-- errors go here -->
     </form>
 </div>
 <!-- end SC county form row -->
@@ -122,7 +122,7 @@
       var $person_id = {{ provider.id }};
       var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
-    <script src="{% static 'js/rcg/map_county.js' %}"></script>
+    <script src="{% static 'js/rcg/member_map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
 {% endblock %} <!-- js_voice_chat -->
 

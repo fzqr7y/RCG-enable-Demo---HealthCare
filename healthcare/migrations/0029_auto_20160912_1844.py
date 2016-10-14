@@ -8,19 +8,19 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0028_rxclaim'),
+        ('healthcare', '0028_rx_claim'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='member',
         ),
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='provider',
         ),
         migrations.DeleteModel(
-            name='RxClaim',
+            name='Rx_Claim',
         ),
     ]

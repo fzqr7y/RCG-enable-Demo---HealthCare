@@ -6,20 +6,20 @@ from django.contrib.auth.models import User
 
 # Register your models here.
 from .models import Post, Comment
-from .models import Provider, Member, ProviderMember, Member_Medical
-from .models import CountyData, CountyWidget, Member_Notification
+from .models import Provider, Member, Provider_Member, Member_Medical
+from .models import County_Data, County_Widget, Member_Notification
 from healthcare.models import UserProfile, Message
 
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Provider)
 admin.site.register(Member)
-admin.site.register(ProviderMember)
+admin.site.register(Provider_Member)
 admin.site.register(Member_Medical)
 admin.site.register(Member_Notification)
 admin.site.register(Message)
-admin.site.register(CountyData)
-admin.site.register(CountyWidget)
+admin.site.register(County_Data)
+admin.site.register(County_Widget)
 
 
 # SC: extend User via UserProfile

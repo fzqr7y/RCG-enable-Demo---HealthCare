@@ -8,11 +8,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0040_countywidget'),
+        ('healthcare', '0040_county_widget'),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='CountyWidget',
+            name='County_Widget',
         ),
     ]

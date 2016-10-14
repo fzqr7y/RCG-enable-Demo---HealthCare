@@ -95,11 +95,11 @@
 
 {% block js_smartadmin %}
 	<!-- CUSTOM NOTIFICATION -->
-	<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
+	{# // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> #}
 
 	<!-- JARVIS WIDGETS -->
 	<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-	<script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script>
+	{# // <script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script> #}
 
 	<!-- EASY PIE CHARTS -->
 	<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
@@ -121,31 +121,25 @@
 {% endblock %} <!-- js_smartadmin -->
 
 {% block js_voice_chat %}
-    <script>
-      var $person_id = {{ member.id }};
-      var $member_detail_url = "{% url 'member_detail' pk=1 %}"
-    </script>
-    <script src="{% static 'js/rcg/map_county.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMemberMap" async defer></script>
 {% endblock %} <!-- js_voice_chat -->
 
 {% block js_page_plugins %}
 	<!-- DYGRAPH -->
-	<script src="{% static 'js/rcg/dygraph-demo-data.js' %}"></script>
+	{# // <script src="{% static 'js/rcg/dygraph-demo-data.js' %}"></script> #}
 	{# // <script src="{% static 'js/plugin/dygraphs/demo-data.js' %}"></script> #}
-	<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
+	{# // <script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script> #}
 
 	<!-- progress bars -->
 	<script src="{% static 'js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
 
 	<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-	<script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script>
-	<script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script>
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script> #}
+	{# // <script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script> #}
 
 	<!-- SC: news ticker -->
 	<!-- https://github.com/conradfeyt/Simple-Marquee -->
@@ -160,9 +154,9 @@
     <!-- datatables (scripts & claims) -->
     {# // <script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script> #}
     <script src="{% static 'js/rcg/rcg.jquery.dataTables.js' %}"></script>
-    <script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
+    {# // <script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script> #}
     <script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
-    <script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script>
+    {# // <script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script> #}
     <script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
 {% endblock %} <!-- js_page_plugins -->
 

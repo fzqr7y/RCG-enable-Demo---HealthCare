@@ -21,7 +21,9 @@
       // var pinColor2 = "0000AA";
       // var pinImage1, pinImage2, pinShadow;
       var pinColor = "0000AA";
+      var my_address = document.getElementById('address').value;
 
+      // This function is used in the home / county_map pages.
       function initMap() {
         // var pyrmont = {lat: -33.867, lng: 151.195};
 
@@ -51,7 +53,7 @@
         var geocoder = new google.maps.Geocoder();
 
         document.getElementById('submitNearby').addEventListener('click', function() {
-          geocodeAddress(geocoder, map, 'My Address');
+          geocodeAddress(geocoder, map, 'Address');
           // searchNearby(geocoder, map);
           searchBoth(geocoder, map);
         });
@@ -101,6 +103,7 @@
       }
 
 
+      // This function is used in the member detail pages.
       function initMemberMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: nyc,
@@ -110,7 +113,7 @@
         infoWindow = new google.maps.InfoWindow({map: map});
 
         document.getElementById('submitNearby').addEventListener('click', function() {
-          geocodeAddress(geocoder, map, 'My Address');
+          geocodeAddress(geocoder, map, 'Address');
           searchBoth(geocoder, map);
         });
 
@@ -126,8 +129,8 @@
               lng: position.coords.longitude
             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Your current location.');
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Your current location.');
             map.setCenter(pos);
             // addMarker(pos);
             // var marker = new google.maps.Marker({
@@ -192,16 +195,20 @@
           title: hover
         });
         // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        if (membid == 0) {
-          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        } else {
+        if (membid == 0 && hover == 'Me') {
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+        } else if (membid == 0) {
+          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue.png')
+        } else {
+          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
         }
         // console.log(hover, membid)
         google.maps.event.addListener(marker, 'click', function() {
           // infoWindow.setContent('<a href= "http://127.0.0.1:8000/">'+popup+'</a>');
           // infoWindow.setContent('<a href= "{% url 'member_detail' pk=4 %}">'+popup+'</a>');
-          if (membid == 0) {
+          if (membid == 0 && hover == 'Me') {
+            infoWindow.setContent(popup);
+          } else if (membid == 0) {
             infoWindow.setContent(popup);
           } else {
             // mstr = 'member_detail pk=' + id
@@ -237,7 +244,7 @@
             //   position: results[0].geometry.location,
             //   title: 'My Address'
             // });
-            addPerson(results[0].geometry.location, title, title, 0)
+            addPerson(results[0].geometry.location, title, address, 0)
 
 //             infowindow = new google.maps.InfoWindow();
 //             var service = new google.maps.places.PlacesService(resultsMap);
@@ -255,27 +262,29 @@
 
       }
 
-      var jdata = []
+      // var jdata = []
       function addMemberAddresses(geocoder, resultsMap) {
           var i = 0, j = 0
-          var name, addr
-          jdata = []
+          var member_name, member_addr, member_id, member_alert
+          // jdata = []
           $.getJSON("/provider_members/" + $person_id, {},
             function(json){
               // console.log(json);  // sanity check
               $.each(json, function (index, value) {
-                  nm = value.first_name + " " + value.last_name;
-                  addr = value.address + ", " + value.state + " " + value.zip;
+                  member_name = value.first_name + " " + value.last_name;
+                  member_addr = value.address + ", " + value.state + " " + value.zip;
                   member_id = value.id;
+                  member_alert = value.alert;
                   // console.log(nm + addr);
-                  jdata.push([nm, addr, member_id]);
+                  // jdata.push([nm, addr, member_id]);
                   // console.log(jdata[i])
-                  geocoder.geocode({'address': addr}, function(results, status) {
+                  geocoder.geocode({'address': member_addr}, function(results, status) {
                     if (status === 'OK') {
                       // console.log("--"+nm+j+results)
                       // console.log(j+"--"+jdata[j][0])
                       // resultsMap.setCenter(results[0].geometry.location);
-                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2])
+                      // addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2])
+                      addPerson(results[0].geometry.location, member_name, member_name + " " + member_addr, member_id)
                       j++
                     } else {
                       alert('Geocode was not successful for the following reason: ' + status);

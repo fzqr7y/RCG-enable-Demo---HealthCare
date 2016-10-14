@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RemoveField(
-            model_name='providermember',
+            model_name='provider_member',
             name='member',
         ),
         migrations.RemoveField(
-            model_name='providermember',
+            model_name='provider_member',
             name='provider',
         ),
         migrations.RemoveField(
@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
             name='members',
         ),
         migrations.DeleteModel(
-            name='ProviderMember',
+            name='Provider_Member',
         ),
     ]

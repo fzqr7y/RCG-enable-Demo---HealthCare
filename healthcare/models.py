@@ -137,11 +137,11 @@ class Member(models.Model):
         return self.calculate_age(self.birth_date)
 
     def provider(self, role):
-        return self.provider_set.get(providermember__role__exact=role)
+        return self.provider_set.get(provider_member__role__exact=role)
 
     def pcp(self):
-        # return self.provider_set.get(providermember__role__exact="PCP")
-        return self.provider_set.filter(providermember__role__exact="PCP").first()
+        # return self.provider_set.get(provider_member__role__exact="PCP")
+        return self.provider_set.filter(provider_member__role__exact="PCP").first()
 
     def vitals(self):
         return self.member_medical_set.filter(record_type="Vitals", is_current=True).order_by('id')
@@ -162,12 +162,12 @@ class Member(models.Model):
         return self.member_medical_set.filter(
             record_type="Reported", is_current=True).order_by('id')
 
-    def rxclaims(self):
-        return self.rxclaim_set.filter(
+    def rx_claims(self):
+        return self.rx_claim_set.filter(
             is_current=True).order_by('-service_date')
 
-    def claimlines(self):
-        return self.claimline_set.filter(
+    def claim_lines(self):
+        return self.claim_line_set.filter(
             is_current=True).order_by('-service_date')
 
     def hdr_notifs(self):
@@ -206,7 +206,7 @@ class Provider(models.Model):
     languages = models.CharField(max_length=20, blank=True, null=True)
     next_appt = models.DateTimeField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    members = models.ManyToManyField(Member, through='ProviderMember')
+    members = models.ManyToManyField(Member, through='Provider_Member')
     picture_path = models.CharField(max_length=50, blank=True, null=True)
     provider_type = models.CharField(max_length=12, blank=True, null=True)
     county = models.CharField(max_length=20, blank=True, null=True)
@@ -215,7 +215,7 @@ class Provider(models.Model):
         return self.provider_id
 
 
-class ProviderMember(models.Model):
+class Provider_Member(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     role = models.CharField(max_length=40)
@@ -317,7 +317,7 @@ class Member_Notification(models.Model):
             self.notification_type)
 
 
-class CountyWidget(models.Model):
+class County_Widget(models.Model):
     widget_name = models.CharField(max_length=20)
     category = models.CharField(max_length=40, blank=True, null=True)
     measure_name = models.CharField(max_length=40)
@@ -337,7 +337,7 @@ class CountyWidget(models.Model):
         return self.widget_name + "_" + str(self.display_order) + "_" + self.measure_key
 
 
-class CountyData(models.Model):
+class County_Data(models.Model):
     year = models.IntegerField()
     fips = models.IntegerField()
     state_name = models.CharField(max_length=20)
@@ -537,7 +537,7 @@ class Drug(models.Model):
             self.drug_ndc)
 
 
-class RxClaim(models.Model):
+class Rx_Claim(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     biller = models.ForeignKey(Provider, related_name='billed_scripts', blank=True, null=True)
@@ -606,7 +606,7 @@ class RxClaim(models.Model):
             self.filled_date.strftime('%y%m%d'))
 
 
-class ClaimLine(models.Model):
+class Claim_Line(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     biller = models.ForeignKey(Provider, related_name='billed_claims', blank=True, null=True)

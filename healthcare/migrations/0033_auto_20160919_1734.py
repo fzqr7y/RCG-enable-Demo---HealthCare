@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.DeleteModel(
-            name='CountyData',
+            name='County_Data',
         ),
         migrations.DeleteModel(
             name='CountyMetrics',

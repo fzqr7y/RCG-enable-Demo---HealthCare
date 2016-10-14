@@ -4,14 +4,14 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment
-from .models import Provider, Member, ProviderMember, Message
-from .models import CountyData, CountyWidget
+from .models import Provider, Member, Provider_Member, Message
+from .models import County_Data, County_Widget
 # , UserProfile
-# from .models import RxClaim, ClaimLine
+# from .models import Rx_Claim, Claim_Line
 # from .forms import ProviderForm
 from .forms import PostForm, CommentForm
 # from .forms import MessageForm
-from .forms import SmsForm, CountyDataForm
+from .forms import SmsForm, County_DataForm
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -84,7 +84,7 @@ def providers(request):
 @login_required
 def member_map_county(request, pk, template_name):
     provider = get_object_or_404(Provider, pk=pk)
-    members = Member.objects.filter(providermember__provider_id=pk)
+    members = Member.objects.filter(provider_member__provider_id=pk)
     # logger.error(members.count())
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
@@ -105,23 +105,23 @@ def member_map_county(request, pk, template_name):
         state = provider.state
         county = provider.county
     logger.error(state + " " + county)
-    form = CountyDataForm()
-    behaviors = CountyWidget.objects.filter(
+    form = County_DataForm()
+    behaviors = County_Widget.objects.filter(
         widget_name='Health Behaviors').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref', 'val1_type', 'us_str',
         'us_val', 'us_val_type').order_by('display_order')
-    clinical = CountyWidget.objects.filter(
+    clinical = County_Widget.objects.filter(
         widget_name='Clinical Care').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref', 'val1_type', 'us_str',
         'us_val', 'us_val_type').order_by('display_order')
-    countydata = CountyData.objects.filter(
+    county_data = County_Data.objects.filter(
         state=state, county=county).first()
     return render(request, template_name, {
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
-        'countydata': countydata, 'members': members})
+        'county_data': county_data, 'members': members})
 
 
 
@@ -129,7 +129,7 @@ def member_map_county(request, pk, template_name):
 @login_required
 def map_county(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
-    members = Member.objects.filter(providermember__provider_id=pk)
+    members = Member.objects.filter(provider_member__provider_id=pk)
     # logger.error(members.count())
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
@@ -150,23 +150,23 @@ def map_county(request, pk):
         state = provider.state
         county = provider.county
     logger.error(state + " " + county)
-    form = CountyDataForm()
-    behaviors = CountyWidget.objects.filter(
+    form = County_DataForm()
+    behaviors = County_Widget.objects.filter(
         widget_name='Health Behaviors').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref', 'val1_type', 'us_str',
         'us_val', 'us_val_type').order_by('display_order')
-    clinical = CountyWidget.objects.filter(
+    clinical = County_Widget.objects.filter(
         widget_name='Clinical Care').values(
         'category', 'measure_name', 'description', 'val1_ref',
         'val2_ref', 'val1_type', 'us_str',
         'us_val', 'us_val_type').order_by('display_order')
-    countydata = CountyData.objects.filter(
+    county_data = County_Data.objects.filter(
         state=state, county=county).first()
     return render(request, 'healthcare/map_county.html', {
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
-        'countydata': countydata, 'members': members})
+        'county_data': county_data, 'members': members})
 
 
 @login_required
@@ -177,7 +177,7 @@ def member_map(request, pk):
 # @login_required
 # def map_county2(request, pk):
 #     provider = get_object_or_404(Provider, pk=pk)
-#     members = Member.objects.filter(providermember__provider_id=pk)
+#     members = Member.objects.filter(provider_member__provider_id=pk)
 #     # logger.error(members.count())
 #     return render(request, 'healthcare/map_county2.html', {
 #         'provider': provider, 'members': members})
@@ -186,7 +186,7 @@ def member_map(request, pk):
 # @login_required
 # def map_county3(request, pk):
 #     provider = get_object_or_404(Provider, pk=pk)
-#     members = Member.objects.filter(providermember__provider_id=pk)
+#     members = Member.objects.filter(provider_member__provider_id=pk)
 #     # logger.error(members.count())
 #     return render(request, 'healthcare/map_county3.html', {
 #         'provider': provider, 'members': members})
@@ -196,7 +196,7 @@ def member_map(request, pk):
 def provider_members(request, pk):
     provider = get_object_or_404(Provider, pk=pk)
     logger.error(provider.id)
-    members = Member.objects.filter(providermember__provider_id=pk).values(
+    members = Member.objects.filter(provider_member__provider_id=pk).values(
         'id', 'first_name', 'last_name', 'address', 'city', 'state', 'zip')
     serial_data = list(members)
     rdata = json.dumps(serial_data, cls=DjangoJSONEncoder)
@@ -210,11 +210,11 @@ def provider_members(request, pk):
 def county_lookup(request):
     if request.method == "POST":
         state = request.POST['state']
-        counties = CountyData.objects.filter(
+        counties = County_Data.objects.filter(
             state=state).values_list(
             "county").distinct().order_by('county')
         rdata = json.dumps(list(counties), cls=DjangoJSONEncoder)
-        # counties = CountyData.objects.filter(
+        # counties = County_Data.objects.filter(
         #     state=state).distinct().order_by('county')
         # rdata = serialize('json', counties, fields=('county', 'county'))
         return HttpResponse(
@@ -226,7 +226,7 @@ def county_lookup(request):
 # @login_required
 # def county_data(request, pk):
 #     provider = get_object_or_404(Provider, pk=pk)
-#     members = Member.objects.filter(providermember__provider_id=pk)
+#     members = Member.objects.filter(provider_member__provider_id=pk)
 #     logger.error(provider.id)
 #     if request.method == "POST":
 #         rdict = request.POST
@@ -245,21 +245,21 @@ def county_lookup(request):
 #         state = provider.state
 #         county = provider.county
 #     logger.error(state + " " + county)
-#     form = CountyDataForm()
-#     behaviors = CountyWidget.objects.filter(
+#     form = County_DataForm()
+#     behaviors = County_Widget.objects.filter(
 #         widget_name='Health Behaviors').values(
 #         'category', 'measure_name', 'description', 'val1_ref',
 #         'val2_ref').order_by('display_order')
-#     clinical = CountyWidget.objects.filter(
+#     clinical = County_Widget.objects.filter(
 #         widget_name='Clinical Care').values(
 #         'category', 'measure_name', 'description', 'val1_ref',
 #         'val2_ref').order_by('display_order')
-#     countydata = CountyData.objects.filter(
+#     county_data = County_Data.objects.filter(
 #         state=state, county=county).first()
 #     return render(request, 'healthcare/county_data.html', {
 #         'provider': provider, 'form': form,
 #         'behaviors': behaviors, 'clinical': clinical,
-#         'countydata': countydata, 'members': members})
+#         'county_data': county_data, 'members': members})
 
 
 # @login_required
@@ -283,21 +283,21 @@ def county_lookup(request):
 #         state = provider.state
 #         county = provider.county
 #     logger.error(state + " " + county)
-#     form = CountyDataForm()
-#     behaviors = CountyWidget.objects.filter(
+#     form = County_DataForm()
+#     behaviors = County_Widget.objects.filter(
 #         widget_name='Health Behaviors').values(
 #         'category', 'measure_name', 'description', 'val1_ref',
 #         'val2_ref').order_by('display_order')
-#     clinical = CountyWidget.objects.filter(
+#     clinical = County_Widget.objects.filter(
 #         widget_name='Clinical Care').values(
 #         'category', 'measure_name', 'description', 'val1_ref',
 #         'val2_ref').order_by('display_order')
-#     countydata = CountyData.objects.filter(
+#     county_data = County_Data.objects.filter(
 #         state=state, county=county).first()
 #     return render(request, 'healthcare/county_data.html', {
 #         'provider': provider, 'form': form,
 #         'behaviors': behaviors, 'clinical': clinical,
-#         'countydata': countydata})
+#         'county_data': county_data})
 
 
 @login_required
@@ -306,10 +306,10 @@ def member_detail_all(request, pk, template_name):
     # providers = member.provider_set.order_by('id')
     # return render(request, 'healthcare/member_detail.html', {
     # 'member': member, 'providers': providers})
-    providermembers = ProviderMember.objects.filter(member=member).order_by('id')
-    # rxclaims = member.rxclaim_set.order_by('id')
+    provider_members = Provider_Member.objects.filter(member=member).order_by('id')
+    # rx_claims = member.rx_claim_set.order_by('id')
     return render(request, template_name, {
-        'member': member, 'providermembers': providermembers})
+        'member': member, 'provider_members': provider_members})
 
 
 @login_required
@@ -333,9 +333,9 @@ def member_detail1(request, pk):
     # providers = member.provider_set.order_by('id')
     # return render(request, 'healthcare/member_detail.html', {
     # 'member': member, 'providers': providers})
-    providermembers = ProviderMember.objects.filter(member=member).order_by('id')
+    provider_members = Provider_Member.objects.filter(member=member).order_by('id')
     return render(request, 'healthcare/member_detail1.html', {
-        'member': member, 'providermembers': providermembers})
+        'member': member, 'provider_members': provider_members})
 
 
 @login_required
@@ -344,10 +344,10 @@ def heartrate(request, pk):
     # providers = member.provider_set.order_by('id')
     # return render(request, 'healthcare/member_detail.html', {
     # 'member': member, 'providers': providers})
-    providermembers = ProviderMember.objects.filter(
+    provider_members = Provider_Member.objects.filter(
         member=member).order_by('id')
     return render(request, 'healthcare/heartrate.html', {
-        'member': member, 'providermembers': providermembers})
+        'member': member, 'provider_members': provider_members})
 
 
 # @login_required

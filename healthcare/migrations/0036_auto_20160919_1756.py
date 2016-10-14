@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='countydata',
+            model_name='county_data',
             name='county',
             field=models.CharField(max_length=40),
         ),

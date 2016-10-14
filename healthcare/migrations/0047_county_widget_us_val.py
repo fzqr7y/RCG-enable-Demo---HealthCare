@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='us_val',
             field=models.DecimalField(blank=True, decimal_places=4, max_digits=10, null=True),
         ),

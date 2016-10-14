@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0038_countydata'),
+        ('healthcare', '0038_county_data'),
     ]
 
     operations = [

@@ -8,32 +8,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0047_countywidget_us_val'),
+        ('healthcare', '0047_county_widget_us_val'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='us_str',
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='us_val_type',
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='val1_type',
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='val2_type',
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
         migrations.AddField(
-            model_name='countywidget',
+            model_name='county_widget',
             name='val3_type',
             field=models.CharField(blank=True, max_length=10, null=True),
         ),

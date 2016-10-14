@@ -8,12 +8,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0034_countydata'),
+        ('healthcare', '0034_county_data'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='countydata',
+            model_name='county_data',
             name='county',
             field=models.CharField(max_length=30),
         ),

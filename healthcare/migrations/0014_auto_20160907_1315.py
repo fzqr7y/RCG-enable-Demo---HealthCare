@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ProviderMember',
+            name='Provider_Member',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('role', models.CharField(max_length=40)),
@@ -45,18 +45,18 @@ class Migration(migrations.Migration):
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AddField(
-            model_name='providermember',
+            model_name='provider_member',
             name='member',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='healthcare.Member'),
         ),
         migrations.AddField(
-            model_name='providermember',
+            model_name='provider_member',
             name='provider',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='healthcare.Provider'),
         ),
         migrations.AddField(
             model_name='provider',
             name='members',
-            field=models.ManyToManyField(through='healthcare.ProviderMember', to='healthcare.Member'),
+            field=models.ManyToManyField(through='healthcare.Provider_Member', to='healthcare.Member'),
         ),
     ]

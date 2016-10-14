@@ -133,11 +133,11 @@
 
 {% block js_smartadmin %}
 	<!-- CUSTOM NOTIFICATION -->
-	<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
+	{# // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> #}
 
 	<!-- JARVIS WIDGETS -->
 	<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-	<script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script>
+	{# // <script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script> #}
 
 	<!-- EASY PIE CHARTS -->
 	<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
@@ -163,7 +163,7 @@
       var $person_id = {{ member.id }};
       var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
-    <script src="{% static 'js/rcg/map_county.js' %}"></script>
+    <script src="{% static 'js/rcg/member_map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMemberMap" async defer></script>
 {% endblock %} <!-- js_voice_chat -->
 

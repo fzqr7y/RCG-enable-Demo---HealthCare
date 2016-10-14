@@ -19,7 +19,7 @@
           ×
         </button>
         <i class="fa-fw fa fa-info"></i>
-        <code>{{ countydata.county }}</code> County, <code>{{ countydata.state_name }}</code>
+        <code>{{ county_data.county }}</code> County, <code>{{ county_data.state_name }}</code>
       </div>
       <div class="table-responsive">
       <!-- uncomment this line to limit table height -->
@@ -41,11 +41,11 @@
               {% regroup behaviors by category as grouped %}
               {% for group in grouped %}
                 {% for obj in group.list %}
-                  {% if countydata|getattribute:obj.val2_ref > 3 %}
+                  {% if county_data|getattribute:obj.val2_ref > 3 %}
                     {% with tdtag='<td class="danger">' %}
                       {% include "widget/_wid_county_row.html" %}
                     {% endwith %}
-                  {% elif countydata|getattribute:obj.val2_ref < 2 %}
+                  {% elif county_data|getattribute:obj.val2_ref < 2 %}
                     {% with tdtag='<td class="success">' %}
                       {% include "widget/_wid_county_row.html" %}
                     {% endwith %}

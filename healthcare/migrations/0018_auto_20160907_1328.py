@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ProviderMember',
+            name='Provider_Member',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('role', models.CharField(max_length=40)),
@@ -29,6 +29,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='provider',
             name='members',
-            field=models.ManyToManyField(through='healthcare.ProviderMember', to='healthcare.Member'),
+            field=models.ManyToManyField(through='healthcare.Provider_Member', to='healthcare.Member'),
         ),
     ]

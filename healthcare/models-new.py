@@ -45,7 +45,7 @@ import Provider
 #         return str(self.year) + "_" + self.measure_key #}
 
 
-# class CountyData(models.Model):
+# class County_Data(models.Model):
 #     year = models.IntegerField()
 #     fips = models.IntegerField()
 #     state = models.CharField(max_length=2)
@@ -101,7 +101,7 @@ class Drug(models.Model):
             self.drug_ndc)
 
 
-class RxClaim(models.Model):
+class Rx_Claim(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     biller = models.ForeignKey(Provider, related_name='billed_scripts', blank=True, null=True)
@@ -170,7 +170,7 @@ class RxClaim(models.Model):
             self.filled_date.strftime('%y%m%d'))
 
 
-class ClaimLine(models.Model):
+class Claim_Line(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     biller = models.ForeignKey(Provider, related_name='billed_claims', blank=True, null=True)

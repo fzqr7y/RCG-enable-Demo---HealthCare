@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='providermember',
+            model_name='provider_member',
             name='end_date',
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='providermember',
+            model_name='provider_member',
             name='start_date',
             field=models.DateField(default='1970-01-01'),
         ),

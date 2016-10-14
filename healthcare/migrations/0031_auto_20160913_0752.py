@@ -8,24 +8,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0030_druginfo_pharmacy_rxclaim'),
+        ('healthcare', '0030_druginfo_pharmacy_rx_claim'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='druginfo',
         ),
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='member',
         ),
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='pharmacy',
         ),
         migrations.RemoveField(
-            model_name='rxclaim',
+            model_name='rx_claim',
             name='provider',
         ),
         migrations.AddField(
@@ -40,6 +40,6 @@ class Migration(migrations.Migration):
             name='Pharmacy',
         ),
         migrations.DeleteModel(
-            name='RxClaim',
+            name='Rx_Claim',
         ),
     ]

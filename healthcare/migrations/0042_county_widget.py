@@ -8,12 +8,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('healthcare', '0041_delete_countywidget'),
+        ('healthcare', '0041_delete_county_widget'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='CountyWidget',
+            name='County_Widget',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('widget_name', models.CharField(max_length=20)),
