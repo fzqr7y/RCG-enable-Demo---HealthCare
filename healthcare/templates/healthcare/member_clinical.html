@@ -127,7 +127,7 @@
 
 {% block js_page_plugins %}
 	<!-- DYGRAPH -->
-	<script src="{% static 'healthcare/js/rcg/dygraph-demo-data.js' %}"></script>
+	<script src="{% static 'healthcare/data/dygraph-demo-data.js' %}"></script>
 	{# // <script src="{% static 'smartadmin/js/plugin/dygraphs/demo-data.js' %}"></script> #}
 	<script src="{% static 'smartadmin/js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
 
@@ -230,7 +230,7 @@
             // SC data is in file js\rcg\dygraph-cgms.js.
             g3 = new Dygraph(
                 document.getElementById("cgms1"),
-                "{% static 'healthcare/js/rcg/glucose.csv' %}", {
+                "{% static 'healthcare/data/glucose.csv' %}", {
                     // customBars : true, // doesn't work when not specifying error bands
                     title : 'Continuous Glucose Monitoring',
                     ylabel : 'Glucose mg/dl',
@@ -243,7 +243,7 @@
                     // showRoller: true
             });
             /*cgms_g1 = new Dygraph(document.getElementById("cgms1"),
-                "{% static 'healthcare/js/rcg/temperatures.csv' %}", {
+                "{% static 'healthcare/data/temperatures.csv' %}", {
                 customBars : true,
                 title : 'Continuous Glucose Monitoring',
                 ylabel : 'Glucose mg/dl',
