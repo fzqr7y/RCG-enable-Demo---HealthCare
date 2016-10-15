@@ -13,7 +13,7 @@
 {% block nav_member_detail %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
-        <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
+        <link rel="stylesheet" href="{% static 'healthcare/css/marquee.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
@@ -448,9 +448,9 @@
 						{% expr "city=" + member.city + "&state=" + member.state as addr %}
 						{# {{ addr }} #}
 						<!-- SC Google Maps Javascript API -->
-						<!--<iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'map.html' %}" allowfullscreen>-->
+						<!--<iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'healthcare/map.html' %}" allowfullscreen>-->
 						<iframe width="100%" height="400" frameborder="0" style="border:0"
-							src="{% static 'map.html' %}?{{ addr }}" allowfullscreen>
+							src="{% static 'healthcare/map.html' %}?{{ addr }}" allowfullscreen>
 						</iframe>
 						<!-- SC Google Maps Javascript API -->
 					<br>
@@ -480,7 +480,7 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						<!-- SC Google Maps Directions Javascript API -->
-						<iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'mapdirections.html' %}" allowfullscreen></iframe>
+						<iframe width="100%" height="400" frameborder="0" style="border:0" src="{% static 'healthcare/mapdirections.html' %}" allowfullscreen></iframe>
 						<!-- SC Google Maps Javascript API -->
 					</div>
 					<!-- end widget content -->
@@ -1220,7 +1220,7 @@
 									<div class="row">
 										<div class="col-sm-3 profile-pic">
 											<br><br>
-											<img src="{% static 'img/avatars/sunny-big.png' %}" alt="healthcare user">
+											<img src="{% static 'smartadmin/img/avatars/sunny-big.png' %}" alt="healthcare user">
 											<div class="padding-10">
 												<h4 class="font-md">
 													<small>Sex</small>
@@ -1279,19 +1279,19 @@
 										<div class="col-sm-3">
 											<h1><small>Providers</small></h1>
 											<ul class="list-inline friends-list">
-												<li><img src="{% static 'img/avatars/1.png' %}" alt="friend-1">
+												<li><img src="{% static 'smartadmin/img/avatars/1.png' %}" alt="friend-1">
 												</li>
-												<li><img src="{% static 'img/avatars/2.png' %}" alt="friend-2">
+												<li><img src="{% static 'smartadmin/img/avatars/2.png' %}" alt="friend-2">
 												</li>
-												<li><img src="{% static 'img/avatars/3.png' %}" alt="friend-3">
+												<li><img src="{% static 'smartadmin/img/avatars/3.png' %}" alt="friend-3">
 												</li>
-												<li><img src="{% static 'img/avatars/4.png' %}" alt="friend-4">
+												<li><img src="{% static 'smartadmin/img/avatars/4.png' %}" alt="friend-4">
 												</li>
-												<li><img src="{% static 'img/avatars/5.png' %}" alt="friend-5">
+												<li><img src="{% static 'smartadmin/img/avatars/5.png' %}" alt="friend-5">
 												</li>
-												<li><img src="{% static 'img/avatars/male.png' %}" alt="friend-6">
+												<li><img src="{% static 'smartadmin/img/avatars/male.png' %}" alt="friend-6">
 												</li>
-												<li><img src="{% static 'img/avatars/female.png' %}" alt="friend-7">
+												<li><img src="{% static 'smartadmin/img/avatars/female.png' %}" alt="friend-7">
 												<li>
 													<a href="javascript:void(0);"> more</a>
 												</li>
@@ -1366,29 +1366,29 @@
 
 {% block js_smartadmin %}
 		<!-- CUSTOM NOTIFICATION -->
-		<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/notification/SmartNotification.min.js' %}"></script>
 
 		<!-- JARVIS WIDGETS -->
-		<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-		<script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script>
+		<!-- <script src="{# static 'smartadmin/js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
+		<script src="{% static 'healthcare/js/rcg/rcg.jarvis.widget.js' %}"></script>
 
 		<!-- EASY PIE CHARTS -->
-		<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
 
 		<!-- SPARKLINES -->
-		<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
 
 		<!-- JQUERY VALIDATE -->
-		<script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/jquery-validate/jquery.validate.min.js' %}"></script>
 
 		<!-- JQUERY MASKED INPUT -->
-		<script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script>
 
 		<!-- JQUERY SELECT2 INPUT -->
-		<script src="{% static 'js/plugin/select2/select2.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/select2/select2.min.js' %}"></script>
 
 		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script>
 {% endblock %} <!-- js_smartadmin -->
 
 {% block js_voice_chat %}
@@ -1396,30 +1396,30 @@
 
 {% block js_page_plugins %}
 		<!-- SC: dygraph -->
-		<script src="{% static 'js/plugin/dygraphs/demo-data.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/dygraphs/demo-data.min.js' %}"></script>
 		<!-- DYGRAPH -->
-		<script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
 		<!-- progress bars -->
-		<script src="{% static 'js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+		<script src="{% static 'smartadmin/js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
 		</script>
 		<!-- /SC: dygraph -->
 
 		<!-- SC: flot -->
 		<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-		<script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script>
-		<script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.pie.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.time.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script>
 		<!-- /SC: flot -->
 
 
 		<!-- SC: news ticker -->
 		<!-- https://github.com/conradfeyt/Simple-Marquee -->
 		<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-		<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+		<script type="text/javascript" src="{% static 'healthcare/js/marquee.js' %}"></script>
 		<script>
 			$(function (){
 				$('.simple-marquee-container').SimpleMarquee();

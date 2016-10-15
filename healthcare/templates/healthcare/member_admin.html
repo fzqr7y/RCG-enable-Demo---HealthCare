@@ -14,7 +14,7 @@
 {% block nav_member_admin2 %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
-    <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
+    <link rel="stylesheet" href="{% static 'healthcare/css/marquee.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
@@ -95,29 +95,29 @@
 
 {% block js_smartadmin %}
 	<!-- CUSTOM NOTIFICATION -->
-	{# // <script src="{% static 'js/notification/SmartNotification.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/notification/SmartNotification.min.js' %}"></script> #}
 
 	<!-- JARVIS WIDGETS -->
-	<!-- <script src="{# static 'js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
-	{# // <script src="{% static 'js/rcg/rcg.jarvis.widget.js' %}"></script> #}
+	<!-- <script src="{# static 'smartadmin/js/smartwidgets/jarvis.widget.min.js' #}"></script>-->
+	{# // <script src="{% static 'healthcare/js/rcg/rcg.jarvis.widget.js' %}"></script> #}
 
 	<!-- EASY PIE CHARTS -->
-	<script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
+	<script src="{% static 'smartadmin/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
 
 	<!-- SPARKLINES -->
-	<script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+	<script src="{% static 'smartadmin/js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
 
 	<!-- JQUERY VALIDATE -->
-	{# // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> #}
 
 	<!-- JQUERY MASKED INPUT -->
-	{# // <script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> #}
 
 	<!-- JQUERY SELECT2 INPUT -->
-	{# // <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/select2/select2.min.js' %}"></script> #}
 
 	<!-- JQUERY UI + Bootstrap Slider -->
-	{# // <script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> #}
 {% endblock %} <!-- js_smartadmin -->
 
 {% block js_voice_chat %}
@@ -125,26 +125,26 @@
 
 {% block js_page_plugins %}
 	<!-- DYGRAPH -->
-	{# // <script src="{% static 'js/rcg/dygraph-demo-data.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/dygraphs/demo-data.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/dygraphs/dygraph-combined.min.js' %}"></script> #}
+	{# // <script src="{% static 'healthcare/js/rcg/dygraph-demo-data.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/dygraphs/demo-data.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/dygraphs/dygraph-combined.min.js' %}"></script> #}
 
 	<!-- progress bars -->
-	<script src="{% static 'js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+	<script src="{% static 'smartadmin/js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
 
 	<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.cust.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.resize.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.pie.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.time.min.js' %}"></script> #}
-	{# // <script src="{% static 'js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.cust.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.resize.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.orderBar.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.pie.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.time.min.js' %}"></script> #}
+	{# // <script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.tooltip.min.js' %}"></script> #}
 
 	<!-- SC: news ticker -->
 	<!-- https://github.com/conradfeyt/Simple-Marquee -->
 	<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-	<script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+	<script type="text/javascript" src="{% static 'healthcare/js/marquee.js' %}"></script>
 	<script>
 		$(function (){
 			$('.simple-marquee-container').SimpleMarquee();
@@ -152,17 +152,17 @@
 	</script>
 
     <!-- datatables (scripts & claims) -->
-    {# // <script src="{% static 'js/plugin/datatables/jquery.dataTables.min.js' %}"></script> #}
-    <script src="{% static 'js/rcg/rcg.jquery.dataTables.js' %}"></script>
-    {# // <script src="{% static 'js/plugin/datatables/dataTables.colVis.min.js' %}"></script> #}
-    <script src="{% static 'js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
-    {# // <script src="{% static 'js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script> #}
-    <script src="{% static 'js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
+    {# // <script src="{% static 'smartadmin/js/plugin/datatables/jquery.dataTables.min.js' %}"></script> #}
+    <script src="{% static 'healthcare/js/rcg/rcg.jquery.dataTables.js' %}"></script>
+    {# // <script src="{% static 'smartadmin/js/plugin/datatables/dataTables.colVis.min.js' %}"></script> #}
+    <script src="{% static 'smartadmin/js/plugin/datatables/dataTables.tableTools.min.js' %}"></script>
+    {# // <script src="{% static 'smartadmin/js/plugin/datatables/dataTables.bootstrap.min.js' %}"></script> #}
+    <script src="{% static 'smartadmin/js/plugin/datatable-responsive/datatables.responsive.min.js' %}"></script>
 {% endblock %} <!-- js_page_plugins -->
 
 {% block js_doc_ready %}
     <!-- PAGE RELATED DECLARATIONS -->
-    <script src="{% static 'js/rcg/flot_colors.js' %}"></script>
+    <script src="{% static 'healthcare/js/rcg/flot_colors.js' %}"></script>
 
     <!-- DOCUMENT READY FUNCTION -->
     <script type="text/javascript">
@@ -171,7 +171,7 @@
         var $member_id = {{ member.id }};
 
         /* SC: export tables */
-        var $sSwfPath = "{% static 'js/plugin/datatables/swf/copy_csv_xls_pdf.swf' %}"
+        var $sSwfPath = "{% static 'smartadmin/js/plugin/datatables/swf/copy_csv_xls_pdf.swf' %}"
 
 		$(document).ready(function() {
 
@@ -183,7 +183,7 @@
 			 */
 
             /* SC: table tools - search and export */
-            loadScript("{% static 'js/rcg/datatable_tabletools.js' %}", true);
+            loadScript("{% static 'healthcare/js/rcg/datatable_tabletools.js' %}", true);
 
 			/* SC: progress bar */
 			// Fill all progress bars with animation
@@ -228,7 +228,7 @@
             // SC data is in file js\rcg\dygraph-cgms.js.
             g3 = new Dygraph(
                 document.getElementById("cgms1"),
-                "{% static 'js/rcg/glucose.csv' %}", {
+                "{% static 'healthcare/js/rcg/glucose.csv' %}", {
                     // customBars : true, // doesn't work when not specifying error bands
                     title : 'Continuous Glucose Monitoring',
                     ylabel : 'Glucose mg/dl',
@@ -241,7 +241,7 @@
                     // showRoller: true
             });
             /*cgms_g1 = new Dygraph(document.getElementById("cgms1"),
-                "{% static 'js/rcg/temperatures.csv' %}", {
+                "{% static 'healthcare/js/rcg/temperatures.csv' %}", {
                 customBars : true,
                 title : 'Continuous Glucose Monitoring',
                 ylabel : 'Glucose mg/dl',
@@ -254,8 +254,8 @@
 
 			/* SC: flot */
 			/* updating chart */
-            // loadScript("{% static 'js/rcg/flot_update.js' %}", true);
-            loadScript("{% static 'js/rcg/heartrate.js' %}", true);
+            // loadScript("{% static 'healthcare/js/rcg/flot_update.js' %}", true);
+            loadScript("{% static 'healthcare/js/rcg/heartrate.js' %}", true);
 
         })
     </script>

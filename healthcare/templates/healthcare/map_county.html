@@ -12,7 +12,7 @@
 {% block nav_map_county %}class="active"{% endblock %}
 
 {% block page_stylesheets %}
-    <link rel="stylesheet" href="{% static 'css/marquee.css' %}" />
+    <link rel="stylesheet" href="{% static 'healthcare/css/marquee.css' %}" />
   {% endblock %}
 
 {% block breadcrumb %}
@@ -111,15 +111,15 @@
       var $person_id = {{ provider.id }};
       var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
-    <script src="{% static 'js/rcg/member_map.js' %}"></script>
+    <script src="{% static 'healthcare/js/rcg/member_map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
 {% endblock %} <!-- js_voice_chat -->
 
 {% block js_page_plugins %}
-  <script src="{% static 'js/rcg/county_data.js' %}"></script>
+  <script src="{% static 'healthcare/js/rcg/county_data.js' %}"></script>
   <!-- SC: news ticker -->
   <!-- https://github.com/conradfeyt/Simple-Marquee -->
-  <script type="text/javascript" src="{% static 'js/marquee.js' %}"></script>
+  <script type="text/javascript" src="{% static 'healthcare/js/marquee.js' %}"></script>
   <script>
     $(function (){
       $('.simple-marquee-container').SimpleMarquee();

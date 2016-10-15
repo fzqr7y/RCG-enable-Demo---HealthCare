@@ -3,7 +3,7 @@
 {% if person.picture_path %}
     <img src="{% static person.picture_path %}" alt="{{ person.name }}" />
 {% elif person.sex == 'F' %}
-    <img src="{% static 'img/avatars/female.png' %}" alt="{{ person.name }}" />
+    <img src="{% static 'smartadmin/img/avatars/female.png' %}" alt="{{ person.name }}" />
 {% else %}
-    <img src="{% static 'img/avatars/male.png' %}" alt="{{ person.name }}" />
+    <img src="{% static 'smartadmin/img/avatars/male.png' %}" alt="{{ person.name }}" />
 {% endif %}

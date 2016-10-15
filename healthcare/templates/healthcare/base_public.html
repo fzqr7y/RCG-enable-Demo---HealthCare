@@ -14,39 +14,39 @@
 
 		<!-- #CSS Links -->
 		<!-- Basic Styles -->
-        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap.min.css' %}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/font-awesome.min.css' %}">
 
 		<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-production-plugins.min.css' %}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-production.min.css' %}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-skins.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/smartadmin-production-plugins.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/smartadmin-production.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/smartadmin-skins.min.css' %}">
 
 		<!-- SmartAdmin RTL Support -->
-		<!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-rtl.min.css' %}"> -->
+		<!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/smartadmin-rtl.min.css' %}"> -->
 
 		<!-- We recommend you use "your_style.css" to override SmartAdmin
 		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/your_style.css' %}"> -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/your_style.css' %}"> -->
 
 	{% if "Test" in user.username %}
         <!-- SC: this is the twirling gears at top right that dynamically change page properties -->
 		<!-- healthcare purpose only: goes with healthcare.js, you can delete this css when designing your own WebApp -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/healthcare.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'smartadmin/css/healthcare.min.css' %}">
     {% endif %}
 
         <!-- SC: RCG Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/rcghc_demo.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'healthcare/css/rcghc_demo.css' %}">
     {% block page_stylesheets %}
-        <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
+        <!--link rel="stylesheet" href="{% static 'healthcare/css/blog.css' %}"-->
     {% endblock %}
 
 		<!-- #FAVICONS -->
-		<!-- <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
-		<link rel="icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon"> -->
-		<link rel="shortcut icon" href="{% static 'img/rcg/rcg-logo.png' %}" type="image/png">
-		<link rel="icon" href="{% static 'img/rcg/rcg-logo.png' %}" type="image/png">
-		<!-- <img src="{% static 'img/rcg/rcg-logo.png' %}" alt="RCG Healthcare" style="width:30px;height:30px;"> -->
+		<!-- <link rel="shortcut icon" href="{% static 'smartadmin/img/favicon/favicon.ico' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'smartadmin/img/favicon/favicon.ico' %}" type="image/x-icon"> -->
+		<link rel="shortcut icon" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}" type="image/png">
+		<link rel="icon" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}" type="image/png">
+		<!-- <img src="{% static 'healthcare/img/rcg/rcg-logo.png' %}" alt="RCG Healthcare" style="width:30px;height:30px;"> -->
 
 		<!-- #GOOGLE FONT -->
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
@@ -54,28 +54,28 @@
 		<!-- #APP SCREEN / ICONS -->
 		<!-- Specifying a Webpage Icon for Web Clip
 			 Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
-		<!-- <link rel="apple-touch-icon" href="{% static 'img/splash/sptouch-icon-iphone.png' %}">
-		<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/splash/touch-icon-ipad.png' %}">
-		<link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/splash/touch-icon-iphone-retina.png' %}">
-		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/splash/touch-icon-ipad-retina.png' %}"> -->
-		<link rel="apple-touch-icon" href="{% static 'img/rcg/rcg-logo.png' %}">
-		<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/rcg/rcg-logo.png' %}">
-		<link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/rcg/rcg-logo.png' %}">
-		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/rcg/rcg-logo.png' %}">
+		<!-- <link rel="apple-touch-icon" href="{% static 'smartadmin/img/splash/sptouch-icon-iphone.png' %}">
+		<link rel="apple-touch-icon" sizes="76x76" href="{% static 'smartadmin/img/splash/touch-icon-ipad.png' %}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{% static 'smartadmin/img/splash/touch-icon-iphone-retina.png' %}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'smartadmin/img/splash/touch-icon-ipad-retina.png' %}"> -->
+		<link rel="apple-touch-icon" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}">
+		<link rel="apple-touch-icon" sizes="76x76" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}">
 
 		<!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<!-- Startup image for web apps -->
-		<!-- <link rel="apple-touch-startup-image" href="{% static 'img/splash/ipad-landscape.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
-		<link rel="apple-touch-startup-image" href="{% static 'img/splash/ipad-portrait.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
-		<link rel="apple-touch-startup-image" href="{% static 'img/splash/iphone.png' %}" media="screen and (max-device-width: 320px)"> -->
-		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/rcg-logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
-		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/rcg-logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
-		<link rel="apple-touch-startup-image" href="{% static 'img/rcg/rcg-logo.png' %}" media="screen and (max-device-width: 320px)">
+		<!-- <link rel="apple-touch-startup-image" href="{% static 'smartadmin/img/splash/ipad-landscape.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+		<link rel="apple-touch-startup-image" href="{% static 'smartadmin/img/splash/ipad-portrait.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+		<link rel="apple-touch-startup-image" href="{% static 'smartadmin/img/splash/iphone.png' %}" media="screen and (max-device-width: 320px)"> -->
+		<link rel="apple-touch-startup-image" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+		<link rel="apple-touch-startup-image" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+		<link rel="apple-touch-startup-image" href="{% static 'healthcare/img/rcg/rcg-logo.png' %}" media="screen and (max-device-width: 320px)">
     {% block js_head %}
-        <!--link rel="stylesheet" href="{% static 'css/blog.css' %}"-->
+        <!--link rel="stylesheet" href="{% static 'healthcare/css/blog.css' %}"-->
     {% endblock %}
 
 	</head>
@@ -137,8 +137,8 @@
 				<span id="rcg-logo"> <!-- SC: removed "logo" id -->
 				    <!-- <img src="img/logo.png" alt="SmartAdmin"> -->
 					<!--<img src="img/rcg/rcg-logo.png" alt="RCG Healthcare" style="width:30px;height:30px;">-->
-					{# <img src="{# static 'img/rcg/rcg-logo.png' %}" alt="RCG Healthcare" style="width:30px;height:30px;"> #}
-					<img class="rcg-left-logo" src="{% static 'img/rcg/rcg-logo.png' %}">
+					{# <img src="{# static 'healthcare/img/rcg/rcg-logo.png' %}" alt="RCG Healthcare" style="width:30px;height:30px;"> #}
+					<img class="rcg-left-logo" src="{% static 'healthcare/img/rcg/rcg-logo.png' %}">
 				</span>
 				<span class="rcg-brand-text">
 					&nbsp;RCG|<span style="color:red;">enable</span>&trade; Healthcare
@@ -155,7 +155,7 @@
 			<div class="pull-right">
 
 				<div id="ahp-logo" class="btn-header transparent pull-right">
-					<img class="ahp-right-logo" src="{% static 'img/rcg/ahp-logo.png' %}" />
+					<img class="ahp-right-logo" src="{% static 'healthcare/img/rcg/ahp-logo.png' %}" />
 				</div>
 
 				<!-- collapse menu button -->
@@ -200,7 +200,7 @@
                         <!-- SC: login -->
                     {% if user.is_authenticated %}
 						<!--<img src=" static 'img/avatars/sunny.png' " alt="me" class="online" />-->
-						<!-- <img src="{# static 'img/avatars/Scott.jpg' #}" alt="me" class="online" /> -->
+						<!-- <img src="{# static 'smartadmin/img/avatars/Scott.jpg' #}" alt="me" class="online" /> -->
 						<!-- this works if using the media directory but not doing that for ease with heroku
 						<img src="{# user.userprofile.picture.url #}" alt="{# user.name #}" class="online" />-->
 						<!-- <img src="{% static user.userprofile.picture %}" alt="{# user.name #}" class="online" /> -->
@@ -246,7 +246,7 @@
 			<!-- MAIN CONTENT -->
 			<div id="content" >
             {% block main_content %}
-                <!--img src="{% static 'img/rcg/rcg-enable.png' %}" alt="RCG Healthcare">-->
+                <!--img src="{% static 'healthcare/img/rcg/rcg-enable.png' %}" alt="RCG Healthcare">-->
             {% endblock %} <!-- main content -->
 
 			</div>
@@ -272,66 +272,66 @@
 		<!--================================================== -->
 
 		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-		<!-- // <script data-pace-options='{ "restartOnRequestAfter": true }' src="{% static 'js/plugin/pace/pace.min.js' %}"></script> -->
+		<!-- // <script data-pace-options='{ "restartOnRequestAfter": true }' src="{% static 'smartadmin/js/plugin/pace/pace.min.js' %}"></script> -->
 
 
 		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script>
 			if (!window.jQuery) {
-				document.write('<script src="{% static 'js/libs/jquery-2.1.1.min.js' %}"><\/script>');
+				document.write('<script src="{% static 'smartadmin/js/libs/jquery-2.1.1.min.js' %}"><\/script>');
 			}
 		</script>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script>
 			if (!window.jQuery.ui) {
-				document.write('<script src="{% static 'js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
+				document.write('<script src="{% static 'smartadmin/js/libs/jquery-ui-1.10.3.min.js' %}"><\/script>');
 			}
 		</script>
 
 		<!-- IMPORTANT: APP CONFIG -->
-		<script src="{% static 'js/app.config.js' %}"></script>
+		<script src="{% static 'smartadmin/js/app.config.js' %}"></script>
 
     {% block js_touch %}
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<!-- // <script src="{% static 'js/plugin/jquery-touch/jquery.ui.touch-punch.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js' %}"></script> -->
     {% endblock %}
 
 		<!-- BOOTSTRAP JS -->
-		<script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/bootstrap/bootstrap.min.js' %}"></script>
 
     {% block js_smartadmin %}
 		<!-- CUSTOM NOTIFICATION -->
-		<script src="{% static 'js/notification/SmartNotification.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/notification/SmartNotification.min.js' %}"></script>
 
 		<!-- JARVIS WIDGETS -->
-		<!-- // <script src="{% static 'js/smartwidgets/jarvis.widget.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/smartwidgets/jarvis.widget.min.js' %}"></script> -->
 
 		<!-- EASY PIE CHARTS -->
-		<!-- // <script src="{% static 'js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> -->
 
 		<!-- SPARKLINES -->
-		<!-- // <script src="{% static 'js/plugin/sparkline/jquery.sparkline.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/sparkline/jquery.sparkline.min.js' %}"></script> -->
 
 		<!-- JQUERY VALIDATE -->
-		<!-- // <script src="{% static 'js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> -->
 
 		<!-- JQUERY MASKED INPUT -->
-		<!-- // <script src="{% static 'js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> -->
 
 		<!-- JQUERY SELECT2 INPUT -->
-		<!-- // <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/select2/select2.min.js' %}"></script> -->
 
 		<!-- JQUERY UI + Bootstrap Slider -->
-		<!-- // <script src="{% static 'js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> -->
     {% endblock %} <!-- js_smartadmin -->
 
 		<!-- browser msie issue fix -->
-		<script src="{% static 'js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script>
 
 		<!-- FastClick: For mobile devices -->
-		<script src="{% static 'js/plugin/fastclick/fastclick.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/plugin/fastclick/fastclick.min.js' %}"></script>
 
 		<!--[if IE 8]>
 
@@ -340,16 +340,16 @@
 		<![endif]-->
 
 		<!-- MAIN APP JS FILE -->
-		<script src="{% static 'js/app.min.js' %}"></script>
+		<script src="{% static 'smartadmin/js/app.min.js' %}"></script>
 
     {% block js_voice_chat %}
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		<!-- Voice command : plugin -->
-		<!-- // <script src="{% static 'js/speech/voicecommand.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/speech/voicecommand.min.js' %}"></script> -->
 
 		<!-- SmartChat UI : plugin -->
-		<!-- // <script src="{% static 'js/smart-chat-ui/smart.chat.ui.min.js' %}"></script> -->
-		<!-- // <script src="{% static 'js/smart-chat-ui/smart.chat.manager.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/smart-chat-ui/smart.chat.ui.min.js' %}"></script> -->
+		<!-- // <script src="{% static 'smartadmin/js/smart-chat-ui/smart.chat.manager.min.js' %}"></script> -->
     {% endblock %}
 
 		<!-- PAGE RELATED PLUGIN(S)
