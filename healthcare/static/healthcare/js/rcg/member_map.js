@@ -84,10 +84,13 @@
         //   zoom: 13      // zoomed
         // });
         // var geocoder = new google.maps.Geocoder();
+// alert("my address");
         geocodeAddress(geocoder, map, 'My Address');
+// alert("members");
         addMemberAddresses(geocoder, map);
         if (!chrome || location.protocol == "https:" ||
           location.hostname == '127.0.0.1' || location.hostname == 'localhost') {
+// alert("my location");
           getMyLocation(map, infoWindow);
         }
 
@@ -124,6 +127,7 @@
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
+// alert("found me");
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
@@ -142,10 +146,12 @@
             // console.log('Me' + people.length);
             // console.log('Me' + people[people.length-1]);
           }, function() {
+// alert("location error");
             handleLocationError(true, infoWindow, map.getCenter());
           });
         } else {
           // Browser doesn't support Geolocation
+// alert("browser error");
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
@@ -188,7 +194,7 @@
 
       // function createMarker(place) {
       //http://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
-      function addPerson(location, hover, popup, membid) {
+      function addPerson(location, hover, popup, membid, member_sex, member_alert) {
         var marker = new google.maps.Marker({
           map: map,
           position: location,
@@ -199,6 +205,12 @@
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
         } else if (membid == 0) {
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue.png')
+        } else if (member_alert == 'Alert'){
+          if (member_sex == 'M') {
+            marker.setIcon('/static/healthcare/img/icons/man-red.png')
+          } else {
+            marker.setIcon('/static/healthcare/img/icons/woman-red.png')
+          }
         } else {
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
         }
@@ -236,8 +248,10 @@
         // document.getElementById('address').value = address;
         address = document.getElementById('address').value;
         console.log('address: ' + address)
+// alert("geocode address:" + address);
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
+// alert("ok:" + address);
             resultsMap.setCenter(results[0].geometry.location);
             // var marker = new google.maps.Marker({
             //   map: resultsMap,
@@ -256,7 +270,8 @@
 //             }, callback);
 
           } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+// alert("error:" + address + " " + status);
+            alert('Geocode Address was not successful for the following reason: ' + status);
           }
         });
 
@@ -266,7 +281,7 @@
       var jdata = []
       function addMemberAddresses(geocoder, resultsMap) {
           var i = 0, j = 0
-          var member_name, member_addr, member_id, member_alert
+          var member_name, member_addr, member_id, member_alert, member_sex
           jdata = []
           $.getJSON("/provider_members/" + $person_id, {},
             function(json){
@@ -276,19 +291,23 @@
                   member_addr = value.address + ", " + value.state + " " + value.zip;
                   member_id = value.id;
                   member_alert = value.alert;
+                  member_sex = value.sex;
                   // console.log(nm + addr);
-                  jdata.push([member_name, member_addr, member_id]);
+                  jdata.push([member_name, member_addr, member_id, member_sex, member_alert]);
                   // console.log(jdata[i])
+// alert("geocode member:" + member_addr);
                   geocoder.geocode({'address': member_addr}, function(results, status) {
                     if (status === 'OK') {
+// alert("member:" + jdata[j][1]);
                       // console.log("--"+nm+j+results)
-                      // console.log(j+"--"+jdata[j][0])
+                      // console.log(j+"--"+jdata[j])
                       // resultsMap.setCenter(results[0].geometry.location);
                       // addPerson(results[0].geometry.location, member_name, member_name + " " + member_addr, member_id)
-                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2])
+                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2], jdata[j][3], jdata[j][4])
                       j++
                     } else {
-                      alert('Geocode was not successful for the following reason: ' + status);
+// alert("member error:" + member_addr + " " + status);
+                      alert('Geocode Member was not successful for the following reason: ' + status);
                     }
                   });
                   i++;
