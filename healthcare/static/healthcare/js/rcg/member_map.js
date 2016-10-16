@@ -15,13 +15,16 @@
       var map;
       var infowindow;
       var markers = [];
+      var allMarkers = {};
+      allMarkers.default = markers;
+      var searchTerm = null;
       var people = [];
       var nyc = {lat: 40.713, lng: 74.001};
       // var pinColor1 = "FE7569";
       // var pinColor2 = "0000AA";
       // var pinImage1, pinImage2, pinShadow;
-      var pinColor = "0000AA";
-      var my_address = document.getElementById('address').value;
+      // var pinColor = "0000AA";
+      // var my_address = document.getElementById('address').value;
 
       // This function is used in the home / county_map pages.
       function initMap() {
@@ -66,6 +69,20 @@
         //  document.getElementById('getMembers').addEventListener('click', function() {
         //   addMemberAddresses(geocoder, map);
         // });
+
+        // checkboxes in _wid_member_map_search.html
+        $("form#member-map-search-form input:checkbox").change(function() {
+            if(this.checked) {
+                // alert(this.value + " checked")
+                console.log('Searching for: ' + this.value)
+                searchTerm(geocoder, map, this.value);
+            }
+            var searchItems = [];
+            $.each($("form#member-map-search-form input:checked"), function(){
+                searchItems.push($(this).val());
+            });
+            alert("Selected elements: " + searchItems.join(", "));
+        });
 
         // My location
         infoWindow = new google.maps.InfoWindow({map: map});
@@ -172,6 +189,7 @@
             // createMarker(results[i]);
             addMarker(results[i]);
           }
+          searchTerm = null;
         }
       }
 
@@ -184,24 +202,35 @@
           // icon: pinImage2,
           // shadow: pinShadow
         });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/lightblue.png')
 
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.setContent(place.name);
           infowindow.open(map, this);
         });
         markers.push(marker);
+        if (searchTerm == null) {
+          allMarkers.default.push(marker);
+        } else {
+          if (!(searchTerm in allMarkers)) {
+            allMarkers[searchTerm] = []
+          }
+          allMarkers[searchTerm].push(marker)
+          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png')
+        }
+        console.log(allMarkers);
       }
 
       // function createMarker(place) {
       //http://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
-      function addPerson(location, hover, popup, membid, member_sex, member_alert) {
+      function addPerson(location, member_name, member_addr, membid, member_sex, member_alert) {
         var marker = new google.maps.Marker({
           map: map,
           position: location,
-          title: hover
+          title: member_name
         });
         // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        if (membid == 0 && hover == 'Me') {
+        if (membid == 0 && member_name == 'Me') {
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
         } else if (membid == 0) {
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue.png')
@@ -212,13 +241,22 @@
             marker.setIcon('/static/healthcare/img/icons/woman-red.png')
           }
         } else {
-          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
+          if (member_sex == 'M') {
+            marker.setIcon('/static/healthcare/img/icons/man-green.png')
+          } else {
+            marker.setIcon('/static/healthcare/img/icons/woman-green.png')
+          }
         }
-        // console.log(hover, membid)
+        // console.log(member_name, membid)
+        var popup = member_name + ' ' + member_addr
         google.maps.event.addListener(marker, 'click', function() {
-          // infoWindow.setContent('<a href= "http://127.0.0.1:8000/">'+popup+'</a>');
-          // infoWindow.setContent('<a href= "{% url 'member_detail' pk=4 %}">'+popup+'</a>');
-          if (membid == 0 && hover == 'Me') {
+          // infoWindow.setContent('<a href= "http://127.0.0.1:8000/">'+member_addr+'</a>');
+          // infoWindow.setContent('<a href= "{% url 'member_detail' pk=4 %}">'+member_addr+'</a>');
+          $("#wid-member-map-search").removeClass("jarviswidget-collapsed")
+              .children('div')
+              .show();
+          document.getElementById('address').value = member_addr;
+          if (membid == 0 && member_name == 'Me') {
             infoWindow.setContent(popup);
           } else if (membid == 0) {
             infoWindow.setContent(popup);
@@ -303,7 +341,7 @@
                       // console.log(j+"--"+jdata[j])
                       // resultsMap.setCenter(results[0].geometry.location);
                       // addPerson(results[0].geometry.location, member_name, member_name + " " + member_addr, member_id)
-                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][0] + " " + jdata[j][1], jdata[j][2], jdata[j][3], jdata[j][4])
+                      addPerson(results[0].geometry.location, jdata[j][0], jdata[j][1], jdata[j][2], jdata[j][3], jdata[j][4])
                       j++
                     } else {
 // alert("member error:" + member_addr + " " + status);
@@ -426,6 +464,7 @@
               // });
 
               infowindow = new google.maps.InfoWindow();
+
               var service = new google.maps.places.PlacesService(resultsMap);
               // alert('Search: ' + document.getElementById('searchType').value);
               var request = {
@@ -436,17 +475,66 @@
                 // type: ['store']
                 // valid types: https://developers.google.com/places/supported_types
               }
+              searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
               service.nearbySearch(request, callback);
 
               var request = {
                 location: results[0].geometry.location,
                 radius: 500,
-  //              type: ['store']
                 query: [searchField]
               }
+              // searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
               service.textSearch(request, callback);
 
               // setMapOnAll(resultsMap)
+              showMarkers();
+            }
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+      }
+
+
+      function searchTerm(geocoder, resultsMap, term) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          // var searchField = document.getElementById('searchType').value;
+          var searchField = term;
+          if (status === 'OK') {
+
+            resultsMap.setCenter(results[0].geometry.location);
+            // addPerson(results[0].geometry.location, address, address, 0)
+            if (searchField != 'none') {
+
+              deleteMarkers();
+              // resultsMap.setCenter(results[0].geometry.location);
+              // var marker = new google.maps.Marker({
+              //   map: resultsMap,
+              //   position: results[0].geometry.location
+              // });
+              // infowindow = new google.maps.InfoWindow();
+              var service = new google.maps.places.PlacesService(resultsMap);
+              // alert('Search: ' + document.getElementById('searchType').value);
+              var request = {
+                location: results[0].geometry.location,
+                radius: 500,
+                type: [searchField]
+                // type: ['hospital']
+                // valid types: https://developers.google.com/places/supported_types
+              }
+              searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
+              service.nearbySearch(request, callback);
+
+              var request = {
+                location: results[0].geometry.location,
+                radius: 500,
+                query: [searchField]
+              }
+              searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
+              service.textSearch(request, callback);
+
               showMarkers();
             }
           } else {

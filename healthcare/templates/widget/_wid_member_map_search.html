@@ -14,46 +14,37 @@
         <!-- widget content -->
         <div class="widget-body no-padding">
 
-            <fieldset>
-                <section>
-                    <label class="label">Columned radios</label>
-                    <div class="row">
-                        <div class="col col-4">
-                            <label class="radio">
-                                <input type="radio" name="radio" checked="checked">
-                                <i></i>Alexandra</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Alice</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Anastasia</label>
+            <form class="smart-form" id="member-map-search-form">
+                <!--<header>
+                    Key Provider Types
+                </header>-->
+                <fieldset>
+                    <section>
+                        {# <label class="label">Columned checkboxes</label> #}
+                        <div class="row">
+                            <div class="col col-4">
+                                <label class="checkbox">
+                                    <!--<input type="checkbox" name="checkbox" checked="checked" value="Urgent Care">-->
+                                    <input type="checkbox" name="checkbox" value="Urgent Care">
+                                    <i></i>Urgent Care</label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="checkbox" value="ER">
+                                    <i></i>ER</label>
+                            </div>
+                            <div class="col col-4">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="checkbox" value="Primary Care">
+                                    <i></i>Primary Care</label>
+                            </div>
+                            <div class="col col-4">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="checkbox" value="Cardiology">
+                                    <i></i>Cardiology</label>
+                            </div>
                         </div>
-                        <div class="col col-4">
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Avelina</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Basilia</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Beatrice</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Cassandra</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Clemencia</label>
-                            <label class="radio">
-                                <input type="radio" name="radio">
-                                <i></i>Desiderata</label>
-                        </div>
-                    </div>
-                </section>
-            </fieldset>
+                    </section>
+                </fieldset>
+            </form>
 
         </div>
         <!-- end widget content -->
