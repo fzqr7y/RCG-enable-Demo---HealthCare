@@ -268,7 +268,7 @@
             // mstr = 'member_detail pk=' + id
             // memburl = "{% url 'member_detail' pk=1 %}"
             memburl = $member_detail_url
-            url2 = memburl.substr(0,memburl.length-2) + membid + '/'
+            url2 = memburl.substr(0,memburl.length-2) + membid + '/clinical/'
             console.log(url2)
             infoWindow.setContent('<a href= "' + url2 + '">'+popup+'</a>');
           }

@@ -101,7 +101,7 @@
 {% block js_voice_chat %}
     <script>
       var $person_id = {{ provider.id }};
-      var $member_detail_url = "{% url 'member_clinical' pk=1 %}"
+      var $member_detail_url = "{% url 'member_detail' pk=1 %}"
     </script>
     <script src="{% static 'healthcare/js/rcg/member_map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbH_1Me4R8iR4l9toBD7F0HyxrCtI_rVI&libraries=places&callback=initMap" async defer></script>
