@@ -11,6 +11,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 # from django.contrib.staticfiles.storage import staticfiles_storage
 # from django.contrib.staticfiles import finders
 from django.contrib.auth.models import Group
+import datetime
 
 # import os
 # from django.conf import settings
@@ -21,6 +22,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 register = template.Library()
+
+
+@register.simple_tag
+def last_week(format_string):
+    return (datetime.datetime.now() - datetime.timedelta(days=7)).strftime(format_string)
 
 
 class ExprNode(template.Node):

@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load healthcare_tags %}
 <!-- Widget Template -->
 <!-- Widget ID (each widget will need unique ID)-->
 <div class="jarviswidget jarviswidget-color-blue"
@@ -28,8 +29,32 @@
         <!-- end widget edit box -->
         <!-- widget content -->
         <div class="widget-body no-padding">
-            Content
+            <ul><li>9/4/2016: Broken Left Radius & Ulna</li>
+                <li>9/14/2016: Open Reduction and Internal Fixation</li>
+                <li>{% last_week "%m/%d/%Y" %}: Follow-up X-Ray</li>
+            </ul>
+            {# {% expr datetime.datetime.now() - datetime.timedelta(days = 7) as last_week %} #}
             <div class="popup-gallery">
+                <a href="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" title="Hands 1 {% last_week "%m/%d/%Y" %}">
+                    <figure class="figure-inline">
+                        <img src="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                        <figcaption>Hands 1 <p>{% last_week "%m/%d/%Y" %}{# {% now "n/j/y" %} #}
+                            </figcaption></figure></a>
+                <a href="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" title="Hands 2 {% last_week "%m/%d/%Y" %}">
+                    <figure class="figure-inline">
+                        <img src="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                        <figcaption>Hands 2 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
+                <a href="{% static 'healthcare/img/rcg/images/arm-1.jpg'%}" title="Right Arm 1 {% last_week "%m/%d/%Y" %}">
+                    <figure class="figure-inline">
+                        <img src="{% static 'healthcare/img/rcg/images/arm-1.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                        <figcaption>Right Arm 1 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
+                <a href="{% static 'healthcare/img/rcg/images/arm-2.jpg'%}" title="Right Arm 2 {% last_week "%m/%d/%Y" %}">
+                    <figure class="figure-inline">
+                        <img src="{% static 'healthcare/img/rcg/images/arm-2.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                        <figcaption>Right Arm 2 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
+            </div>
+
+            <div class="popup-gallery-x">
                 <a href="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_b.jpg" title="The Cleaner">
                     <img src="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_s.jpg" width="75" height="75" data-pin-nopin="true"></a>
                 <a href="http://farm9.staticflickr.com/8382/8558295631_0f56c1284f_b.jpg" title="Winter Dance">
