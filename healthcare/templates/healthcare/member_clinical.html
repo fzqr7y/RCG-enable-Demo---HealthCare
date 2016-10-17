@@ -15,6 +15,8 @@
 
 {% block page_stylesheets %}
     <link rel="stylesheet" href="{% static 'healthcare/css/marquee.css' %}" />
+    <!-- _wid_patient_images -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'healthcare/css/magnific-popup.css' %}">
 {% endblock %}
 
 {% block breadcrumb %}
@@ -43,8 +45,11 @@
 			<!-- Patient Vitals Widget-->
         	{% include "widget/_wid_patient_vitals.html" %}
 
-			<!-- Patient Reported Data Widget-->
-        	{% include "widget/_wid_patient_reported.html" %}
+            <!-- Patient Reported Data Widget-->
+            {% include "widget/_wid_patient_reported.html" %}
+
+            <!-- Patient Image Widget-->
+            {% include "widget/_wid_patient_images.html" %}
 
 		</article>
 		<!-- WIDGET COLUMN 1 END -->
@@ -127,6 +132,7 @@
 
 {% block js_page_plugins %}
 	<!-- DYGRAPH -->
+    <!-- _wid_heartrate_history & _wid_cgms -->
 	<script src="{% static 'healthcare/data/dygraph-demo-data.js' %}"></script>
 	{# // <script src="{% static 'smartadmin/js/plugin/dygraphs/demo-data.js' %}"></script> #}
 	<script src="{% static 'smartadmin/js/plugin/dygraphs/dygraph-combined.min.js' %}"></script>
@@ -135,6 +141,7 @@
 	<script src="{% static 'smartadmin/js/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
 
 	<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+    <!-- _wid_heartrate_fitbit -->
 	<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.cust.min.js' %}"></script>
 	<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.resize.min.js' %}"></script>
 	<script src="{% static 'smartadmin/js/plugin/flot/jquery.flot.fillbetween.min.js' %}"></script>
@@ -164,7 +171,11 @@
 
 {% block js_doc_ready %}
     <!-- PAGE RELATED DECLARATIONS -->
+    <!-- _wid_heartrate_fitbit -->
     <script src="{% static 'healthcare/js/rcg/flot_colors.js' %}"></script>
+    <!-- _wid_patient_images -->
+    {# // <script src="{% static 'smartadmin/js/plugin/superbox/superbox.min.js' %}"></script> #}
+    <script src="{% static 'healthcare/js/jquery.magnific-popup.min.js' %}"></script>
 
     <!-- DOCUMENT READY FUNCTION -->
     <script type="text/javascript">
@@ -258,6 +269,27 @@
 			/* updating chart */
             // loadScript("{% static 'healthcare/js/rcg/flot_update.js' %}", true);
             loadScript("{% static 'healthcare/js/rcg/heartrate.js' %}", true);
+
+            /* SC: images */
+            // _wid_patient_images
+            // $('.superbox').SuperBox();
+    $('.popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+        },
+        image: {
+            tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+            titleSrc: function(item) {
+                return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+            }
+        }
+    });
 
         })
     </script>

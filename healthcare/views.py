@@ -338,6 +338,11 @@ def member_clinical(request, pk):
 
 
 @login_required
+def member_images(request, pk):
+    return member_detail_all(request, pk, 'healthcare/member_images.html')
+
+
+@login_required
 def member_detail(request, pk):
     return member_detail_all(request, pk, 'healthcare/member_detail.html')
 

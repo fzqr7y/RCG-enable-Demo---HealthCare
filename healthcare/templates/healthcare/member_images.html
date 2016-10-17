@@ -1,0 +1,189 @@
+{% extends 'healthcare/base.html' %}
+{% load staticfiles %}
+<!--SC: https://snakeycode.wordpress.com/2014/10/26/django-template-filter-for-formating-currency/-->
+{% load humanize %}
+<!--SC: https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/ -->
+<!--SC: https://djangosnippets.org/snippets/9/ -->
+{% load healthcare_tags %}
+
+{% block page_title %}Member Clinical{% endblock %}
+
+{# {% block nav_demo %}class="top-menu-invisible active"{% endblock %} #}
+{% block nav_demo %}class="active"{% endblock %}
+{% block nav_member_clinical %}class="active"{% endblock %}
+{% block nav_member_clinical2 %}class="active"{% endblock %}
+
+{% block page_stylesheets %}
+    <!-- _wid_patient_images -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'healthcare/css/magnific-popup.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}
+	<li>Member Clinical</li>
+{% endblock %}
+{% block breadcrumb1 %}
+    <li>Member Clinical</li>
+{% endblock %}
+
+
+{% block main_content %}
+
+{# expr member.pcp() as pcp #}
+
+{% include 'healthcare/_member_header.html' %}
+
+
+<!-- row -->
+<div class="row">
+    <div class="popup-gallery">
+        <a href="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_b.jpg" title="The Cleaner"><img src="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_s.jpg" width="75" height="75" data-pin-nopin="true"></a>
+        <a href="http://farm9.staticflickr.com/8382/8558295631_0f56c1284f_b.jpg" title="Winter Dance"><img src="http://farm9.staticflickr.com/8382/8558295631_0f56c1284f_s.jpg" width="75" height="75"></a>
+        <a href="http://farm9.staticflickr.com/8225/8558295635_b1c5ce2794_b.jpg" title="The Uninvited Guest"><img src="http://farm9.staticflickr.com/8225/8558295635_b1c5ce2794_s.jpg" width="75" height="75"></a>
+        <a href="http://farm9.staticflickr.com/8383/8563475581_df05e9906d_b.jpg" title="Oh no, not again!"><img src="http://farm9.staticflickr.com/8383/8563475581_df05e9906d_s.jpg" width="75" height="75"></a>
+        <a href="http://farm9.staticflickr.com/8235/8559402846_8b7f82e05d_b.jpg" title="Swan Lake"><img src="http://farm9.staticflickr.com/8235/8559402846_8b7f82e05d_s.jpg" width="75" height="75" data-pin-nopin="true"></a>
+        <a href="http://farm9.staticflickr.com/8235/8558295467_e89e95e05a_b.jpg" title="The Shake"><img src="http://farm9.staticflickr.com/8235/8558295467_e89e95e05a_s.jpg" width="75" height="75"></a>
+        <a href="http://farm9.staticflickr.com/8378/8559402848_9fcd90d20b_b.jpg" title="Who's that, mommy?"><img src="http://farm9.staticflickr.com/8378/8559402848_9fcd90d20b_s.jpg" width="75" height="75"></a>
+    </div>
+</div>
+
+<!-- row -->
+<div class="row">
+
+    <!-- SuperBox -->
+    <div class="superbox col-sm-12">
+        <div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-1.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-1.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Miller Cine" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-2.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-2.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Bridge of Edgen" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-3.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-3.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Lines of Friendship" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-4.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-4.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="My new car!" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-5.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-5.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Study Time" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-6.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-6.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="San Francisco Bridge"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-7.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-7.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="New Styla"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-8.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-8.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Cristpta"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-9.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-9.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Cristine Dine"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-10.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-10.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Mosaic Clock"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-11.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-11.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Elegance"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-12.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-12.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="China Town"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-13.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-13.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Sky Diving"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-14.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-14.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Country Music"  class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-15.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-15.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="You are late!" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-16.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-16.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Royal Bengle Tiger" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-17.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-17.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Snowpine" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-18.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-18.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Hop Jop Mop" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-19.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-19.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Party Girls" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-20.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-20.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Dragon Fly" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-21.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-21.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Kinds Road" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-22.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-22.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Tokyo" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-23.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-23.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Rome" class="superbox-img">
+        </div><!--
+        --><div class="superbox-list">
+            <img src="{% static 'smartadmin/img/superbox/superbox-thumb-24.jpg' %}" data-img="{% static 'smartadmin/img/superbox/superbox-full-24.jpg' %}" alt="My first photoshop layer mask on a high end PSD template theme" title="Traning" class="superbox-img">
+        </div>
+        <div class="superbox-float"></div>
+    </div>
+    <!-- /SuperBox -->
+
+    <div class="superbox-show" style="height:300px; display: none"></div>
+
+</div>
+
+
+
+{% endblock %} <!-- main content -->
+
+
+<!-- copied here for reference -->
+{% block js_touch %}
+{% endblock %}
+
+{% block js_smartadmin %}
+{% endblock %} <!-- js_smartadmin -->
+
+{% block js_voice_chat %}
+{% endblock %} <!-- js_voice_chat -->
+
+{% block js_page_plugins %}
+{% endblock %} <!-- js_page_plugins -->
+
+{% block js_doc_ready %}
+    <!-- PAGE RELATED DECLARATIONS -->
+    <!-- _wid_patient_images -->
+    {# // <script src="{% static 'smartadmin/js/plugin/superbox/superbox.min.js' %}"></script> #}
+    <script src="{% static 'healthcare/js/jquery.magnific-popup.min.js' %}"></script>
+
+    <!-- DOCUMENT READY FUNCTION -->
+    <script type="text/javascript">
+
+		$(document).ready(function() {
+
+			pageSetUp();
+
+            /* SC: images */
+            // _wid_patient_images
+            // $('.superbox').SuperBox();
+    $('.popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+        },
+        image: {
+            tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+            titleSrc: function(item) {
+                return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+            }
+        }
+    });
+
+        })
+    </script>
+    <!-- END DOCUMENT READY FUNCTION -->
+{% endblock %} <!-- js_doc_ready -->
