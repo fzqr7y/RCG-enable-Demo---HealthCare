@@ -1,39 +1,18 @@
 {% load staticfiles %}
 {% load healthcare_tags %}
-<!-- Widget Template -->
-<!-- Widget ID (each widget will need unique ID)-->
 <div class="jarviswidget jarviswidget-color-blue"
-    id="wid-template">
-    <!-- widget options:
-    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-    data-widget-colorbutton="false"
-    data-widget-editbutton="false"
-    data-widget-togglebutton="false"
-    data-widget-deletebutton="false"
-    data-widget-fullscreenbutton="false"
-    data-widget-custombutton="false"
-    data-widget-collapsed="true"
-    data-widget-sortable="false"
-    -->
+    id="wid-patient-images">
     <header>
         <h2><strong>Images</strong></h2>
     </header>
     <!-- widget div-->
     <div>
-        <!-- widget edit box -->
-        <div class="jarviswidget-editbox"> -->
-            <!-- This area used as dropdown edit box -->
-            <input class="form-control" type="text">
-            <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
-        </div>
-        <!-- end widget edit box -->
         <!-- widget content -->
         <div class="widget-body no-padding">
             <ul><li>9/4/2016: Broken Left Radius & Ulna</li>
                 <li>9/14/2016: Open Reduction and Internal Fixation</li>
                 <li>{% last_week "%m/%d/%Y" %}: Follow-up X-Ray</li>
             </ul>
-            {# {% expr datetime.datetime.now() - datetime.timedelta(days = 7) as last_week %} #}
             <div class="popup-gallery">
                 <a href="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" title="Hands 1 {% last_week "%m/%d/%Y" %}">
                     <figure class="figure-inline">
@@ -52,66 +31,7 @@
                     <figure class="figure-inline">
                         <img src="{% static 'healthcare/img/rcg/images/arm-2.jpg'%}" width="75" height="75" data-pin-nopin="true">
                         <figcaption>Right Arm 2 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
-            </div>
-
-            <div class="popup-gallery-x">
-                <a href="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_b.jpg" title="The Cleaner">
-                    <img src="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_s.jpg" width="75" height="75" data-pin-nopin="true"></a>
-                <a href="http://farm9.staticflickr.com/8382/8558295631_0f56c1284f_b.jpg" title="Winter Dance">
-                    <img src="http://farm9.staticflickr.com/8382/8558295631_0f56c1284f_s.jpg" width="75" height="75"></a>
-                <a href="http://farm9.staticflickr.com/8225/8558295635_b1c5ce2794_b.jpg" title="The Uninvited Guest">
-                    <img src="http://farm9.staticflickr.com/8225/8558295635_b1c5ce2794_s.jpg" width="75" height="75"></a>
-                <a href="http://farm9.staticflickr.com/8383/8563475581_df05e9906d_b.jpg" title="Oh no, not again!">
-                    <img src="http://farm9.staticflickr.com/8383/8563475581_df05e9906d_s.jpg" width="75" height="75"></a>
-                <a href="http://farm9.staticflickr.com/8235/8559402846_8b7f82e05d_b.jpg" title="Swan Lake"><img src="http://farm9.staticflickr.com/8235/8559402846_8b7f82e05d_s.jpg" width="75" height="75" data-pin-nopin="true"></a>
-                <a href="http://farm9.staticflickr.com/8235/8558295467_e89e95e05a_b.jpg" title="The Shake"><img src="http://farm9.staticflickr.com/8235/8558295467_e89e95e05a_s.jpg" width="75" height="75"></a>
-                <a href="http://farm9.staticflickr.com/8378/8559402848_9fcd90d20b_b.jpg" title="Who's that, mommy?"><img src="http://farm9.staticflickr.com/8378/8559402848_9fcd90d20b_s.jpg" width="75" height="75"></a>
-            </div>
-
-            <!-- SuperBox -->
-            <div class="superbox col-sm-12">
-                <div class="superbox-list">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-1.jpg'%}" data-img="{% static 'smartadmin/img/superbox/superbox-full-1.jpg'%}" alt="My first photoshop layer mask on a high end PSD template theme" title="Miller Cine" class="superbox-img">
-                </div>
-                <div class="superbox-list">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-2.jpg'%}" data-img="{% static 'smartadmin/img/superbox/superbox-full-2.jpg'%}" alt="My first photoshop layer mask on a high end PSD template theme" title="Bridge of Edgen" class="superbox-img">
-                </div>
-                <div class="superbox-list">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-3.jpg'%}" data-img="{% static 'smartadmin/img/superbox/superbox-full-3.jpg'%}" alt="My first photoshop layer mask on a high end PSD template theme" title="Lines of Friendship" class="superbox-img">
-                </div>
-            </div>
-
-            <div class="superbox-show" style="height:300px; display: none"></div>
-
-            <div>
-                <a href="{% static 'smartadmin/img/superbox/superbox-full-1.jpg'%}" rel="superbox[gallery][my_gallery]">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-1.jpg'%}" width="75" height="75" alt="" data-pin-nopin="true">
-                </a>
-                <a href="{% static 'smartadmin/img/superbox/superbox-full-2.jpg'%}" rel="superbox[gallery][my_gallery]">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-2.jpg'%}" width="75" height="75" alt="" data-pin-nopin="true">
-                </a>
-                <a href="{% static 'smartadmin/img/superbox/superbox-full-3.jpg'%}" rel="superbox[gallery][my_gallery]">
-                    <img src="{% static 'smartadmin/img/superbox/superbox-thumb-3.jpg'%}" width="75" height="75" alt="" data-pin-nopin="true">
-                </a>
-            </div>
-<div id="superbox-overlay" style="display: none; opacity: 0.8;"></div>
-<div id="superbox-wrapper" style="display: none; position: fixed; top: 0px;">
-    <div id="superbox-container">
-        <div id="superbox" style="position: static; top: 0px; width: 500px; opacity: 1;" class="image ">
-            <p class="close"><a><strong><span>Close</span></strong></a></p>
-            <div id="superbox-innerbox" style="height: 368px;"></div>
-            <p class="nextprev" style="display: none;">
-                <a class="prev disabled"><strong><span>Previous</span></strong></a>
-                <a class="next"><strong><span>Next</span></strong></a>
-            </p>
-        </div>
-        <p class="loading" style="display: none;">Loading...</p>
-    </div>
-</div>
-<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 105px; left: 416px;">
-    Save
-</span>
-
+            </div> <!--popup-gallery-->
         </div>
         <!-- end widget content -->
     </div>
