@@ -73,15 +73,17 @@
         // checkboxes in _wid_member_map_search.html
         $("form#member-map-search-form input:checkbox").change(function() {
             if(this.checked) {
-                // alert(this.value + " checked")
-                console.log('Searching for: ' + this.value)
-                searchTerm(geocoder, map, this.value);
+                // alert("value: " + this.value + ' this.offsetParent.innerText: ' + this.offsetParent.innerText)
+                console.log("value: " + this.value + ' this.offsetParent.innerText: ' + this.offsetParent.innerText);
+                // console.log('document.getElementById("chklabelid"): ' + document.getElementById("chklabelid").innerHTML);
+                // console.log('Searching for: ' + this.value);
+                searchByItems(geocoder, map, this.value);
             }
             var searchItems = [];
             $.each($("form#member-map-search-form input:checked"), function(){
                 searchItems.push($(this).val());
             });
-            alert("Selected elements: " + searchItems.join(", "));
+            // alert("Selected elements: " + searchItems.join(", "));
         });
 
         // My location
@@ -191,6 +193,7 @@
           }
           searchTerm = null;
         }
+        console.log(allMarkers);
       }
 
       // function createMarker(place) {
@@ -209,6 +212,7 @@
           infowindow.open(map, this);
         });
         markers.push(marker);
+        // console.log('searchTerm: ' + searchTerm)
         if (searchTerm == null) {
           allMarkers.default.push(marker);
         } else {
@@ -218,7 +222,7 @@
           allMarkers[searchTerm].push(marker)
           marker.setIcon('http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png')
         }
-        console.log(allMarkers);
+        // console.log(allMarkers);
       }
 
       // function createMarker(place) {
@@ -497,11 +501,12 @@
       }
 
 
-      function searchTerm(geocoder, resultsMap, term) {
+      function searchByItems(geocoder, resultsMap, term) {
         var address = document.getElementById('address').value;
         geocoder.geocode({'address': address}, function(results, status) {
           // var searchField = document.getElementById('searchType').value;
           var searchField = term;
+          // console.log('SearchField: ' + term)
           if (status === 'OK') {
 
             resultsMap.setCenter(results[0].geometry.location);
@@ -514,18 +519,18 @@
               //   map: resultsMap,
               //   position: results[0].geometry.location
               // });
-              // infowindow = new google.maps.InfoWindow();
+              infowindow = new google.maps.InfoWindow();
               var service = new google.maps.places.PlacesService(resultsMap);
               // alert('Search: ' + document.getElementById('searchType').value);
-              var request = {
-                location: results[0].geometry.location,
-                radius: 500,
-                type: [searchField]
-                // type: ['hospital']
-                // valid types: https://developers.google.com/places/supported_types
-              }
-              searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
-              service.nearbySearch(request, callback);
+              // var request = {
+              //   location: results[0].geometry.location,
+              //   radius: 500,
+              //   type: [searchField]
+              //   // type: ['hospital']
+              //   // valid types: https://developers.google.com/places/supported_types
+              // }
+              // searchTerm = searchField // have to have this twice since searchTerm gets reset by callback
+              // service.nearbySearch(request, callback);
 
               var request = {
                 location: results[0].geometry.location,

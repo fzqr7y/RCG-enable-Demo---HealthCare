@@ -12,6 +12,7 @@ from .models import County_Data, County_Widget
 from .forms import PostForm, CommentForm
 # from .forms import MessageForm
 from .forms import SmsForm, County_DataForm
+import feedparser
 
 # https://github.com/twilio/twilio-python
 # pip install twilio
@@ -46,6 +47,13 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+
+def get_feed_entries():
+    feed1 = feedparser.parse('http://www.modernhealthcare.com/section/rss01')
+    feed2 = feedparser.parse('http://www.healthcareitnews.com/home/feed')
+    entries = feed1.entries + feed2.entries
+    return entries
 
 
 @login_required
@@ -121,9 +129,8 @@ def member_map_county(request, pk, template_name):
     return render(request, template_name, {
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
-        'county_data': county_data, 'members': members})
-
-
+        'county_data': county_data, 'members': members,
+        'entries': get_feed_entries()})
 
 
 @login_required
@@ -166,7 +173,8 @@ def map_county(request, pk):
     return render(request, 'healthcare/map_county.html', {
         'provider': provider, 'form': form,
         'behaviors': behaviors, 'clinical': clinical,
-        'county_data': county_data, 'members': members})
+        'county_data': county_data, 'members': members,
+        'entries': get_feed_entries()})
 
 
 @login_required
@@ -308,8 +316,15 @@ def member_detail_all(request, pk, template_name):
     # 'member': member, 'providers': providers})
     provider_members = Provider_Member.objects.filter(member=member).order_by('id')
     # rx_claims = member.rx_claim_set.order_by('id')
+    # feeds = feedparser.parse('http://johnsmallman.wordpress.com/author/johnsmallman/feed/')
+    # feed1 = feedparser.parse('http://www.modernhealthcare.com/section/rss01')
+    # feed2 = feedparser.parse('http://www.healthcareitnews.com/home/feed')
+    # entries = feed1.entries + feed2.entries
+    get_feed_entries()
     return render(request, template_name, {
-        'member': member, 'provider_members': provider_members})
+        'member': member, 'provider_members': provider_members,
+        'entries': get_feed_entries()})
+    # 'entries': entries})
 
 
 @login_required

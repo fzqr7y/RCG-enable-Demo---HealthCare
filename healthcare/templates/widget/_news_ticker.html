@@ -6,7 +6,12 @@
         </div>
         <div class="marquee">
             <ul class="marquee-content-items">
-                <li><a target="_blank"
+            {% for entry in entries %}
+                <li><a  target="_blank"
+                    href="{{entry.link}}">
+                    {{entry.title}}</a></li>
+            {% endfor %}
+                <!--<li><a target="_blank"
                     href="http://www.modernhealthcare.com/article/20160926/NEWS/160929921">
                     Executive pay at Health Care Service Corp. rises despite ACA troubles
                 </a></li>
@@ -29,7 +34,7 @@
                 <li><a target="_blank"
                     href="http://www.healthcareitnews.com/news/obama-kicks-national-health-it-week-touting-ehr-adoption-and-precision-medicine-advances">
                     Obama kicks off National Health IT Week, touting EHR adoption and precision medicine advances
-                </a></li>
+                </a></li>-->
             </ul>
         </div>
     </div>

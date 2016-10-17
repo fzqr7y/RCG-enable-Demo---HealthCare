@@ -396,23 +396,23 @@
 							<span class="menu-item-parent">Clinical</span></a>
 					</li>
 					<li {% block nav_member_admin %}{% endblock %} >
-						<a href="{% url 'member_admin' pk=member.id %}" title="Member"><i class="fa fa-picture-o"></i>
+						<a href="{% url 'member_admin' pk=member.id %}" title="Member"><i class="fa fa-table"></i>
 							<span class="menu-item-parent">Admin</span></a>
 					</li>
 					{% else %}
-					<li {% block nav_demo %}{% endblock %} >
+					<!--<li {# block nav_demo %}{% endblock #} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Demo</span></a>
-						<ul>
-							<li {% block nav_member_clinical2 %}{% endblock %} >
-								<a href="{% url 'member_clinical' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
-									<span class="menu-item-parent">Member Clinical</span></a>
-							</li>
-							<li {% block nav_member_admin2 %}{% endblock %} >
-								<a href="{% url 'member_admin' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
-									<span class="menu-item-parent">Member Admin</span></a>
-							</li>
-						</ul>
+						<ul>-->
+					<li {% block nav_member_clinical2 %}{% endblock %} >
+						<a href="{% url 'member_clinical' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
+							<span class="menu-item-parent"><!--Member -->Clinical</span></a>
 					</li>
+					<li {% block nav_member_admin2 %}{% endblock %} >
+						<a href="{% url 'member_admin' pk=4 %}" title="Member"><i class="fa fa-table"></i>
+							<span class="menu-item-parent"><!--Member -->Admin</span></a>
+					</li>
+						<!--</ul>
+					</li>-->
 					{% endif %}
 					{% if "Test" in user.username or request.user|has_group:"Tester" %}
 					<li {% block nav_test %}{% endblock %} >

@@ -315,7 +315,7 @@
             property: 'value',
             onComplete: null,
             // duration: 20000,
-            duration: 150000,
+            duration: 300000,
             padding: 10,
             marquee_class: '.marquee',
             container_class: '.simple-marquee-container',
