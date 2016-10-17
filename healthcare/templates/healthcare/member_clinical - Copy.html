@@ -44,8 +44,42 @@
 
             <!-- Patient Image Widget-->
             {% include "widget/_wid_patient_images.html" %}
+
+			<!-- Patient Vitals Widget-->
+        	{% include "widget/_wid_patient_vitals.html" %}
+
+            <!-- Patient Reported Data Widget-->
+            {% include "widget/_wid_patient_reported.html" %}
+
+		</article>
+		<!-- WIDGET COLUMN 1 END -->
+
+		<!-- NEW WIDGET COLUMN 2 START -->
+		<article class="col-sm-12 col-md-4 col-lg-4">
+
+			<!-- SC Flot Auto Updating Chart -->
+        	{# {% include "widget/_wid_heartrate_demo.html" %} #}
+
+			<!-- SC Fitbit Heartrate Chart -->
+        	{% include "widget/_wid_heartrate_fitbit.html" %}
+
+			<!-- Heartrate History  -->
+        	{% include "widget/_wid_heartrate_history.html" %}
+
+		</article>
+		<!-- WIDGET COLUMN 2 ENDi -->
+
+		<!-- NEW WIDGET COLUMN 3 START -->
+		<article class="col-sm-12 col-md-4 col-lg-4">
+
+            <!-- Test SMS Widget -->
+            {# {% include "widget/_wid_sms.html" %} #}
+
             <!-- CGMS  -->
             {% include "widget/_wid_cgms.html" %}
+
+			<!-- patient contact widget -->
+        	{% include "widget/_wid_patient_contact.html" %}
 
 		</article>
 		<!-- WIDGET CLINICAL INFO COLUMN 3 END -->
