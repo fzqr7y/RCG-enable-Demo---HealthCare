@@ -29,6 +29,11 @@ def last_week(format_string):
     return (datetime.datetime.now() - datetime.timedelta(days=7)).strftime(format_string)
 
 
+@register.simple_tag
+def last_month(format_string):
+    return (datetime.datetime.now() - datetime.timedelta(days=28)).strftime(format_string)
+
+
 class ExprNode(template.Node):
     def __init__(self, expr_string, var_name):
         self.expr_string = expr_string

@@ -9,34 +9,50 @@
     <div>
         <!-- widget content -->
         <div class="widget-body">
-            <ul><li>9/4/2016: Broken Left Radius & Ulna</li>
-                <li>9/14/2016: Open Reduction and Internal Fixation</li>
-                <li>{% last_week "%m/%d/%Y" %}: Follow-up X-Ray</li>
-            </ul>
-            <div class="popup-gallery">
-                <a href="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" title="Hands 1 {% last_week "%m/%d/%Y" %}">
-                    <figure class="figure-inline">
-                        <img src="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" width="75" height="75" data-pin-nopin="true">
-                        <figcaption>Hands 1 <p>{% last_week "%m/%d/%Y" %}{# {% now "n/j/y" %} #}
-                            </figcaption></figure></a>
-                <a href="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" title="Hands 2 {% last_week "%m/%d/%Y" %}">
-                    <figure class="figure-inline">
-                        <img src="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" width="75" height="75" data-pin-nopin="true">
-                        <figcaption>Hands 2 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
-                <a href="{% static 'healthcare/img/rcg/images/hand-l1.jpg'%}" title="Left Hand 1 {% last_week "%m/%d/%Y" %}">
-                    <figure class="figure-inline">
-                        <img src="{% static 'healthcare/img/rcg/images/hand-l1.jpg'%}" width="75" height="75" data-pin-nopin="true">
-                        <figcaption>Left Hand 1 <p>{% last_week "%m/%d/%Y" %}{# {% now "n/j/y" %} #}
-                            </figcaption></figure></a>
-                <a href="{% static 'healthcare/img/rcg/images/hand-r1.jpg'%}" title="Right Hand 1 {% last_week "%m/%d/%Y" %}">
-                    <figure class="figure-inline">
-                        <img src="{% static 'healthcare/img/rcg/images/hand-r1.jpg'%}" width="75" height="75" data-pin-nopin="true">
-                        <figcaption>Right Hand 1 <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
-                <a href="{% static 'healthcare/img/rcg/images/hand-r2.jpg'%}" title="Right Hand 2 {% last_week "%m/%d/%Y" %}">
-                    <figure class="figure-inline">
-                        <img src="{% static 'healthcare/img/rcg/images/hand-r2.jpg'%}" width="75" height="75" data-pin-nopin="true">
-                        <figcaption>Right Hand 2<p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
-            </div> <!--popup-gallery-->
+            <div class="well well-sm well-light">
+                <h6 style="margin:4px 0;font-size:13px;"><a href="javascript:void(0);">
+                    <strong>{% last_month "%m/%d/%Y" %}:</strong> Broken Left Radius &amp; Ulna
+                    <!-- <br><small>With fontawesome icons</small> -->
+                </a></h6>
+                <div id="accordion"> <!-- accordion -->
+                    <div> <!-- section 2 -->
+                        <h4 style="font-size:13px;"><strong>{% last_week "%m/%d/%Y" %}:</strong> Follow-up X-Ray</h4>
+                        <div class="padding-0">
+                            <div class="popup-gallery">
+                                <a href="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" title="Hands {% last_week "%m/%d/%Y" %}">
+                                    <figure class="figure-inline">
+                                        <img src="{% static 'healthcare/img/rcg/images/hands-2.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                                        <figcaption>Hands <p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
+                                <a href="{% static 'healthcare/img/rcg/images/hand-r2.jpg'%}" title="Right Hand {% last_week "%m/%d/%Y" %}">
+                                    <figure class="figure-inline">
+                                        <img src="{% static 'healthcare/img/rcg/images/hand-r2.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                                        <figcaption>Right Hand 2<p>{% last_week "%m/%d/%Y" %}</figcaption></figure></a>
+                            </div> <!--popup-gallery-->
+                        </div> <!-- padding-0 -->
+                    </div> <!-- section 2 -->
+                    <div> <!-- section 1 -->
+                        <h4 style="font-size:13px;"><strong>{% last_month "%m/%d/%Y" %}:</strong> Open Reduction Internal Fixation</h4>
+                        <div class="padding-0">
+                            <div class="popup-gallery">
+                                <a href="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" title="Hands {% last_month "%m/%d/%Y" %}">
+                                    <figure class="figure-inline">
+                                        <img src="{% static 'healthcare/img/rcg/images/hands-1.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                                        <figcaption>Hands 1 <p>{% last_month "%m/%d/%Y" %}{# {% now "n/j/y" %} #}
+                                            </figcaption></figure></a>
+                                <a href="{% static 'healthcare/img/rcg/images/hand-l1.jpg'%}" title="Left Hand {% last_month "%m/%d/%Y" %}">
+                                    <figure class="figure-inline">
+                                        <img src="{% static 'healthcare/img/rcg/images/hand-l1.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                                        <figcaption>Left Hand 1 <p>{% last_month "%m/%d/%Y" %}{# {% now "n/j/y" %} #}
+                                            </figcaption></figure></a>
+                                <a href="{% static 'healthcare/img/rcg/images/hand-r1.jpg'%}" title="Right Hand {% last_month "%m/%d/%Y" %}">
+                                    <figure class="figure-inline">
+                                        <img src="{% static 'healthcare/img/rcg/images/hand-r1.jpg'%}" width="75" height="75" data-pin-nopin="true">
+                                        <figcaption>Right Hand 1 <p>{% last_month "%m/%d/%Y" %}</figcaption></figure></a>
+                            </div> <!--popup-gallery-->
+                        </div> <!-- padding-0 -->
+                    </div> <!-- section 1 -->
+                </div>  <!-- accordion -->
+            </div>  <!-- well -->
         </div>
         <!-- end widget content -->
     </div>
