@@ -1,8 +1,6 @@
             /* updating chart */
             if ($('#updating-chart').length) {
 
-                var initialRun = true;
-                var $on = false;
                 var ajaxComplete = false;
                 var updateInterval = 1000;
                 var plotDuration = 1800 * updateInterval; // total time shown
@@ -27,6 +25,13 @@
                 var randomMin = -5;
                 var randomMax2 = 5;
                 var randomMin2 = -1;
+
+                // var $on = false;
+                // var initialRun = true;
+                var $on = true;
+                var initialRun = false;
+                $('input[type="checkbox"]#start_interval').prop('checked', true)
+                update();
 
                 // setup plot
                 function getOptions() {
