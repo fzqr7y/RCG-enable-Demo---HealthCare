@@ -414,6 +414,14 @@
 						<!--</ul>
 					</li>-->
 					{% endif %}
+					<li {% block nav_members %}{% endblock %}>
+						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
+							<span class="menu-item-parent">Members</span></a>
+					</li>
+					<li {% block nav_providers %}{% endblock %}>
+						<a href="{% url 'providers' %}" title="Provider List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
+							<span class="menu-item-parent">Providers</span></a>
+					</li>
 					{% if "Test" in user.username or request.user|has_group:"Tester" %}
 					<li {% block nav_test %}{% endblock %} >
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Test</span></a>
@@ -433,14 +441,6 @@
 							<li {% block nav_member_detail %}{% endblock %} >
 								<a href="{% url 'member_detail' pk=4 %}" title="Member"><i class="fa fa-picture-o"></i>
 									<span class="menu-item-parent">Member Detail</span></a>
-							</li>
-							<li {% block nav_members %}{% endblock %}>
-								<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
-									<span class="menu-item-parent">Members</span></a>
-							</li>
-							<li {% block nav_providers %}{% endblock %}>
-								<a href="{% url 'providers' %}" title="Provider List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
-									<span class="menu-item-parent">Providers</span></a>
 							</li>
 							<li {% block nav_member_detail1 %}{% endblock %} >
 								<a href="{% url 'member_detail1' pk=4 %}" title="Member"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Member Detail Test</span></a>
