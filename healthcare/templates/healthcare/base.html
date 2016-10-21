@@ -396,7 +396,7 @@
 							<span class="menu-item-parent">Clinical</span></a>
 					</li>
 					<li {% block nav_member_admin %}{% endblock %} >
-						<a href="{% url 'member_admin' pk=member.id %}" title="Member"><i class="fa fa-table"></i>
+						<a href="{% url 'member_admin' pk=member.id %}" title="Member"><i class="fa fa-pencil-square-o"></i>
 							<span class="menu-item-parent">Admin</span></a>
 					</li>
 					{% else %}
@@ -408,14 +408,14 @@
 							<span class="menu-item-parent"><!--Member -->Clinical</span></a>
 					</li>
 					<li {% block nav_member_admin2 %}{% endblock %} >
-						<a href="{% url 'member_admin' pk=4 %}" title="Member"><i class="fa fa-table"></i>
+						<a href="{% url 'member_admin' pk=4 %}" title="Member"><i class="fa fa-pencil-square-o"></i>
 							<span class="menu-item-parent"><!--Member -->Admin</span></a>
 					</li>
 						<!--</ul>
 					</li>-->
 					{% endif %}
 					<li {% block nav_members %}{% endblock %}>
-						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-table"></i>
+						<a href="{% url 'members' %}" title="Member List"><i class="fa fa-lg fa-fw fa-list-alt"></i>
 							<span class="menu-item-parent">Members</span></a>
 					</li>
 					<li {% block nav_providers %}{% endblock %}>
